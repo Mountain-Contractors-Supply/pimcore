@@ -101,6 +101,8 @@ pimcore:
 
 #### SYMFONY OVERRIDES
 framework:
+    profiler:
+        enabled: false
 
     trusted_proxies: "127.0.0.1,REMOTE_ADDR"
     trusted_headers:
