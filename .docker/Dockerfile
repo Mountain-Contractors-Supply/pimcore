@@ -12,8 +12,9 @@ COPY --chown=www-data:www-data /composer.* /var/www/html
 COPY /.docker/composer-install-dependencies.sh /composer-install-dependencies.sh
 RUN /composer-install-dependencies.sh
 COPY --chown=www-data:www-data / /var/www/html
-RUN set -eux; \
-	cd /var/www/html; \
+RUN --mount=type=secret,id=kernel-secret,uid=1000 \
+    set -eux; \
+    cd /var/www/html; \
     runuser -u www-data -- php /usr/local/bin/composer install; \
     runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \
     runuser -u www-data -- /var/www/html/bin/console cache:warmup
