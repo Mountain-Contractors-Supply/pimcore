@@ -10,7 +10,7 @@ Forked from https://github.com/pimcore/skeleton.
 
 ### Setup instructions
 1. Clone the repository
-2. Update the `origin` remote to point to your client-specific repository: `git remote origin set-url origin <new repository URL>`
+2. Update the `origin` remote to point to your client-specific repository: `git remote set-url origin <new repository URL>`
 3. Update the name of your main branch, e.g. `git branch -m main`
 4. Update the `name` property in `composer.json` to match your project's name
 5. Update the `.env` property `APP_NAME` to match your project's name
