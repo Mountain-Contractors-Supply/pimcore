@@ -23,5 +23,5 @@ Forked from https://github.com/pimcore/skeleton.
 
 ## Getting updates
 We recommend forking this repository and using it as an upstream remote in order to get the latest updates and improvements. To do that, run the following commands:
-1. If using SSH for Git, run `git remote add upstream git@github.com:TorqIT/shopware-skeleton.git`; otherwise, run `git remote add upstream https://github.com/TorqIT/shopware-skeleton.git`
+1. If using SSH for Git, run `git remote add upstream git@github.com:TorqIT/pimcore-skeleton.git`; otherwise, run `git remote add upstream https://github.com/TorqIT/pimcore-skeleton.git`
 2. To fetch and merge updates from the skeleton, run `git fetch upstream`, then `git merge upstream/2024.x`.
