@@ -31,6 +31,7 @@ use Pimcore\Kernel as PimcoreKernel;
 use TorqIT\FolderCreatorBundle\FolderCreatorBundle;
 use TorqIT\RoleCreatorBundle\RoleCreatorBundle;
 use CoreShop\Bundle\MessengerBundle\CoreShopMessengerBundle;
+use TorqIT\ObjectLayoutGridBundle\ObjectLayoutGridBundle;
 
 class Kernel extends PimcoreKernel
 {
@@ -57,5 +58,6 @@ class Kernel extends PimcoreKernel
         $collection->addBundle(new FolderCreatorBundle());
         $collection->addBundle(new RoleCreatorBundle());
         $collection->addBundle(new CoreShopMessengerBundle());
+        $collection->addBundle(new ObjectLayoutGridBundle());
     }
 }
