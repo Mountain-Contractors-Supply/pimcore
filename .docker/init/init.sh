@@ -34,3 +34,6 @@ runuser -u www-data -- /var/www/html/bin/console torq:folder-creator
 
 echo Generating roles...
 runuser -u www-data -- /var/www/html/bin/console torq:generate-roles
+
+echo Generating quantity values...
+runuser -u www-data -- /var/www/html/bin/console definition:import:units config/quantityvalues.json --override
