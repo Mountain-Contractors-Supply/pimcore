@@ -32,6 +32,7 @@ use TorqIT\FolderCreatorBundle\FolderCreatorBundle;
 use TorqIT\RoleCreatorBundle\RoleCreatorBundle;
 use CoreShop\Bundle\MessengerBundle\CoreShopMessengerBundle;
 use TorqIT\ObjectLayoutGridBundle\ObjectLayoutGridBundle;
+use Basilicom\PathFormatterBundle\BasilicomPathFormatterBundle;
 
 class Kernel extends PimcoreKernel
 {
@@ -59,5 +60,6 @@ class Kernel extends PimcoreKernel
         $collection->addBundle(new RoleCreatorBundle());
         $collection->addBundle(new CoreShopMessengerBundle());
         $collection->addBundle(new ObjectLayoutGridBundle());
+        $collection->addBundle(new BasilicomPathFormatterBundle());
     }
 }
