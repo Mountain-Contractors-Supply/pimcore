@@ -20,7 +20,8 @@
     "torqit/pimcore-folder-creator-bundle": "^3.0",
     "torqit/pimcore-role-creator-bundle": "^3.1",
     "coreshop/messenger-bundle": "^4.0",
-    "torqit/pimcore-object-layout-grid-bundle": "^1.2"
+    "torqit/pimcore-object-layout-grid-bundle": "^1.2",
+    "basilicom/pimcore-path-formatter-bundle": "^3.0"
   },
   "require-dev": {
     "codeception/codeception": "^5.0.3",
