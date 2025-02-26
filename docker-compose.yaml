@@ -56,8 +56,6 @@ services:
           target: php
           secrets:
               - kernel-secret
-        environment:
-          COMPOSER_HOME: /var/www/html
         env_file:
             -   .env
         secrets:
