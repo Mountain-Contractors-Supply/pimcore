@@ -5,6 +5,8 @@
     "xdebug.php-debug",
     "bmewburn.vscode-intelephense-client",
     "ethansk.restore-terminals",
-    "ms-azuretools.vscode-bicep"
+    "ms-azuretools.vscode-bicep",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig"
   ]
 }
