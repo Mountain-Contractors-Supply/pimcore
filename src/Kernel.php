@@ -15,6 +15,8 @@
 
 namespace App;
 
+use Basilicom\PathFormatterBundle\BasilicomPathFormatterBundle;
+use CoreShop\Bundle\MessengerBundle\CoreShopMessengerBundle;
 use Pimcore\Bundle\AdminBundle\PimcoreAdminBundle;
 use Pimcore\Bundle\ApplicationLoggerBundle\PimcoreApplicationLoggerBundle;
 use Pimcore\Bundle\CustomReportsBundle\PimcoreCustomReportsBundle;
@@ -29,10 +31,8 @@ use Pimcore\Bundle\XliffBundle\PimcoreXliffBundle;
 use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 use Pimcore\Kernel as PimcoreKernel;
 use TorqIT\FolderCreatorBundle\FolderCreatorBundle;
-use TorqIT\RoleCreatorBundle\RoleCreatorBundle;
-use CoreShop\Bundle\MessengerBundle\CoreShopMessengerBundle;
 use TorqIT\ObjectLayoutGridBundle\ObjectLayoutGridBundle;
-use Basilicom\PathFormatterBundle\BasilicomPathFormatterBundle;
+use TorqIT\RoleCreatorBundle\RoleCreatorBundle;
 
 class Kernel extends PimcoreKernel
 {
