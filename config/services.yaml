@@ -86,3 +86,16 @@ services:
     # App\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
+
+    App\EventListener\AdminFileLoaderEventListener:
+        tags:
+            - {
+                  name: kernel.event_listener,
+                  event: pimcore.bundle_manager.paths.js,
+                  method: addJSFiles,
+              }
+            - {
+                  name: kernel.event_listener,
+                  event: pimcore.bundle_manager.paths.css,
+                  method: addCSSFiles,
+              }
