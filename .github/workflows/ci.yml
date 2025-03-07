@@ -1,0 +1,17 @@
+name: Continuous integration
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+concurrency: 
+  group: ci__${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  build-images:
+    name: Build Docker images
+    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/ci-docker-builds.yml@v6
+    permissions: 
+      contents: read
+      actions: read
