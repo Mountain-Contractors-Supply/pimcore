@@ -11,3 +11,5 @@ doctrine:
                     enum: string
                     bit: boolean
                 server_version: "%env(DATABASE_SERVER_VERSION)%"
+                options:
+                    1001: true
