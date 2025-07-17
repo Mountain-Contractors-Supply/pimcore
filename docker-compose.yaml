@@ -112,13 +112,15 @@ services:
     # See: https://docs.docker.com/compose/profiles/
     test-db:
         profiles: [ 'test' ]
-        extends: db
+        extends:
+            service: db
         volumes:
             - pimcore-test-database:/var/lib/mysql
 
     test-php:
         profiles: [ 'test' ]
-        extends: php
+        extends:
+            service: php
         environment:
             APP_ENV: test
             PIMCORE_TEST_DB_DSN: ${PIMCORE_TEST_DB_DSN:-mysql://pimcore:pimcore@test-db/pimcore}
