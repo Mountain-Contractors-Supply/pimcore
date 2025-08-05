@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 FROM pimcore/pimcore:php8.3-v3 AS base
 RUN set -eux; \
     apt-get update -y; \
