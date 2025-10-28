@@ -28,6 +28,7 @@ use Pimcore\Bundle\TinymceBundle\PimcoreTinymceBundle;
 use Pimcore\Bundle\UuidBundle\PimcoreUuidBundle;
 use Pimcore\Bundle\WordExportBundle\PimcoreWordExportBundle;
 use Pimcore\Bundle\XliffBundle\PimcoreXliffBundle;
+use Pimcore\Bundle\QuillBundle\PimcoreQuillBundle;
 use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 use Pimcore\Kernel as PimcoreKernel;
 use TorqIT\FolderCreatorBundle\FolderCreatorBundle;
@@ -38,13 +39,13 @@ class Kernel extends PimcoreKernel
 {
     /**
      * Adds bundles to register to the bundle collection. The collection is able
-     * to handle priorities and environment specific bundles.
-     *
+     * to handle priorities and environment-specific bundles.
      */
     public function registerBundlesToCollection(BundleCollection $collection): void
     {
-        $collection->addBundle(new PimcoreAdminBundle(), 60);
         // Official Pimcore bundles
+        $collection->addBundle(new PimcoreAdminBundle(), 60);
+        $collection->addBundle(new PimcoreQuillBundle());
         $collection->addBundle(new PimcoreApplicationLoggerBundle());
         $collection->addBundle(new PimcoreCustomReportsBundle());
         $collection->addBundle(new PimcoreGlossaryBundle());
