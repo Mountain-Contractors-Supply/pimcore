@@ -21,7 +21,6 @@ use Pimcore\Bundle\GlossaryBundle\PimcoreGlossaryBundle;
 use Pimcore\Bundle\SeoBundle\PimcoreSeoBundle;
 use Pimcore\Bundle\SimpleBackendSearchBundle\PimcoreSimpleBackendSearchBundle;
 use Pimcore\Bundle\StaticRoutesBundle\PimcoreStaticRoutesBundle;
-use Pimcore\Bundle\TinymceBundle\PimcoreTinymceBundle;
 use Pimcore\Bundle\UuidBundle\PimcoreUuidBundle;
 use Pimcore\Bundle\WordExportBundle\PimcoreWordExportBundle;
 use Pimcore\Bundle\XliffBundle\PimcoreXliffBundle;
@@ -49,7 +48,6 @@ class Kernel extends PimcoreKernel
         $collection->addBundle(new PimcoreSeoBundle());
         $collection->addBundle(new PimcoreSimpleBackendSearchBundle());
         $collection->addBundle(new PimcoreStaticRoutesBundle());
-        $collection->addBundle(new PimcoreTinymceBundle());
         $collection->addBundle(new PimcoreUuidBundle());
         $collection->addBundle(new PimcoreXliffBundle());
         $collection->addBundle(new PimcoreWordExportBundle());
