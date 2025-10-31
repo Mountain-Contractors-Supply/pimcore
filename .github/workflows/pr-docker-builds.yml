@@ -1,0 +1,25 @@
+name: Ensure Docker images build on PRs
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+concurrency: 
+  group: pr-docker-builds__${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  build-images:
+    name: Build Docker images
+    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/docker-builds.yml@v7
+    permissions: 
+      contents: read
+      actions: read
+    secrets:
+      BUILD_TIME_SECRETS: >
+        {
+          "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
+          "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
+          "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}"
+        }
+      
