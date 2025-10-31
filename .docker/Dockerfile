@@ -53,7 +53,7 @@ FROM base AS php-debug
 COPY --from=pimcore/pimcore:php8.4-debug-v4 /usr/local/bin/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN pecl install xdebug; \
     docker-php-ext-enable xdebug;
-ENV PHP_IDE_CONFIG serverName=localhost
+ENV PHP_IDE_CONFIG=serverName=localhost
 COPY /.docker/php-debug/xdebug.conf /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 COPY /.docker/php-debug/start-php-debug.sh /start-php-debug.sh
 CMD [ "/start-php-debug.sh" ]
