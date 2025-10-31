@@ -11,14 +11,14 @@ concurrency:
 jobs:
   build-images:
     name: Build Docker images
-    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/docker-builds.yml@v7
+    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/docker-builds.yml@product-key
     permissions: 
       contents: read
       actions: read
     secrets:
+      PIMCORE_PRODUCT_KEY: "${{ secrets.PIMCORE_PRODUCT_KEY }}"
       BUILD_TIME_SECRETS: >
         {
-          "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
           "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
           "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}"
         }
