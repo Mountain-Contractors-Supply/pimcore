@@ -32,3 +32,9 @@ We recommend forking this repository and using it as an upstream remote in order
 
 1. If using SSH for Git, run `git remote add upstream git@github.com:TorqIT/pimcore-skeleton.git`; otherwise, run `git remote add upstream https://github.com/TorqIT/pimcore-skeleton.git`
 1. To fetch and merge updates from the skeleton, run `git fetch upstream`, then `git merge upstream/2025.x`.
+
+## Contributing to the skeleton
+
+1. Clone the repository
+1. Get the secrets from your password manager (should be named "Pimcore skeleton secrets"), download the ZIP, extract and add the contents to your local repository's `.secrets` folder
+1. Create a branch for your work and open a Pull Request
