@@ -13,13 +13,17 @@ RUN set -eux; \
 COPY --chown=www-data:www-data /composer.* /var/www/html
 COPY /.docker/composer-install-dependencies.sh /composer-install-dependencies.sh
 RUN /composer-install-dependencies.sh
+COPY /.docker/secrets-to-env-vars.sh /secrets-to-env-vars.sh
 COPY --chown=www-data:www-data / /var/www/html
 RUN --mount=type=secret,id=kernel-secret,uid=1000 \
-    set -eux; \
-    cd /var/www/html; \
-    runuser -u www-data -- php /usr/local/bin/composer install; \
-    runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \
-    runuser -u www-data -- /var/www/html/bin/console cache:warmup
+    --mount=type=secret,id=pimcore-product-key,env=PIMCORE_PRODUCT_KEY,uid=1000 \
+    --mount=type=secret,id=pimcore-instance-identifier,env=PIMCORE_INSTANCE_IDENTIFIER,uid=1000 \
+    --mount=type=secret,id=pimcore-encryption-secret,env=PIMCORE_ENCRYPTION_SECRET,uid=1000 \
+        set -eux; \
+        cd /var/www/html; \
+        runuser -u www-data -- php /usr/local/bin/composer install; \
+        runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \
+        runuser -u www-data -- /var/www/html/bin/console cache:warmup
 
 FROM base AS init
 # TODO allow for custom bundles to be passed via args?
@@ -34,14 +38,16 @@ RUN set -eux; \
 COPY /.docker/php/php.ini /usr/local/etc/php/conf.d/docker-pimcore-php.ini
 COPY /.docker/php/nginx.conf /etc/nginx/sites-available/default
 COPY /.docker/php/supervisord.conf /etc/supervisor/supervisord.conf
-CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
+COPY ./.docker/php/start-php.sh /start-php.sh
+CMD [ "/start-php.sh" ]
 
 FROM base AS supervisord
 COPY --from=pimcore/pimcore:php8.4-supervisord-v4 /var/run /var/run
 COPY --from=pimcore/pimcore:php8.4-supervisord-v4 /usr/sbin/cron /usr/sbin/cron
 COPY --from=pimcore/pimcore:php8.4-supervisord-v4 /etc/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY /.docker/supervisord/supervisord.conf /etc/supervisor/conf.d/pimcore.conf
-CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/pimcore.conf" ]
+COPY ./.docker/supervisord/start-supervisord.sh /start-supervisord.sh
+CMD [ "/start-supervisord.sh" ]
 
 FROM base AS php-debug
 COPY --from=pimcore/pimcore:php8.4-debug-v4 /usr/local/bin/entrypoint.sh /usr/local/bin/entrypoint.sh
@@ -49,5 +55,5 @@ RUN pecl install xdebug; \
     docker-php-ext-enable xdebug;
 ENV PHP_IDE_CONFIG serverName=localhost
 COPY /.docker/php-debug/xdebug.conf /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["php-fpm"]
+COPY /.docker/php-debug/start-php-debug.sh /start-php-debug.sh
+CMD [ "/start-php-debug.sh" ]

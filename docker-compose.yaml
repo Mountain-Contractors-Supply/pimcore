@@ -36,6 +36,9 @@ services:
             target: init
             secrets:
                 - kernel-secret
+                - pimcore-product-key
+                - pimcore-instance-identifier
+                - pimcore-encryption-secret
         depends_on:
             db:
                 condition: service_healthy
@@ -43,6 +46,9 @@ services:
             -   .env
         secrets:
             - kernel-secret
+            - pimcore-product-key
+            - pimcore-instance-identifier
+            - pimcore-encryption-secret
         volumes:
             - .:/var/www/html
             - ./.docker/init/init.sh:/init.sh
@@ -56,10 +62,16 @@ services:
           target: php
           secrets:
               - kernel-secret
+              - pimcore-product-key
+              - pimcore-instance-identifier
+              - pimcore-encryption-secret
         env_file:
             -   .env
         secrets:
             - kernel-secret
+            - pimcore-product-key
+            - pimcore-instance-identifier
+            - pimcore-encryption-secret
         depends_on:
             init:
                 condition: service_completed_successfully
@@ -76,6 +88,9 @@ services:
             target: php-debug
             secrets:
                 - kernel-secret
+                - pimcore-product-key
+                - pimcore-instance-identifier
+                - pimcore-encryption-secret
         environment:
             - XDEBUG_CONFIG=remote_enable=1
             - PHP_IDE_CONFIG=serverName=localhost
@@ -83,6 +98,9 @@ services:
             - .env
         secrets:
             - kernel-secret
+            - pimcore-product-key
+            - pimcore-instance-identifier
+            - pimcore-encryption-secret
         depends_on:
             init:
                 condition: service_completed_successfully
@@ -96,6 +114,9 @@ services:
             target: supervisord
             secrets:
                 - kernel-secret
+                - pimcore-product-key
+                - pimcore-instance-identifier
+                - pimcore-encryption-secret
         depends_on:
             init:
                 condition: service_completed_successfully
@@ -103,6 +124,9 @@ services:
             -   .env
         secrets:
             - kernel-secret
+            - pimcore-product-key
+            - pimcore-instance-identifier
+            - pimcore-encryption-secret
         volumes:
             - .:/var/www/html
             - ./.docker/supervisord/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
@@ -143,3 +167,9 @@ volumes:
 secrets:
     kernel-secret:
       file: ./.secrets/kernel-secret
+    pimcore-product-key:
+      file: ./.secrets/pimcore-product-key
+    pimcore-instance-identifier:
+      file: ./.secrets/pimcore-instance-identifier
+    pimcore-encryption-secret:
+      file: ./.secrets/pimcore-encryption-secret

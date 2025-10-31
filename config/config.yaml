@@ -4,6 +4,11 @@ imports:
 
 
 pimcore:
+    product_registration:
+        product_key: '%env(PIMCORE_PRODUCT_KEY)%'
+        instance_identifier: '%env(PIMCORE_INSTANCE_IDENTIFIER)%'
+    encryption:
+        secret: '%env(PIMCORE_ENCRYPTION_SECRET)%'
 
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:
