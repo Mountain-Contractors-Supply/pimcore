@@ -13,7 +13,7 @@ RUN set -eux; \
 COPY --chown=www-data:www-data /composer.* /var/www/html
 COPY /.docker/composer-install-dependencies.sh /composer-install-dependencies.sh
 RUN /composer-install-dependencies.sh
-COPY /.docker/secrets-to-env-vars.sh /secrets-to-env-vars.sh
+COPY /.docker/secrets-to-env-vars.sh /etc/profile.d/secrets-to-env-vars.sh
 COPY --chown=www-data:www-data / /var/www/html
 RUN --mount=type=secret,id=kernel-secret,uid=1000 \
     --mount=type=secret,id=pimcore-product-key,env=PIMCORE_PRODUCT_KEY,uid=1000 \

@@ -2,7 +2,7 @@
 
 set -e
 
-. /secrets-to-env-vars.sh
+source /etc/profile.d/secrets-to-env-vars.sh
 
 /composer-install-dependencies.sh
 
