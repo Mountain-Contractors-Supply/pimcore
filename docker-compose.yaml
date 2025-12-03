@@ -134,11 +134,22 @@ services:
             - pimcore-test-var:/var/www/html/var
             - pimcore-test-public-var:/var/www/html/public/var
 
+    smtp:
+        container_name: ${APP_NAME}-smtp
+        image: rnwood/smtp4dev:v3
+        ports:
+            - ${SMTP_PORT_EXTERNAL}:80
+        volumes:
+            - smtp4dev-data:/smtp4dev
+        environment:
+            - ServerOptions__HostName=smtp4dev
+
 volumes:
     pimcore-database:
     pimcore-test-database:
     pimcore-test-var:
     pimcore-test-public-var:
+    smtp4dev-data:
 
 secrets:
     kernel-secret:
