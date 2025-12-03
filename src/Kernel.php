@@ -29,6 +29,7 @@ use Pimcore\Bundle\UuidBundle\PimcoreUuidBundle;
 use Pimcore\Bundle\WordExportBundle\PimcoreWordExportBundle;
 use Pimcore\Bundle\XliffBundle\PimcoreXliffBundle;
 use Pimcore\Bundle\QuillBundle\PimcoreQuillBundle;
+use Pimcore\Bundle\PerspectiveEditorBundle\PimcorePerspectiveEditorBundle;
 use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 use Pimcore\Kernel as PimcoreKernel;
 use TorqIT\FolderCreatorBundle\FolderCreatorBundle;
@@ -56,6 +57,7 @@ class Kernel extends PimcoreKernel
         $collection->addBundle(new PimcoreUuidBundle());
         $collection->addBundle(new PimcoreXliffBundle());
         $collection->addBundle(new PimcoreWordExportBundle());
+        $collection->addBundle(new PimcorePerspectiveEditorBundle());
         // Custom bundles
         $collection->addBundle(new FolderCreatorBundle());
         $collection->addBundle(new RoleCreatorBundle());

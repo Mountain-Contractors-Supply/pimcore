@@ -16,6 +16,7 @@
     "pimcore/platform-version": "^2024.4",
     "pimcore/admin-ui-classic-bundle": "*",
     "pimcore/quill-bundle": "*",
+    "pimcore/perspective-editor": "*",
     "symfony/dotenv": "^6.4.12",
     "symfony/runtime": "^6.4.12",
     "symfony/amqp-messenger": "^6.2",
