@@ -16,6 +16,7 @@ RUN /composer-install-dependencies.sh
 COPY /.docker/secrets-to-env-vars.sh /etc/profile.d/secrets-to-env-vars.sh
 COPY --chown=www-data:www-data / /var/www/html
 RUN --mount=type=secret,id=kernel-secret,uid=1000 \
+    # These three secrets are deliberately mounted as env vars rather than files as required by Pimcore
     --mount=type=secret,id=pimcore-product-key,env=PIMCORE_PRODUCT_KEY,uid=1000 \
     --mount=type=secret,id=pimcore-instance-identifier,env=PIMCORE_INSTANCE_IDENTIFIER,uid=1000 \
     --mount=type=secret,id=pimcore-encryption-secret,env=PIMCORE_ENCRYPTION_SECRET,uid=1000 \
