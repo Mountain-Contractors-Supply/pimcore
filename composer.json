@@ -14,8 +14,8 @@
   "minimum-stability": "dev",
   "require": {
     "php": "~8.3.0 || ~8.4.0",
-    "pimcore/pimcore": "^12.0",
-    "pimcore/platform-version": "^2025.3",
+    "pimcore/pimcore": "^12.3",
+    "pimcore/platform-version": "2025.x-dev",
     "pimcore/admin-ui-classic-bundle": "*",
     "pimcore/quill-bundle": "*",
     "symfony/dotenv": "^6.4.12 || ^7.2",
