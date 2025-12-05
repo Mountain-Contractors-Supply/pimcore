@@ -2,6 +2,8 @@
 
 set -e
 
+source /etc/profile.d/secrets-to-env-vars.sh
+
 if [ "$(mysql -h "$DATABASE_HOST" -u "$DATABASE_USER" -p"$DATABASE_PASSWORD" \
       -sse "select count(*) from information_schema.tables where table_schema='pimcore' and table_name='assets';")" -eq 0 ] \
    && [ "$PIMCORE_INSTALL" = "true" ]
@@ -18,7 +20,6 @@ runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreG
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreSeoBundle
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreSimpleBackendSearchBundle
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreStaticRoutesBundle
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreTinymceBundle
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreUuidBundle
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreXliffBundle
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreWordExportBundle
