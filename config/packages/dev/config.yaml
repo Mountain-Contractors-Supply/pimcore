@@ -1,2 +1,7 @@
 imports:
     - { resource: ../../config.yaml }
+
+framework:
+    mailer:
+        transports:
+            main: "smtp://%env(SMTP_DOMAIN)%:25"
