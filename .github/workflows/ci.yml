@@ -1,7 +1,12 @@
 name: CI
 
 on:
-  push:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+concurrency:
+  group: ci__${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ci:
