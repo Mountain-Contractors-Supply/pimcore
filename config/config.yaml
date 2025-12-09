@@ -9,6 +9,50 @@ pimcore:
         instance_identifier: '%env(PIMCORE_INSTANCE_IDENTIFIER)%'
     encryption:
         secret: '%env(PIMCORE_ENCRYPTION_SECRET)%'
+     # config_location:
+     #    image_thumbnails:
+     #        write_target:
+     #            type: 'symfony-config'
+     #            options:
+     #                directory: '/var/www/html/var/config/image-thumbnails'
+     #    video_thumbnails:
+     #        write_target:
+     #            type: 'disabled'
+     #    document_types:
+     #        write_target:
+     #            type: 'disabled'
+     #    predefined_properties:
+     #        write_target:
+     #            type: 'settings-store'
+     #    predefined_asset_metadata:
+     #        write_target:
+     #            type: 'symfony-config'
+     #            options:
+     #                directory: '/var/www/html/var/config/predefined_asset_metadata'
+     #    perspectives:
+     #        write_target:
+     #            type: 'symfony-config'
+     #            options:
+     #                directory: '/var/www/html/var/config/perspectives'
+     #    custom_views:
+     #        write_target:
+     #            type: 'symfony-config'
+     #            options:
+     #                directory: '/var/www/html/var/config/custom_views'
+     #    object_custom_layouts:
+     #        write_target:
+     #            type: 'symfony-config'
+     #            options:
+     #                directory: '/var/www/html/var/config/object_custom_layouts'
+     #    select_options:
+     #        write_target:
+     #            type: 'symfony-config'
+     #            options:
+     #                directory: '/var/www/html/var/config/object_custom_layouts'
+     #        read_target:
+     #            type: 'symfony-config'
+     #            options:
+     #                directory: '/var/www/html/var/config/object_custom_layouts'
 
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:
