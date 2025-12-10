@@ -13,23 +13,13 @@ then
 fi
 
 echo Installing bundles...
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreAdminBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreApplicationLoggerBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreCustomReportsBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreGlossaryBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreSeoBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreSimpleBackendSearchBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreStaticRoutesBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreUuidBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreXliffBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreWordExportBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcorePerspectiveEditorBundle
-
-echo Running migration...
-runuser -u www-data -- /var/www/html/bin/console doctrine:migrations:migrate -n
+/install-bundles.sh
 
 echo Rebuilding classes...
 runuser -u www-data -- /var/www/html/bin/console pimcore:deployment:classes-rebuild -c -d -n --force
+
+echo Running migration...
+runuser -u www-data -- /var/www/html/bin/console doctrine:migrations:migrate -n
 
 echo Creating folders...
 runuser -u www-data -- /var/www/html/bin/console torq:folder-creator
