@@ -9,7 +9,10 @@ if [ "$(mysql -h "$DATABASE_HOST" -u "$DATABASE_USER" -p"$DATABASE_PASSWORD" \
    && [ "$PIMCORE_INSTALL" = "true" ]
 then
   echo "Database is empty and PIMCORE_INSTALL is set to true, so calling pimcore-install..."
-  runuser -u www-data -- vendor/bin/pimcore-install --skip-database-config --no-interaction
+  PIMCORE_INSTALL_ENCRYPTION_SECRET=$PIMCORE_ENCRYPTION_SECRET \
+  PIMCORE_INSTALL_INSTANCE_IDENTIFIER=$PIMCORE_INSTANCE_IDENTIFIER \
+  PIMCORE_INSTALL_PRODUCT_KEY=$PIMCORE_PRODUCT_KEY \
+    runuser -u www-data -- vendor/bin/pimcore-install --skip-database-config --no-interaction
 fi
 
 echo Installing bundles...
