@@ -23,6 +23,8 @@ runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreS
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreUuidBundle --no-cache-clear
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreXliffBundle --no-cache-clear
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreWordExportBundle --no-cache-clear
+runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreDataHubBundle --no-cache-clear
+runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreDataImporterBundle --no-cache-clear
 runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcorePerspectiveEditorBundle
 
 echo Running migration...
