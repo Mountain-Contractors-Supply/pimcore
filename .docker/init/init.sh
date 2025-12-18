@@ -16,19 +16,7 @@ then
 fi
 
 echo Installing bundles...
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreAdminBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreApplicationLoggerBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreCustomReportsBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreGlossaryBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreSeoBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreSimpleBackendSearchBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreStaticRoutesBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreUuidBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreXliffBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreWordExportBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreDataHubBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcoreDataImporterBundle --no-cache-clear
-runuser -u www-data -- /var/www/html/bin/console pimcore:bundle:install PimcorePerspectiveEditorBundle
+/install-bundles.sh
 
 echo Running migration...
 runuser -u www-data -- /var/www/html/bin/console doctrine:migrations:migrate -n
