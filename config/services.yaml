@@ -99,3 +99,7 @@ services:
                   event: pimcore.bundle_manager.paths.css,
                   method: addCSSFiles,
               }
+
+    App\ExpressionLanguage\BasicExpressionProvider:
+        tags:
+            - { name: 'pimcore.calculated_value.expression_language_provider' }

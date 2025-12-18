@@ -8,7 +8,7 @@ services:
         container_name: ${APP_NAME}-db
         image: mariadb:10.11
         working_dir: /application
-        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_520_ci, --innodb-file-per-table=1, local-infile=1 ]
+        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_520_ci, --innodb-file-per-table=1, --local-infile=1 ]
         volumes:
             - pimcore-database:/var/lib/mysql
         environment:

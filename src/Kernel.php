@@ -23,6 +23,8 @@ use Pimcore\Bundle\SimpleBackendSearchBundle\PimcoreSimpleBackendSearchBundle;
 use Pimcore\Bundle\StaticRoutesBundle\PimcoreStaticRoutesBundle;
 use Pimcore\Bundle\UuidBundle\PimcoreUuidBundle;
 use Pimcore\Bundle\WordExportBundle\PimcoreWordExportBundle;
+use Pimcore\Bundle\DataHubBundle\PimcoreDataHubBundle;
+use Pimcore\Bundle\DataImporterBundle\PimcoreDataImporterBundle;
 use Pimcore\Bundle\XliffBundle\PimcoreXliffBundle;
 use Pimcore\Bundle\QuillBundle\PimcoreQuillBundle;
 use Pimcore\Bundle\PerspectiveEditorBundle\PimcorePerspectiveEditorBundle;
@@ -52,6 +54,8 @@ class Kernel extends PimcoreKernel
         $collection->addBundle(new PimcoreUuidBundle());
         $collection->addBundle(new PimcoreXliffBundle());
         $collection->addBundle(new PimcoreWordExportBundle());
+        $collection->addBundle(new PimcoreDataHubBundle());
+        $collection->addBundle(new PimcoreDataImporterBundle());
         $collection->addBundle(new PimcorePerspectiveEditorBundle());
         // Custom bundles
         $collection->addBundle(new FolderCreatorBundle());

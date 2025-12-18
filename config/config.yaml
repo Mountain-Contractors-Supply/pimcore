@@ -2,6 +2,18 @@ imports:
     - { resource: 'local/' }
     - { resource: 'database.yaml' }
 
+pimcore_data_hub:
+    config_location:
+        data_hub:
+            write_target:
+                type: "settings-store"
+
+pimcore_data_importer:
+    messenger_queue_processing:
+        activated: true
+        worker_count_lifetime: 60
+        worker_count_parallel: 4 # Increase this to add more parallel workers
+        worker_item_count: 50
 
 pimcore:
     product_registration:
