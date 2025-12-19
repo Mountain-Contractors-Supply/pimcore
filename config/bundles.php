@@ -1,5 +1,6 @@
 <?php
 
 return [
-    //Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+    McSupply\EcommerceBundle\McSupplyEcommerceBundle::class => ['all' => true],
+    Sylius\Bundle\ThemeBundle\SyliusThemeBundle::class => ['all' => true],
 ];

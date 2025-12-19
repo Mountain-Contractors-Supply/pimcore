@@ -1,0 +1,192 @@
+{# Shared footer template for Mountainland #}
+<style>
+    .site-footer {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 3rem 2rem 2rem 2rem;
+        margin-top: auto;
+        position: relative;
+    }
+    .footer-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .footer-header h2 {
+        font-family: var(--secondary-font);
+        font-size: 2.5rem;
+        color: white;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .footer-content {
+        max-width: 1600px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3rem;
+        margin-bottom: 2rem;
+    }
+    .footer-column {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .footer-column h3 {
+        font-family: var(--secondary-font);
+        font-size: 1.3rem;
+        color: white;
+        margin: 0 0 0.5rem 0;
+        text-transform: uppercase;
+    }
+    .footer-column p {
+        margin: 0.25rem 0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    .footer-column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .footer-column ul li {
+        margin-bottom: 0.5rem;
+    }
+    .footer-column a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+    }
+    .footer-column a:hover {
+        color: var(--secondary-color);
+    }
+    .location-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: white;
+        transition: color 0.3s ease;
+    }
+    .location-link img {
+        width: 60px;
+        height: auto;
+    }
+    .location-link:hover {
+        color: var(--secondary-color);
+    }
+    .hours-info {
+        margin-top: 1rem;
+    }
+    .social-media {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: var(--primary-color);
+        font-weight: bold;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+    .social-icon:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.1);
+    }
+    .footer-bottom {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 2rem;
+    }
+    .footer-logo {
+        width: 200px;
+        height: auto;
+    }
+    @media (max-width: 1024px) {
+        .footer-content {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+    }
+    @media (max-width: 768px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .footer-header h2 {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<footer class="site-footer">
+    <div class="footer-header">
+        <h2>We're Ready to Help</h2>
+    </div>
+    <div class="footer-content">
+        <div class="footer-column">
+            {% set locationsDoc = pimcore_document_by_path('/locations') %}
+            <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}" class="location-link">
+                <img src="{{ asset('images/misc/location-button.png') }}" alt="Location">
+                <h3>Find a Store Near You</h3>
+            </a>
+            <div class="hours-info">
+                <h3>Hours</h3>
+                <p>Monday - Friday: 7:00 AM - 5:00 PM</p>
+                <p>Saturday - Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-column">
+            <h3>Our Business</h3>
+            <ul>
+                <li><a href="#">Purpose Vision Values</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Our History</a></li>
+                <li><a href="#">Divisions</a></li>
+                <li><a href="#">Mountainland Ventures</a></li>
+                <li><a href="#">Giving Hope</a></li>
+                <li><a href="#">Peak Rewards</a></li>
+                <li><a href="#">Meet the Team</a></li>
+                <li><a href="#">Mountainland Logos</a></li>
+                <li><a href="#">Career Opportunities</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Useful Links</h3>
+            <ul>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Credit Application</a></li>
+                <li><a href="#">Project Calculators</a></li>
+                <li><a href="#">Contractor Tools</a></li>
+                <li><a href="#">Warranty Info</a></li>
+                <li><a href="#">En Español</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Stay In Touch</h3>
+            <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Subscribe for More</a></li>
+                <li><a href="#">Give Us Feedback</a></li>
+            </ul>
+            <div class="social-media">
+                <a href="#" class="social-icon" aria-label="Facebook">f</a>
+                <a href="#" class="social-icon" aria-label="Instagram">ig</a>
+                <a href="#" class="social-icon" aria-label="YouTube">yt</a>
+                <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Supply" class="footer-logo">
+    </div>
+</footer>

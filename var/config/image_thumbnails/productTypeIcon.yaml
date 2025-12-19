@@ -1,0 +1,28 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    productTypeIcon:
+                        items:
+                            -
+                                method: scaleByWidth
+                                arguments:
+                                    width: 96
+                                    forceResize: false
+                        medias: {  }
+                        name: productTypeIcon
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        forceProcessICCProfiles: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        useCropBox: false
+                        downloadable: false
+                        modificationDate: 1766161227
+                        creationDate: 1766161119
+                        preserveAnimation: false

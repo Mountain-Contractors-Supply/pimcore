@@ -1,0 +1,27 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    productTypeImage:
+                        items:
+                            -
+                                method: scaleByHeight
+                                arguments:
+                                    height: 300
+                                    forceResize: false
+                        medias: {  }
+                        name: productTypeImage
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        forceProcessICCProfiles: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1763744550
+                        creationDate: 1763744531
+                        preserveAnimation: false

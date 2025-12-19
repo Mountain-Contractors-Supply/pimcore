@@ -1,0 +1,123 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/locations.css') }}" />
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' https://maps.googleapis.com https://maps.gstatic.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://maps.googleapis.com https://mapsresources-pa.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; object-src 'none'; base-uri 'self'">
+
+{% endblock %}
+
+{% block header %}
+    {{ include('includes/header.html.twig') }}
+{% endblock %}
+
+{% block content %}
+    <!-- Sidebar toggle button for mobile -->
+    <button id="sidebar-toggle" aria-label="Toggle filters sidebar">►</button>
+
+    <main class="page-wrapper">
+        <div class="layout-wrapper">
+            <aside class="sidebar">
+                <br>
+                <h2><a href="{{ path('home') }}">Home</a> / Locations</h2>
+                <h1 style="font-family: var(--secondary-font); font-size: 42pt; color: #11175e;">Locations</h1>
+                <h2>Find Your Nearest Branch or Shop by Supply</h2>
+                <hr class="sidebar-divider" style="width: 800px" />
+                <br />
+                <div id="filter-container">
+                    <div class="location-input-group">
+                        <div class="location-radius-group">
+                            <div class="zip-container">
+                                <label for="zip-input"><strong>Enter Your Zip Code, or City & State</strong></label>
+                                <input type="text" id="zip-input" name="zip-input" placeholder="Your Location" />
+                                <button id="location-btn" type="button">
+                                    <img src="{{ asset('images/misc/location-icon.png') }}" style="height: 25px" />
+                                    Use Current Location
+                                </button>
+                            </div>
+                            <div class="radius-container">
+                                <label for="radius-select"><strong>Radius</strong></label>
+                                <select id="radius-select">
+                                    <option value="10">10 miles</option>
+                                    <option value="25" selected>25 miles</option>
+                                    <option value="50">50 miles</option>
+                                    <option value="100">100 miles</option>
+                                </select>
+                            </div>
+                        </div>
+                        <strong>
+                            <h3 style="font-family: var(--primary-font); color: #11175e; font-size: 16pt;">Search by Supply</h3>
+                        </strong>
+                        <hr class="sidebar-divider" style="width: 765px" />
+                    </div>
+                    {% set productChunks = productTypes|batch(6, []) %}
+                    <div class="checkbox-row">
+                        {% for column in productChunks %}
+                            <div class="checkbox-column">
+                                {% for productType in column %}
+                                    {% if productType %}
+                                        <label>
+                                            <input type="checkbox" name="branch-type" value="{{ productType.productTypeId }}" data-filter-type="service" class="custom-checkbox-input" />
+                                            <span class="custom-checkbox"></span>
+                                            <img src="{{ asset(productType.icon) }}" style="height: 24px" />
+                                            {{ productType.name }}
+                                        </label>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="button-group">
+                        <button type="button" id="search-now-btn">Search Now</button>
+                        <button type="button" id="reset-filters-btn">Reset Filters</button>
+                    </div>
+                </div>
+            </aside>
+            <div id="map-wrapper"></div>
+        </div>
+        <div id="sidebar-overlay"></div>
+
+        <hr style="width: 97%;">
+        <h1 id="location-count" class="location-count-heading"><span id="filtered-location-count">__</span> Locations Near You</h1>
+
+        <div class="layout-wrapper">
+            <div class="location-list-wrapper">
+                <div id="location-list" class="location-list"></div>
+                <br>
+                <h2 style="font-family: var(--secondary-font); font-size: 16pt; color: #11175e;">Can't find a location? Call us at <a>_____</a> or contact us <a>here.</a> We're happy to help.</h2>
+            </div>
+            <aside class="sidebar">
+                <div style="padding: 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 625px; width: 100%;">
+                    <h2 style="color: var(--primary-color); font-family: var(--secondary-font); font-size: 50pt; margin: 0; line-height: 1.2;"><span id="state-count-map">__</span> STATES.<br><span id="location-count-map">__</span> LOCATIONS.</h2>
+                    <h3 style="color: var(--primary-color); font-family: var(--secondary-font); font-size: 32pt; margin: 0.5rem 0 0 0; line-height: 1.3; white-space: nowrap;">ALL READY TO SERVE YOU!<br>+ FREE DELIVERY</h3>
+                    <div style="display: flex; justify-content: center; margin-top: -1.5rem;"><img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="header-logo" /></div>
+                </div>
+            </aside>
+        </div>
+    </main>
+{% endblock %}
+
+{% block footer %}
+    {{ include('includes/footer.html.twig') }}
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        fetch('/maps/key', {
+            method: 'GET',
+        })
+            .then(res => res.json())
+            .then(({ data }) => {
+                const key = data?.config?.googleMapsApiKey || '';
+                if (!key) throw new Error('Missing Google Maps API key');
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places,marker&v=weekly`;
+                script.async = true;
+                script.defer = true;
+                document.head.appendChild(script);
+            })
+            .catch(err => console.error('Failed to load Maps API key:', err));
+    </script>
+    <script src="{{ asset('js/locations.js') }}"></script>
+{% endblock %}

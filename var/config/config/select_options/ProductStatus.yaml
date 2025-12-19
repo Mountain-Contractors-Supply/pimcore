@@ -1,0 +1,26 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                ProductStatus:
+                    id: ProductStatus
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: Stock
+                            label: Stock
+                            name: ''
+                        -
+                            value: NonStock
+                            label: 'Non Stock'
+                            name: ''
+                        -
+                            value: Delete
+                            label: Delete
+                            name: ''
+                        -
+                            value: Purge
+                            label: Purge
+                            name: ''

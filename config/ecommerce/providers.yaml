@@ -1,0 +1,32 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\Provider\:
+        resource: '../../src/Provider'
+
+    McSupply\EcommerceBundle\Provider\CartProviderInterface:
+        '@App\Provider\CartProvider'
+
+    McSupply\EcommerceBundle\Provider\CustomerProviderInterface:
+        '@App\Provider\CustomerProvider'
+
+    McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface:
+        '@App\Provider\OnlineStoreProvider'
+
+    McSupply\EcommerceBundle\Provider\BranchProviderInterface:
+        '@App\Provider\BranchProvider'
+
+    McSupply\EcommerceBundle\Provider\AccountProviderInterface:
+        '@App\Provider\AccountProvider'
+
+    McSupply\EcommerceBundle\Provider\ProductTypeProviderInterface:
+        '@App\Provider\ProductTypeProvider'
+
+    McSupply\EcommerceBundle\Provider\ShipMethodProviderInterface:
+        '@App\Provider\ShipMethodProvider'
+
+    McSupply\EcommerceBundle\Provider\AddressProviderInterface:
+        '@App\Provider\AddressProvider'

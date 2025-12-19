@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    app.theme.select:
+        class: App\OptionProvider\ThemeSelect
+        public: true
+
+    App\Theme\:
+        resource: '../../src/Theme'
+
+sylius_theme:
+    context: App\Theme\OnlineStoreThemeContext
+    sources:
+        filesystem: ~

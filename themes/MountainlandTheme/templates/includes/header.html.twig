@@ -1,0 +1,397 @@
+{# Shared header template for Mountainland #}
+<style>
+    :root {
+        --ml-header-height: 120px;
+    }
+
+    header {
+        padding: 0;
+        background-color: #fff;
+        border-bottom: 1px solid var(--secondary-color);
+        width: 100%;
+        position: relative;
+        z-index: 100;
+    }
+    header:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .header-top {
+        width: 100%;
+        height: 33px;
+        background-color: var(--secondary-color);
+        align-items: center;
+        justify-content: space-between;
+        padding: 0;
+        display: flex;
+    }
+    .header-top-left {
+        display: flex;
+    }
+    .header-top-right {
+        padding-right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0;
+    }
+    .header-top .navbar-links a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-family: var(--primary-font);
+        padding: 0 0.8rem;
+        height: 33px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        position: relative;
+        text-transform: uppercase;
+    }
+    .header-top .navbar-links a:hover {
+        color: #fff;
+        background-color: var(--primary-color);
+    }
+    .sign-in-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-family: var(--primary-font);
+        padding: 0 1rem;
+        height: 33px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+    .sign-in-link:hover {
+        color: #fff;
+        background-color: var(--primary-color);
+    }
+    .branch-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .branch-info {
+        color: var(--primary-color);
+        font-size: 0.75rem;
+        font-family: var(--primary-font);
+        padding: 0 0.5rem;
+        height: 33px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    .branch-info:hover {
+        background-color: rgba(17, 23, 94, 0.05);
+    }
+    .branch-info .location-icon {
+        height: 24px;
+        width: auto;
+        flex-shrink: 0;
+    }
+    .branch-text {
+        font-size: 0.75rem;
+        font-style: italic;
+        opacity: 0.9;
+    }
+    .user-info {
+        color: var(--primary-color);
+        font-size: 0.85rem;
+        font-family: var(--primary-font);
+        padding: 0 0.75rem;
+        height: 33px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    .user-info:hover {
+        background-color: rgba(17, 23, 94, 0.05);
+    }
+    .welcome-text {
+        font-size: 0.85rem;
+    }
+    .user-name {
+        font-weight: 600;
+    }
+    .user-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        min-width: 200px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(17, 23, 94, 0.15);
+        border-radius: 4px;
+        z-index: 1000;
+        margin-top: 0.5rem;
+    }
+    .dropdown-menu.show {
+        display: block;
+    }
+    .dropdown-item {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-family: var(--primary-font);
+        transition: background-color 0.2s;
+        border-bottom: 1px solid rgba(17, 23, 94, 0.1);
+    }
+    .dropdown-item:last-child {
+        border-bottom: none;
+    }
+    .dropdown-item:hover {
+        background-color: rgba(17, 23, 94, 0.05);
+    }
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        text-align: left;
+        flex-wrap: wrap;
+        overflow: hidden;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .header-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    .shop-now-btn {
+        background-color: white;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 1rem 3rem;
+        font-size: 1.3rem;
+        font-family: var(--secondary-font);
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .shop-now-btn:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    .header-logo {
+        width: 300px;
+        height: auto;
+        display: block;
+        margin-top: 0;
+    }
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary-color);
+        padding: 2.5rem 0;
+        height: 64px !important;
+        margin: 0;
+        width: 100%;
+        position: relative;
+        z-index: 90;
+    }
+    .navbar-links {
+        display: flex;
+        gap: 0;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .navbar .navbar-links a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 2.2rem;
+        font-family: var(--primary-font);
+        padding: 0 1.6rem;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        position: relative;
+        text-transform: uppercase;
+    }
+    .navbar .navbar-links a:hover {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+    .navbar .navbar-links a strong {
+        font-weight: bold;
+    }
+    .navbar-left {
+        padding-left: 0;
+    }
+    .bag-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-family: var(--primary-font);
+        padding: 0 1rem;
+        height: 33px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    .bag-link:hover {
+        background-color: rgba(0, 0, 0, 0.15);
+    }
+    .bag-link img {
+        height: 26px;
+        width: auto;
+    }
+    .bag-info {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+    }
+    .bag-count {
+        font-size: 0.75rem;
+        font-weight: 400;
+        opacity: 0.85;
+    }
+    .bag-total {
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+
+</style>
+
+<header>
+    <div class="header-top">
+        <div class="header-top-left">
+            <ul class="navbar-links">
+                <li><a href="{{ path('home') }}">Home</a></li>
+                <li><a href="#">Plumbing</a></li>
+                <li><a href="#">Heating & Cooling</a></li>
+                <li><a href="#">Power Equipment</a></li>
+                <li><a href="#">Landscape Irrigation</a></li>
+                <li><a href="#">Pump & Drilling</a></li>
+                <li><a href="#">More+</a></li>
+            </ul>
+        </div>
+        <div class="header-top-right">
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('cart') }}" class="bag-link" aria-label="View Cart">
+                    <img src="{{ asset('images/misc/shopping-bag.png') }}" alt="Bag" />
+                    <div class="bag-info">
+                        <span class="bag-count" id="bag-count">0 items</span>
+                        <span class="bag-total" id="bag-total">$0.00</span>
+                    </div>
+                </a>
+                <div class="branch-dropdown" id="branch-dropdown">
+                    <div class="branch-info" id="branch-info">
+                        <img src="{{ asset('images/misc/location-icon.png') }}" alt="Location" class="location-icon" />
+                        <span class="branch-text" id="branch-status">You do not currently have a branch selected</span>
+                    </div>
+                </div>
+                <div class="user-dropdown" id="user-dropdown">
+                    <div class="user-info" id="user-info">
+                        <span class="welcome-text">Welcome, <span class="user-name">{{ app.user.firstname ?? app.user.email }}</span>!</span>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <a href="{{ path('customer-logout') }}" class="dropdown-item">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ path('customer-login') }}" class="sign-in-link">SIGN IN / SIGN UP</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="header-content">
+        <div class="header-left">
+            <a href="{{ path('home') }}">
+                <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="header-logo" />
+            </a>
+        </div>
+        <div class="header-right">
+            {# Shop page removed - keeping this div for future use #}
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="navbar-left">
+            {% if not document is defined or not document %}
+                {% set document = pimcore_document(4) %}
+            {% endif %}
+
+            {# get the document which should be used to start in navigation | default home #}
+            {% set navStartNode = document.getProperty('navigationRoot') %}
+            {% if not navStartNode is instanceof('Pimcore\Model\Document\Page') %}
+                {% set navStartNode = pimcore_document(4) %}
+            {% endif %}
+
+            {% set mainNavigation = pimcore_build_nav({
+                active: document,
+                root: navStartNode,
+                cache: false
+            }) %}
+
+            <ul class="navbar-links">
+                {% for page in mainNavigation %}
+                    {% if page.isVisible() %}
+                        {% set isActive = page.isActive() %}
+                        {% set pageDocument = pimcore_document(page.get('id')) %}
+                        {% set displayTitle = pageDocument.getTitle() ?: (pageDocument.getProperty('navigation_name') ?: page.getLabel()) %}
+                        <li>
+                            <a href="{{ page.getHref() }}"{% if isActive %} class="active"{% endif %}>{{ displayTitle }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<script>
+// Initialize dropdown immediately
+(function() {
+    function initDropdown() {
+        const userInfo = document.getElementById('user-info-combined');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        
+        if (userInfo && dropdownMenu) {
+            console.log('Dropdown elements found, attaching event listener');
+            
+            userInfo.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('User info clicked, toggling dropdown');
+                dropdownMenu.classList.toggle('show');
+                console.log('Dropdown has show class:', dropdownMenu.classList.contains('show'));
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.user-dropdown')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        } else {
+            console.log('Dropdown elements not found:', { userInfo: !!userInfo, dropdownMenu: !!dropdownMenu });
+        }
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initDropdown);
+    } else {
+        initDropdown();
+    }
+})();
+
+
+</script>

@@ -4,3 +4,9 @@ _pimcore:
 app:
     resource: "../src/Controller/"
     type: attribute
+
+mcsupply_ecommerce:
+    resource: "@McSupplyEcommerceBundle/config/routing.yaml"
+
+customer-logout:
+    path: '/customer/logout'
