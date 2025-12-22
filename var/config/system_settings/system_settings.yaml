@@ -4,25 +4,32 @@ pimcore:
         redirect_to_maindomain: false
         valid_languages:
             - en_US
+            - es
         fallback_languages:
             en_US: ''
+            es: ''
         required_languages:
-            - ''
+            - en_US
         default_language: en_US
         debug_admin_translations: false
     documents:
         versions:
             days: null
             steps: null
+            disable_events: false
         error_pages:
             default: ''
-            localized: {  }
+            localized:
+                en_US: ''
+                es: ''
     objects:
         versions:
             days: null
             steps: null
+            disable_events: false
     assets:
         versions:
             days: null
             steps: null
+            disable_events: false
     email: {  }
