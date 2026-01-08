@@ -27,7 +27,7 @@ final readonly class CustomerProvider implements CustomerProviderInterface
     #[\Override]
     public function supportsClass(string $class): bool
     {
-        return is_subclass_of($class, CustomerInterface::class);
+        return is_a($class, CustomerInterface::class, true);
     }
 
     /**
