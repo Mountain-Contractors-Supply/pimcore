@@ -1,0 +1,24 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/cart.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <main class="cart-page">
+        <div class="cart-breadcrumbs">
+            <a href="{{ path('home') }}">Home</a> / <span>Shopping Cart</span>
+        </div>
+
+        <header class="cart-header">
+            <div>
+                <h1>Shopping Cart</h1>
+            </div>
+        </header>
+
+        <turbo-frame id="cart-list-frame" src="{{ path('cart_list_partial') }}" loading="lazy">
+            {% include 'cart/_cart_list_frame.html.twig' with { 'cartData': cartData } %}
+        </turbo-frame>
+    </main>
+{% endblock %}

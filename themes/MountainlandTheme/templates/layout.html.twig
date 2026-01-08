@@ -32,16 +32,19 @@
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
+    {{ importmap('app') }}
+
     {% block head %}{% endblock %}
 </head>
 <body>
-    {% block header %}{% endblock %}
+    <header id="header" data-turbo-permanent>
+        {{ include('partials/_header.html.twig') }}
+    </header>
 
     <main>
         {% block content %}{% endblock %}
     </main>
-    {% block footer %}{% endblock %}
-    {% block scripts %}{% endblock %}
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    {{ include('partials/_footer.html.twig') }}
 </body>
 </html>

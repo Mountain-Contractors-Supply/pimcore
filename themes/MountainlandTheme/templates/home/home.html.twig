@@ -6,177 +6,133 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
 {% endblock %}
 
-{% block header %}
-    {{ parent() }}
-    {{ include('includes/header.html.twig') }}
-{% endblock %}
-
 {% block content %}
-    <div class="banner-container">
-        <img src="{{ asset('images/branding/mls_darren-2.jpg') }}" alt="Mountainland Supply Banner" class="main-banner"/>
-        <div class="banner-overlay">
-            <div class="banner-content">
-                <h1><span class="banner-small-text">Together, Let's</span><br>MOVE MTNS.</h1>
+    <div data-controller="home">
+        <div class="banner-container">
+            <img src="{{ asset('images/branding/mls_darren-2.jpg') }}" alt="Mountainland Supply Banner" class="main-banner"/>
+            <div class="banner-overlay">
+                <div class="banner-content">
+                    <h1><span class="banner-small-text">Together, Let's</span><br>MOVE MTNS.</h1>
+                </div>
             </div>
         </div>
+
+        <div class="family-container">
+            <div class="family-section">
+                <h1>Part of the Family?</h1>
+                <a href="{{ path('customer-signin') }}"><h3>SIGN IN OR REQUEST ONLINE ACCESS</h3></a>
+            </div>
+            <div class="family-section">
+                <h1>Joining the Family?</h1>
+                <a href="#"><h3>GET STARTED & SIGN UP TODAY!</h3></a>
+            </div>
+        </div>
+
+        <div class="divisions-container">
+            <img src="{{ asset('images/branding/divisions.png') }}" alt="{{ productTypes|length }} DIVISIONS BUILT TO SERVE YOU"/>
+            <div class="divisions-grid" data-home-target="divisionsGrid">
+                {% for productType in productTypes %}
+                    <div class="division-box{% if loop.index > 8 %} hidden{% endif %}" style="background-image:url('{{ asset(productType.image) }}');">
+                        <div class="division-box-content"><h3>{{ productType.name }}</h3><hr><p class="shop-now">Shop Now</p></div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="view-toggle-container">
+                <button class="view-toggle-btn" data-home-target="viewToggleBtn" data-action="click->home#toggleDivisions">VIEW MORE ▼</button>
+            </div>
+        </div>
+
+        <section class="locations-cta-section">
+            <div class="locations-cta-container">
+                <div class="locations-info">
+                    <div class="locations-count">
+                        <div>{{ stateCount }} STATES,</div>
+                        <div>{{ branchCount }} LOCATIONS.</div>
+                    </div>
+                    <div class="work-together">LET'S WORK TOGETHER</div>
+                </div>
+                <div class="location-finder">
+                    {% set locationsDoc = pimcore_document_by_path('/locations') %}
+                    <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}" class="location-btn-link">
+                        <img src="{{ asset('images/misc/location-button.png') }}" alt="Find Location">
+                        <p class="location-btn-text">CLICK TO FIND A LOCATION NEAR YOU</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="events-section">
+            <div class="events-container">
+                <img src="{{ asset('images/branding/events.png') }}" alt="Mountainland Events" class="events-image">
+                <div class="events-content">
+                    <div class="events-box">
+                        <h2 id="events-title" data-home-target="eventsTitle">MOUNTAINLAND EVENTS</h2>
+                        <div class="events-arrow">
+                            <span class="arrow-bar" id="events-bar" data-home-target="eventsBar" aria-hidden="true"></span>
+                            <span class="arrow-head" aria-hidden="true">→</span>
+                        </div>
+                    </div>
+                    <p class="events-tagline">Because Every Project Starts ― and Ends ― with You.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="expert-section">
+            <div class="expert-container">
+                <div class="expert-image-container">
+                    <img src="{{ asset('images/misc/text-an-expert.png') }}" alt="Text an Expert">
+                </div>
+                <div class="expert-boxes-grid">
+                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
+                        <div class="expert-box-content">
+                            <h3>PLUMBING</h3>
+                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                        </div>
+                    </div>
+                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
+                        <div class="expert-box-content">
+                            <h3>HVAC</h3>
+                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                        </div>
+                    </div>
+                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
+                        <div class="expert-box-content">
+                            <h3>PUMP & DRILLING</h3>
+                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                        </div>
+                    </div>
+                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
+                        <div class="expert-box-content">
+                            <h3>WATERWORKS</h3>
+                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                        </div>
+                    </div>
+                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
+                        <div class="expert-box-content">
+                            <h3>TURF IRRIGATION</h3>
+                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                        </div>
+                    </div>
+                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
+                        <div class="expert-box-content">
+                            <h3>AG IRRIGATION</h3>
+                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                        </div>
+                    </div>
+                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
+                        <div class="expert-box-content">
+                            <h3>ESPAÑOL</h3>
+                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                        </div>
+                    </div>
+                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
+                        <div class="expert-box-content">
+                            <h3>ORDER NOW</h3>
+                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-
-    <div class="family-container">
-        <div class="family-section">
-            <h1>Part of the Family?</h1>
-            <a href="{{ path('customer-login') }}"><h3>SIGN IN OR REQUEST ONLINE ACCESS</h3></a>
-        </div>
-        <div class="family-section">
-            <h1>Joining the Family?</h1>
-            <a href="#"><h3>GET STARTED & SIGN UP TODAY!</h3></a>
-        </div>
-    </div>
-
-    <div class="divisions-container">
-        <img src="{{ asset('images/branding/divisions.png') }}" alt="{{ productTypes|length }} DIVISIONS BUILT TO SERVE YOU"/>
-        <div class="divisions-grid">
-            {% for productType in productTypes %}
-                <div class="division-box{% if loop.index > 8 %} hidden{% endif %}" style="background-image:url('{{ asset(productType.image) }}');">
-                    <div class="division-box-content"><h3>{{ productType.name }}</h3><hr><p class="shop-now">Shop Now</p></div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="view-toggle-container">
-            <button class="view-toggle-btn" onclick="toggleDivisions()">VIEW MORE ▼</button>
-        </div>
-    </div>
-
-    <section class="locations-cta-section">
-        <div class="locations-cta-container">
-            <div class="locations-info">
-                <div class="locations-count">
-                    <div>{{ stateCount }} STATES,</div>
-                    <div>{{ branchCount }} LOCATIONS.</div>
-                </div>
-                <div class="work-together">LET'S WORK TOGETHER</div>
-            </div>
-            <div class="location-finder">
-                {% set locationsDoc = pimcore_document_by_path('/locations') %}
-                <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}" class="location-btn-link">
-                    <img src="{{ asset('images/misc/location-button.png') }}" alt="Find Location">
-                    <p class="location-btn-text">CLICK TO FIND A LOCATION NEAR YOU</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="events-section">
-        <div class="events-container">
-            <img src="{{ asset('images/branding/events.png') }}" alt="Mountainland Events" class="events-image">
-            <div class="events-content">
-                <div class="events-box">
-                    <h2 id="events-title">MOUNTAINLAND EVENTS</h2>
-                    <div class="events-arrow">
-                        <span class="arrow-bar" id="events-bar" aria-hidden="true"></span>
-                        <span class="arrow-head" aria-hidden="true">→</span>
-                    </div>
-                </div>
-                <p class="events-tagline">Because Every Project Starts ― and Ends ― with You.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="expert-section">
-        <div class="expert-container">
-            <div class="expert-image-container">
-                <img src="{{ asset('images/misc/text-an-expert.png') }}" alt="Text an Expert">
-            </div>
-            <div class="expert-boxes-grid">
-                <div class="expert-box" onclick="toggleExpertBox(this)">
-                    <div class="expert-box-content">
-                        <h3>PLUMBING</h3>
-                        <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                    </div>
-                </div>
-                <div class="expert-box" onclick="toggleExpertBox(this)">
-                    <div class="expert-box-content">
-                        <h3>HVAC</h3>
-                        <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                    </div>
-                </div>
-                <div class="expert-box" onclick="toggleExpertBox(this)">
-                    <div class="expert-box-content">
-                        <h3>PUMP & DRILLING</h3>
-                        <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                    </div>
-                </div>
-                <div class="expert-box" onclick="toggleExpertBox(this)">
-                    <div class="expert-box-content">
-                        <h3>WATERWORKS</h3>
-                        <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                    </div>
-                </div>
-                <div class="expert-box" onclick="toggleExpertBox(this)">
-                    <div class="expert-box-content">
-                        <h3>TURF IRRIGATION</h3>
-                        <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                    </div>
-                </div>
-                <div class="expert-box" onclick="toggleExpertBox(this)">
-                    <div class="expert-box-content">
-                        <h3>AG IRRIGATION</h3>
-                        <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                    </div>
-                </div>
-                <div class="expert-box" onclick="toggleExpertBox(this)">
-                    <div class="expert-box-content">
-                        <h3>ESPAÑOL</h3>
-                        <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                    </div>
-                </div>
-                <div class="expert-box" onclick="toggleExpertBox(this)">
-                    <div class="expert-box-content">
-                        <h3>ORDER NOW</h3>
-                        <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-{% endblock %}
-
-{% block footer %}
-    {{ include('includes/footer.html.twig') }}
-{% endblock %}
-
-{% block scripts %}
-    <script>
-        function toggleDivisions() {
-            const grid = document.querySelector('.divisions-grid');
-            const button = document.querySelector('.view-toggle-btn');
-            grid.classList.toggle('expanded');
-            if (grid.classList.contains('expanded')) {
-                button.innerHTML = 'VIEW LESS ▲';
-            } else {
-                button.innerHTML = 'VIEW MORE ▼';
-            }
-        }
-        function toggleExpertBox(element) {
-            element.classList.toggle('expanded');
-        }
-        function sizeEventsArrowBar() {
-            const title = document.getElementById('events-title');
-            const bar = document.getElementById('events-bar');
-            if (!title || !bar) return;
-            const rect = title.getBoundingClientRect();
-            const rawWidth = Math.max(0, Math.round(rect.width));
-            const adjustedWidth = Math.max(0, rawWidth - 100);
-            bar.style.width = adjustedWidth + 'px';
-        }
-        function debounce(fn, delay) {
-            let t;
-            return function() {
-                clearTimeout(t);
-                t = setTimeout(fn, delay);
-            };
-        }
-        document.addEventListener('DOMContentLoaded', sizeEventsArrowBar);
-        window.addEventListener('load', sizeEventsArrowBar);
-        window.addEventListener('resize', debounce(sizeEventsArrowBar, 100));
-    </script>
 {% endblock %}

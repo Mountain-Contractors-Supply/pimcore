@@ -33,6 +33,7 @@
 
 /public/var/
 /public/sitemap*.xml
+/public/assets/
 
 # PHP-CS-Fixer
 /.php-cs-fixer.php
@@ -64,3 +65,4 @@ supervisord.log
 
 /bundles/*
 !/bundles/.gitkeep
+/assets/vendor/

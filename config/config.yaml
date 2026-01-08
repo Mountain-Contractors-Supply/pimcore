@@ -182,6 +182,12 @@ framework:
         cookie_lifetime: 86400
         gc_maxlifetime: 86400
 
+    asset_mapper:
+        paths:
+            - assets/
+            - vendor/symfony/stimulus-bundle/assets/
+            - vendor/symfony/ux-turbo/assets/
+
 #    WHEN RUNNING PIMCORE AND OTHER APPLICATIONS ON SAME DOMAIN, SET SESSION COOKIE NAME TO PROVIDE COLLISION
 #    session:
 #        name: "PIMCORE_SESSION_ID"

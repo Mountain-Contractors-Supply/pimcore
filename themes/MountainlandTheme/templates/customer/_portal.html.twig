@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/portal.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+    <div class="portal-layout">
+        {% set activePage = app.request.attributes.get('_route') | replace({'customer_': ''}) %}
+        {{ include('customer/_portal_sidebar.html.twig', { activePage: activePage }) }}
+
+        <main class="portal-main">
+            {% block portal_content %}{% endblock %}
+        </main>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,3 @@
+{% for id in refresh_ids %}
+    <turbo-stream action="reload_frame" target="{{ id }}"></turbo-stream>
+{% endfor %}

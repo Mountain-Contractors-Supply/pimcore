@@ -1,0 +1,121 @@
+{% extends 'customer/_portal.html.twig' %}
+
+{% block portal_content %}
+            <div class="portal-header">
+                <h1>Welcome Back, {{ app.user.firstname ?? 'User' }}!</h1>
+                <p>Manage your company's contacts and locations as well as access your historical orders, shipments, and invoices</p>
+            </div>
+
+            <div class="portal-card">
+                <h2>My Contacts</h2>
+                <div class="contacts-list">
+                    <button class="contact-item">John Smith</button>
+                    <button class="contact-item">Sarah Johnson</button>
+                    <button class="contact-item">Mike Williams</button>
+                    <button class="contact-item">Emily Davis</button>
+                </div>
+                <button class="view-all-btn">View All Contacts</button>
+            </div>
+
+            <div class="portal-card">
+                <h2>Your Latest Orders</h2>
+                <div class="orders-list">
+                    <div class="order-item">
+                        <span class="order-number">Order #12345</span>
+                        <span class="order-date">Dec 28, 2025</span>
+                        <span class="order-status">Delivered</span>
+                        <span class="order-total">$1,234.56</span>
+                    </div>
+                    <div class="order-item">
+                        <span class="order-number">Order #12344</span>
+                        <span class="order-date">Dec 20, 2025</span>
+                        <span class="order-status">In Transit</span>
+                        <span class="order-total">$892.34</span>
+                    </div>
+                    <div class="order-item">
+                        <span class="order-number">Order #12343</span>
+                        <span class="order-date">Dec 15, 2025</span>
+                        <span class="order-status">Delivered</span>
+                        <span class="order-total">$2,456.78</span>
+                    </div>
+                </div>
+                <button class="view-all-btn">View Order History</button>
+            </div>
+
+            <div class="portal-row">
+                <div class="portal-card half">
+                    <h2>My Lists</h2>
+                    <div class="lists-content">
+                        <div class="list-item">
+                            <span class="list-name">Plumbing Supplies</span>
+                            <span class="list-count">24 items</span>
+                        </div>
+                        <div class="list-item">
+                            <span class="list-name">HVAC Equipment</span>
+                            <span class="list-count">12 items</span>
+                        </div>
+                        <div class="list-item">
+                            <span class="list-name">Favorites</span>
+                            <span class="list-count">8 items</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portal-card half">
+                    <h2>Your Store</h2>
+                    <div class="store-map">
+                        <img src="{{ asset('images/misc/map-placeholder.png') }}" alt="Store Location">
+                    </div>
+                    <div class="store-info">
+                        <h3>Mountainland Supply - Salt Lake City</h3>
+                        <p>123 Supply Street<br>Salt Lake City, UT 84101</p>
+                        <p class="store-phone">(801) 555-1234</p>
+                    </div>
+                    <button class="view-all-btn">Store Details</button>
+                </div>
+            </div>
+
+            <div class="portal-card useful-tools">
+                <h2>Useful Tools</h2>
+                <div class="tools-grid">
+                    <a href="#" class="tool-item">
+                        <div class="tool-checkbox"></div>
+                        <h3>Request a Bid</h3>
+                    </a>
+                    <a href="#" class="tool-item">
+                        <div class="tool-checkbox"></div>
+                        <h3>Project Tool</h3>
+                    </a>
+                </div>
+            </div>
+
+            <div class="portal-row">
+                <div class="portal-card half">
+                    <h2>Account Locations</h2>
+                    <div class="locations-list">
+                        <div class="location-item">
+                            <strong>Main Office</strong>
+                            <p>456 Business Ave, Salt Lake City, UT 84102</p>
+                        </div>
+                        <div class="location-item">
+                            <strong>Warehouse</strong>
+                            <p>789 Industrial Pkwy, West Valley, UT 84119</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portal-card half">
+                    <h2>Card & Accounts</h2>
+                    <div class="accounts-list">
+                        <div class="account-item">
+                            <span class="account-type">Business Credit</span>
+                            <span class="account-number">****1234</span>
+                        </div>
+                        <div class="account-item">
+                            <span class="account-type">Payment Terms</span>
+                            <span class="account-status">Net 30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

@@ -5,17 +5,8 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
 {% endblock %}
 
-{% block header %}
-    {{ parent() }}
-    {{ include('includes/header.html.twig') }}
-{% endblock %}
-
 {% block content %}
     {{ pimcore_areablock("defaultAreaBrick") }}
-{% endblock %}
-
-{% block footer %}
-    {{ include('includes/footer.html.twig') }}
 {% endblock %}
 
 {% block scripts %}{% endblock %}

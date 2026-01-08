@@ -10,15 +10,6 @@
     <script src="{{ asset('js/checkout.js') }}" defer></script>
 {% endblock %}
 
-{% block header %}
-    {{ parent() }}
-    {{ include('includes/header.html.twig') }}
-{% endblock %}
-
-{% block footer %}
-    {{ include('includes/footer.html.twig') }}
-{% endblock %}
-
 {% block content %}
     <main class="checkout-page">
         <div class="checkout-breadcrumbs">

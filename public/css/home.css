@@ -418,7 +418,10 @@
 .expert-boxes-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 160px);
+    grid-auto-rows: 160px;
+    align-items: start;
+    align-content: start;
     gap: 1.5rem;
 }
 
@@ -429,10 +432,13 @@
     cursor: pointer;
     transition: all 0.3s ease;
     overflow: visible;
-    min-height: 120px;
+    min-height: 160px;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    min-width: 0;
 }
 
 .expert-box::before {
@@ -451,6 +457,8 @@
     text-align: center;
     position: relative;
     z-index: 1;
+    width: 100%;
+    min-width: 0;
 }
 
 .expert-box h3 {
@@ -490,6 +498,9 @@
     border-radius: 4px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     z-index: 100;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
 }
 
 .expert-box.expanded .expert-box-dropdown {

@@ -8,10 +8,6 @@
 
 {% endblock %}
 
-{% block header %}
-    {{ include('includes/header.html.twig') }}
-{% endblock %}
-
 {% block content %}
     <!-- Sidebar toggle button for mobile -->
     <button id="sidebar-toggle" aria-label="Toggle filters sidebar">►</button>
@@ -98,26 +94,22 @@
     </main>
 {% endblock %}
 
-{% block footer %}
-    {{ include('includes/footer.html.twig') }}
-{% endblock %}
-
-{% block scripts %}
-    <script>
-        fetch('/maps/key', {
-            method: 'GET',
-        })
-            .then(res => res.json())
-            .then(({ data }) => {
-                const key = data?.config?.googleMapsApiKey || '';
-                if (!key) throw new Error('Missing Google Maps API key');
-                const script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places,marker&v=weekly`;
-                script.async = true;
-                script.defer = true;
-                document.head.appendChild(script);
-            })
-            .catch(err => console.error('Failed to load Maps API key:', err));
-    </script>
-    <script src="{{ asset('js/locations.js') }}"></script>
-{% endblock %}
+{#{% block scripts %}#}
+{#    <script>#}
+{#        fetch('/maps/key', {#}
+{#            method: 'GET',#}
+{#        })#}
+{#            .then(res => res.json())#}
+{#            .then(({ data }) => {#}
+{#                const key = data?.config?.googleMapsApiKey || '';#}
+{#                if (!key) throw new Error('Missing Google Maps API key');#}
+{#                const script = document.createElement('script');#}
+{#                script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places,marker&v=weekly`;#}
+{#                script.async = true;#}
+{#                script.defer = true;#}
+{#                document.head.appendChild(script);#}
+{#            })#}
+{#            .catch(err => console.error('Failed to load Maps API key:', err));#}
+{#    </script>#}
+{#    <script src="{{ asset('js/locations.js') }}"></script>#}
+{#{% endblock %}#}

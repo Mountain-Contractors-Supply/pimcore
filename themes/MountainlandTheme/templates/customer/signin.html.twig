@@ -1,0 +1,138 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/signin.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="sign-in-page">
+    <div class="sign-in-corner-grid">
+        <div class="sign-in-card">
+            <div class="sign-in-header">
+                <h1>Welcome Back</h1>
+            </div>
+
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Sign in failed:</strong> {{ error }}
+                </div>
+            {% endif %}
+
+            <turbo-frame id="login-form-frame">
+                {{ form_start(form, {
+                    'attr': {
+                        'class': 'sign-in-form',
+                        'novalidate': 'novalidate',
+                        'data-turbo': 'false'
+                    }
+                }) }}
+
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    {{ form_widget(form._username, {
+                        'attr': {
+                            'placeholder': 'Enter your username or email',
+                            'id': 'username',
+                            'autocomplete': 'email',
+                            'required': 'required'
+                        }
+                    }) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    {{ form_widget(form._password, {
+                        'attr': {
+                            'placeholder': 'Enter your password',
+                            'id': 'password',
+                            'autocomplete': 'current-password',
+                            'required': 'required'
+                        }
+                    }) }}
+                    <div class="forgot-password below-input">
+                        <a href="{{ path('home') }}">Forgot your password?</a>
+                    </div>
+                    <div class="remember-me-group below-input">
+                        <input name="_remember_me" type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="button-right">
+                    <button type="submit" class="sign-in-button">
+                        Let's Roll!
+                    </button>
+                </div>
+
+                {{ form_end(form, {'render_rest': false}) }}
+            </turbo-frame>
+        </div>
+
+        <div class="signup-card">
+            <div class="signup-header">
+                <h1>Join Our Family</h1>
+            </div>
+
+            <div class="signup-form">
+                <div class="signup-options">
+                    <a href="#" class="signup-option">
+                        <div class="option-radio"></div>
+                        <div class="option-content">
+                            <h3>I AM NEW TO MOUNTAINLAND</h3>
+                            <p>I want to join the Mountainland Family</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="signup-option">
+                        <div class="option-radio"></div>
+                        <div class="option-content">
+                            <h3>I AM AN EXISTING CUSTOMER</h3>
+                            <p>I need online shopping access</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="benefits-img" style="position: relative;">
+            <img src="{{ asset('images/misc/warehouse.png') }}" alt="Benefits Image">
+            <div class="benefits-img-overlay">
+                When You Shop<br>Mountainland Supply Co.<br>Online You Can...
+            </div>
+        </div>
+        <div class="benefits-card">
+                <div class="benefit-item">
+                    <div class="benefit-check"><img src="{{ asset('images/misc/check.png') }}"></div>
+                    <p>Get special pricing</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check"><img src="{{ asset('images/misc/check.png') }}"></div>
+                    <p>Personalized shopping lists</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check"><img src="{{ asset('images/misc/check.png') }}"></div>
+                    <p>View promotions, deals, & events</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check"><img src="{{ asset('images/misc/check.png') }}"></div>
+                    <p>Contact your salesman</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check"><img src="{{ asset('images/misc/check.png') }}"></div>
+                    <p>View your bids & quotes</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check"><img src="{{ asset('images/misc/check.png') }}"></div>
+                    <p>View your order & product history</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-check"><img src="{{ asset('images/misc/check.png') }}"></div>
+                    <p>And much, much more</p>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

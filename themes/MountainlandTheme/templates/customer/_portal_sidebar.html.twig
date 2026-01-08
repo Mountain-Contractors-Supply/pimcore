@@ -1,0 +1,20 @@
+<aside class="portal-sidebar">
+    <nav class="sidebar-nav">
+        <div class="sidebar-section">
+            <h3 class="sidebar-section-title">Profile</h3>
+            <a href="{{ path('customer_dashboard') }}" class="sidebar-link {{ activePage == 'dashboard' ? 'active' : '' }}">Dashboard</a>
+            <a href="{{ path('customer_accounts') }}" class="sidebar-link {{ activePage == 'accounts' ? 'active' : '' }}">All Accounts</a>
+            <a href="#" class="sidebar-link {{ activePage == 'lists' ? 'active' : '' }}">My Lists</a>
+            <a href="{{ path('customer_bids') }}" class="sidebar-link {{ activePage == 'bids' ? 'active' : '' }}">Bids</a>
+            <a href="#" class="sidebar-link {{ activePage == 'contacts' ? 'active' : '' }}">Contact Listing</a>
+            <a href="#" class="sidebar-link {{ activePage == 'other-resources' ? 'active' : '' }}">Other Resource</a>
+        </div>
+        <div class="sidebar-section">
+            <h3 class="sidebar-section-title">Payment Methods & Orders</h3>
+            <a href="#" class="sidebar-link {{ activePage == 'orders' ? 'active' : '' }}">Order History</a>
+            <a href="#" class="sidebar-link {{ activePage == 'status' ? 'active' : '' }}">Order Status</a>
+            <a href="#" class="sidebar-link {{ activePage == 'returns' ? 'active' : '' }}">Returns & Cancellations</a>
+            <a href="#" class="sidebar-link {{ activePage == 'payment' ? 'active' : '' }}">Payment Methods</a>
+        </div>
+    </nav>
+</aside>
