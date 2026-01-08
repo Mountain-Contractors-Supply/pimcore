@@ -23,7 +23,7 @@ pimcore:
         secret: '%env(PIMCORE_ENCRYPTION_SECRET)%'
     security:
         password_hasher_factories:
-            Pimcore\Model\DataObject\Customer: app.customer_password_hasher_factory
+            Pimcore\Model\DataObject\Customer: mcsupply.ecommerce.customer_password_hasher_factory
 
      # config_location:
      #    image_thumbnails:
