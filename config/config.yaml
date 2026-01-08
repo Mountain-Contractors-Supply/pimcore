@@ -21,6 +21,11 @@ pimcore:
         instance_identifier: '%env(PIMCORE_INSTANCE_IDENTIFIER)%'
     encryption:
         secret: '%env(PIMCORE_ENCRYPTION_SECRET)%'
+    security:
+        factory_type: password_hasher
+        password_hasher_factories:
+            Pimcore\Model\DataObject\Customer: app.customer_password_hasher_factory
+
      # config_location:
      #    image_thumbnails:
      #        write_target:

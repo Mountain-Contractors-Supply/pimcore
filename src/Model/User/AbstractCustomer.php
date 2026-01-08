@@ -2,148 +2,62 @@
 
 namespace App\Model\User;
 
-use CustomerManagementFrameworkBundle\Model\AbstractCustomer\DefaultAbstractUserawareCustomer;
-use McSupply\EcommerceBundle\Dto\Address\AddressInterface;
-use McSupply\EcommerceBundle\Dto\Company\AccountInterface;
+use App\Model\AbstractModel;
+use Exception;
 use McSupply\EcommerceBundle\Dto\User\CustomerInterface;
-//use CustomerManagementFrameworkBundle\Model\AbstractCustomer;
-use McSupply\EcommerceBundle\Dto\User\PasswordRecoveryInterface;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Password;
 
-abstract class AbstractCustomer extends DefaultAbstractUserawareCustomer implements CustomerInterface, PasswordRecoveryInterface
+abstract class AbstractCustomer extends AbstractModel implements CustomerInterface
 {
     /**
-     * @return string|null
+     * @inheritDoc
      */
     #[\Override]
-
-    public function getGender(): ?string
+    public function getUserIdentifier(): string
     {
-        return null;
+        return (string)$this->getEmail();
     }
 
     /**
      * @inheritDoc
      */
     #[\Override]
-
-    public function setGender(?string $gender): static
+    public function getIsActive(): ?bool
     {
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    #[\Override]
-
-    public function getStreet(): ?string
-    {
-        return $this->getAddress()?->getLine1();
+        return $this->getPublished();
     }
 
     /**
      * @inheritDoc
      */
     #[\Override]
-
-    public function setStreet(?string $street): static
+    public function setIsActive(?bool $isActive): static
     {
-        $this->getAddress()?->setLine1($street);
+        $this->setPublished($isActive);
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    #[\Override]
 
-    public function getZip(): ?string
-    {
-        return $this->getAddress()?->getZip();
-    }
 
     /**
      * @inheritDoc
      */
     #[\Override]
-
-    public function setZip(?string $zip): static
+    public function getRoles(): array
     {
-        $this->getAddress()?->setZip($zip);
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    #[\Override]
-
-    public function getCity(): ?string
-    {
-        return $this->getAddress()?->getCity();
+        return ['ROLE_USER'];
     }
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     #[\Override]
-
-    public function setCity(?string $city): static
+    public function eraseCredentials(): void
     {
-        $this->getAddress()?->setZip($city);
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    #[\Override]
-
-    public function getCountryCode(): ?string
-    {
-        return $this->getAddress()?->getCountry();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    #[\Override]
-
-    public function setCountryCode(?string $countryCode): static
-    {
-        $this->getAddress()?->setCountry($countryCode);
-
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    #[\Override]
-
-    public function setIdEncoded(?string $idEncoded): void
-    {
-
-    }
-
-    /**
-     * @return string|null
-     */
-    #[\Override]
-
-    public function getIdEncoded(): ?string
-    {
-        return null;
-    }
-
-    private function getAddress(): ?AddressInterface
-    {
-        /** @var AccountInterface|null $account */
-        $account = $this->getAccounts()[0] ?? null;
-
-        return $account?->getAddress();
+        /** @var Password $field */
+        $field = $this->getClass()->getFieldDefinition('password');
+        $field->getDataForResource($this->getPassword(), $this);
     }
 }

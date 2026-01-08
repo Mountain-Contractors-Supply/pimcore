@@ -10,7 +10,6 @@
  * - email [email]
  * - phone [input]
  * - languages [languagemultiselect]
- * - active [checkbox]
  * - accounts [manyToManyObjectRelation]
  * - manualSegments [advancedManyToManyObjectRelation]
  * - calculatedSegments [advancedManyToManyObjectRelation]
@@ -26,7 +25,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1765483115,
+   'modificationDate' => 1767904940,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\User\\AbstractCustomer',
@@ -275,6 +274,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'options' => NULL,
                  'maxItems' => NULL,
                  'renderType' => 'list',
+                 'enforceValidation' => false,
                  'dynamicOptions' => false,
                  'defaultValue' => 
                 array (
@@ -286,28 +286,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'optionsProviderClass' => NULL,
                  'optionsProviderData' => NULL,
                  'onlySystemLanguages' => false,
-              )),
-              3 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'name' => 'active',
-                 'title' => 'Active',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => 1,
-                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
@@ -590,9 +568,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'algorithm' => 'password_hash',
-                 'salt' => '',
-                 'saltlocation' => 'back',
                  'minimumLength' => NULL,
                  'width' => '',
               )),
@@ -717,6 +692,28 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+       'name' => 'active',
+       'title' => 'Active',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'defaultValue' => 1,
+       'defaultValueGenerator' => '',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

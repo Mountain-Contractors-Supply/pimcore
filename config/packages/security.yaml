@@ -3,6 +3,9 @@ security:
         pimcore_admin:
             id: Pimcore\Security\User\UserProvider
 
+        customer_provider:
+            id: App\Provider\CustomerProvider
+
     firewalls:
         dev:
             pattern: ^/(css|images|js)/
@@ -16,6 +19,22 @@ security:
 
         # Pimcore Admin Bundle firewall
         pimcore_admin: '%pimcore_admin_bundle.firewall_settings%'
+
+        customer:
+            pattern: ^/
+            provider: customer_provider
+            entry_point: form_login
+            form_login:
+                enable_csrf: true
+                login_path: customer-signin
+                check_path: customer-signin
+                default_target_path: home
+            logout:
+                path: customer-logout
+                target: home
+                invalidate_session: false
+            remember_me:
+                secret: '%env(APP_SECRET)%'
 
     access_control:
         # Pimcore admin ACl  // DO NOT CHANGE!
