@@ -11,7 +11,7 @@
         </div>
         <div class="sidebar-section">
             <h3 class="sidebar-section-title">Payment Methods & Orders</h3>
-            <a href="#" class="sidebar-link {{ activePage == 'orders' ? 'active' : '' }}">Order History</a>
+            <a href="{{ path('customer_history') }}" class="sidebar-link {{ activePage == 'history' ? 'active' : '' }}">Order History</a>
             <a href="#" class="sidebar-link {{ activePage == 'status' ? 'active' : '' }}">Order Status</a>
             <a href="#" class="sidebar-link {{ activePage == 'returns' ? 'active' : '' }}">Returns & Cancellations</a>
             <a href="#" class="sidebar-link {{ activePage == 'payment' ? 'active' : '' }}">Payment Methods</a>

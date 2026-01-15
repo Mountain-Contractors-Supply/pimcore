@@ -94,4 +94,13 @@ final readonly class BranchProvider implements BranchProviderInterface
             'stateCount' => count(array_unique($states)),
         ];
     }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function getBranch(int $id): ?BranchInterface
+    {
+        return Branch::getById($id);
+    }
 }

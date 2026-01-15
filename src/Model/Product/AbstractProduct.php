@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Model\Product;
 
 use App\EventListener\PreAddUpdateAwareInterface;
+use App\Model\AbstractModel;
 use McSupply\EcommerceBundle\Dto\Product\LineInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
-use Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractProduct as PimcoreAbstractProduct;
 use Pimcore\Model\DataObject\Line;
 use Pimcore\Model\DataObject\ProductCategory;
 use Pimcore\Model\Element\ElementInterface;
 
-abstract class AbstractProduct extends PimcoreAbstractProduct implements ProductInterface, PreAddUpdateAwareInterface
+abstract class AbstractProduct extends AbstractModel implements ProductInterface, PreAddUpdateAwareInterface
 {
     /**
      * @return ProductCategory[]
@@ -25,34 +25,6 @@ abstract class AbstractProduct extends PimcoreAbstractProduct implements Product
      * @return $this
      */
     public abstract function setCategoriesRef(?array $categoriesRef): static;
-
-    /**
-     * @inheritDoc
-     */
-    #[\Override]
-    public function getOSProductNumber(): ?string
-    {
-        return (string)$this->getId();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    #[\Override]
-    public function getPriceSystemName(): string
-    {
-        //TODO: implement this properly
-        return 'TBD';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    #[\Override]
-    public function isActive(bool $inProductList = false): bool
-    {
-        return $this->isPublished();
-    }
 
     /**
      * @inheritDoc

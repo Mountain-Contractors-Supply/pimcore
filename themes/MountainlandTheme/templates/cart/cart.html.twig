@@ -17,8 +17,12 @@
             </div>
         </header>
 
-        <turbo-frame id="cart-list-frame" src="{{ path('cart_list_partial') }}" loading="lazy">
-            {% include 'cart/_cart_list_frame.html.twig' with { 'cartData': cartData } %}
+        <turbo-frame id="cart-list-frame"
+                     src="{{ path('cart_list_partial') }}"
+                     data-controller="refresh"
+                     data-action="reload@window->refresh#reload"
+                     loading="lazy">
+            {% include 'cart/_cart_list_frame.html.twig' with { 'cart': cart } %}
         </turbo-frame>
     </main>
 {% endblock %}

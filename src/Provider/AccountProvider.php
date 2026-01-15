@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Provider;
 
+use McSupply\EcommerceBundle\Dto\Company\AccountInterface;
 use McSupply\EcommerceBundle\Dto\User\CustomerInterface;
 use McSupply\EcommerceBundle\Provider\AccountProviderInterface;
 use McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface;
+use Pimcore\Model\DataObject\Account;
 use Symfony\Bundle\SecurityBundle\Security;
 
 final readonly class AccountProvider implements AccountProviderInterface
@@ -48,5 +50,14 @@ final readonly class AccountProvider implements AccountProviderInterface
     public function isValidShipTo(string $accountId): bool
     {
         return isset($this->getValidShipTos()[$accountId]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function getAccount(string $accountId): ?AccountInterface
+    {
+        return Account::getByAccountId($accountId, 1);
     }
 }

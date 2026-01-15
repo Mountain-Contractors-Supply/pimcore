@@ -2,12 +2,12 @@
 
 {% block portal_content %}
             <div class="portal-header">
-                <h1>Bids</h1>
-                <p>Search and manage your bids</p>
+                <h1>Order History</h1>
+                <p>Search and manage your Orders</p>
             </div>
 
             <div class="portal-card account-form-card">
-                <h2>Search Bids</h2>
+                <h2>Search Orders</h2>
                 <form class="account-form" method="get" action="{{ path('customer_bids') }}">
                     <div class="form-row">
                         <div class="form-group">
@@ -21,8 +21,8 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="quote">Quote #</label>
-                            <input type="text" id="quote" name="quote" placeholder="Quote Number">
+                            <label for="order">Order #</label>
+                            <input type="text" id="order" name="order" placeholder="Order Number">
                         </div>
                         <div class="form-group">
                             <label for="purchaseOrder">Purchase Order</label>
@@ -52,14 +52,14 @@
             </div>
 
             <div class="portal-card">
-                <h2>All Bids</h2>
+                <h2>All Orders</h2>
                 <div class="accounts-table-wrapper">
                     <table class="accounts-table">
                         <thead>
                             <tr>
-                                <th scope="col">Quote #</th>
-                                <th scope="col">Quote Date</th>
-                                <th scope="col">Quote Total</th>
+                                <th scope="col">Order #</th>
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Order Total</th>
                                 <th scope="col">Purchase Order</th>
                                 <th scope="col">Job Reference</th>
                                 <th scope="col">Status</th>
@@ -97,38 +97,5 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-            <div class="portal-card account-form-card">
-                <h2>Request a Project Bid</h2>
-                <form class="account-form" method="post" action="{{ path('customer_bids') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('bid_request_form') }}">
-                    <div class="form-row">
-                        <div class="form-group full-width">
-                            <label for="jobName">Job Name <span class="required-indicator">*</span></label>
-                            <input type="text" id="jobName" name="jobName" placeholder="Project or Job Name" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="po">Purchase Order (PO) <span class="required-indicator">*</span></label>
-                            <input type="text" id="po" name="po" placeholder="Purchase Order Number" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="startDate">Start Date <span class="required-indicator">*</span></label>
-                            <input type="date" id="startDate" name="startDate" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group full-width">
-                            <label for="details">Details <span class="required-indicator">*</span></label>
-                            <textarea id="details" name="details" rows="6" placeholder="Please provide detailed information about your project requirements" required></textarea>
-                        </div>
-                    </div>
-                    <div class="form-actions-with-disclaimer">
-                        <p class="bid-disclaimer"><em>When you submit your request, it will be processed within 1-3 business days. Once processed, you will receive an email or call from your salesman for further details.</em></p>
-                        <button type="submit" class="submit-btn">Submit Request</button>
-                    </div>
-                </form>
             </div>
 {% endblock %}

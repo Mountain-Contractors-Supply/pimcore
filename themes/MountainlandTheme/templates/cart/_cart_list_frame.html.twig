@@ -1,7 +1,10 @@
-<turbo-frame id="cart-list-frame">
+<turbo-frame
+    id="cart-list-frame"
+    data-controller="refresh"
+    data-action="reload@window->refresh#reload">
     <div class="cart-grid">
         <div class="cart-items">
-            {% for item in cartData.items  %}
+            {% for item in cart.items  %}
                 {% include 'cart/_cart_item.html.twig' with {'item': item} %}
             {% endfor %}
 
@@ -30,7 +33,7 @@
                 <h2>Order Summary</h2>
                 <div class="summary-row">
                     <span>Subtotal</span>
-                    <span id="summary-subtotal">{{ cartData.subTotal|number_format(2, '.', ',') }}</span>
+                    <span id="summary-subtotal">{{ cart.subTotal|number_format(2, '.', ',') }}</span>
                 </div>
                 <div class="summary-row">
                     <span>Shipping</span>
@@ -38,12 +41,12 @@
                 </div>
                 <div class="summary-row">
                     <span>Tax (est.)</span>
-                    <span id="summary-tax">{{ cartData.tax|number_format(2, '.', ',') }}</span>
+                    <span id="summary-tax">{{ cart.tax|number_format(2, '.', ',') }}</span>
                 </div>
                 <hr />
                 <div class="summary-row total">
                     <span>Total</span>
-                    <span id="summary-total">{{ cartData.totalDue|number_format(2, '.', ',') }}</span>
+                    <span id="summary-total">{{ cart.totalDue|number_format(2, '.', ',') }}</span>
                 </div>
                 <a href="{{ path('checkout') }}" class="btn-primary full" data-turbo-frame="_top">Proceed to Checkout</a>
                 <a href="{{ path('home') }}" class="btn-secondary full">Continue Shopping</a>

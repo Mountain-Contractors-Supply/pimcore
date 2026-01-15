@@ -290,7 +290,12 @@
                aria-label="View Cart"
                data-turbo-frame="_top">
                 <img src="{{ asset('images/misc/shopping-bag.png') }}" alt="Bag" />
-                <turbo-frame id="cart-data-frame" src="{{ path('cart_data_partial') }}" loading="lazy">
+                <turbo-frame
+                    id="cart-data-frame"
+                    src="{{ path('cart_data_partial') }}"
+                    data-controller="refresh"
+                    data-action="reload@window->refresh#reload"
+                    loading="lazy">
                     <div class="bag-info"></div>
                 </turbo-frame>
             </a>
