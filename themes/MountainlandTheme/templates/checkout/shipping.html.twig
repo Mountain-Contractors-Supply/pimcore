@@ -1,0 +1,81 @@
+{% extends '/checkout/checkout.html.twig' %}
+
+{% block checkout_step %}
+    <section class="checkout-step-panel is-active" data-step="overview" data-controller="checkout">
+        <form method="post" action="{{ path('checkout-shipping') }}">
+            <article class="card">
+                <div id="saved-address-section" class="form-group" data-checkout-target="savedAddressSection">
+                    <label for="saved-addresses">Shipping address</label>
+                    <select id="saved-addresses">
+                        <option value="">Select an address</option>
+                        {% for address in addresses %}
+                            <option value="{{ loop.index0 }}">{{ address.line1 }}, {{ address.city }}, {{ address.state }} {{ address.zip }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group form-inline">
+                    <label><input type="checkbox" id="add-new-address" data-checkout-target="checkbox" data-action="change->checkout#toggle" /> Add new address</label>
+                </div>
+                <div id="new-address-section" class="new-address-form" style="display: none;" data-checkout-target="newAddressSection">
+                    {{ include('partials/_address.html.twig', { 'prefix': 'new-address' }) }}
+                </div>
+            </article>
+
+            <article class="card">
+                <h3>Shipping method</h3>
+                <div class="form-group">
+                    {% for shipMethod in shipMethods %}
+                        <label class="option-row">
+                            <input type="radio" name="ship-method" value="{{ shipMethod.code }}" {% if loop.first %}checked{% endif %} />
+                            <span>{{ shipMethod.name }}</span>
+                            <span class="option-amount">${{ 0|number_format(2, '.', ',') }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="form-group">
+                    <label for="requested-date">Requested ship date</label>
+                    <input id="requested-date" type="date" />
+                </div>
+            </article>
+
+            <article class="card">
+                <h3>Customer information</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="attention">Attention</label>
+                        <input id="attention" type="text" placeholder="Attention" />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input id="phone" type="text" placeholder="+1 (555) 123-4567" maxlength="17" />
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input id="company" type="text" placeholder="Company" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" placeholder="name@example.com" />
+                    </div>
+                    <div class="form-group">
+                        <label for="po-number">PO Number</label>
+                        <input id="po-number" type="text" placeholder="PO Number" />
+                    </div>
+                    <div class="form-group">
+                        <label for="job-ref">Job Reference</label>
+                        <input id="job-ref" type="text" placeholder="Job Reference" />
+                    </div>
+                </div>
+            </article>
+
+            {{ include('checkout/_step_navigation.html.twig', {
+                'next_step': 'payment',
+                'next_text': 'Proceed to payment'
+            }) }}
+
+        </form>
+    </section>
+{% endblock %}

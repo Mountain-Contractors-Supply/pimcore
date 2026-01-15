@@ -1,41 +1,45 @@
-<div class="card">
-    <h2>Order Summary</h2>
-    <div class="summary-row">
-        <span>Subtotal</span>
-        <span>${{ cart.subTotal|number_format(2, '.', ',') }}</span>
-    </div>
-    <div class="summary-row">
-        <span>Shipping ({{ shipMethods|length ? (shipMethods|first).name : 'Shipping' }})</span>
-        <span>${{ cart.freight|number_format(2, '.', ',') }}</span>
-    </div>
-    <div class="summary-row">
-        <span>Tax (est.)</span>
-        <span>${{ cart.tax|number_format(2, '.', ',') }}</span>
-    </div>
-    <hr />
-    <div class="summary-row total">
-        <span>Total</span>
-        <span>${{ cart.totalDue|number_format(2, '.', ',') }}</span>
-    </div>
+<turbo-frame id="order-summary-frame">
 
-    {% if show_terms_agreement is defined and show_terms_agreement %}
-        <div class="terms-agreement">
-            <label>
-                <input type="checkbox" id="terms-checkbox" />
-                <span>I have read and agreed to the <a href="#" target="_blank">Terms and Conditions</a></span>
-            </label>
+    <div class="card">
+        <h2>Order Summary</h2>
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span>${{ cart.subTotal|number_format(2, '.', ',') }}</span>
         </div>
-    {% endif %}
+        <div class="summary-row">
+            <span>Shipping ({{ shipMethods|length ? (shipMethods|first).name : 'Shipping' }})</span>
+            <span>${{ cart.freight|number_format(2, '.', ',') }}</span>
+        </div>
+        <div class="summary-row">
+            <span>Tax (est.)</span>
+            <span>${{ cart.tax|number_format(2, '.', ',') }}</span>
+        </div>
+        <hr />
+        <div class="summary-row total">
+            <span>Total</span>
+            <span>${{ cart.totalDue|number_format(2, '.', ',') }}</span>
+        </div>
 
-    {% if button_text is defined %}
-        {% if button_data_attribute is defined %}
-            <button class="btn-primary full" type="button" {{ button_data_attribute }}>{{ button_text }}</button>
-        {% else %}
-            <button class="btn-primary full" type="button" id="{{ button_id|default('checkout-btn') }}">{{ button_text }}</button>
+        {% if show_terms_agreement is defined and show_terms_agreement %}
+            <div class="terms-agreement">
+                <label>
+                    <input type="checkbox" id="terms-checkbox" />
+                    <span>I have read and agreed to the <a href="#" target="_blank">Terms and Conditions</a></span>
+                </label>
+            </div>
         {% endif %}
-    {% endif %}
 
-    {% if fine_print is defined %}
-        <p class="fine-print">{{ fine_print }}</p>
-    {% endif %}
-</div>
+        {% if button_text is defined %}
+            {% if button_data_attribute is defined %}
+                <button class="btn-primary full" type="button" {{ button_data_attribute }}>{{ button_text }}</button>
+            {% else %}
+                <button class="btn-primary full" type="button" id="{{ button_id|default('checkout-btn') }}">{{ button_text }}</button>
+            {% endif %}
+        {% endif %}
+
+        {% if fine_print is defined %}
+            <p class="fine-print">{{ fine_print }}</p>
+        {% endif %}
+    </div>
+
+</turbo-frame>

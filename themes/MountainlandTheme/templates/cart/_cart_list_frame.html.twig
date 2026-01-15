@@ -48,7 +48,7 @@
                     <span>Total</span>
                     <span id="summary-total">{{ cart.totalDue|number_format(2, '.', ',') }}</span>
                 </div>
-                <a href="{{ path('checkout') }}" class="btn-primary full" data-turbo-frame="_top">Proceed to Checkout</a>
+                <a href="{{ path('checkout-shipping') }}" class="btn-primary full" data-turbo-frame="_top">Proceed to Checkout</a>
                 <a href="{{ path('home') }}" class="btn-secondary full">Continue Shopping</a>
             </div>
             <a href="#" class="return-policy-link">View Return Policy</a>
