@@ -70,3 +70,20 @@ services:
     App\Twig\Extension\:
         resource: '../src/Twig/Extension'
         tags: [ 'twig.extension' ]
+
+    App\EventListener\AdminFileLoaderEventListener:
+        tags:
+            - {
+                name: kernel.event_listener,
+                event: pimcore.bundle_manager.paths.js,
+                method: addJSFiles,
+            }
+            - {
+                name: kernel.event_listener,
+                event: pimcore.bundle_manager.paths.css,
+                method: addCSSFiles,
+            }
+
+    App\ExpressionLanguage\BasicExpressionProvider:
+        tags:
+            - { name: 'pimcore.calculated_value.expression_language_provider' }
