@@ -63,6 +63,4 @@ supervisord.log
 /config/local/product_registration.yaml
 /var/config/needs-install.lock
 
-/bundles/*
-!/bundles/.gitkeep
 /assets/vendor/
