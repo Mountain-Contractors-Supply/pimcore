@@ -285,20 +285,20 @@
     </div>
     <div class="header-top-right">
         {% if is_granted('ROLE_USER') %}
-            <a href="{{ path('cart') }}"
-               class="bag-link"
-               aria-label="View Cart"
-               data-turbo-frame="_top">
-                <img src="{{ asset('images/misc/shopping-bag.png') }}" alt="Bag" />
                 <turbo-frame
                     id="cart-data-frame"
                     src="{{ path('cart_data_partial') }}"
                     data-controller="refresh"
                     data-action="reload@window->refresh#reload"
                     loading="lazy">
-                    <div class="bag-info"></div>
+                    <a href="{{ path('cart') }}"
+                       class="bag-link"
+                       aria-label="View Cart"
+                       data-turbo-frame="_top">
+                        <img src="{{ asset('images/misc/shopping-bag.png') }}" alt="Bag" />
+                        <div class="bag-info"></div>
+                    </a>
                 </turbo-frame>
-            </a>
 
             <a class="branch-dropdown" id="branch-dropdown" href="/locations">
                 <div class="branch-info" id="branch-info">

@@ -2,21 +2,27 @@
     id="cart-data-frame"
     data-controller="refresh"
     data-action="reload@window->refresh#reload">
-    <div class="bag-info">
-        <span class="bag-count">
-            {% if cart %}
-                {% set itemCount = cart.items|length %}
-                {{ itemCount == 1 ? '1 item' : itemCount ~ ' items' }}
-            {% else %}
-                0 items
-            {% endif %}
-        </span>
-        <span class="bag-total">
-            {% if cart and cart.subTotal %}
-                ${{ cart.subTotal|number_format(2, '.', ',') }}
-            {% else %}
-                $0.00
-            {% endif %}
-        </span>
-    </div>
+    <a href="{{ path('cart') }}"
+       class="bag-link"
+       aria-label="View Cart"
+       data-turbo-frame="_top">
+        <img src="{{ asset('images/misc/shopping-bag.png') }}" alt="Bag" />
+        <div class="bag-info">
+            <span class="bag-count">
+                {% if cart %}
+                    {% set itemCount = cart.items|length %}
+                    {{ itemCount == 1 ? '1 item' : itemCount ~ ' items' }}
+                {% else %}
+                    0 items
+                {% endif %}
+            </span>
+            <span class="bag-total">
+                {% if cart and cart.subTotal %}
+                    ${{ cart.subTotal|number_format(2, '.', ',') }}
+                {% else %}
+                    $0.00
+                {% endif %}
+            </span>
+        </div>
+    </a>
 </turbo-frame>
