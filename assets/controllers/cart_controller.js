@@ -23,10 +23,6 @@ export default class extends Controller {
         this.updateQuantity(newQty);
     }
 
-    remove() {
-        this.deleteItem();
-    }
-
     inputChanged() {
         const newQty = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue);
 
@@ -35,42 +31,24 @@ export default class extends Controller {
     }
 
     async updateQuantity(quantity) {
-        if (!this.productIdValue || !this.uomValue) {
-            console.error('Missing productId or uom values');
-            return;
-        }
-
         try {
-            const body = new URLSearchParams({ quantity: String(quantity) });
             await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: body.toString()
-            }).then(() => this.updateView());
+                body: new URLSearchParams({quantity})
+            });
         } catch (error) {
             console.error('Error updating quantity:', error);
         }
     }
 
-    async deleteItem() {
-        if (!this.productIdValue || !this.uomValue) {
-            console.error('Missing productId or uom values');
-            return;
-        }
-
+    async remove() {
         try {
             await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, {
                 method: 'DELETE'
-            }).then(() => this.updateView());
+            });
         } catch (error) {
             console.error('Error updating quantity:', error);
-        }
-    }
-
-    updateView() {
-        const frame = document.getElementById("cart-list-frame");
-        if (frame && typeof frame.reload === "function") {
-            frame.reload();
         }
     }
 }
