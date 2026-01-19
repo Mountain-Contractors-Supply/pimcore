@@ -16,6 +16,7 @@ jobs:
       actions: read
     with:
       CHECKOUT_WITH_GITHUB_APP: true
+      SUBMODULES: true
     secrets:
       GITHUB_APP_ID: ${{ secrets.GH_APP_ID }}
       GITHUB_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
