@@ -15,7 +15,8 @@ jobs:
       contents: read
       actions: read
     with:
-      CHECKOUT_WITH_GITHUB_APP: true
+      GITHUB_APP_CHECKOUT: true
+      GITHUB_APP_CHECKOUT_REPOSITORIES: pimcore,ecommerce-bundle
       SUBMODULES: true
     secrets:
       GITHUB_APP_ID: ${{ secrets.GH_APP_ID }}
