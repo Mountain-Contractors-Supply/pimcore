@@ -1,29 +1,29 @@
 name: CI
 
 on:
-    pull_request:
-        types: [opened, reopened, synchronize]
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 concurrency:
-    group: ci__${{ github.ref }}
-    cancel-in-progress: true
+  group: ci__${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-    CI:
-        uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/ci-docker.yml@v7
-        permissions:
-            contents: read
-            actions: read
-        with:
-            GITHUB_APP_CHECKOUT: true
-            GITHUB_APP_CHECKOUT_REPOSITORIES: pimcore,ecommerce-bundle
-            SUBMODULES: true
-        secrets:
-            GITHUB_APP_ID: ${{ secrets.GH_APP_ID }}
-            GITHUB_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
-            BUILD_TIME_SECRETS: >
-                {
-                  "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
-                  "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
-                  "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}"
-                }
+  CI:
+    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/ci-docker.yml@v7
+    permissions:
+      contents: read
+      actions: read
+    with:
+      GITHUB_APP_CHECKOUT: true
+      GITHUB_APP_CHECKOUT_REPOSITORIES: pimcore,ecommerce-bundle
+      SUBMODULES: true
+    secrets:
+      GITHUB_APP_ID: ${{ secrets.GH_APP_ID }}
+      GITHUB_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      BUILD_TIME_SECRETS: >
+        {
+          "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
+          "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
+          "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}"
+        }
