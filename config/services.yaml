@@ -67,10 +67,6 @@ services:
     App\EventListener\:
         resource: '../src/EventListener'
 
-    App\Twig\Extension\:
-        resource: '../src/Twig/Extension'
-        tags: [ 'twig.extension' ]
-
     App\EventListener\AdminFileLoaderEventListener:
         tags:
             - {
