@@ -1,0 +1,155 @@
+pimcore_data_hub:
+    configurations:
+        Rewards:
+            general:
+                type: dataImporterDataObject
+                name: Rewards
+                description: ''
+                group: ''
+                active: false
+                path: null
+                modificationDate: 1765408537
+                createDate: 1752766453
+            loaderConfig:
+                type: sql
+                settings:
+                    connection: doctrine.dbal.sql_connection
+                    select: "\ncase\nwhen reward_category_no = 1 then 'Trips'\nwhen reward_category_no = 2 then 'Sporting Events'\nwhen reward_category_no = 3 then 'Concerts'\nwhen reward_category_no = 4 then 'Family Fun'\nwhen reward_category_no = 5 then 'Company Events & Perks'\nwhen reward_category_no = 6 then 'Hunting & Fishing'\nend as category,\nreward_name,\npoints_required,\nreward_summary_content,\ncast(start_dt as date) as start_dt,\ncast(end_dt as date) as end_dt,\ncase\nwhen active_flg = 'Y' then 1\nelse 0\nend as publish"
+                    from: ks.reward
+                    where: ''
+                    groupBy: ''
+            interpreterConfig:
+                type: sql
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: reward
+                loadingStrategy:
+                    type: id
+                    settings:
+                        dataSourceIndex: reward_name
+                createLocationStrategy:
+                    type: findParent
+                    settings:
+                        findStrategy: attribute
+                        attributeDataObjectClassId: rewardCategory
+                        attributeName: key
+                        attributeLanguage: ''
+                        dataSourceIndex: category
+                        fallbackPath: /Rewards
+                locationUpdateStrategy:
+                    type: findParent
+                    settings:
+                        findStrategy: attribute
+                        attributeDataObjectClassId: rewardCategory
+                        attributeName: key
+                        attributeLanguage: ''
+                        dataSourceIndex: category
+                        fallbackPath: /Rewards
+                publishingStrategy:
+                    type: attributeBased
+                    settings:
+                        dataSourceIndex: publish
+            processingConfig:
+                executionType: parallel
+                idDataIndex: ''
+            mappingConfig:
+                -
+                    label: Name
+                    dataSourceIndex:
+                        - reward_name
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: key
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'Points Required'
+                    dataSourceIndex:
+                        - points_required
+                    transformationResultType: numeric
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: pointsRequired
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            type: numeric
+                -
+                    label: Information
+                    dataSourceIndex:
+                        - reward_summary_content
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: information
+                            language: en
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'Name Field'
+                    dataSourceIndex:
+                        - reward_name
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: name
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: 'Start Date'
+                    dataSourceIndex:
+                        - start_dt
+                    settings:
+                        format: Y-m-d
+                    transformationResultType: date
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: startDate
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                format: Y-m-d
+                            type: date
+                -
+                    label: 'End Date'
+                    dataSourceIndex:
+                        - end_dt
+                    settings:
+                        format: Y-m-d
+                    transformationResultType: date
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: endDate
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                format: Y-m-d
+                            type: date
+            executionConfig:
+                scheduleType: recurring
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }

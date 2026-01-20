@@ -1,0 +1,9 @@
+doctrine_migrations:
+    connection: ~
+    em: ecommerce
+    storage:
+        table_storage:
+            # Shorten the version column to fit within the 3072-byte index limit
+            version_column_length: 191
+    migrations_paths:
+        'McSupply\EcommerceBundle\Migrations': '%kernel.project_dir%/vendor/mcsupply/ecommerce-bundle/src/Migrations'

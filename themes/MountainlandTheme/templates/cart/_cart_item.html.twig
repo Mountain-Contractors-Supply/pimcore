@@ -1,0 +1,42 @@
+<article data-controller="cart"
+         class="cart-item"
+         data-cart-product-id-value="{{ item.product.productId }}"
+         data-cart-uom-value="{{ item.quantityOrdered.uom }}"
+         data-cart-min-quantity-value="1">
+    <div class="item-image">
+        <img src="/var/assets/images/misc/camera.png" alt="{{ item.product.name }}">
+    </div>
+    <div class="item-body">
+        <div class="item-row">
+            <div>
+                <h3>{{ item.product.name }}</h3>
+                <p class="item-meta">SKU: {{ item.product.productId }}</p>
+                <div class="pill-row">
+                    <span class="pill">{{ item.product.brand }}</span>
+                </div>
+            </div>
+            <span class="item-price">{{ item.price|number_format(2, '.', ',') }} / {{ item.quantityOrdered.uom }}</span>
+        </div>
+        <div class="item-row item-actions">
+            <div class="qty-control">
+                <button data-cart-target="decreaseBtn"
+                        data-action="click->cart#decrease"
+                        class="btn-ghost qty-decrease">−</button>
+
+                <input type="number"
+                       data-cart-target="qtyInput"
+                       data-action="change->cart#inputChanged"
+                       min="1"
+                       value="{{ item.quantityOrdered.quantity }}">
+
+                <button data-cart-target="increaseBtn"
+                        data-action="click->cart#increase"
+                        class="btn-ghost qty-increase">+</button>
+            </div>
+            <button class="btn-link remove-item"
+                    data-cart-target="removeBtn"
+                    data-action="click->cart#remove">Remove</button>
+            <span class="item-subtotal">{{ item.extendedPrice|number_format(2, '.', ',') }}</span>
+        </div>
+    </div>
+</article>

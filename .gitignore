@@ -33,6 +33,7 @@
 
 /public/var/
 /public/sitemap*.xml
+/public/assets/
 
 # PHP-CS-Fixer
 /.php-cs-fixer.php
@@ -61,3 +62,5 @@ supervisord.log
 # Pimcore installation files
 /config/local/product_registration.yaml
 /var/config/needs-install.lock
+
+/assets/vendor/

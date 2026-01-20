@@ -1,0 +1,159 @@
+{% extends 'customer/_portal.html.twig' %}
+
+{% block portal_content %}
+            <div class="portal-header">
+                <h1>All Accounts</h1>
+                <p>View and manage all your company accounts</p>
+            </div>
+
+            <div class="portal-card">
+                <h2>Account List</h2>
+                <div class="accounts-table-wrapper">
+                    <table class="accounts-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Account Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">City</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Zip</th>
+                                <th scope="col">Country</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mountain Construction LLC</td>
+                                <td>1234 Summit Drive</td>
+                                <td>Salt Lake City</td>
+                                <td>UT</td>
+                                <td>84101</td>
+                                <td>USA</td>
+                            </tr>
+                            <tr>
+                                <td>Valley Plumbing Services</td>
+                                <td>5678 Canyon Road</td>
+                                <td>Provo</td>
+                                <td>UT</td>
+                                <td>84601</td>
+                                <td>USA</td>
+                            </tr>
+                            <tr>
+                                <td>Alpine HVAC Solutions</td>
+                                <td>9101 Ridge Avenue</td>
+                                <td>Ogden</td>
+                                <td>UT</td>
+                                <td>84401</td>
+                                <td>USA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="portal-card account-form-card">
+                {% set isEdit = account is defined and account.id is defined %}
+                <h2>{{ isEdit ? 'Edit Account' : 'Add Account' }}</h2>
+                <form class="account-form" method="post" action="{{ path('customer_accounts') }}">
+                    <input type="hidden" name="mode" value="{{ isEdit ? 'edit' : 'add' }}">
+                    {% if isEdit %}
+                        <input type="hidden" name="accountId" value="{{ account.id }}">
+                    {% endif %}
+                    <input type="hidden" name="_token" value="{{ csrf_token('account_form') }}">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="accountName">Account Name <span class="required-indicator">*</span></label>
+                            <input type="text" id="accountName" name="accountName" placeholder="Company Name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="address">Address <span class="required-indicator">*</span></label>
+                            <input type="text" id="address" name="address" placeholder="Street Address" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City <span class="required-indicator">*</span></label>
+                            <input type="text" id="city" name="city" placeholder="City" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State <span class="required-indicator">*</span></label>
+                            <select id="state" name="state" required>
+                                <option value="" disabled selected>Select State</option>
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <option value="AZ">AZ</option>
+                                <option value="AR">AR</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="IA">IA</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="ME">ME</option>
+                                <option value="MD">MD</option>
+                                <option value="MA">MA</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MS">MS</option>
+                                <option value="MO">MO</option>
+                                <option value="MT">MT</option>
+                                <option value="NE">NE</option>
+                                <option value="NV">NV</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>
+                                <option value="NY">NY</option>
+                                <option value="NC">NC</option>
+                                <option value="ND">ND</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TNe</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VT">VT</option>
+                                <option value="VA">VA</option>
+                                <option value="WA">WA</option>
+                                <option value="WV">WV</option>
+                                <option value="WI">WI</option>
+                                <option value="WY">WY</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">Zip <span class="required-indicator">*</span></label>
+                            <input type="text" id="zip" name="zip" placeholder="Zip Code" required pattern="^\d{5}(-\d{4})?$" inputmode="numeric" title="Enter a valid 5-digit ZIP code or ZIP+4 (e.g., 12345 or 12345-6789).">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country <span class="required-indicator">*</span></label>
+                            <select id="country" name="country" required>
+                                <option value="USA" selected>United States</option>
+                                <option value="CAN">Canada</option>
+                                <option value="MEX">Mexico</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="additionalInfo">Additional Information</label>
+                            <textarea id="additionalInfo" name="additionalInfo" placeholder="Notes, special instructions, or billing contacts"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Submit Account</button>
+                    </div>
+                </form>
+            </div>
+{% endblock %}

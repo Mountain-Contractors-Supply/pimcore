@@ -1,0 +1,134 @@
+{% extends 'customer/_portal.html.twig' %}
+
+{% block portal_content %}
+            <div class="portal-header">
+                <h1>Bids</h1>
+                <p>Search and manage your bids</p>
+            </div>
+
+            <div class="portal-card account-form-card">
+                <h2>Search Bids</h2>
+                <form class="account-form" method="get" action="{{ path('customer_bids') }}">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerName">Customer Name</label>
+                            <input type="text" id="customerName" name="customerName" placeholder="Customer Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="partNumber">Part #</label>
+                            <input type="text" id="partNumber" name="partNumber" placeholder="Part Number">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quote">Quote #</label>
+                            <input type="text" id="quote" name="quote" placeholder="Quote Number">
+                        </div>
+                        <div class="form-group">
+                            <label for="purchaseOrder">Purchase Order</label>
+                            <input type="text" id="purchaseOrder" name="purchaseOrder" placeholder="Purchase Order">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fromDate">From Date</label>
+                            <input type="date" id="fromDate" name="fromDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="jobReference">Job Reference</label>
+                            <input type="text" id="jobReference" name="jobReference" placeholder="Job Reference">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="toDate">To Date</label>
+                            <input type="date" id="toDate" name="toDate">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Search</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="portal-card">
+                <h2>All Bids</h2>
+                <div class="accounts-table-wrapper">
+                    <table class="accounts-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Quote #</th>
+                                <th scope="col">Quote Date</th>
+                                <th scope="col">Quote Total</th>
+                                <th scope="col">Purchase Order</th>
+                                <th scope="col">Job Reference</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Customer Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Q-2024-001</td>
+                                <td>01/15/2024</td>
+                                <td>$5,250.00</td>
+                                <td>PO-2024-0156</td>
+                                <td>JOB-2024-089</td>
+                                <td>Approved</td>
+                                <td>Mountain Construction LLC</td>
+                            </tr>
+                            <tr>
+                                <td>Q-2024-002</td>
+                                <td>01/10/2024</td>
+                                <td>$3,100.50</td>
+                                <td>PO-2024-0145</td>
+                                <td>JOB-2024-075</td>
+                                <td>Pending</td>
+                                <td>Valley Plumbing Services</td>
+                            </tr>
+                            <tr>
+                                <td>Q-2024-003</td>
+                                <td>01/05/2024</td>
+                                <td>$8,750.75</td>
+                                <td>PO-2024-0132</td>
+                                <td>JOB-2024-062</td>
+                                <td>Expired</td>
+                                <td>Alpine HVAC Solutions</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="portal-card account-form-card">
+                <h2>Request a Project Bid</h2>
+                <form class="account-form" method="post" action="{{ path('customer_bids') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('bid_request_form') }}">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="jobName">Job Name <span class="required-indicator">*</span></label>
+                            <input type="text" id="jobName" name="jobName" placeholder="Project or Job Name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="po">Purchase Order (PO) <span class="required-indicator">*</span></label>
+                            <input type="text" id="po" name="po" placeholder="Purchase Order Number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Start Date <span class="required-indicator">*</span></label>
+                            <input type="date" id="startDate" name="startDate" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="details">Details <span class="required-indicator">*</span></label>
+                            <textarea id="details" name="details" rows="6" placeholder="Please provide detailed information about your project requirements" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions-with-disclaimer">
+                        <p class="bid-disclaimer"><em>When you submit your request, it will be processed within 1-3 business days. Once processed, you will receive an email or call from your salesman for further details.</em></p>
+                        <button type="submit" class="submit-btn">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+{% endblock %}

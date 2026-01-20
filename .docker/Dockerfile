@@ -11,6 +11,7 @@ RUN set -eux; \
 # source directory and run a full composer install. This will take advantage of Docker-build caching when the composer
 # dependencies do not change.
 COPY --chown=www-data:www-data /composer.* /var/www/html
+COPY /bundles /var/www/html/bundles/
 COPY /.docker/composer-install-dependencies.sh /composer-install-dependencies.sh
 RUN /composer-install-dependencies.sh
 COPY /.docker/secrets-to-env-vars.sh /etc/profile.d/secrets-to-env-vars.sh

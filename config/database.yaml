@@ -1,7 +1,7 @@
 doctrine:
     dbal:
         connections:
-            default:
+            default: &defaultConnection
                 host: "%env(DATABASE_HOST)%"
                 port: "%env(string:DATABASE_PORT)%"
                 user: "%env(DATABASE_USER)%"
@@ -13,3 +13,23 @@ doctrine:
                 server_version: "%env(DATABASE_SERVER_VERSION)%"
                 options:
                     1001: true
+            ecommerce:
+                <<: *defaultConnection
+                schema_filter: ~(^cart|migration_versions)~
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        default_entity_manager: default # Explicitly set this
+        entity_managers:
+            default:
+                connection: default
+                auto_mapping: true
+            ecommerce:
+                connection: ecommerce
+                mappings:
+                    ecommerce:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/vendor/mcsupply/ecommerce-bundle/src/Entity'
+                        prefix: 'McSupply\EcommerceBundle\Entity'
+                        alias: Ecommerce

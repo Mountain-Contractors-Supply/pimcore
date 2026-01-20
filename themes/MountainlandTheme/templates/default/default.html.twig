@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+{% endblock %}
+
+{% block content %}
+    {{ pimcore_areablock("defaultAreaBrick") }}
+{% endblock %}
+
+{% block scripts %}{% endblock %}

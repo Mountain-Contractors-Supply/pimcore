@@ -1,0 +1,50 @@
+{# Base layout for Mountainland site #}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|slice(0, 2) }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% apply spaceless %}
+        {% do pimcore_head_title().prepend(getStoreName()) %}
+        {% do pimcore_head_title().setSeparator(' | ') %}
+
+        {% set isLink = false %}
+
+        {% if document is instanceof('\\Pimcore\\Model\\Document\\Link') %}
+            {% set document = document.getObject() %}
+            {% set isLink = true %}
+        {% endif %}
+
+        {% if document.getTitle() is not empty %}
+            {% do pimcore_head_title().append(document.getTitle()) %}
+        {% endif %}
+    {% endapply %}
+
+    {% block layout_head_meta %}
+        {{ pimcore_head_title() }}
+        {{ pimcore_head_meta() }}
+    {% endblock %}
+
+    {% block head_stylesheets %}
+        {{ pimcore_head_link() }}
+    {% endblock %}
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+
+    {{ importmap('app') }}
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header id="header" data-turbo-permanent>
+        {{ include('partials/_header.html.twig') }}
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {{ include('partials/_footer.html.twig') }}
+</body>
+</html>

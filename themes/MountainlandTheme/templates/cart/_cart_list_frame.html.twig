@@ -1,0 +1,57 @@
+<turbo-frame
+    id="cart-list-frame"
+    data-controller="refresh"
+    data-action="reload@window->refresh#reload">
+    <div class="cart-grid">
+        <div class="cart-items">
+            {% for item in cart.items  %}
+                {% include 'cart/_cart_item.html.twig' with {'item': item} %}
+            {% endfor %}
+
+            <section class="quick-add card">
+                <h2>Quick Add</h2>
+                <div class="quick-add-row">
+                    <div class="form-group">
+                        <label for="quick-item-input">Item # or name</label>
+                        <input id="quick-item-input" type="text" placeholder="Enter item # or name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="quick-qty-input">Qty</label>
+                        <input id="quick-qty-input" type="number" min="1" value="1" />
+                    </div>
+                    <div class="form-group quick-add-action">
+                        <label>&nbsp;</label>
+                        <button id="quick-add-btn" class="btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+                <p class="quick-add-error hidden" id="quick-add-error">Item not found in mock catalog.</p>
+            </section>
+        </div>
+
+        <aside class="cart-sidebar">
+            <div class="card">
+                <h2>Order Summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="summary-subtotal">{{ cart.subTotal|number_format(2, '.', ',') }}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="summary-shipping" style="font-style: italic; font-size: 0.9rem;">Calculated on next page</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (est.)</span>
+                    <span id="summary-tax">{{ cart.tax|number_format(2, '.', ',') }}</span>
+                </div>
+                <hr />
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="summary-total">{{ cart.totalDue|number_format(2, '.', ',') }}</span>
+                </div>
+                <a href="{{ path('checkout') }}" class="btn-primary full" data-turbo-frame="_top">Proceed to Checkout</a>
+                <a href="{{ path('home') }}" class="btn-secondary full">Continue Shopping</a>
+            </div>
+            <a href="#" class="return-policy-link">View Return Policy</a>
+        </aside>
+    </div>
+</turbo-frame>

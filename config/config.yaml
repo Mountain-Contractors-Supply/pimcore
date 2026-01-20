@@ -21,6 +21,10 @@ pimcore:
         instance_identifier: '%env(PIMCORE_INSTANCE_IDENTIFIER)%'
     encryption:
         secret: '%env(PIMCORE_ENCRYPTION_SECRET)%'
+    security:
+        password_hasher_factories:
+            Pimcore\Model\DataObject\Customer: mcsupply.ecommerce.customer_password_hasher_factory
+
      # config_location:
      #    image_thumbnails:
      #        write_target:
@@ -181,6 +185,12 @@ framework:
         cookie_samesite: null
         cookie_lifetime: 86400
         gc_maxlifetime: 86400
+
+    asset_mapper:
+        paths:
+            - assets/
+            - vendor/symfony/stimulus-bundle/assets/
+            - vendor/symfony/ux-turbo/assets/
 
 #    WHEN RUNNING PIMCORE AND OTHER APPLICATIONS ON SAME DOMAIN, SET SESSION COOKIE NAME TO PROVIDE COLLISION
 #    session:

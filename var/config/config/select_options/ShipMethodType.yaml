@@ -1,0 +1,22 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                ShipMethodType:
+                    id: ShipMethodType
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: B
+                            label: Bid
+                            name: ''
+                        -
+                            value: A
+                            label: 'Will Call'
+                            name: ''
+                        -
+                            value: S
+                            label: Shipping
+                            name: ''

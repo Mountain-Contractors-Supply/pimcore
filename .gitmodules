@@ -1,0 +1,3 @@
+[submodule "bundles/ecommerce-bundle"]
+	path = bundles/ecommerce-bundle
+	url = https://github.com/Mountain-Contractors-Supply/ecommerce-bundle.git
