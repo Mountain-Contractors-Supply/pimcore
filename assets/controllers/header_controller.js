@@ -4,20 +4,15 @@ export default class extends Controller {
     static targets = ["menu"]
 
     connect() {
-        console.log('Header controller connected!')
-        console.log('Has menu target:', this.hasMenuTarget)
-
         this.clickOutsideHandler = this.clickOutside.bind(this)
         document.addEventListener('click', this.clickOutsideHandler)
     }
 
     disconnect() {
-        console.log('Header controller disconnected!')
         document.removeEventListener('click', this.clickOutsideHandler)
     }
 
     toggle(event) {
-        console.log('Toggle clicked!')
         event.preventDefault()
         event.stopPropagation()
 

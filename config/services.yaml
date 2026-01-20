@@ -3,8 +3,8 @@ imports:
     - { resource: 'theme/theme.yaml' }
 
 parameters:
-    env(KERNEL_SECRET_FILE): '/run/secrets/kernel-secret'
-    secret: '%env(file:KERNEL_SECRET_FILE)%'
+    kernel_secret_file_fallback: '/run/secrets/kernel-secret'
+    secret: '%env(file:default:kernel_secret_file_fallback:KERNEL_SECRET_FILE)%'
 
     # These are default values for connecting to the database/Redis cache that the Docker build sometimes requires to be set.
     # Once the app is actually running, they will be replaced with actual values.
@@ -66,10 +66,6 @@ services:
 
     App\EventListener\:
         resource: '../src/EventListener'
-
-    App\Twig\Extension\:
-        resource: '../src/Twig/Extension'
-        tags: [ 'twig.extension' ]
 
     App\EventListener\AdminFileLoaderEventListener:
         tags:

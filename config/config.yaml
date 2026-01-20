@@ -25,6 +25,11 @@ pimcore:
         password_hasher_factories:
             Pimcore\Model\DataObject\Customer: mcsupply.ecommerce.customer_password_hasher_factory
 
+ux_map:
+    renderer: '%env(resolve:UX_MAP_DSN)%'
+    google_maps:
+        default_map_id: '%env(GOOGLE_MAPS_MAP_ID)'
+
      # config_location:
      #    image_thumbnails:
      #        write_target:

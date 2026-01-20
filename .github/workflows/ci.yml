@@ -14,7 +14,13 @@ jobs:
     permissions:
       contents: read
       actions: read
+    with:
+      GITHUB_APP_CHECKOUT: true
+      GITHUB_APP_CHECKOUT_REPOSITORIES: pimcore,ecommerce-bundle
+      SUBMODULES: true
     secrets:
+      GITHUB_APP_ID: ${{ secrets.GH_APP_ID }}
+      GITHUB_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
       BUILD_TIME_SECRETS: >
         {
           "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
