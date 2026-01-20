@@ -28,4 +28,13 @@ return [
     '@symfony/ux-turbo' => [
         'version' => '2.31.0',
     ],
+    '@symfony/ux-live-component' => [
+        'version' => '2.32.0',
+    ],
+    '@symfony/ux-google-map' => [
+        'path' => './vendor/symfony/ux-google-map/assets/dist/map_controller.js',
+    ],
+    '@googlemaps/js-api-loader' => [
+        'version' => '1.16.10',
+    ],
 ];

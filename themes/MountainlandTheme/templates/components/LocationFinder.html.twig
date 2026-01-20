@@ -1,0 +1,204 @@
+<div {{ attributes }}>
+    <!-- Sidebar toggle button for mobile -->
+    <button id="sidebar-toggle" aria-label="Toggle filters sidebar">►</button>
+
+    <main class="page-wrapper" data-controller="location-helper">
+        <div class="layout-wrapper">
+            <aside class="sidebar">
+                <br>
+                <h2><a href="{{ path('home') }}">Home</a> / Locations</h2>
+                <h1 style="font-family: var(--secondary-font); font-size: 42pt; color: #11175e;">Locations</h1>
+                <h2>Find Your Nearest Branch or Shop by Supply</h2>
+                <hr class="sidebar-divider" style="width: 800px" />
+                <br />
+
+                <div id="filter-container">
+                    <div class="location-input-group">
+                        <div class="location-radius-group">
+                            <div class="zip-container">
+                                <label for="zip-input"><strong>Enter Your Zip Code, or City & State</strong></label>
+                                <input
+                                    type="text"
+                                    id="zip-input"
+                                    name="zip-input"
+                                    placeholder="Your Location"
+                                    data-model="draftSearchTerm"
+                                    value="{{ this.draftSearchTerm }}"
+                                />
+                                <button id="location-btn" type="button">
+                                    <img src="{{ asset('images/misc/location-icon.png') }}" style="height: 25px" />
+                                    Use Current Location
+                                </button>
+                            </div>
+                            <div class="radius-container">
+                                <label for="radius-select"><strong>Radius</strong></label>
+                                <select id="radius-select">
+                                    <option value="10">10 miles</option>
+                                    <option value="25" selected>25 miles</option>
+                                    <option value="50">50 miles</option>
+                                    <option value="100">100 miles</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <strong>
+                            <h3 style="font-family: var(--primary-font); color: #11175e; font-size: 16pt;">Search by Supply</h3>
+                        </strong>
+                        <hr class="sidebar-divider" style="width: 765px" />
+                    </div>
+
+                    {% set productChunks = this.productTypes|batch(6, []) %}
+                    <div class="checkbox-row">
+                        {% for column in productChunks %}
+                            <div class="checkbox-column">
+                                {% for productType in column %}
+                                    {% if productType %}
+                                        {% set value = productType.productTypeId %}
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                data-model="draftSelectedProductTypes"
+                                                value="{{ value }}"
+                                                class="custom-checkbox-input"
+                                                {% if value in this.draftSelectedProductTypes %}checked{% endif %}
+                                            />
+                                            <span class="custom-checkbox"></span>
+                                            <img src="{{ asset(productType.icon) }}" style="height: 24px" />
+                                            {{ productType.name }}
+                                        </label>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="button-group">
+                        <button
+                            type="button"
+                            id="search-now-btn"
+                            data-action="click->live#action"
+                            data-live-action-param="applyFilters"
+                        >
+                            Search Now
+                        </button>
+
+                        <button
+                            type="button"
+                            id="reset-filters-btn"
+                            data-action="click->live#action"
+                            data-live-action-param="resetFilters"
+                        >
+                            Reset Filters
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <div id="map-wrapper">
+                {{ ux_map(this.map, { style: 'height: 100%; width: 100%;' }) }}
+            </div>
+        </div>
+
+        <div id="sidebar-overlay"></div>
+
+        <hr style="width: 97%;">
+
+        <h1 id="location-count" class="location-count-heading">
+            <span id="filtered-location-count">{{ this.filteredLocations|length }}</span> Locations Near You
+        </h1>
+
+        <div class="layout-wrapper">
+            <div class="location-list-wrapper">
+                <div id="location-list" class="location-list">
+                    {% for branch in this.filteredLocations %}
+                        <div class="location-item">
+                            <div class="location-main">
+                                <h4>{{ branch.name }}</h4>
+                                <div class="location-address">📍 {{ branch.address|format_address }}</div>
+                                <div class="location-services">
+                                    {% for productType in branch.productTypes %}
+                                        <span class="service-tag">
+                                        <img src="{{ productType.icon }}" alt="{{ productType.name }}" style="height: 16px; margin-right: 4px; vertical-align: middle;">{{ productType.name }}
+                                    </span>
+                                    {% endfor %}
+                                </div>
+                                <div class="location-actions">
+                                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination={{ branch.address|format_address|url_encode }}" target="_blank" class="directions-btn"><p>Directions</p></a>
+                                    <button class="call-btn">Call</button>
+                                    <div class="phone-panel" data-controller="phone">
+                                    <button class="phone-panel-close" aria-label="Close phone panel">×</button>
+
+                                        {% for phoneNumber in branch.phoneNumbers %}
+                                            <div class="phone-number-item">
+                                                <div class="phone-number-label">{{ phoneNumber.phoneNumberText }}</div>
+                                                <div class="phone-number">{{ phoneNumber.phoneNumber }}</div>
+                                                <div class="call-options">
+                                                    <a href="tel:{{ phoneNumber.phoneNumber|format_phone }}" class="call-option-btn primary">Call</a>
+                                                    <button
+                                                        class="call-option-btn secondary"
+                                                        type="button"
+                                                        data-action="click->phone#copy"
+                                                        data-phone-number="{{ phoneNumber.phoneNumber|default('') }}"
+                                                    >
+                                                        Copy
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% if branch.isValidForCurrentOnlineStore %}
+                                        <button
+                                            type="button"
+                                            class="main-store-btn"
+                                            data-controller="locations"
+                                            data-action="click->locations#setMainStore"
+                                            data-branch-id="{{ branch.id }}"
+                                        >
+                                            Select Branch
+                                        </button>
+
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="location-hours">
+                                <div class="hours-header">Hours</div>
+                                <div class="hours-row"><span class="hours-time">{{ branch.hours }}</span></div>
+                                <div class="location-phones">
+                                    {% for phoneNumber in branch.phoneNumbers %}
+                                        <div class="location-contact">
+                                            📞 <span class="phone-label">{{ phoneNumber.phoneNumberText }}:</span>
+                                            <a href="tel:{{ phoneNumber.phoneNumber|format_phone }}">{{ phoneNumber.phoneNumber }}</a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="location-card">
+                            <h3>No locations match your filters.</h3>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <br>
+                <h2 style="font-family: var(--secondary-font); font-size: 16pt; color: #11175e;">
+                    Can't find a location? Call us at <a>_____</a> or contact us <a>here.</a> We're happy to help.
+                </h2>
+            </div>
+
+            <aside class="sidebar">
+                <div style="padding: 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 625px; width: 100%;">
+                    <h2 style="color: var(--primary-color); font-family: var(--secondary-font); font-size: 50pt; margin: 0; line-height: 1.2;">
+                        <span id="state-count-map">__</span> STATES.<br><span id="location-count-map">__</span> LOCATIONS.
+                    </h2>
+                    <h3 style="color: var(--primary-color); font-family: var(--secondary-font); font-size: 32pt; margin: 0.5rem 0 0 0; line-height: 1.3; white-space: nowrap;">
+                        ALL READY TO SERVE YOU!<br>+ FREE DELIVERY
+                    </h3>
+                    <div style="display: flex; justify-content: center; margin-top: -1.5rem;">
+                        <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="header-logo" />
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+</div>

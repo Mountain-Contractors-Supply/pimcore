@@ -1,7 +1,7 @@
 <turbo-frame
     id="cart-data-frame"
     data-controller="refresh"
-    data-action="reload@window->refresh#reload">
+    data-action="cart-updated@window->refresh#reload branch-updated@window->refresh#reload">
     <a href="{{ path('cart') }}"
        class="bag-link"
        aria-label="View Cart"

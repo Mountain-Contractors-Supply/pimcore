@@ -285,30 +285,34 @@
     </div>
     <div class="header-top-right">
         {% if is_granted('ROLE_USER') %}
-                <turbo-frame
-                    id="cart-data-frame"
-                    src="{{ path('cart_data_partial') }}"
-                    data-controller="refresh"
-                    data-action="reload@window->refresh#reload"
-                    loading="lazy">
-                    <a href="{{ path('cart') }}"
-                       class="bag-link"
-                       aria-label="View Cart"
-                       data-turbo-frame="_top">
-                        <img src="{{ asset('images/misc/shopping-bag.png') }}" alt="Bag" />
-                        <div class="bag-info"></div>
-                    </a>
-                </turbo-frame>
+            <turbo-frame
+                id="cart-data-frame"
+                src="{{ path('cart_data_partial') }}"
+                data-controller="refresh"
+                data-action="cart-updated@window->refresh#reload branch-updated@window->refresh#reload"
+                loading="lazy">
+                <a href="{{ path('cart') }}"
+                   class="bag-link"
+                   aria-label="View Cart"
+                   data-turbo-frame="_top">
+                    <img src="{{ asset('images/misc/shopping-bag.png') }}" alt="Bag" />
+                    <div class="bag-info"></div>
+                </a>
+            </turbo-frame>
 
-            <a class="branch-dropdown" id="branch-dropdown" href="/locations">
-                <div class="branch-info" id="branch-info">
-                    <img src="{{ asset('images/misc/location-icon.png') }}" alt="Location" class="location-icon" />
-                    <span class="branch-text" id="branch-status">
-                        <turbo-frame id="branch-data-frame" src="{{ path('branch_data_partial') }}" loading="lazy">
-                        </turbo-frame>
-                    </span>
-                </div>
-            </a>
+            <turbo-frame
+                id="branch-data-frame"
+                src="{{ path('branch_data_partial') }}"
+                data-controller="refresh"
+                data-action="branch-updated@window->refresh#reload"
+                loading="lazy">
+                <a class="branch-dropdown" id="branch-dropdown" href="/locations" data-turbo-frame="_top">
+                    <div class="branch-info" id="branch-info">
+                        <img src="{{ asset('images/misc/location-icon.png') }}" alt="Location" class="location-icon" />
+                        <span class="branch-text" id="branch-status"></span>
+                    </div>
+                </a>
+            </turbo-frame>
 
             <div class="user-dropdown" id="user-dropdown" data-controller="header">
                 <div class="user-info" id="user-info" data-action="click->header#toggle">

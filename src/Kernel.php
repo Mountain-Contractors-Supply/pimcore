@@ -12,29 +12,33 @@
 
 namespace App;
 
+use App\Twig\CompatibleConfigurator;
 use Basilicom\PathFormatterBundle\BasilicomPathFormatterBundle;
 use CoreShop\Bundle\MessengerBundle\CoreShopMessengerBundle;
 use Pimcore\Bundle\AdminBundle\PimcoreAdminBundle;
 use Pimcore\Bundle\ApplicationLoggerBundle\PimcoreApplicationLoggerBundle;
 use Pimcore\Bundle\CustomReportsBundle\PimcoreCustomReportsBundle;
+use Pimcore\Bundle\DataHubBundle\PimcoreDataHubBundle;
+use Pimcore\Bundle\DataImporterBundle\PimcoreDataImporterBundle;
 use Pimcore\Bundle\GlossaryBundle\PimcoreGlossaryBundle;
+use Pimcore\Bundle\PerspectiveEditorBundle\PimcorePerspectiveEditorBundle;
+use Pimcore\Bundle\QuillBundle\PimcoreQuillBundle;
 use Pimcore\Bundle\SeoBundle\PimcoreSeoBundle;
 use Pimcore\Bundle\SimpleBackendSearchBundle\PimcoreSimpleBackendSearchBundle;
 use Pimcore\Bundle\StaticRoutesBundle\PimcoreStaticRoutesBundle;
 use Pimcore\Bundle\UuidBundle\PimcoreUuidBundle;
 use Pimcore\Bundle\WordExportBundle\PimcoreWordExportBundle;
-use Pimcore\Bundle\DataHubBundle\PimcoreDataHubBundle;
-use Pimcore\Bundle\DataImporterBundle\PimcoreDataImporterBundle;
 use Pimcore\Bundle\XliffBundle\PimcoreXliffBundle;
-use Pimcore\Bundle\QuillBundle\PimcoreQuillBundle;
-use Pimcore\Bundle\PerspectiveEditorBundle\PimcorePerspectiveEditorBundle;
 use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 use Pimcore\Kernel as PimcoreKernel;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use TorqIT\FolderCreatorBundle\FolderCreatorBundle;
 use TorqIT\ObjectLayoutGridBundle\ObjectLayoutGridBundle;
 use TorqIT\RoleCreatorBundle\RoleCreatorBundle;
 
-class Kernel extends PimcoreKernel
+class Kernel extends PimcoreKernel implements CompilerPassInterface
 {
     /**
      * Adds bundles to register to the bundle collection. The collection is able
@@ -63,5 +67,25 @@ class Kernel extends PimcoreKernel
         $collection->addBundle(new CoreShopMessengerBundle());
         $collection->addBundle(new ObjectLayoutGridBundle());
         $collection->addBundle(new BasilicomPathFormatterBundle());
+    }
+
+    /**
+     * PimcoreKernel has its own build() logic, so we override it to add our pass.
+     */
+    protected function build(ContainerBuilder $container): void
+    {
+        parent::build($container);
+        $container->addCompilerPass($this);
+    }
+
+    public function process(ContainerBuilder $container): void
+    {
+        $pimcoreConfiguratorId = 'Pimcore\Twig\TwigEnvironmentConfigurator';
+
+        if ($container->hasDefinition($pimcoreConfiguratorId)) {
+            $definition = $container->getDefinition($pimcoreConfiguratorId);
+            $definition->setClass(CompatibleConfigurator::class);
+            $definition->setArgument('$decorated', new Reference($pimcoreConfiguratorId . '.inner'));
+        }
     }
 }
