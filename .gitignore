@@ -59,6 +59,8 @@ supervisord.log
 /.secrets/*
 !/.secrets/.gitkeep
 
+!/bundles/.gitkeep
+
 # Pimcore installation files
 /config/local/product_registration.yaml
 /var/config/needs-install.lock

@@ -20,7 +20,7 @@
         <turbo-frame id="cart-list-frame"
                      src="{{ path('cart_list_partial') }}"
                      data-controller="refresh"
-                     data-action="reload@window->refresh#reload"
+                     data-action="cart-updated@window->refresh#reload"
                      loading="lazy">
             {% include 'cart/_cart_list_frame.html.twig' with { 'cart': cart } %}
         </turbo-frame>

@@ -13,6 +13,7 @@ use McSupply\EcommerceBundle\Dto\Address\PhoneNumber;
 use McSupply\EcommerceBundle\Dto\Company\BranchInterface;
 use McSupply\EcommerceBundle\Dto\Company\SupplierInterface;
 use McSupply\EcommerceBundle\Dto\OnlineStore\ValidOnlineStoreAwareTrait;
+use McSupply\EcommerceBundle\Dto\Product\ProductTypeAwareTrait;
 use Pimcore\Config;
 use Pimcore\Model\DataObject\Branch\AddressBrick;
 use Pimcore\Model\DataObject\Branch\PhoneNumbersBrick;
@@ -22,6 +23,7 @@ use Pimcore\Model\DataObject\Objectbrick\Data\Address;
 abstract class AbstractBranch extends AbstractModel implements BranchInterface, PreAddUpdateAwareInterface
 {
     use ValidOnlineStoreAwareTrait;
+    use ProductTypeAwareTrait;
 
     private ?bool $isValidForCurrentOnlineStore = null;
 
