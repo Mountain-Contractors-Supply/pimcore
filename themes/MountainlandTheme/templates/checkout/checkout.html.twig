@@ -19,42 +19,32 @@
 
         <turbo-frame id="checkout-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth">
             <div class="checkout-steps" data-active-step="shipping">
-                <a href="{{ path('checkout-shipping') }}" class="checkout-step{% if app.current_route == 'checkout-shipping' %} is-active{% endif %}" data-step-target="shipping">
-                    <span>Shipping</span>
+                {% for step in steps %}
+                <a href="/checkout/{{ step.slug }}" class="checkout-step{% if app.current_route == 'checkout-shipping' %} is-active{% endif %}" data-step-target="shipping">
+                    <span>{{ step.name }}</span>
                     <span class="step-arrow" aria-hidden="true">
-                    <img src="{{ asset('var/assets/images/misc/white-arrow.png') }}" alt="" />
-                </span>
+                        <img src="{{ asset('var/assets/images/misc/white-arrow.png') }}" alt="" />
+                    </span>
                 </a>
-                <a href="{{ path('checkout-payment') }}" class="checkout-step{% if app.current_route == 'checkout-payment' %} is-active{% endif %}" data-step-target="payment">
-                    <span>Payment</span>
-                    <span class="step-arrow" aria-hidden="true">
-                    <img src="{{ asset('var/assets/images/misc/white-arrow.png') }}" alt="" />
-                </span>
-                </a>
-                <a href="{{ path('checkout-review') }}" class="checkout-step{% if app.current_route == 'checkout-review' %} is-active{% endif %}" data-step-target="review">
-                    <span>Review</span>
-                    <span class="step-arrow" aria-hidden="true">
-                    <img src="{{ asset('var/assets/images/misc/white-arrow.png') }}" alt="" />
-                </span>
-                </a>
+                {% endfor %}
             </div>
 
+            {{ form_start(form, {
+                action: path('checkout-step', { step: app.request.attributes.get('step') }),
+                attr: { 'data-turbo-frame': 'checkout-frame' }
+            }) }}
             <div class="checkout-grid">
+                {{ form_errors(form) }}
                 <div class="checkout-form-sections">
                     {% block checkout_step %}{% endblock %}
                 </div>
 
                 <aside class="checkout-sidebar" id="cart-summary-frame" data-turbo-permanent>
                     <turbo-frame id="order-summary-frame" src="{{ path('checkout-summary-partial') }}" loading="lazy">
-                        {{ include('checkout/_order_summary.html.twig', {
-                            'button_text': 'Proceed to payment',
-                            'button_data_attribute': 'data-next-step="payment"',
-                            'fine_print': 'You can review shipping and tax before placing your order.',
-                            'step': 'overview'
-                        }) }}
                     </turbo-frame>
                 </aside>
             </div>
+            {{ form_end(form) }}
         </turbo-frame>
     </main>
 {% endblock %}

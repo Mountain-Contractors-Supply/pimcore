@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Model\Product;
 
 use App\EventListener\PreAddUpdateAwareInterface;
+use App\Model\AbstractModel;
 use App\Model\Traits\SetKeyFromValueTrait;
 use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
-use Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractCategory;
 
-abstract class AbstractProductCategory extends AbstractCategory implements ProductCategoryInterface, PreAddUpdateAwareInterface
+abstract class AbstractProductCategory extends AbstractModel implements ProductCategoryInterface, PreAddUpdateAwareInterface
 {
     use SetKeyFromValueTrait;
 
