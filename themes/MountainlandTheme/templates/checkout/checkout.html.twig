@@ -19,8 +19,14 @@
 
         <turbo-frame id="checkout-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth">
             <div class="checkout-steps" data-active-step="shipping">
+                {% set stepClass = ' is-complete' %}
                 {% for step in steps %}
-                <a href="/checkout/{{ step.slug }}" class="checkout-step{% if app.current_route == 'checkout-shipping' %} is-active{% endif %}" data-step-target="shipping">
+                    {% if currentStep.slug == step.slug %}
+                        {% set stepClass = ' is-active' %}
+                    {% elseif stepClass == ' is-active' %}
+                        {% set stepClass = '' %}
+                    {% endif %}
+                <a href="/checkout/{{ step.slug }}" class="checkout-step{{ stepClass }}" data-step-target="{{ step.slug }}">
                     <span>{{ step.name }}</span>
                     <span class="step-arrow" aria-hidden="true">
                         <img src="{{ asset('var/assets/images/misc/white-arrow.png') }}" alt="" />
@@ -34,17 +40,18 @@
                 attr: { 'data-turbo-frame': 'checkout-frame' }
             }) }}
             <div class="checkout-grid">
-                {{ form_errors(form) }}
                 <div class="checkout-form-sections">
                     {% block checkout_step %}{% endblock %}
                 </div>
 
                 <aside class="checkout-sidebar" id="cart-summary-frame" data-turbo-permanent>
                     <turbo-frame id="order-summary-frame" src="{{ path('checkout-summary-partial') }}" loading="lazy">
+                        {% include 'checkout/_order_summary.html.twig' with { 'order': order } %}
                     </turbo-frame>
                 </aside>
             </div>
-            {{ form_end(form) }}
+            {{ form_rest(form) }} {{ form_end(form, { render_rest: false }) }}
+
         </turbo-frame>
     </main>
 {% endblock %}

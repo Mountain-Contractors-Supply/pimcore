@@ -174,7 +174,7 @@ framework:
     router:
         default_uri: "%env(DEFAULT_DOMAIN_NAME)%"
     profiler:
-        enabled: false
+        enabled: true
     trusted_proxies: "127.0.0.1,REMOTE_ADDR"
     trusted_headers:
         [
