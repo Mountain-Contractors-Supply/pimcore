@@ -4301,7 +4301,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/ecommerce-bundle",
-                "reference": "ff8a72cc832ad075f79d8fa91f795ebb3c683be3"
+                "reference": "c929c36de97ed03eae9510702142b6a116fed637"
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.0 || ^7.8",
@@ -4320,6 +4320,7 @@
                 "symfony/ux-google-map": "^2.31.0",
                 "symfony/ux-live-component": "^2.31.0",
                 "symfony/ux-turbo": "^2.31.0",
+                "symfony/validator": "^6.4.1 || ^7.3",
                 "zircote/swagger-php": "^5.0 || ^5.7.6"
             },
             "require-dev": {

@@ -26,7 +26,7 @@
                     {% elseif stepClass == ' is-active' %}
                         {% set stepClass = '' %}
                     {% endif %}
-                <a href="/checkout/{{ step.slug }}" class="checkout-step{{ stepClass }}" data-step-target="{{ step.slug }}">
+                <a {% if stepClass == ' is-complete' %}href="/checkout/{{ step.slug }}" {% endif %}class="checkout-step{{ stepClass }}" data-step-target="{{ step.slug }}">
                     <span>{{ step.name }}</span>
                     <span class="step-arrow" aria-hidden="true">
                         <img src="{{ asset('var/assets/images/misc/white-arrow.png') }}" alt="" />
@@ -50,7 +50,7 @@
                     </turbo-frame>
                 </aside>
             </div>
-            {{ form_rest(form) }} {{ form_end(form, { render_rest: false }) }}
+            {{ form_end(form) }}
 
         </turbo-frame>
     </main>

@@ -31,20 +31,17 @@
         <article class="card">
             <h3>Shipping method</h3>
             <div class="form-group">
-                {% for shipMethod in shipMethods %}
-                    {% for choice in form.shipMethodCode %}
-                        {% if choice.vars.value == shipMethod.code %}
-                            <label class="option-row">
-                                {{ form_widget(choice) }}
-                                <span>{{ shipMethod.name }}</span>
-                                <span class="option-amount">
-                                    $0.00
+                {% for choice in form.shipMethodCode %}
+                    <label class="option-row">
+                        {{ form_widget(choice) }}
+                        <span>{{ choice.vars.label }}</span>
+                        <span class="option-amount">
+                            $0.00
 {#                        ${{ shipMethod.cost|default(0)|number_format(2, '.', ',') }}#}
-                                </span>
-                            </label>
-                        {% endif %}
-                    {% endfor %}
+                        </span>
+                    </label>
                 {% endfor %}
+
                 {{ form_errors(form.shipMethodCode) }}
             </div>
         </article>
