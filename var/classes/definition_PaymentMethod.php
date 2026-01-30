@@ -7,21 +7,20 @@
  * Fields Summary:
  * - code [input]
  * - name [input]
- * - methodType [select]
  * - validOnlineStore [reverseObjectRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'shipMethod',
-   'name' => 'ShipMethod',
+   'id' => 'paymentMethod',
+   'name' => 'PaymentMethod',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1769802401,
+   'modificationDate' => 1769802815,
    'userOwner' => 2,
    'userModification' => 2,
-   'parentClass' => 'App\\Model\\Shipping\\AbstractShipMethod',
+   'parentClass' => 'App\\Model\\Payment\\AbstractPaymentMethod',
    'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
@@ -135,35 +134,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                 'name' => 'methodType',
-                 'title' => 'Method Type',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => '',
-                 'columnLength' => 190,
-                 'dynamicOptions' => false,
-                 'enforceValidation' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => '',
-                 'optionsProviderType' => 'select_options',
-                 'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                 'optionsProviderData' => 'ShipMethodType',
-              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -229,7 +199,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'height' => '',
                  'ownerClassName' => 'OnlineStore',
                  'ownerClassId' => 'onlineStore',
-                 'ownerFieldName' => 'validShipMethods',
+                 'ownerFieldName' => 'validPaymentMethods',
                  'lazyLoading' => true,
               )),
             ),
@@ -265,8 +235,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '/bundles/pimcoreadmin/img/twemoji/1f69a.svg',
-   'group' => 'Shipping',
+   'icon' => '',
+   'group' => 'Payment',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
@@ -298,6 +268,53 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+       'name' => 'methodType',
+       'title' => 'Method Type',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'options' => 
+      array (
+        0 => 
+        array (
+          'value' => 'B',
+          'key' => 'Bid',
+        ),
+        1 => 
+        array (
+          'value' => 'A',
+          'key' => 'Will Call',
+        ),
+        2 => 
+        array (
+          'value' => 'S',
+          'key' => 'Shipping',
+        ),
+      ),
+       'defaultValue' => '',
+       'columnLength' => 190,
+       'dynamicOptions' => false,
+       'enforceValidation' => false,
+       'defaultValueGenerator' => '',
+       'width' => '',
+       'optionsProviderType' => 'select_options',
+       'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+       'optionsProviderData' => 'ShipMethodType',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

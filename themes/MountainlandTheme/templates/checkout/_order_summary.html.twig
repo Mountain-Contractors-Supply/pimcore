@@ -7,7 +7,7 @@
             <span>${{ order.subTotal|number_format(2, '.', ',') }}</span>
         </div>
         <div class="summary-row">
-            <span>Shipping ({{ shipMethods|length ? (shipMethods|first).name : 'Shipping' }})</span>
+            <span>Shipping {{ order.shipMethod.name }}</span>
             <span>${{ order.freight|number_format(2, '.', ',') }}</span>
         </div>
         <div class="summary-row">

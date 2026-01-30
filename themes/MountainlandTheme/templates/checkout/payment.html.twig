@@ -1,7 +1,7 @@
 {% extends '/checkout/checkout.html.twig' %}
 
 {% block checkout_step %}
-    <section class="checkout-step-panel" data-step="payment">
+    <section class="checkout-step-panel is-active" data-step="payment">
         <article class="card payment-method-card is-expanded" data-payment-method="credit-card">
             <div class="payment-method-header">
                 <label>
@@ -29,10 +29,6 @@
                         <input id="cvv" type="text" placeholder="123" />
                     </div>
                 </div>
-
-{#                <h4 class="section-subtitle">Billing Address</h4>#}
-{#                {{ include('partials/_address.html.twig', { 'prefix': 'billing' }) }}#}
-{#                <p class="fine-print">Your payment information is secure and encrypted.</p>#}
             </div>
         </article>
 
@@ -42,22 +38,6 @@
                     <input type="radio" name="payment-method" value="net-due" />
                     <h3>Net Due In Days</h3>
                 </label>
-            </div>
-            <div class="payment-method-content">
-                <div class="form-group">
-                    <label for="net-due-days">Net due terms</label>
-                    <select id="net-due-days">
-                        <option value="15">Net 15</option>
-                        <option value="30">Net 30</option>
-                        <option value="60">Net 60</option>
-                        <option value="90">Net 90</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="net-due-po">Purchase order number</label>
-                    <input id="net-due-po" type="text" placeholder="PO Number" />
-                </div>
-                <p class="fine-print">Invoice will be sent to your registered email address.</p>
             </div>
         </article>
 
@@ -79,12 +59,5 @@
                 </div>
             </div>
         </article>
-
-        {{ include('checkout/_step_navigation.html.twig', {
-            'prev_step': 'overview',
-            'prev_text': 'Back to shipping',
-            'next_step': 'review',
-            'next_text': 'Proceed to review'
-        }) }}
     </section>
 {% endblock %}

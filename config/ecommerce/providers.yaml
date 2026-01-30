@@ -31,5 +31,8 @@ services:
     McSupply\EcommerceBundle\Provider\ShipMethodProviderInterface:
         '@App\Provider\ShipMethodProvider'
 
+    McSupply\EcommerceBundle\Provider\PaymentMethodProviderInterface:
+        '@App\Provider\PaymentMethodProvider'
+
     McSupply\EcommerceBundle\Provider\AddressProviderInterface:
         '@App\Provider\AddressProvider'

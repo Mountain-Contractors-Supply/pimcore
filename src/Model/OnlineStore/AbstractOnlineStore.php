@@ -9,6 +9,7 @@ use App\Model\AbstractModel;
 use App\Model\Traits\SetKeyFromValueTrait;
 use McSupply\EcommerceBundle\Dto\Company\ValidBranchAwareTrait;
 use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
+use McSupply\EcommerceBundle\Dto\Payment\ValidPaymentMethodAwareTrait;
 use McSupply\EcommerceBundle\Dto\Shipping\ValidShipMethodAwareTrait;
 use Pimcore\Model\Asset\Image;
 
@@ -17,6 +18,7 @@ abstract class AbstractOnlineStore extends AbstractModel implements OnlineStoreI
     use SetKeyFromValueTrait;
     use ValidBranchAwareTrait;
     use ValidShipMethodAwareTrait;
+    use ValidPaymentMethodAwareTrait;
 
     /**
      * @return Image|null
