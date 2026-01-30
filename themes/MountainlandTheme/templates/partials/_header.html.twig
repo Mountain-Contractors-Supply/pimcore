@@ -287,7 +287,7 @@
         {% if is_granted('ROLE_USER') %}
             <turbo-frame
                 id="cart-data-frame"
-                src="{{ path('cart_data_partial') }}"
+                src="{{ path('cart_header_partial') }}"
                 data-controller="refresh"
                 data-action="cart-updated@window->refresh#reload branch-updated@window->refresh#reload"
                 loading="lazy">

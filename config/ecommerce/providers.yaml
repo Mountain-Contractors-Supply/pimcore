@@ -8,7 +8,7 @@ services:
         resource: '../../src/Provider'
 
     McSupply\EcommerceBundle\Provider\PurchasableProviderInterface:
-        '@App\Provider\PurchasableProvider'
+        '@McSupply\EcommerceBundle\Provider\PurchasableProvider'
 
     McSupply\EcommerceBundle\Provider\CustomerProviderInterface:
         '@App\Provider\CustomerProvider'
@@ -30,6 +30,9 @@ services:
 
     McSupply\EcommerceBundle\Provider\ShipMethodProviderInterface:
         '@App\Provider\ShipMethodProvider'
+
+    McSupply\EcommerceBundle\Provider\PaymentMethodProviderInterface:
+        '@App\Provider\PaymentMethodProvider'
 
     McSupply\EcommerceBundle\Provider\AddressProviderInterface:
         '@App\Provider\AddressProvider'

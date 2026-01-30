@@ -2,7 +2,7 @@
     <!-- Sidebar toggle button for mobile -->
     <button id="sidebar-toggle" aria-label="Toggle filters sidebar">►</button>
 
-    <main class="page-wrapper" data-controller="location-helper">
+    <main class="page-wrapper">
         <div class="layout-wrapper">
             <aside class="sidebar">
                 <br>
@@ -94,8 +94,10 @@
                 </div>
             </aside>
 
-            <div id="map-wrapper">
-                {{ ux_map(this.map, { style: 'height: 100%; width: 100%;' }) }}
+            <div id="map-wrapper" data-controller="locations">
+                {{ ux_map(this.map, {
+                    style: 'height: 100%; width: 100%;'
+                }) }}
             </div>
         </div>
 

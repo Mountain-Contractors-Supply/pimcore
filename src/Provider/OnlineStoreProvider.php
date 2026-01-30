@@ -92,6 +92,28 @@ final readonly class OnlineStoreProvider implements OnlineStoreProviderInterface
     }
 
     /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    public function filterPaymentMethods(array $paymentMethods): array
+    {
+        $validPaymentMethods = [];
+        $onlineStore = $this->getOnlineStore();
+
+        if ($onlineStore instanceof OnlineStoreInterface) {
+            $validPaymentMethodIds = $onlineStore->getValidPaymentMethodIds();
+
+            foreach ($paymentMethods as $paymentMethod) {
+                if (in_array($paymentMethod->getCode(), $validPaymentMethodIds)) {
+                    $validPaymentMethods[$paymentMethod->getCode()] = $paymentMethod;
+                }
+            }
+        }
+
+        return $validPaymentMethods;
+    }
+
+    /**
      * @return Site|null
      */
     private function resolveSite(): ?Site

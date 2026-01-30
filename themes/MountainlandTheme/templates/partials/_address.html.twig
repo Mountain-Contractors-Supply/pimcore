@@ -1,0 +1,34 @@
+<div class="form-group">
+    {{ form_label(addressForm.line1, 'Street address') }}
+    {{ form_widget(addressForm.line1, { attr: { placeholder: 'Street address' } }) }}
+    {{ form_errors(addressForm.line1) }}
+</div>
+
+{# optional line2 if you have it in AddressType #}
+{% if addressForm.line2 is defined %}
+    <div class="form-group">
+        {{ form_label(addressForm.line2, 'Street address 2') }}
+        {{ form_widget(addressForm.line2, { attr: { placeholder: 'Apt, suite, etc.' } }) }}
+        {{ form_errors(addressForm.line2) }}
+    </div>
+{% endif %}
+
+<div class="form-group">
+    {{ form_label(addressForm.city, 'City') }}
+    {{ form_widget(addressForm.city, { attr: { placeholder: 'City' } }) }}
+    {{ form_errors(addressForm.city) }}
+</div>
+
+<div class="form-group-row">
+    <div class="form-group">
+        {{ form_label(addressForm.state, 'State') }}
+        {{ form_widget(addressForm.state, { attr: { placeholder: 'State' } }) }}
+        {{ form_errors(addressForm.state) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(addressForm.zip, 'ZIP') }}
+        {{ form_widget(addressForm.zip, { attr: { placeholder: 'ZIP' } }) }}
+        {{ form_errors(addressForm.zip) }}
+    </div>
+</div>
