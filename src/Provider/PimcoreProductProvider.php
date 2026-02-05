@@ -36,7 +36,7 @@ final readonly class PimcoreProductProvider implements DataProviderInterface
             return null;
         }
 
-        $product = Product::getByProductId($data['productId']);
+        $product = Product::getByProductId($data['productId'], 1);
 
         return $product instanceof ProductInterface ? $product : null;
     }

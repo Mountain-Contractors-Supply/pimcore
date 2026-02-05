@@ -32,11 +32,11 @@ final readonly class PimcoreBranchProvider implements DataProviderInterface
     #[\Override]
     public function get(string $className, mixed $data = null): ?BranchInterface
     {
-        if (!isset($data['branchId'])) {
+        if (!isset($data['id'])) {
             return null;
         }
 
-        $branch = Branch::getById($data['branchId']);
+        $branch = Branch::getById($data['id']);
 
         return $branch instanceof BranchInterface ? $branch : null;
     }
