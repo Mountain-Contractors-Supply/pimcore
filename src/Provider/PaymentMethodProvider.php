@@ -10,7 +10,7 @@ use McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface;
 use McSupply\EcommerceBundle\Provider\PaymentMethodProviderInterface;
 use Pimcore\Model\DataObject\PaymentMethod;
 
-class PaymentMethodProvider implements PaymentMethodProviderInterface
+final readonly class PaymentMethodProvider implements PaymentMethodProviderInterface
 {
     public function __construct(
         private OnlineStoreProviderInterface $onlineStoreProvider,

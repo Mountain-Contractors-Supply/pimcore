@@ -15,7 +15,7 @@ use Pimcore\Model\DataObject\Branch;
  * @implements DataProviderInterface<BranchInterface>
  */
 #[DataProvider(BranchInterface::class, DefaultDataResolver::class, 10)]
-class PimcoreBranchProvider implements DataProviderInterface
+final readonly class PimcoreBranchProvider implements DataProviderInterface
 {
     /**
      * @inheritDoc

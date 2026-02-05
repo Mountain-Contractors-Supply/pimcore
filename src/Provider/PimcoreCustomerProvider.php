@@ -14,7 +14,7 @@ use Pimcore\Model\DataObject\Customer;
  * @implements DataProviderInterface<CustomerInterface>
  */
 #[DataProvider(CustomerInterface::class, DefaultDataResolver::class, 10)]
-class PimcoreCustomerProvider implements DataProviderInterface
+final readonly class PimcoreCustomerProvider implements DataProviderInterface
 {
     /**
      * @inheritDoc

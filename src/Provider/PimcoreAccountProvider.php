@@ -15,7 +15,7 @@ use Pimcore\Model\DataObject\Account;
  * @implements DataProviderInterface<AccountInterface>
  */
 #[DataProvider(AccountInterface::class, DefaultDataResolver::class, 10)]
-class PimcoreAccountProvider implements DataProviderInterface
+final readonly class PimcoreAccountProvider implements DataProviderInterface
 {
     /**
      * @inheritDoc

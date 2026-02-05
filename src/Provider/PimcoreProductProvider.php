@@ -15,7 +15,7 @@ use Pimcore\Model\DataObject\Product;
  * @implements DataProviderInterface<ProductInterface>
  */
 #[DataProvider(ProductInterface::class, DefaultDataResolver::class, 10)]
-class PimcoreProductProvider implements DataProviderInterface
+final readonly class PimcoreProductProvider implements DataProviderInterface
 {
     /**
      * @inheritDoc
@@ -36,7 +36,7 @@ class PimcoreProductProvider implements DataProviderInterface
             return null;
         }
 
-        $product = Product::getById($data['productId']);
+        $product = Product::getByProductId($data['productId']);
 
         return $product instanceof ProductInterface ? $product : null;
     }
