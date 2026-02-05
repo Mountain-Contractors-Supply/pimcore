@@ -35,6 +35,8 @@ final readonly class ShipMethodProvider implements ShipMethodProviderInterface
     #[\Override]
     public function getShipMethod(string $shipMethodCode): ?ShipMethodInterface
     {
-        return ShipMethod::getByCode($shipMethodCode, 1);
+        $shipMethod = ShipMethod::getByCode($shipMethodCode, 1);
+
+        return $shipMethod instanceof ShipMethodInterface ? $shipMethod : null;
     }
 }

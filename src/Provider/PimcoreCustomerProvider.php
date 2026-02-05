@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Provider;
 
 use McSupply\EcommerceBundle\Attribute\DataProvider;
@@ -27,9 +29,15 @@ class PimcoreCustomerProvider implements DataProviderInterface
      * @inheritDoc
      */
     #[\Override]
-    public function get(string $className, mixed $data = null): mixed
+    public function get(string $className, mixed $data = null): ?CustomerInterface
     {
-        return Customer::getByEmail($data['id'] ?? null, 1);
+        if (!isset($data['id'])) {
+            return null;
+        }
+
+        $customer = Customer::getByEmail($data['id'], 1);
+
+        return $customer instanceof CustomerInterface ? $customer : null;
     }
 
     /**

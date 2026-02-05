@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Provider;
 
 use Exception;
@@ -28,9 +30,15 @@ class PimcoreAccountProvider implements DataProviderInterface
      * @inheritDoc
      */
     #[\Override]
-    public function get(string $className, mixed $data = null): AccountInterface
+    public function get(string $className, mixed $data = null): ?AccountInterface
     {
-        return Account::getByAccountId($data['accountId'], 1);
+        if (!isset($data['accountId'])) {
+            return null;
+        }
+
+        $account = Account::getByAccountId($data['accountId'], 1);
+
+        return $account instanceof AccountInterface ? $account : null;
     }
 
     /**

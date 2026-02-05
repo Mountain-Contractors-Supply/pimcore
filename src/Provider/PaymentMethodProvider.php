@@ -35,6 +35,8 @@ class PaymentMethodProvider implements PaymentMethodProviderInterface
     #[\Override]
     public function getPaymentMethod(string $paymentMethodCode): ?PaymentMethodInterface
     {
-        return PaymentMethod::getByCode($paymentMethodCode, 1);
+        $paymentMethod = PaymentMethod::getByCode($paymentMethodCode, 1);
+
+        return $paymentMethod instanceof PaymentMethodInterface ? $paymentMethod : null;
     }
 }

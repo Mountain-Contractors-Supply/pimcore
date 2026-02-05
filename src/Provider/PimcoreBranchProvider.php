@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Provider;
 
 use Exception;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Dto\Company\BranchInterface;
-use McSupply\EcommerceBundle\Resolver\DataResolverInterface;
 use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Pimcore\Model\DataObject\Branch;
 
@@ -31,7 +32,13 @@ class PimcoreBranchProvider implements DataProviderInterface
     #[\Override]
     public function get(string $className, mixed $data = null): ?BranchInterface
     {
-        return Branch::getById($data['branchId']);
+        if (!isset($data['branchId'])) {
+            return null;
+        }
+
+        $branch = Branch::getById($data['branchId']);
+
+        return $branch instanceof BranchInterface ? $branch : null;
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Provider;
 
 use Exception;
@@ -30,7 +32,13 @@ class PimcoreProductProvider implements DataProviderInterface
     #[\Override]
     public function get(string $className, mixed $data = null): ?ProductInterface
     {
-        return Product::getByProductId($data['productId'], 1);
+        if (!isset($data['productId'])) {
+            return null;
+        }
+
+        $product = Product::getById($data['productId']);
+
+        return $product instanceof ProductInterface ? $product : null;
     }
 
     /**

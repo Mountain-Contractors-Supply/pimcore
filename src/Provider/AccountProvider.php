@@ -58,6 +58,8 @@ final readonly class AccountProvider implements AccountProviderInterface
     #[\Override]
     public function getAccount(string $accountId): ?AccountInterface
     {
-        return Account::getByAccountId($accountId, 1);
+        $account = Account::getByAccountId($accountId, 1);
+
+        return $account instanceof AccountInterface ? $account : null;
     }
 }
