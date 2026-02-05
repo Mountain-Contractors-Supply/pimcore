@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Provider;
+
+use Exception;
+use McSupply\EcommerceBundle\Attribute\DataProvider;
+use McSupply\EcommerceBundle\Provider\DataProviderInterface;
+use McSupply\EcommerceBundle\Dto\Company\AccountInterface;
+use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
+use Pimcore\Model\DataObject\Account;
+
+/**
+ * @implements DataProviderInterface<AccountInterface>
+ */
+#[DataProvider(AccountInterface::class, DefaultDataResolver::class, 10)]
+class PimcoreAccountProvider implements DataProviderInterface
+{
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function supports(string $className, mixed $data = null): bool
+    {
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function get(string $className, mixed $data = null): AccountInterface
+    {
+        return Account::getByAccountId($data['accountId'], 1);
+    }
+
+    /**
+     * @param Account $dto
+     * @inheritDoc
+     * @throws Exception
+     */
+    #[\Override]
+    public function save(mixed $dto, mixed $data = null): void
+    {
+        $dto->save();
+    }
+}

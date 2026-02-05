@@ -64,6 +64,9 @@ services:
     App\OptionProvider\:
         resource: '../src/OptionProvider'
 
+    App\Provider\:
+        resource: '../src/Provider'
+
     App\EventListener\:
         resource: '../src/EventListener'
 

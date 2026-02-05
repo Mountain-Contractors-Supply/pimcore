@@ -20,7 +20,7 @@
     }
   ],
   "require": {
-    "php": "~8.3.0 || ~8.4.0",
+    "php": "~8.4.0",
     "pimcore/pimcore": "*",
     "pimcore/platform-version": "2025.4",
     "pimcore/admin-ui-classic-bundle": "*",
