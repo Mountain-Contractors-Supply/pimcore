@@ -12,7 +12,7 @@ use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Pimcore\Model\DataObject\Account;
 
 /**
- * @implements DataProviderInterface<AccountInterface>
+ * @implements DataProviderInterface<Account>
  */
 #[DataProvider(AccountInterface::class, DefaultDataResolver::class, 10)]
 final readonly class PimcoreAccountProvider implements DataProviderInterface
@@ -38,12 +38,12 @@ final readonly class PimcoreAccountProvider implements DataProviderInterface
 
         $account = Account::getByAccountId($data['accountId'], 1);
 
-        return $account instanceof AccountInterface ? $account : null;
+        return $account instanceof Account ? $account : null;
     }
 
     /**
-     * @param Account $dto
      * @inheritDoc
+     *
      * @throws Exception
      */
     #[\Override]
