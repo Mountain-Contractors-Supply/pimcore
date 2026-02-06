@@ -70,18 +70,8 @@ services:
     App\EventListener\:
         resource: '../src/EventListener'
 
-    App\EventListener\AdminFileLoaderEventListener:
-        tags:
-            - {
-                name: kernel.event_listener,
-                event: pimcore.bundle_manager.paths.js,
-                method: addJSFiles,
-            }
-            - {
-                name: kernel.event_listener,
-                event: pimcore.bundle_manager.paths.css,
-                method: addCSSFiles,
-            }
+    App\LinkGenerator\ProductLinkGenerator:
+        public: true
 
     App\ExpressionLanguage\BasicExpressionProvider:
         tags:

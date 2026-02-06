@@ -10,6 +10,7 @@ use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
 use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Pimcore\Model\DataObject\Product;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<ProductInterface>
@@ -17,6 +18,10 @@ use Pimcore\Model\DataObject\Product;
 #[DataProvider(ProductInterface::class, DefaultDataResolver::class, 10)]
 final readonly class PimcoreProductProvider implements DataProviderInterface
 {
+    public function __construct(
+        private RequestStack $requestStack,
+    ) {}
+
     /**
      * @inheritDoc
      */
@@ -32,11 +37,16 @@ final readonly class PimcoreProductProvider implements DataProviderInterface
     #[\Override]
     public function get(string $className, mixed $data = null): ?ProductInterface
     {
-        if (!isset($data['productId'])) {
+        $productId = $this->requestStack
+                          ->getCurrentRequest()
+                          ?->attributes
+                          ->get('productId') ?? $data['productId'] ?? null;
+
+        if ($productId === null) {
             return null;
         }
 
-        $product = Product::getByProductId($data['productId'], 1);
+        $product = Product::getByProductId($productId, 1);
 
         return $product instanceof ProductInterface ? $product : null;
     }

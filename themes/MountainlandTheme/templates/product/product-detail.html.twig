@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/cart.css') }}" />
+{% endblock %}
+
+{% block content %}
+<main class="cart-page">
+    <div class="cart-breadcrumbs">
+        <a href="{{ path('home') }}">Home</a> / <span>{{ product.name }}</span>
+    </div>
+
+{#    {{ path('pimcore_element', {'element': product}) }}#}
+
+    <header class="cart-header">
+        <div>
+            <h1>{{ product.name }}</h1>
+        </div>
+    </header>
+</main>
+{% endblock %}
