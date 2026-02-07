@@ -20,10 +20,12 @@ final readonly class OnlineStoreThemeContext implements ThemeContextInterface
         private OnlineStoreProviderInterface $onlineStoreProvider,
         private RequestStack                 $requestStack,
         private PimcoreContextResolver       $pimcoreContext,
-    )
-    {
-    }
+    ) {}
 
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
     public function getTheme(): ?ThemeInterface
     {
         $request = $this->requestStack->getMainRequest();
