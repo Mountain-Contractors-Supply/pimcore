@@ -24,7 +24,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1765575834,
+   'modificationDate' => 1770413172,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -469,6 +469,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValue' => '',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
+                         'enforceValidation' => false,
                          'defaultValueGenerator' => '',
                          'width' => '',
                          'optionsProviderType' => 'select_options',
@@ -859,7 +860,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'icon' => '',
    'group' => 'Product',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => '',
+   'linkGeneratorReference' => '@App\\LinkGenerator\\ProductLinkGenerator',
    'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (

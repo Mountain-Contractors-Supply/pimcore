@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\User;
 
 use App\Model\AbstractModel;
@@ -15,7 +17,14 @@ abstract class AbstractCustomer extends AbstractModel implements CustomerInterfa
     #[\Override]
     public function getUserIdentifier(): string
     {
-        return (string)$this->getEmail();
+        $email = $this->getEmail();
+
+        // Ensure we return a non-empty string as required by the UserInterface contract
+        if (!is_string($email) || trim($email) === '') {
+            throw new \RuntimeException('User identifier (email) is empty or missing.');
+        }
+
+        return $email;
     }
 
     /**
@@ -33,7 +42,7 @@ abstract class AbstractCustomer extends AbstractModel implements CustomerInterfa
     #[\Override]
     public function setIsActive(?bool $isActive): static
     {
-        $this->setPublished($isActive);
+        $this->setPublished((bool)$isActive);
 
         return $this;
     }

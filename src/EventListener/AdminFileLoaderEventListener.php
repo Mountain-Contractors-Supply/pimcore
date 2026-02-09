@@ -3,10 +3,12 @@
 namespace App\EventListener;
 
 use Pimcore\Event\BundleManager\PathsEvent;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
 class AdminFileLoaderEventListener
 {
-    public function addJSFiles(PathsEvent $event)
+    #[AsEventListener('pimcore.bundle_manager.paths.js')]
+    public function addJSFiles(PathsEvent $event): void
     {
         $event->setPaths(
             array_merge(
@@ -18,7 +20,8 @@ class AdminFileLoaderEventListener
         );
     }
 
-    public function addCSSFiles(PathsEvent $event)
+    #[AsEventListener('pimcore.bundle_manager.paths.css')]
+    public function addCSSFiles(PathsEvent $event): void
     {
         $event->setPaths(
             array_merge(
