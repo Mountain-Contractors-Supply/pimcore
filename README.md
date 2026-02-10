@@ -21,7 +21,8 @@ Forked from https://github.com/TorqIT/pimcore-skeleton.
 1. Copy a supplied .env.local to the root of this project
 1. Run `docker compose up -d` to build the Docker images and run the containers
 1. Restore an up to date version of the database
-1. From within the php container, run `bin/console importmap:install`
+1. From within the php container (or using docker exec), run `bin/console importmap:install`
+1. From within the php container (or using docker exec), run `bin/console asset-map:compile`
 1. Go to `localhost:8415` in your browser to access the Pimcore admin (port is controlled by the `WEB_EXTERNAL_PORT` environment variable). Use username `admin` and password `pimcore` to log in.
 
 ## Getting updates from skeleton
