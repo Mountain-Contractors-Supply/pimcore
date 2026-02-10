@@ -18,9 +18,10 @@ Forked from https://github.com/TorqIT/pimcore-skeleton.
     1. Create a file called `pimcore-instance-identifier` and add your Pimcore instance ID to it.
     1. Create a file called `pimcore-encryption-secret` and add an encryption secret to it generated using https://github.com/defuse/php-encryption.
     1. Do NOT commit any of the files in this directory to your repository (they should already be gitignored).
+1. Copy a supplied .env.local to the root of this project
 1. Run `docker compose up -d` to build the Docker images and run the containers
 1. Restore an up to date version of the database
-1. Run `bin/console importmap:install`
+1. From within the php container, run `bin/console importmap:install`
 1. Go to `localhost:8415` in your browser to access the Pimcore admin (port is controlled by the `WEB_EXTERNAL_PORT` environment variable). Use username `admin` and password `pimcore` to log in.
 
 ## Getting updates from skeleton
