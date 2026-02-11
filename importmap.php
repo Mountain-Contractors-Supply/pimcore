@@ -37,4 +37,17 @@ return [
     '@googlemaps/js-api-loader' => [
         'version' => '1.16.10',
     ],
+    'flowbite' => [
+        'version' => '4.0.1',
+    ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'flowbite-datepicker' => [
+        'version' => '2.0.0',
+    ],
+    'flowbite/dist/flowbite.min.css' => [
+        'version' => '4.0.1',
+        'type' => 'css',
+    ],
 ];
