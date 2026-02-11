@@ -8,6 +8,7 @@ use App\EventListener\PreAddUpdateAwareInterface;
 use App\Model\AbstractModel;
 use McSupply\EcommerceBundle\Dto\Product\LineInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
+use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\Line;
 use Pimcore\Model\DataObject\ProductCategory;
 use Pimcore\Model\Element\ElementInterface;
@@ -25,6 +26,70 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
      * @return $this
      */
     public abstract function setCategoriesRef(?array $categoriesRef): static;
+
+    /**
+     * @return QuantityValue|null
+     */
+    public abstract function getWidthRef(): ?QuantityValue;
+
+    /**
+     * @param QuantityValue|null $widthRef
+     * @return $this
+     */
+    public abstract function setWidthRef(?QuantityValue $widthRef): static;
+
+    /**
+     * @return QuantityValue|null
+     */
+    public abstract function getHeightRef(): ?QuantityValue;
+
+    /**
+     * @param QuantityValue|null $heightRef
+     * @return $this
+     */
+    public abstract function setHeightRef(?QuantityValue $heightRef): static;
+
+    /**
+     * @return QuantityValue|null
+     */
+    public abstract function getDepthRef(): ?QuantityValue;
+
+    /**
+     * @param QuantityValue|null $depthRef
+     * @return $this
+     */
+    public abstract function setDepthRef(?QuantityValue $depthRef): static;
+
+    /**
+     * @return QuantityValue|null
+     */
+    public abstract function getWeightRef(): ?QuantityValue;
+
+    /**
+     * @param QuantityValue|null $weightRef
+     * @return $this
+     */
+    public abstract function setWeightRef(?QuantityValue $weightRef): static;
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function getProductId(): ?string
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function setProductId(?string $productId): static
+    {
+        $this->setKey((string) $productId);
+
+        return $this;
+    }
 
     /**
      * @inheritDoc
@@ -107,6 +172,86 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function getWidth(): ?string
+    {
+        return $this->formatQuantityValue($this->getWidthRef());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function setWidth(?string $width): static
+    {
+        $this->setWidthRef($this->prepareQuantityValue($width));
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function getHeight(): ?string
+    {
+        return $this->formatQuantityValue($this->getHeightRef());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function setHeight(?string $height): static
+    {
+        $this->setHeightRef($this->prepareQuantityValue($height));
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function getDepth(): ?string
+    {
+        return $this->formatQuantityValue($this->getDepthRef());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function setDepth(?string $depth): static
+    {
+        $this->setDepthRef($this->prepareQuantityValue($depth));
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function getWeight(): ?string
+    {
+        return $this->formatQuantityValue($this->getWeightRef());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function setWeight(?string $weight): static
+    {
+        $this->setWeightRef($this->prepareQuantityValue($weight));
+
+        return $this;
+    }
+
+    /**
      * @return void
      */
     private function formatUpc(): void
@@ -115,7 +260,7 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
             return;
         }
 
-        $upc = (string)preg_replace('/[^0-9]/', '', $this->getUpc());
+        $upc = (string) preg_replace('/[^0-9]/', '', $this->getUpc());
 
         if (strlen($upc) == 11) {
             $oddTotal = 0;
@@ -123,9 +268,9 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
 
             for ($i = 0; $i < 11; $i++) {
                 if ((($i + 1) % 2) == 0) {
-                    $evenTotal += (int)($upc[$i] ?? 0);
+                    $evenTotal += (int) ($upc[$i] ?? 0);
                 } else {
-                    $oddTotal += (int)($upc[$i] ?? 0);
+                    $oddTotal += (int) ($upc[$i] ?? 0);
                 }
             }
 
@@ -139,5 +284,33 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         if (isset($formattedUPC)) {
             $this->setUpc($formattedUPC);
         }
+    }
+
+    /**
+     * @param QuantityValue|null $value
+     * @return string|null
+     */
+    private function formatQuantityValue(?QuantityValue $value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return sprintf('%s %s', $value->getValue(), $value->getUnit()?->getAbbreviation());
+    }
+
+    /**
+     * @param string|null $quantityValue
+     * @return QuantityValue|null
+     */
+    private function prepareQuantityValue(?string $quantityValue): ?QuantityValue
+    {
+        if ($quantityValue === null) {
+            return null;
+        }
+
+        $values = explode(' ', $quantityValue);
+
+        return new QuantityValue($values[0], $values[1]);
     }
 }
