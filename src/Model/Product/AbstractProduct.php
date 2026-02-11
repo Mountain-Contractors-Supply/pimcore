@@ -188,7 +188,6 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     {
         $this->setWidthRef($this->prepareQuantityValue($width));
 
-
         return $this;
     }
 
