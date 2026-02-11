@@ -11,13 +11,8 @@ use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\Line;
 use Pimcore\Model\DataObject\ProductCategory;
-use Pimcore\Model\DataObject\QuantityValue\Unit;
 use Pimcore\Model\Element\ElementInterface;
 
-/**
- * @extends AbstractModel
- * @implements ProductInterface, PreAddUpdateAwareInterface
- */
 abstract class AbstractProduct extends AbstractModel implements ProductInterface, PreAddUpdateAwareInterface
 {
     /**
@@ -182,7 +177,7 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     #[\Override]
     public function getWidth(): ?string
     {
-        return $this->formatNumericValue($this->getWidthRef());
+        return $this->formatQuantityValue($this->getWidthRef());
     }
 
     /**
@@ -191,8 +186,8 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     #[\Override]
     public function setWidth(?string $width): static
     {
-        $values = explode(' ', $width);
-        $this->setWidthRef(new QuantityValue($values[0], $values[1]));
+        $this->setWidthRef($this->prepareQuantityValue($width));
+
 
         return $this;
     }
@@ -203,7 +198,7 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     #[\Override]
     public function getHeight(): ?string
     {
-        return $this->formatNumericValue($this->getHeightRef());
+        return $this->formatQuantityValue($this->getHeightRef());
     }
 
     /**
@@ -212,8 +207,7 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     #[\Override]
     public function setHeight(?string $height): static
     {
-        $values = explode(' ', $height);
-        $this->setHeightRef(new QuantityValue($values[0], $values[1]));
+        $this->setHeightRef($this->prepareQuantityValue($height));
 
         return $this;
     }
@@ -224,7 +218,7 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     #[\Override]
     public function getDepth(): ?string
     {
-        return $this->formatNumericValue($this->getDepthRef());
+        return $this->formatQuantityValue($this->getDepthRef());
     }
 
     /**
@@ -233,8 +227,7 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     #[\Override]
     public function setDepth(?string $depth): static
     {
-        $values = explode(' ', $depth);
-        $this->setDepthRef(new QuantityValue($values[0], $values[1]));
+        $this->setDepthRef($this->prepareQuantityValue($depth));
 
         return $this;
     }
@@ -245,7 +238,7 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     #[\Override]
     public function getWeight(): ?string
     {
-        return $this->formatNumericValue($this->getWeightRef());
+        return $this->formatQuantityValue($this->getWeightRef());
     }
 
     /**
@@ -254,23 +247,9 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     #[\Override]
     public function setWeight(?string $weight): static
     {
-        $values = explode(' ', $weight);
-        $this->setWeightRef(new QuantityValue($values[0], $values[1]));
+        $this->setWeightRef($this->prepareQuantityValue($weight));
 
         return $this;
-    }
-
-    /**
-     * @param QuantityValue|null $value
-     * @return string|null
-     */
-    private function formatNumericValue(?QuantityValue $value): ?string
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        return sprintf('%s %s', $value->getValue(), $value->getUnit()->getAbbreviation());
     }
 
     /**
@@ -306,5 +285,33 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         if (isset($formattedUPC)) {
             $this->setUpc($formattedUPC);
         }
+    }
+
+    /**
+     * @param QuantityValue|null $value
+     * @return string|null
+     */
+    private function formatQuantityValue(?QuantityValue $value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return sprintf('%s %s', $value->getValue(), $value->getUnit()?->getAbbreviation());
+    }
+
+    /**
+     * @param string|null $quantityValue
+     * @return QuantityValue|null
+     */
+    private function prepareQuantityValue(?string $quantityValue): ?QuantityValue
+    {
+        if ($quantityValue === null) {
+            return null;
+        }
+
+        $values = explode(' ', $quantityValue);
+
+        return new QuantityValue($values[0], $values[1]);
     }
 }
