@@ -1,0 +1,26 @@
+<div class="space-y-4">
+    <h2 class="text-2xl font-bold text-gray-900">{{ name|default('Product Name') }}</h2>
+    <p class="text-gray-600 leading-relaxed">{{ description|default('Product description and features will appear here.') }}</p>
+
+    {{ include('components/Product/ProductAvailability.html.twig', {
+        productId: productId|default(null),
+        upc: upc|default(null),
+        stockHome: stockHome|default(null),
+        stockOther: stockOther|default(null),
+        price: price|default(null)
+    }) }}
+
+    {{ include('components/Product/ProductActions.html.twig', {
+        quantity: quantity|default(1),
+        buttonText: buttonText|default('Add to Cart')
+    }) }}
+
+    {{ include('components/Accordion.html.twig', {
+        highlights: highlights|default(null),
+        description: description|default(null),
+        specs: specs|default(null),
+        videos: videos|default(null),
+        contacts: contacts|default(null),
+        shippingPolicy: shippingPolicy|default(null)
+    }) }}
+</div>

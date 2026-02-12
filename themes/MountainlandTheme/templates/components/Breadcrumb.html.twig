@@ -1,0 +1,13 @@
+<div class="mb-4">
+    <nav class="flex items-center space-x-2 text-sm text-gray-600">
+        <img src="{{ asset('var/assets/images/misc/home.webp') }}" alt="Home" class="w-4 h-4" />
+        <span class="text-gray-400">&gt;</span>
+        <a href="{{ path('home') }}" class="hover:text-blue-600 transition">All Products</a>
+        <span class="text-gray-400">&gt;</span>
+        <span>{{ division|default('Division') }}</span>
+        <span class="text-gray-400">&gt;</span>
+        <span>{{ category|default('Category') }}</span>
+        <span class="text-gray-400">&gt;</span>
+        <span class="font-semibold text-gray-900">{{ productName|default('Product Name') }}</span>
+    </nav>
+</div>

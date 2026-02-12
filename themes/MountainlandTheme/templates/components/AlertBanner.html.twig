@@ -1,0 +1,9 @@
+<div class="hidden bg-blue-50 border-l-4 border-blue-500 p-4 mb-4" role="alert">
+    <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" aria-label="Close">&times;</button>
+    <div class="flex items-center">
+        <img src="{{ asset('var/assets/images/misc/flag.webp') }}" alt="Alert" class="w-6 h-6 mr-3" />
+        <span class="text-blue-700 text-sm">
+            {{ message|default('*Pricing has been adjusted based on your Job Quote') }}
+        </span>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<section class="info-panel faq">
+    <div class="info-banner">
+        <div class="info-banner-content">
+            <h3 class="info-title">FAQ</h3>
+            <img class="info-logo" src="{{ asset('var/assets/images/branding/supplier/logos/mountainland-corporate-logo-white.webp') }}" alt="Mountainland" />
+        </div>
+    </div>
+    <div class="info-content">
+        <div class="faq-header">
+            <h4 class="faq-title">Frequently Asked Questions</h4>
+            <div class="faq-controls">
+                <button class="ask-question-button">Ask A Question</button>
+                <select class="sort-dropdown">
+                    <option value="">Sort</option>
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="helpful">Most Helpful</option>
+                    <option value="rating">Highest Rated</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="faq-divider"></div>
+        
+        <div class="faq-list">
+            {% if faqs is defined and faqs|length > 0 %}
+                {% for faq in faqs %}
+                    <div class="faq-item">
+                        <div class="faq-question"><span class="faq-q-label">Q:</span>{{ faq.question }}</div>
+                        <div class="faq-answer"><span class="faq-a-label">A:</span>{{ faq.answer }}</div>
+                        <button class="add-answer-link">+ Add Your Answer</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-q-label">Q:</span>How do I install this product?</div>
+                    <div class="faq-answer"><span class="faq-a-label">A:</span>Installation steps placeholder answer. Follow the included manual for step-by-step instructions.</div>
+                    <button class="add-answer-link">+ Add Your Answer</button>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-q-label">Q:</span>What is the warranty?</div>
+                    <div class="faq-answer"><span class="faq-a-label">A:</span>This product comes with a standard 2-year manufacturer's warranty covering defects in materials and workmanship.</div>
+                    <button class="add-answer-link">+ Add Your Answer</button>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-q-label">Q:</span>Can this product be used outdoors?</div>
+                    <div class="faq-answer"><span class="faq-a-label">A:</span>Yes, this product features weather-resistant construction and can be used in most outdoor environments.</div>
+                    <button class="add-answer-link">+ Add Your Answer</button>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-q-label">Q:</span>What type of maintenance does this require?</div>
+                    <div class="faq-answer"><span class="faq-a-label">A:</span>Regular maintenance includes cleaning and periodic inspection. See the maintenance guide for specific intervals.</div>
+                    <button class="add-answer-link">+ Add Your Answer</button>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-q-label">Q:</span>Is technical support available?</div>
+                    <div class="faq-answer"><span class="faq-a-label">A:</span>Yes, our technical support team is available Monday through Friday from 8am to 5pm EST via phone or email.</div>
+                    <button class="add-answer-link">+ Add Your Answer</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
