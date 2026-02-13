@@ -1,30 +1,48 @@
+{% set accordionItems = [] %}
+{% if highlights is defined and highlights|length > 0 %}
+    {% set accordionItems = accordionItems|merge([{
+        title: 'Product Highlights',
+        list: highlights,
+        open: true
+    }]) %}
+{% endif %}
+{% if specs %}
+    {% set accordionItems = accordionItems|merge([{ title: 'Specs', content: specs }]) %}
+{% endif %}
+{% if videos %}
+    {% set accordionItems = accordionItems|merge([{ title: 'Videos', content: videos }]) %}
+{% endif %}
+{% if contacts is defined and contacts|length > 0 %}
+    {% set accordionItems = accordionItems|merge([{
+        title: 'Contact',
+        template: 'components/AccordionContacts.html.twig',
+        context: { contacts: contacts }
+    }]) %}
+{% endif %}
+{% if shippingPolicy %}
+    {% set accordionItems = accordionItems|merge([{ title: 'Shipping Policies', content: shippingPolicy }]) %}
+{% endif %}
+
 <div class="space-y-4">
     <h2 class="text-2xl font-bold mcs-primary-text">{{ name|default('Product Name') }}</h2>
     {% if description %}
         <div class="text-gray-600 leading-relaxed">{{ description|raw }}</div>
     {% endif %}
 
-    {{ include('components/Product/ProductAvailability.html.twig', {
-        productId: productId|default(null),
-        upc: upc|default(null),
-        stockHome: stockHome|default(null),
-        stockOther: stockOther|default(null),
-        price: price|default(null)
-    }) }}
+    <twig:ProductAvailability
+        :productId="productId|default(null)"
+        :upc="upc|default(null)"
+        :stockHome="stockHome|default(null)"
+        :stockOther="stockOther|default(null)"
+        :price="price|default(null)"
+    />
 
-    {{ include('components/Product/ProductActions.html.twig', {
-        quantity: quantity|default(1),
-        addToCartText: addToCartText|default('Add to Cart'),
-        cartProductId: cartProductId|default(null),
-        cartUom: cartUom|default('EA')
-    }) }}
+    <twig:ProductActions
+        :quantity="quantity|default(1)"
+        addToCartText="{{ addToCartText|default('Add to Cart') }}"
+        :cartProductId="cartProductId|default(null)"
+        cartUom="{{ cartUom|default('ea') }}"
+    />
 
-    {{ include('components/Accordion.html.twig', {
-        highlights: highlights|default(null),
-        description: description|default(null),
-        specs: specs|default(null),
-        videos: videos|default(null),
-        contacts: contacts|default(null),
-        shippingPolicy: shippingPolicy|default(null)
-    }) }}
+    <twig:Accordion :items="accordionItems" />
 </div>

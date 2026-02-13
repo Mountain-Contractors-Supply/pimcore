@@ -1,72 +1,25 @@
+{% set resolvedItems = items|default([]) %}
+
 <div class="space-y-2 mt-6">
-    {% if highlights is defined and highlights|length > 0 %}
-        <details class="group border border-gray-200 rounded-lg" open>
+    {% for item in resolvedItems %}
+        <details class="group border border-gray-200 rounded-lg"{% if item.open|default(false) %} open{% endif %}>
             <summary class="px-4 py-3 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 list-none flex justify-between items-center">
-                <span>Product Highlights</span>
-                <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
-            </summary>
-            <ul class="px-4 py-3 space-y-2 text-gray-600 text-sm list-disc list-inside">
-                {% for highlight in highlights %}
-                    <li>{{ highlight }}</li>
-                {% endfor %}
-            </ul>
-        </details>
-    {% endif %}
-
-    {% if specs %}
-        <details class="group border border-gray-200 rounded-lg">
-            <summary class="px-4 py-3 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 list-none flex justify-between items-center">
-                <span>Specs</span>
+                <span>{{ item.title }}</span>
                 <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
             </summary>
             <div class="px-4 py-3 text-gray-600 text-sm">
-                {{ specs|raw }}
+                {% if item.list is defined %}
+                    <ul class="space-y-2 list-disc list-inside">
+                        {% for listItem in item.list %}
+                            <li>{{ listItem }}</li>
+                        {% endfor %}
+                    </ul>
+                {% elseif item.template is defined %}
+                    {{ include(item.template, item.context|default({})) }}
+                {% else %}
+                    {{ item.content|default('')|raw }}
+                {% endif %}
             </div>
         </details>
-    {% endif %}
-
-    {% if videos %}
-        <details class="group border border-gray-200 rounded-lg">
-            <summary class="px-4 py-3 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 list-none flex justify-between items-center">
-                <span>Videos</span>
-                <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
-            </summary>
-            <div class="px-4 py-3 text-gray-600 text-sm">
-                {{ videos|raw }}
-            </div>
-        </details>
-    {% endif %}
-
-    {% if contacts is defined and contacts|length > 0 %}
-        <details class="group border border-gray-200 rounded-lg">
-            <summary class="px-4 py-3 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 list-none flex justify-between items-center">
-                <span>Contact</span>
-                <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
-            </summary>
-            <div class="px-4 py-3 grid grid-cols-1 md:grid-cols-3 gap-4">
-                {% for contact in contacts %}
-                    <div class="flex items-start gap-3">
-                        <img src="{{ asset('var/assets/images/misc/camera.webp') }}" alt="{{ contact.name }}" class="w-12 h-12 rounded-full bg-gray-100" />
-                        <div class="text-sm">
-                            <div class="font-semibold text-gray-900">{{ contact.name }}</div>
-                            <div class="text-gray-600">{{ contact.email }}</div>
-                            <div class="text-gray-600">{{ contact.phone }}</div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </details>
-    {% endif %}
-
-    {% if shippingPolicy %}
-        <details class="group border border-gray-200 rounded-lg">
-            <summary class="px-4 py-3 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 list-none flex justify-between items-center">
-                <span>Shipping Policies</span>
-                <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
-            </summary>
-            <div class="px-4 py-3 text-gray-600 text-sm">
-                {{ shippingPolicy|raw }}
-            </div>
-        </details>
-    {% endif %}
+    {% endfor %}
 </div>

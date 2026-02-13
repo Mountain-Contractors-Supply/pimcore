@@ -1,7 +1,11 @@
-<div class="flex gap-3 my-4">
-    <input type="number" class="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value="{{ quantity|default(1) }}" min="1" />
-    <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition">{{ buttonText|default('Add to Cart') }}</button>
-    <button class="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+{% set actionLabel = addToCartText|default(buttonText|default('Add to Cart')) %}
+{% set productId = cartProductId|default(null) %}
+{% set uom = cartUom|default('ea') %}
+
+<div class="flex gap-3 my-4" data-controller="cart" data-cart-product-id-value="{{ productId }}" data-cart-uom-value="{{ uom }}">
+    <twig:QuantityInput :value="quantity|default(1)" :min="1" name="quantity" data-cart-target="qtyInput" />
+    <button class="flex-1 mcs-primary-button text-white font-semibold py-2 px-6 rounded-lg transition hover:opacity-90" data-action="click->cart#add">{{ actionLabel }}</button>
+    <button class="p-2 rounded-lg transition" style="background-color: #4d4d4d; color: white;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
         <img src="{{ asset('var/assets/images/misc/star.webp') }}" alt="Save" class="w-6 h-6" />
     </button>
 </div>
