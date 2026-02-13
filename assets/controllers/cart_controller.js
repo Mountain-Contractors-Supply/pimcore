@@ -22,7 +22,6 @@ export default class extends Controller {
 
             window.dispatchEvent(new CustomEvent('cart-updated'));
         } catch (error) {
-            console.error('Error adding to cart:', error);
         }
     }
 
@@ -56,7 +55,6 @@ export default class extends Controller {
                 body: new URLSearchParams({quantity})
             });
         } catch (error) {
-            console.error('Error updating quantity:', error);
         }
     }
 
@@ -66,7 +64,6 @@ export default class extends Controller {
                 method: 'DELETE'
             });
         } catch (error) {
-            console.error('Error updating quantity:', error);
         }
     }
 }

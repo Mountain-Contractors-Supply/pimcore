@@ -18,9 +18,6 @@ export default class extends Controller {
 
         if (this.hasMenuTarget) {
             this.menuTarget.classList.toggle('show')
-            console.log('Menu has show class:', this.menuTarget.classList.contains('show'))
-        } else {
-            console.error('Menu target not found!')
         }
     }
 
