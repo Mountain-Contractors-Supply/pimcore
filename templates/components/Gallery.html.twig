@@ -3,7 +3,7 @@
         <img src="{{ asset(mainImage ?? 'var/assets/images/misc/camera.webp') }}" alt="Product Image" class="w-full h-full object-cover" />
     </div>
     <div class="grid grid-cols-5 gap-2">
-        {% if images|length > 0 %}
+        {% if images is defined and images|length > 0 %}
             {% for thumbnail in images %}
                 <div class="aspect-square bg-gray-100 rounded border border-gray-200 hover:border-blue-500 cursor-pointer transition overflow-hidden">
                     <img src="{{ asset(thumbnail) }}" alt="Thumbnail {{ loop.index }}" class="w-full h-full object-cover" />

@@ -8,6 +8,7 @@ import HomeController from './controllers/home_controller.js';
 import LocationsController from './controllers/locations_controller.js';
 import CarouselController from './controllers/carousel_controller.js';
 import NumericInputController from './controllers/numeric_input_controller.js';
+import AlertBannerController from './controllers/alert_banner_controller.js';
 
 const app = startStimulusApp();
 const { fetch: originalFetch } = window;
@@ -30,6 +31,7 @@ app.register('header', HeaderController);
 app.register('home', HomeController);
 app.register('locations', LocationsController);
 app.register('carousel', CarouselController);
+app.register('alert-banner', AlertBannerController);
 app.register('numeric-input', NumericInputController);
 
 Turbo.StreamActions.reload_frame = function () {
