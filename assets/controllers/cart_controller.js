@@ -11,6 +11,10 @@ export default class extends Controller {
     async add() {
         const quantity = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget?.value, 10) || this.minQuantityValue);
         await this.adjustCart('POST', quantity);
+
+        if (this.qtyInputTarget) {
+            this.qtyInputTarget.value = String(this.minQuantityValue);
+        }
     }
 
     async decrease() {
