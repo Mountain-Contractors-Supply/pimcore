@@ -30,17 +30,17 @@
     {% endif %}
 
     <twig:ProductAvailability
-        :productId="productId|default(null)"
-        :upc="upc|default(null)"
-        :stockHome="stockHome|default(null)"
-        :stockOther="stockOther|default(null)"
-        :price="price|default(null)"
+        {% if productId is defined %}:productId="productId"{% endif %}
+        {% if upc is defined %}:upc="upc"{% endif %}
+        {% if stockHome is defined %}:stockHome="stockHome"{% endif %}
+        {% if stockOther is defined %}:stockOther="stockOther"{% endif %}
+        {% if price is defined %}:price="price"{% endif %}
     />
 
     <twig:ProductActions
         :quantity="quantity|default(1)"
         addToCartText="{{ addToCartText|default('Add to Cart') }}"
-        :cartProductId="cartProductId|default(null)"
+        {% if cartProductId is defined %}:cartProductId="cartProductId"{% endif %}
         cartUom="{{ cartUom|default('ea') }}"
     />
 

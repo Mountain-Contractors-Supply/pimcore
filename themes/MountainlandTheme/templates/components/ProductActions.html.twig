@@ -1,5 +1,5 @@
 {% set actionLabel = addToCartText|default(buttonText|default('Add to Cart')) %}
-{% set productId = cartProductId|default(null) %}
+{% set productId = cartProductId|default('') %}
 {% set uom = cartUom|default('ea') %}
 
 <div class="flex gap-3 my-4" data-controller="cart" data-cart-product-id-value="{{ productId }}" data-cart-uom-value="{{ uom }}">
