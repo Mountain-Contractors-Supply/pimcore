@@ -8,61 +8,53 @@ export default class extends Controller {
         minQuantity: { type: Number, default: 1 }
     };
 
-    async add(event) {
-        event.preventDefault();
-
+    async add() {
         const quantity = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget?.value, 10) || this.minQuantityValue);
-
-        try {
-            await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ quantity })
-            });
-
-            window.dispatchEvent(new CustomEvent('cart-updated'));
-        } catch (error) {
-        }
+        await this.adjustCart('POST', quantity);
     }
 
-    decrease() {
+    async decrease() {
         const currentQty = parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue;
         const newQty = Math.max(this.minQuantityValue, currentQty - 1);
 
         if (newQty !== currentQty) {
-            this.updateQuantity(newQty);
+            await this.updateQuantity(newQty);
         }
     }
 
-    increase() {
+    async increase() {
         const currentQty = parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue;
         const newQty = currentQty + 1;
-        this.updateQuantity(newQty);
-    }
-
-    inputChanged() {
-        const newQty = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue);
-
-        this.qtyInputTarget.value = newQty;
-        this.updateQuantity(newQty);
+        await this.updateQuantity(newQty);
     }
 
     async updateQuantity(quantity) {
-        try {
-            await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({quantity})
-            });
-        } catch (error) {
-        }
+        await this.adjustCart('PUT', quantity);
     }
 
     async remove() {
+        await this.adjustCart('DELETE');
+    }
+
+    async inputChanged() {
+        const newQty = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue);
+
+        this.qtyInputTarget.value = newQty;
+        await this.updateQuantity(newQty);
+    }
+
+    async adjustCart(httpMethod, quantity) {
         try {
-            await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, {
-                method: 'DELETE'
-            });
+            const params = {
+                method: httpMethod,
+            }
+
+            if (typeof quantity !== 'undefined' && quantity !== null) {
+                params.headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+                params.body = new URLSearchParams({ quantity });
+            }
+
+            await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, params);
         } catch (error) {
         }
     }
