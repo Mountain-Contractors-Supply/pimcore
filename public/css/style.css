@@ -445,6 +445,31 @@ h2 {
 /*
    UTILITIES & MISC
 */
+.mcs-primary-bg {
+    background-color: var(--primary-color);
+}
+
+.mcs-primary-text {
+    color: var(--primary-color);
+}
+
+.mcs-primary-border {
+    border-color: var(--primary-color);
+}
+
+.mcs-primary-button {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.mcs-primary-button:hover {
+    background-color: #0d124a;
+}
+
+.mcs-primary-ring:focus {
+    box-shadow: 0 0 0 4px rgba(17, 23, 94, 0.3);
+}
+
 .header-text {
     font-size: 0.85rem;
     color: #555;

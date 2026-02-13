@@ -8,6 +8,24 @@ export default class extends Controller {
         minQuantity: { type: Number, default: 1 }
     };
 
+    async add(event) {
+        event.preventDefault();
+
+        const quantity = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget?.value, 10) || this.minQuantityValue);
+
+        try {
+            await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ quantity })
+            });
+
+            window.dispatchEvent(new CustomEvent('cart-updated'));
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+        }
+    }
+
     decrease() {
         const currentQty = parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue;
         const newQty = Math.max(this.minQuantityValue, currentQty - 1);

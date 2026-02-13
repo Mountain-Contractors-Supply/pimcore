@@ -1,48 +1,54 @@
-<section class="info-panel upsell">
-    <div class="info-banner">
-        <div class="info-banner-content">
-            <h3 class="info-title">{{ title|default('You May Also Need...') }}</h3>
-            <img class="info-logo" src="{{ asset('var/assets/images/branding/supplier/logos/mountainland-corporate-logo-white.webp') }}" alt="Mountainland" />
-        </div>
+<section class="mt-12 bg-gray-100 rounded-lg overflow-hidden">
+    <div class="mcs-primary-bg px-6 py-4 flex justify-between items-center">
+        <h3 class="text-2xl font-bold text-white">{{ title|default('You May Also Need...') }}</h3>
+        <img class="h-8" src="{{ asset('var/assets/images/branding/supplier/logos/mountainland-corporate-logo-white.webp') }}" alt="Mountainland" />
     </div>
-    <div class="info-content">
-        <div class="products-carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous product">&lt;</button>
+    <div class="p-6">
+        <div class="relative">
+            <button class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg hover:bg-gray-100 flex items-center justify-center text-gray-600" aria-label="Previous product">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
             
-            <div class="carousel-products">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-12">
                 {% if products is defined and products|length > 0 %}
                     {% for item in products %}
-                        <div class="carousel-product">
-                            <img src="{{ asset(item.image|default('var/assets/images/misc/camera.webp')) }}" alt="{{ item.name }}" class="carousel-product-image" />
-                            <div class="carousel-product-name">{{ item.name }}</div>
-                            <div class="carousel-product-price">${{ item.price|number_format(2, '.', ',') }}</div>
+                        <div class="bg-white rounded-lg p-4 shadow hover:shadow-lg transition">
+                            <img src="{{ asset(item.image|default('var/assets/images/misc/camera.webp')) }}" alt="{{ item.name }}" class="w-full aspect-square object-cover rounded mb-3" />
+                            <div class="font-medium text-gray-900 text-sm mb-1">{{ item.name }}</div>
+                            <div class="text-blue-600 font-bold">${{ item.price|number_format(2, '.', ',') }}</div>
                         </div>
                     {% endfor %}
                 {% else %}
-                    <div class="carousel-product">
-                        <img src="{{ asset('var/assets/images/misc/camera.webp') }}" alt="Companion Item" class="carousel-product-image" />
-                        <div class="carousel-product-name">Companion Item A</div>
-                        <div class="carousel-product-price">$149.99</div>
+                    <div class="bg-white rounded-lg p-4 shadow hover:shadow-lg transition">
+                        <img src="{{ asset('var/assets/images/misc/camera.webp') }}" alt="Companion Item" class="w-full aspect-square object-cover rounded mb-3" />
+                        <div class="font-medium text-gray-900 text-sm mb-1">Companion Item A</div>
+                        <div class="text-blue-600 font-bold">$149.99</div>
                     </div>
-                    <div class="carousel-product">
-                        <img src="{{ asset('var/assets/images/misc/camera.webp') }}" alt="Accessory" class="carousel-product-image" />
-                        <div class="carousel-product-name">Accessory Item B</div>
-                        <div class="carousel-product-price">$79.99</div>
+                    <div class="bg-white rounded-lg p-4 shadow hover:shadow-lg transition">
+                        <img src="{{ asset('var/assets/images/misc/camera.webp') }}" alt="Accessory" class="w-full aspect-square object-cover rounded mb-3" />
+                        <div class="font-medium text-gray-900 text-sm mb-1">Accessory Item B</div>
+                        <div class="text-blue-600 font-bold">$79.99</div>
                     </div>
-                    <div class="carousel-product">
-                        <img src="{{ asset('var/assets/images/misc/camera.webp') }}" alt="Service" class="carousel-product-image" />
-                        <div class="carousel-product-name">Service Option C</div>
-                        <div class="carousel-product-price">$199.99</div>
+                    <div class="bg-white rounded-lg p-4 shadow hover:shadow-lg transition">
+                        <img src="{{ asset('var/assets/images/misc/camera.webp') }}" alt="Service" class="w-full aspect-square object-cover rounded mb-3" />
+                        <div class="font-medium text-gray-900 text-sm mb-1">Service Option C</div>
+                        <div class="text-blue-600 font-bold">$199.99</div>
                     </div>
-                    <div class="carousel-product">
-                        <img src="{{ asset('var/assets/images/misc/camera.webp') }}" alt="Part" class="carousel-product-image" />
-                        <div class="carousel-product-name">Replacement Part D</div>
-                        <div class="carousel-product-price">$49.99</div>
+                    <div class="bg-white rounded-lg p-4 shadow hover:shadow-lg transition">
+                        <img src="{{ asset('var/assets/images/misc/camera.webp') }}" alt="Part" class="w-full aspect-square object-cover rounded mb-3" />
+                        <div class="font-medium text-gray-900 text-sm mb-1">Replacement Part D</div>
+                        <div class="text-blue-600 font-bold">$49.99</div>
                     </div>
                 {% endif %}
             </div>
             
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next product">&gt;</button>
+            <button class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg hover:bg-gray-100 flex items-center justify-center text-gray-600" aria-label="Next product">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
         </div>
     </div>
 </section>

@@ -1,22 +1,54 @@
 {% extends 'layout.html.twig' %}
 
-{% block head %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/cart.css') }}" />
-{% endblock %}
-
 {% block content %}
-<main class="cart-page">
-    <div class="cart-breadcrumbs">
-        <a href="{{ path('home') }}">Home</a> / <span>{{ product.name }}</span>
+{{ include('components/AlertBanner.html.twig', {
+    message: '*Pricing has been adjusted based on your Job Quote',
+    icon: 'var/assets/images/misc/flag.webp'
+}) }}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    {{ include('components/Breadcrumb.html.twig', {
+        items: [
+            { label: 'Home', url: path('home'), icon: 'var/assets/images/misc/home.webp' },
+            { label: product.name }
+        ]
+    }) }}
+
+    <hr class="my-6 border-gray-300" />
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div>
+            <twig:Gallery />
+        </div>
+
+        <div>
+            {{ include('components/ProductSummary.html.twig', {
+                name: product.name,
+                description: product.description,
+                productId: product.productId,
+                upc: product.upc,
+                stockHome: null,
+                stockOther: null,
+                price: null,
+                highlights: null,
+                specs: product.features,
+                videos: null,
+                contacts: null,
+                shippingPolicy: null,
+                addToCartText: 'Add to Cart',
+                cartProductId: product.productId,
+                cartUom: 'EA'
+            }) }}
+        </div>
     </div>
 
-{#    {{ path('pimcore_element', {'element': product}) }}#}
+    {{ include('components/ProductUpsell.html.twig', {
+        title: 'You May Also Need...',
+        products: productsUpsell ?? []
+    }) }}
 
-    <header class="cart-header">
-        <div>
-            <h1>{{ product.name }}</h1>
-        </div>
-    </header>
-</main>
+    {{ include('components/ProductFaq.html.twig', {
+        faqs: faqs ?? []
+    }) }}
+</div>
 {% endblock %}

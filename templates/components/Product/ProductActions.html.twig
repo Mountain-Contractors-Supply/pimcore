@@ -1,4 +1,14 @@
-<div {{ attributes.defaults({class: 'space-y-4'}) }}>
+{% set canAddToCart = cartProductId is not empty %}
+
+<form
+    class="space-y-4"
+    data-controller="cart"
+    data-cart-product-id-value="{{ cartProductId }}"
+    data-cart-uom-value="{{ cartUom|default('EA') }}"
+    data-action="submit->cart#add"
+    data-turbo="false"
+    method="post"
+    action="#">
     <div class="flex items-center gap-4">
         <label for="quantity" class="text-sm font-medium text-gray-900">Quantity:</label>
         <input 
@@ -7,19 +17,20 @@
             name="quantity" 
             value="{{ quantity }}" 
             min="1" 
+            data-cart-target="qtyInput"
             class="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
     </div>
 
     <div class="flex gap-3">
-        <twig:Button variant="primary" tag="button" class="flex-1">
-            {{ addToCartText }}
-        </twig:Button>
+        <button type="submit" class="flex-1 px-4 py-2 text-sm mcs-primary-button mcs-primary-ring font-medium rounded-lg focus:outline-none transition-colors" {% if not canAddToCart %}disabled{% endif %}>
+            {{ addToCartText ?? 'Add to Cart' }}
+        </button>
         
-        <twig:Button variant="secondary" tag="button">
+        <button type="button" class="px-4 py-2 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg focus:outline-none transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
             </svg>
-        </twig:Button>
+        </button>
     </div>
-</div>
+</form>

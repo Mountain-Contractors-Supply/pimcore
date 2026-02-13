@@ -3,6 +3,7 @@
 namespace App\Twig\Components;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
+use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
 
 #[AsTwigComponent]
 class Button
@@ -10,6 +11,12 @@ class Button
     public string $variant = 'primary';
     public string $tag = 'button';
     public string $size = 'md';
+
+    #[ExposeInTemplate]
+    public function getButtonClasses(): string
+    {
+        return $this->getSizeClasses() . ' ' . $this->getVariantClasses() . ' font-medium rounded-lg focus:outline-none transition-colors';
+    }
 
     public function getVariantClasses(): string
     {
