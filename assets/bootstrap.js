@@ -1,14 +1,6 @@
 import { startStimulusApp } from '@symfony/stimulus-bundle';
 import * as Turbo from '@hotwired/turbo';
-import CartController from './controllers/cart_controller.js';
-import RefreshController from './controllers/refresh_controller.js';
-import CheckoutController from './controllers/checkout_controller.js';
-import HeaderController from './controllers/header_controller.js';
-import HomeController from './controllers/home_controller.js';
-import LocationsController from './controllers/locations_controller.js';
-import CarouselController from './controllers/carousel_controller.js';
-import NumericInputController from './controllers/numeric_input_controller.js';
-import AlertBannerController from './controllers/alert_banner_controller.js';
+
 
 const app = startStimulusApp();
 const { fetch: originalFetch } = window;
