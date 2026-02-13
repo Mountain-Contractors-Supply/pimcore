@@ -1,6 +1,6 @@
 import { startStimulusApp } from '@symfony/stimulus-bundle';
 import * as Turbo from '@hotwired/turbo';
-
+import MapController from '@symfony/ux-google-map';
 
 const app = startStimulusApp();
 const { fetch: originalFetch } = window;
@@ -15,16 +15,7 @@ window.fetch = async (...args) => {
 
     return response;
 };
-
-app.register('cart', CartController);
-app.register('refresh', RefreshController);
-app.register('checkout', CheckoutController);
-app.register('header', HeaderController);
-app.register('home', HomeController);
-app.register('locations', LocationsController);
-app.register('carousel', CarouselController);
-app.register('alert-banner', AlertBannerController);
-app.register('numeric-input', NumericInputController);
+app.register('symfony--ux-google-map--map', MapController);
 
 Turbo.StreamActions.reload_frame = function () {
     this.targetElements.forEach((frame) => {
