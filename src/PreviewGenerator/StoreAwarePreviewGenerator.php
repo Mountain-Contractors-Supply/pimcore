@@ -19,7 +19,7 @@ final readonly class StoreAwarePreviewGenerator implements PreviewGeneratorInter
     /**
      * @inheritDoc
      *
-     * @return list<array<string,mixed>>
+     * @return list<array<string, mixed>>
      */
     #[\Override]
     public function getPreviewConfig(Concrete $object): array
