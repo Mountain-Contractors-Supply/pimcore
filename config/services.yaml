@@ -70,10 +70,12 @@ services:
     App\EventListener\:
         resource: '../src/EventListener'
 
-    App\LinkGenerator\ProductLinkGenerator:
+    App\LinkGenerator\:
+        resource: '../src/LinkGenerator'
         public: true
 
-    App\PreviewGenerator\StoreAwarePreviewGenerator:
+    App\PreviewGenerator\:
+        resource: '../src/PreviewGenerator'
         public: true
 
     App\ExpressionLanguage\BasicExpressionProvider:

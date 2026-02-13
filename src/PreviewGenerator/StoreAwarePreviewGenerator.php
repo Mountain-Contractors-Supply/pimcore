@@ -38,7 +38,7 @@ final readonly class StoreAwarePreviewGenerator implements PreviewGeneratorInter
             [
                 'name' => 'store_id',
                 'label' => 'Select Store',
-                'value' => $options,
+                'values' => $options,
                 'defaultValue' => $defaultStoreId,
             ]
         ];
