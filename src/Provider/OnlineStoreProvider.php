@@ -29,7 +29,9 @@ final readonly class OnlineStoreProvider implements OnlineStoreProviderInterface
     #[\Override]
     public function getOnlineStore(?int $onlineStoreId = null): ?OnlineStoreInterface
     {
-        if ($onlineStoreId !== null) {
+        $onlineStoreId ??= (int)$this->requestStack->getMainRequest()?->get('store_id');
+
+        if ($onlineStoreId) {
             return OnlineStore::getById($onlineStoreId);
         }
 

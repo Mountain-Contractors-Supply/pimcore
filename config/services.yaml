@@ -73,6 +73,9 @@ services:
     App\LinkGenerator\ProductLinkGenerator:
         public: true
 
+    App\PreviewGenerator\StoreAwarePreviewGenerator:
+        public: true
+
     App\ExpressionLanguage\BasicExpressionProvider:
         tags:
             - { name: 'pimcore.calculated_value.expression_language_provider' }
