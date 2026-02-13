@@ -2,6 +2,25 @@ imports:
     - { resource: 'local/' }
     - { resource: 'database.yaml' }
 
+pimcore_open_search_client:
+    clients:
+        default:
+            hosts: ['http://opensearch:9200']
+            password: '%env(OPENSEARCH_INITIAL_ADMIN_PASSWORD)%'
+            username: 'admin'
+            ssl_verification: false
+
+pimcore_generic_data_index:
+    index_service:
+        client_params:
+            client_name: default
+
+pimcore_studio_backend:
+    mercure_settings:
+        jwt_key: '%env(MERCURE_JWT)%'
+        hub_url_client: 'http://localhost/hub'
+        hub_url_server: 'http://mercure/.well-known/mercure'
+
 pimcore_data_hub:
     config_location:
         data_hub:
