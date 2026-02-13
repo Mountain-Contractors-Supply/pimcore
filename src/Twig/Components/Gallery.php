@@ -8,5 +8,7 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class Gallery
 {
     public ?string $mainImage = null;
+
+    /** @var string[] */
     public array $images = [];
 }
