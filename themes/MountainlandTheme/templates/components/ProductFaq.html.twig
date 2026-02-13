@@ -1,0 +1,63 @@
+<section class="mt-12 bg-gray-100">
+    <div class="mcs-primary-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h3 class="text-2xl font-bold text-white">FAQ</h3>
+            <img class="h-8" src="{{ asset('var/assets/images/branding/supplier/logos/mountainland-corporate-logo-white.webp') }}" alt="Mountainland" />
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-6">
+            <h4 class="text-xl font-bold text-gray-900">Frequently Asked Questions</h4>
+            <div class="flex flex-wrap gap-3 mt-3 md:mt-0">
+                <button class="px-4 py-2 mcs-primary-button rounded-lg transition">Ask A Question</button>
+                <select class="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900">
+                    <option value="">Sort</option>
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="helpful">Most Helpful</option>
+                    <option value="rating">Highest Rated</option>
+                </select>
+            </div>
+        </div>
+        
+        <hr class="border-gray-300 mb-6" />
+        
+        <div class="space-y-6">
+            {% if faqs is defined and faqs|length > 0 %}
+                {% for faq in faqs %}
+                    <div class="faq-item">
+                        <div class="faq-question"><span class="faq-q-label">Q:</span>{{ faq.question }}</div>
+                        <div class="faq-answer"><span class="faq-a-label">A:</span>{{ faq.answer }}</div>
+                        <button class="add-answer-link">+ Add Your Answer</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="bg-white rounded-lg p-5 shadow">
+                    <div class="mb-3"><span class="font-bold mcs-primary-text mr-2">Q:</span><span class="text-gray-900 font-medium">How do I install this product?</span></div>
+                    <div class="mb-3 pl-6"><span class="font-bold" style="color: #90202f;">A:</span><span class="text-gray-600">Installation steps placeholder answer. Follow the included manual for step-by-step instructions.</span></div>
+                    <button class="mcs-primary-text hover:opacity-70 text-sm font-medium">+ Add Your Answer</button>
+                </div>
+                <div class="bg-white rounded-lg p-5 shadow">
+                    <div class="mb-3"><span class="font-bold mcs-primary-text mr-2">Q:</span><span class="text-gray-900 font-medium">What is the warranty?</span></div>
+                    <div class="mb-3 pl-6"><span class="font-bold" style="color: #90202f;">A:</span><span class="text-gray-600">This product comes with a standard 2-year manufacturer's warranty covering defects in materials and workmanship.</span></div>
+                    <button class="mcs-primary-text hover:opacity-70 text-sm font-medium">+ Add Your Answer</button>
+                </div>
+                <div class="bg-white rounded-lg p-5 shadow">
+                    <div class="mb-3"><span class="font-bold mcs-primary-text mr-2">Q:</span><span class="text-gray-900 font-medium">Can this product be used outdoors?</span></div>
+                    <div class="mb-3 pl-6"><span class="font-bold" style="color: #90202f;">A:</span><span class="text-gray-600">Yes, this product features weather-resistant construction and can be used in most outdoor environments.</span></div>
+                    <button class="mcs-primary-text hover:opacity-70 text-sm font-medium">+ Add Your Answer</button>
+                </div>
+                <div class="bg-white rounded-lg p-5 shadow">
+                    <div class="mb-3"><span class="font-bold mcs-primary-text mr-2">Q:</span><span class="text-gray-900 font-medium">What type of maintenance does this require?</span></div>
+                    <div class="mb-3 pl-6"><span class="font-bold" style="color: #90202f;">A:</span><span class="text-gray-600">Regular maintenance includes cleaning and periodic inspection. See the maintenance guide for specific intervals.</span></div>
+                    <button class="mcs-primary-text hover:opacity-70 text-sm font-medium">+ Add Your Answer</button>
+                </div>
+                <div class="bg-white rounded-lg p-5 shadow">
+                    <div class="mb-3"><span class="font-bold mcs-primary-text mr-2">Q:</span><span class="text-gray-900 font-medium">Is technical support available?</span></div>
+                    <div class="mb-3 pl-6"><span class="font-bold" style="color: #90202f;">A:</span><span class="text-gray-600">Yes, our technical support team is available Monday through Friday from 8am to 5pm EST via phone or email.</span></div>
+                    <button class="mcs-primary-text hover:opacity-70 text-sm font-medium">+ Add Your Answer</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

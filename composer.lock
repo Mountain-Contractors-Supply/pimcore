@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ccb69b8ae5b92fd508abf3d747546b1",
+    "content-hash": "ce8e86b10146fc29d06364d06d2aba74",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -4741,7 +4741,7 @@
         },
         {
             "name": "mcsupply/ecommerce-bundle",
-            "version": "dev-main",
+            "version": "dev-aa93dd841873d4799351e638f502a01d0693833e",
             "dist": {
                 "type": "path",
                 "url": "./bundles/ecommerce-bundle",

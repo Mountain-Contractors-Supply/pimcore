@@ -1,0 +1,15 @@
+<style>
+    @keyframes alert-slide-in {
+        from { transform: translateX(16px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+</style>
+<div class="fixed right-0 top-24 z-[9999] mcs-primary-bg text-white rounded-l-lg px-4 py-3 shadow-sm" role="alert" style="animation: alert-slide-in 0.35s ease-out; right: 0; left: auto;" data-controller="alert-banner">
+    <button type="button" class="absolute top-2 right-2 text-white/80 hover:text-white" aria-label="Close" data-action="click->alert-banner#close">&times;</button>
+    <div class="flex items-center gap-3">
+        <img src="{{ asset(icon|default('var/assets/images/misc/flag.webp')) }}" alt="Alert" class="w-6 h-6" />
+        <span class="text-sm font-medium">
+            {{ message|default('*Pricing has been adjusted based on your Job Quote') }}
+        </span>
+    </div>
+</div>

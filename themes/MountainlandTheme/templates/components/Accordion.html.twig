@@ -1,0 +1,25 @@
+{% set resolvedItems = items|default([]) %}
+
+<div class="space-y-2 mt-6">
+    {% for item in resolvedItems %}
+        <details class="group border border-gray-200 rounded-lg"{% if item.open|default(false) %} open{% endif %}>
+            <summary class="px-4 py-3 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 list-none flex justify-between items-center rounded-lg">
+                <span>{{ item.title }}</span>
+                <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="px-4 py-3 text-gray-600 text-sm">
+                {% if item.list is defined %}
+                    <ul class="space-y-2 list-disc list-inside">
+                        {% for listItem in item.list %}
+                            <li>{{ listItem }}</li>
+                        {% endfor %}
+                    </ul>
+                {% elseif item.template is defined %}
+                    {{ include(item.template, item.context|default({})) }}
+                {% else %}
+                    {{ item.content|default('')|raw }}
+                {% endif %}
+            </div>
+        </details>
+    {% endfor %}
+</div>

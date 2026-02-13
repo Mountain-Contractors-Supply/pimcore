@@ -1,22 +1,61 @@
 {% extends 'layout.html.twig' %}
 
-{% block head %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/cart.css') }}" />
-{% endblock %}
-
 {% block content %}
-<main class="cart-page">
-    <div class="cart-breadcrumbs">
-        <a href="{{ path('home') }}">Home</a> / <span>{{ product.name }}</span>
+<div class="bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <twig:AlertBanner message="*Pricing has been adjusted based on your Job Quote" icon="var/assets/images/misc/flag.webp" />
+
+        <twig:Breadcrumb :items="[
+            { label: 'Home', url: path('home'), icon: 'var/assets/images/misc/home.webp' },
+            { label: product.name }
+        ]" />
+
+        <div class="flex items-center justify-between">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">{{ product.name }}</h1>
+        </div>
+
+        <hr class="my-6 border-gray-300" />
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                <twig:Gallery />
+            </div>
+
+            <div class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                <twig:ProductSummary
+                    :name="product.name"
+                    :description="product.description"
+                    :productId="product.productId"
+                    :upc="product.upc"
+                    :stockHome="null"
+                    :stockOther="null"
+                    :price="null"
+                    :highlights="null"
+                    :specs="product.features"
+                    :videos="null"
+                    :contacts="null"
+                    :shippingPolicy="null"
+                    addToCartText="Add to Cart"
+                    :cartProductId="product.productId"
+                    cartUom="ea"
+                />
+
+                <div class="mt-6 border border-gray-200 rounded-lg overflow-hidden">
+                    <a href="/calculator" class="flex items-center gap-4 p-4 hover:bg-gray-50 transition" aria-label="Open calculator">
+                        <img src="{{ asset('var/assets/images/misc/calculator.webp') }}" alt="Calculator" class="w-12 h-12" />
+                        <div>
+                            <div class="text-sm text-gray-500 uppercase tracking-wide">Need Help Calculating?</div>
+                            <div class="text-lg font-semibold text-gray-900">Use our online calculator</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-{#    {{ path('pimcore_element', {'element': product}) }}#}
+    <twig:ProductUpsell title="You May Also Need..." :products="productsUpsell ?? []" />
 
-    <header class="cart-header">
-        <div>
-            <h1>{{ product.name }}</h1>
-        </div>
-    </header>
-</main>
+    <twig:ProductFaq :faqs="faqs ?? []" />
+</div>
 {% endblock %}

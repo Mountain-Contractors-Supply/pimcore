@@ -1,2 +1,2 @@
 symfonycasts_tailwind:
-    binary_version: '4.1.18'
+    input_css: 'assets/styles/app.css'

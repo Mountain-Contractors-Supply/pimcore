@@ -1,0 +1,21 @@
+{% set resolvedItems = items|default([]) %}
+{% set separator = separator|default('>') %}
+{% set rootClass = class|default('') %}
+
+<div class="mb-4">
+    <nav class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-600 {{ rootClass }}" aria-label="Breadcrumb">
+        {% for item in resolvedItems %}
+            {% if item.icon is defined %}
+                <img src="{{ asset(item.icon) }}" alt="{{ item.label|default('') }}" class="w-4 h-4" />
+            {% endif %}
+            {% if item.url is defined %}
+                <a href="{{ item.url }}" class="mcs-primary-text hover:opacity-70 transition">{{ item.label }}</a>
+            {% else %}
+                <span class="font-semibold text-gray-900">{{ item.label }}</span>
+            {% endif %}
+            {% if not loop.last %}
+                <span class="text-gray-400">{{ separator }}</span>
+            {% endif %}
+        {% endfor %}
+    </nav>
+</div>

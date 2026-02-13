@@ -5,7 +5,6 @@ export default class extends Controller {
         this.mapElement = this.element.querySelector('[data-controller~="symfony--ux-google-map--map"]');
 
         if (!this.mapElement) {
-            console.warn('[locations] could not find ux_map element under wrapper');
             return;
         }
 
@@ -20,16 +19,12 @@ export default class extends Controller {
 
             const handler = () => this.centerOnGoogleMarker(marker);
 
-            // Classic Marker
             if (typeof marker.addListener === 'function') {
                 marker.addListener('click', handler);
-
-                // Advanced Marker uses this event name
                 marker.addListener('gmp-click', handler);
                 return;
             }
 
-            // As a fallback, some objects expose DOM events
             if (typeof marker.addEventListener === 'function') {
                 marker.addEventListener('gmp-click', handler);
                 marker.addEventListener('click', handler);
@@ -51,13 +46,11 @@ export default class extends Controller {
         const map = this.map;
         if (!map) return;
 
-        // Extract position for both marker types
         const position =
             (typeof marker.getPosition === 'function' && marker.getPosition())
             || marker.position;
 
         if (!position) {
-            console.warn('[locations] could not determine marker position', marker);
             return;
         }
 
@@ -70,8 +63,6 @@ export default class extends Controller {
             map.setCenter(position);
             return;
         }
-
-        console.warn('[locations] map does not look like google.maps.Map', map);
     }
 
     copy(event) {
@@ -89,7 +80,6 @@ export default class extends Controller {
                 alert('Phone number copied to clipboard: ' + phoneNumber);
             })
             .catch(() => {
-                // Silently fail if copy not available / permission denied
             });
     }
 
