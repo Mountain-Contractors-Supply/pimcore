@@ -80,6 +80,7 @@ services:
         volumes:
             - .:/var/www/html
             - ./.docker/php-debug/nginx-debug.conf:/etc/nginx/sites-available/default:ro
+            - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
 
     php-debug:
         container_name: ${APP_NAME}-php-debug
@@ -168,12 +169,41 @@ services:
         environment:
             - ServerOptions__HostName=smtp4dev
 
+    opensearch:
+        image: opensearchproject/opensearch:2
+        environment:
+            - discovery.type=single-node
+            - plugins.security.disabled=true
+            - action.auto_create_index=false
+            - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+            - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+        ports:
+            - "9200:9200"
+
+    mercure:
+        image: dunglas/mercure:latest
+        restart: unless-stopped
+        environment:
+            # Disable HTTPS
+            SERVER_NAME: ':80'
+            MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT}
+            MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT}
+            MERCURE_EXTRA_DIRECTIVES: |-
+                cors_origins "http://localhost"
+        expose:
+            - "80"
+        volumes:
+            - pimcore-demo-mercure-data:/data
+            - pimcore-demo-mercure-config:/config
+
 volumes:
     pimcore-database:
     pimcore-test-database:
     pimcore-test-var:
     pimcore-test-public-var:
     smtp4dev-data:
+    pimcore-demo-mercure-config:
+    pimcore-demo-mercure-data:
 
 secrets:
     kernel-secret:
