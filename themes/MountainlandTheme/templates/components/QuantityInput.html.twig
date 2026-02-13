@@ -15,6 +15,7 @@
         step="{{ resolvedStep }}"
         {% if max is defined %}max="{{ max }}"{% endif %}
         data-numeric-input-target="input"
+        data-cart-target="qtyInput"
     />
     <button type="button" class="h-10 w-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50" data-action="click->numeric-input#increase" aria-label="Increase">+</button>
 </div>
