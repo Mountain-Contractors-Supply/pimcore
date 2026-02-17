@@ -182,16 +182,13 @@ services:
 
     mercure:
         image: dunglas/mercure:latest
-        restart: unless-stopped
+        #restart: unless-stopped
         environment:
-            # Disable HTTPS
             SERVER_NAME: ':80'
             MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT}
             MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT}
             MERCURE_EXTRA_DIRECTIVES: |-
-                cors_origins "http://localhost"
-        expose:
-            - "80"
+                anonymous
         volumes:
             - pimcore-demo-mercure-data:/data
             - pimcore-demo-mercure-config:/config

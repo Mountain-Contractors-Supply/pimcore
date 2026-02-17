@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Traits;
 
-use App\Website\Tool\Text;
+use McSupply\EcommerceBundle\Utility\StringUtil;
 
 trait SetKeyFromValueTrait
 {
@@ -15,7 +15,7 @@ trait SetKeyFromValueTrait
      */
     public function setKeyFromValue(string $original, string $replace = ' & '): void
     {
-        $key = trim(Text::replaceInvalidKeyCharacters($original, $replace));
+        $key = trim(StringUtil::replaceInvalidKeyCharacters($original, $replace));
 
         if ($key !== $this->getKey()) {
             $this->setKey($key);

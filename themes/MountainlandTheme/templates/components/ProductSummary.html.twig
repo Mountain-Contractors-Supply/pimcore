@@ -34,7 +34,10 @@
         :upc="upc ?? null"
         :stockHome="stockHome ?? null"
         :stockOther="stockOther ?? null"
-        :price="price ?? null"
+    />
+
+    <twig:ProductPrice
+        :productId="productId ?? null"
     />
 
     <twig:ProductActions
