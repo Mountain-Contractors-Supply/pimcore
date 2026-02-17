@@ -1,12 +1,16 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-    static targets = ["qtyInput", "decreaseBtn", "increaseBtn"];
+    static targets = ["qtyInput", "decreaseBtn", "increaseBtn", "inCartMessage"];
     static values = {
         productId: String,
         uom: String,
         minQuantity: { type: Number, default: 1 }
     };
+
+    connect() {
+        this.updateInCartDisplay();
+    }
 
     async add() {
         const quantity = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget?.value, 10) || this.minQuantityValue);
@@ -15,6 +19,8 @@ export default class extends Controller {
         if (this.qtyInputTarget) {
             this.qtyInputTarget.value = String(this.minQuantityValue);
         }
+
+        await this.updateInCartDisplay();
     }
 
     async decrease() {
@@ -60,6 +66,37 @@ export default class extends Controller {
 
             await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, params);
         } catch (error) {
+        }
+    }
+
+    async updateInCartDisplay() {
+        if (!this.hasInCartMessageTarget) return;
+
+        try {
+            const response = await fetch('/carts');
+            if (!response.ok) {
+                this.inCartMessageTarget.classList.add('hidden');
+                return;
+            }
+
+            const cart = await response.json();
+            
+            // Convert items to array if it's an object
+            const itemsArray = Array.isArray(cart.items) ? cart.items : Object.values(cart.items || {});
+            
+            const item = itemsArray.find(i => 
+                i.product?.productId === this.productIdValue && 
+                i.quantityOrdered?.uom === this.uomValue
+            );
+
+            if (item && item.quantityOrdered?.quantity > 0) {
+                this.inCartMessageTarget.textContent = `Currently in cart: ${item.quantityOrdered.quantity}`;
+                this.inCartMessageTarget.classList.remove('hidden');
+            } else {
+                this.inCartMessageTarget.classList.add('hidden');
+            }
+        } catch (error) {
+            this.inCartMessageTarget.classList.add('hidden');
         }
     }
 }
