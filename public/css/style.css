@@ -778,14 +778,12 @@ turbo-frame[busy]::after {
 }
 
 /* Custom list styling - override Tailwind's list-style: none reset */
-header ul,
-:not(header) ul {
+ul {
   list-style: disc !important;
   padding-left: 1.5rem !important;
 }
 
-header ul li,
-:not(header) ul li {
+ul li {
   margin-bottom: 0.5rem;
 }
 

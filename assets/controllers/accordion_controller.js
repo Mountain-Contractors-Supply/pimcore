@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
     static targets = ["item"];
+    static ANIMATION_DURATION = 300;
 
     toggle(event) {
         const clickedSummary = event.currentTarget;
@@ -48,7 +49,7 @@ export default class extends Controller {
             content.style.overflow = '';
             content.style.transition = '';
             details.style.overflow = '';
-        }, 300);
+        }, this.constructor.ANIMATION_DURATION);
     }
 
     closeDetails(details) {
@@ -72,6 +73,6 @@ export default class extends Controller {
             content.style.overflow = '';
             content.style.transition = '';
             details.style.overflow = '';
-        }, 300);
+        }, this.constructor.ANIMATION_DURATION);
     }
 }

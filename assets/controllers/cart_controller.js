@@ -9,7 +9,11 @@ export default class extends Controller {
     };
 
     connect() {
-        this.updateInCartDisplay();
+        this.updateInCartDisplay().catch((error) => {
+            if (this.hasInCartMessageTarget) {
+                this.inCartMessageTarget.classList.add('hidden');
+            }
+        });
     }
 
     async add() {
@@ -96,6 +100,7 @@ export default class extends Controller {
                 this.inCartMessageTarget.classList.add('hidden');
             }
         } catch (error) {
+            console.error('Failed to update in-cart display:', error);
             this.inCartMessageTarget.classList.add('hidden');
         }
     }
