@@ -776,3 +776,25 @@ turbo-frame[busy]::after {
     from { transform: translate(-50%, -50%) rotate(0deg); }
     to   { transform: translate(-50%, -50%) rotate(360deg); }
 }
+
+/* Custom list styling - override Tailwind's list-style: none reset */
+header ul,
+:not(header) ul {
+  list-style: disc !important;
+  padding-left: 1.5rem !important;
+}
+
+header ul li,
+:not(header) ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Reset list styles in header */
+header ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+header ul li {
+  margin-bottom: 0;
+}
