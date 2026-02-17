@@ -1,4 +1,12 @@
 {% set accordionItems = [] %}
+
+{# Temporary test sections #}
+{% set accordionItems = accordionItems|merge([
+    { title: 'Test Section 1', content: 'This is the first test section content.' },
+    { title: 'Test Section 2', content: 'This is the second test section content.' },
+    { title: 'Test Section 3', content: 'This is the third test section content.' }
+]) %}
+
 {% if highlights is defined and highlights|length > 0 %}
     {% set accordionItems = accordionItems|merge([{
         title: 'Product Highlights',
