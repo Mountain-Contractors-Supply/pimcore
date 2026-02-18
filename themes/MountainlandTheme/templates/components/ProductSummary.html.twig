@@ -1,14 +1,36 @@
 {% set accordionItems = [] %}
 
-{% if highlights is defined and highlights|length > 0 %}
+{% if description %}
     {% set accordionItems = accordionItems|merge([{
-        title: 'Product Highlights',
-        list: highlights,
+        title: 'Description',
+        content: description,
         open: true
     }]) %}
 {% endif %}
+{% if highlights is defined and highlights|length > 0 %}
+    {% set accordionItems = accordionItems|merge([{
+        title: 'Features',
+        list: highlights
+    }]) %}
+{% endif %}
 {% if specs %}
-    {% set accordionItems = accordionItems|merge([{ title: 'Specs', content: specs }]) %}
+    {% set accordionItems = accordionItems|merge([{ title: 'Product Highlights', content: specs }]) %}
+{% endif %}
+{% if width is not null or length is not null or height is not null or weight is not null %}
+    {% set dimensionsContent = '' %}
+    {% if width is not null %}
+        {% set dimensionsContent = dimensionsContent ~ '<div><strong>Width:</strong> ' ~ width ~ '</div>' %}
+    {% endif %}
+    {% if length is not null %}
+        {% set dimensionsContent = dimensionsContent ~ '<div><strong>Length:</strong> ' ~ length ~ '</div>' %}
+    {% endif %}
+    {% if height is not null %}
+        {% set dimensionsContent = dimensionsContent ~ '<div><strong>Height:</strong> ' ~ height ~ '</div>' %}
+    {% endif %}
+    {% if weight is not null %}
+        {% set dimensionsContent = dimensionsContent ~ '<div><strong>Weight:</strong> ' ~ weight ~ '</div>' %}
+    {% endif %}
+    {% set accordionItems = accordionItems|merge([{ title: 'Specifications', content: dimensionsContent }]) %}
 {% endif %}
 {% if videos %}
     {% set accordionItems = accordionItems|merge([{ title: 'Videos', content: videos }]) %}
@@ -26,23 +48,23 @@
 
 <div class="space-y-4">
     <h2 class="text-2xl font-bold mcs-primary-text">{{ name|default('Product Name') }}</h2>
-    {% if description %}
-        <div class="text-gray-600 leading-relaxed">{{ description|raw }}</div>
-    {% endif %}
 
-    <twig:ProductAvailability
-        :productId="productId ?? null"
-        :upc="upc ?? null"
-        :stockHome="stockHome ?? null"
-        :stockOther="stockOther ?? null"
-        :price="price ?? null"
-    />
+    <div class="text-3xl font-bold text-gray-900">{{ price|default('$999.99') }}</div>
 
     <twig:ProductActions
         :quantity="quantity|default(1)"
         addToCartText="{{ addToCartText|default('Add to Cart') }}"
         :cartProductId="cartProductId ?? null"
         cartUom="{{ cartUom|default('ea') }}"
+    />
+
+    <twig:ProductAvailability
+        :productId="productId ?? null"
+        :modelNumber="modelNumber ?? null"
+        :upc="upc ?? null"
+        :stockHome="stockHome ?? null"
+        :stockOther="stockOther ?? null"
+        :price="price ?? null"
     />
 
     <twig:Accordion :items="accordionItems" />

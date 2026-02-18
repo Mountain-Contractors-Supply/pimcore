@@ -10,10 +10,6 @@
             { label: product.name }
         ]" />
 
-        <div class="flex items-center justify-between">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">{{ product.name }}</h1>
-        </div>
-
         <hr class="my-6 border-gray-300" />
 
         <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 items-start">
@@ -24,6 +20,7 @@
                     :name="product.name"
                     :description="product.description"
                     :productId="product.productId"
+                    :modelNumber="product.modelNumber ?? null"
                     :upc="product.upc"
                     :stockHome="null"
                     :stockOther="null"
@@ -31,8 +28,12 @@
                     :highlights="null"
                     :specs="product.features"
                     :videos="null"
-                    :contacts="null"
+                    :contacts="[]"
                     :shippingPolicy="null"
+                    :width="product.width ?? null"
+                    :length="product.depth ?? null"
+                    :height="product.height ?? null"
+                    :weight="product.weight ?? null"
                     addToCartText="Add to Cart"
                     :cartProductId="product.productId"
                     cartUom="ea"

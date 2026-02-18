@@ -3,6 +3,12 @@
         <span class="text-gray-600">Item #:</span>
         <span class="font-medium text-gray-900">{{ productId|default('N/A') }}</span>
     </div>
+    {% if modelNumber %}
+    <div class="flex justify-between text-sm">
+        <span class="text-gray-600">Model #:</span>
+        <span class="font-medium text-gray-900">{{ modelNumber }}</span>
+    </div>
+    {% endif %}
     <div class="flex justify-between text-sm">
         <span class="text-gray-600">UPC:</span>
         <span class="font-medium text-gray-900">{{ upc|default('UPC-9876543210') }}</span>
@@ -32,5 +38,3 @@
         </span>
     </div>
 </div>
-
-<div class="text-3xl font-bold text-gray-900 my-4">{{ price|default('$999.99') }}</div>
