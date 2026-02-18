@@ -3,11 +3,11 @@
 <div class="space-y-2 mt-6" data-controller="accordion">
     {% for item in resolvedItems %}
         <details class="group border border-gray-200 rounded-lg" data-accordion-target="item"{% if item.open|default(false) %} open{% endif %}>
-            <summary class="px-4 py-3 font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 list-none flex justify-between items-center rounded-lg" data-action="click->accordion#toggle">
+            <summary class="px-4 py-3 text-lg font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 list-none flex justify-between items-center rounded-lg" data-action="click->accordion#toggle">
                 <span>{{ item.title }}</span>
                 <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
             </summary>
-            <div class="px-4 py-3 text-gray-600 text-sm">
+            <div class="px-4 py-3 text-gray-600 text-base">
                 {% if item.list is defined %}
                     <ul class="space-y-2 list-disc list-inside">
                         {% for listItem in item.list %}
