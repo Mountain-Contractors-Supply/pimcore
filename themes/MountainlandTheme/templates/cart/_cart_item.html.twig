@@ -10,7 +10,10 @@
         <div class="item-row">
             <div>
                 <h3>
-                    <a href="{{ path('pimcore_element', {'element': item.product}) }}" data-turbo-frame="_top">{{ item.product.name }}</a>
+                    <a href="{{ path('pimcore_element', {
+                        'element': item.product,
+                        'uom': item.quantityOrdered.uom
+                    }) }}" data-turbo-frame="_top">{{ item.product.name }}</a>
                 </h3>
                 <p class="item-meta">SKU: {{ item.product.productId }}</p>
                 <div class="pill-row">

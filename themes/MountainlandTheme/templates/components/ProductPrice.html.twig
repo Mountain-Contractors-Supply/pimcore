@@ -8,8 +8,8 @@
 
 <div class="text-3xl font-bold text-gray-900 my-4">
     <span
-        class="price-tag price-target-{{ productId }}"
+        class="price-tag price-target-{{ productId }}_{{ uom }}"
         data-price-loader-target="placeholder"
-        data-id="{{ productId }}"
+        data-id="{{ productId }}_{{ uom }}"
     >{{ price|default('$999.99') }}</span>
 </div>

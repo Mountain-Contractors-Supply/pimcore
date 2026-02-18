@@ -52,13 +52,13 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     /**
      * @return QuantityValue|null
      */
-    public abstract function getDepthRef(): ?QuantityValue;
+    public abstract function getLengthRef(): ?QuantityValue;
 
     /**
-     * @param QuantityValue|null $depthRef
+     * @param QuantityValue|null $lengthRef
      * @return $this
      */
-    public abstract function setDepthRef(?QuantityValue $depthRef): static;
+    public abstract function setLengthRef(?QuantityValue $lengthRef): static;
 
     /**
      * @return QuantityValue|null
@@ -215,18 +215,18 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
      * @inheritDoc
      */
     #[\Override]
-    public function getDepth(): ?string
+    public function getLength(): ?string
     {
-        return $this->formatQuantityValue($this->getDepthRef());
+        return $this->formatQuantityValue($this->getLengthRef());
     }
 
     /**
      * @inheritDoc
      */
     #[\Override]
-    public function setDepth(?string $depth): static
+    public function setLength(?string $length): static
     {
-        $this->setDepthRef($this->prepareQuantityValue($depth));
+        $this->setLengthRef($this->prepareQuantityValue($length));
 
         return $this;
     }

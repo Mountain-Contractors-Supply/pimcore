@@ -4745,7 +4745,7 @@
             "dist": {
                 "type": "path",
                 "url": "./bundles/ecommerce-bundle",
-                "reference": "32df8ef21b480aa21633c45bcecdd9eb3fdcdd0a"
+                "reference": "279cda4ee696a8c7131caebd928981677678ef21"
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.0 || ^7.8",
@@ -4759,7 +4759,7 @@
                 "symfony/framework-bundle": "^6.4.1 || ^7.3",
                 "symfony/mercure-bundle": "^0.3.9",
                 "symfony/orm-pack": "^2.7.0",
-                "symfony/redis-messenger": "^8.0.4",
+                "symfony/redis-messenger": "^7.4.0",
                 "symfony/security-bundle": "^6.4 || ^7.3",
                 "symfony/serializer": "^6.4 || ^7.3",
                 "symfony/twig-bundle": "^6.4.1 || ^7.3",
@@ -13376,31 +13376,31 @@
         },
         {
             "name": "symfony/redis-messenger",
-            "version": "v8.0.4",
+            "version": "v7.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/redis-messenger.git",
-                "reference": "70db9083adc922f150f819311453afe8ad096ea9"
+                "reference": "208d8185e406df7e062345ee19d7d4a4743f5ed6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/redis-messenger/zipball/70db9083adc922f150f819311453afe8ad096ea9",
-                "reference": "70db9083adc922f150f819311453afe8ad096ea9",
+                "url": "https://api.github.com/repos/symfony/redis-messenger/zipball/208d8185e406df7e062345ee19d7d4a4743f5ed6",
+                "reference": "208d8185e406df7e062345ee19d7d4a4743f5ed6",
                 "shasum": ""
             },
             "require": {
                 "ext-redis": "*",
-                "php": ">=8.4",
-                "symfony/messenger": "^7.4|^8.0"
+                "php": ">=8.2",
+                "symfony/messenger": "^7.3|^8.0"
             },
             "conflict": {
                 "ext-redis": "<6.1",
                 "ext-relay": "<0.12"
             },
             "require-dev": {
-                "symfony/property-access": "^7.4|^8.0",
-                "symfony/serializer": "^7.4|^8.0",
-                "symfony/var-dumper": "^7.4|^8.0"
+                "symfony/property-access": "^6.4|^7.0|^8.0",
+                "symfony/serializer": "^6.4|^7.0|^8.0",
+                "symfony/var-dumper": "^6.4|^7.0|^8.0"
             },
             "type": "symfony-messenger-bridge",
             "autoload": {
@@ -13428,7 +13428,7 @@
             "description": "Symfony Redis extension Messenger Bridge",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/redis-messenger/tree/v8.0.4"
+                "source": "https://github.com/symfony/redis-messenger/tree/v7.4.4"
             },
             "funding": [
                 {
@@ -13448,7 +13448,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-01T23:07:29+00:00"
+            "time": "2026-01-01T22:13:48+00:00"
         },
         {
             "name": "symfony/routing",

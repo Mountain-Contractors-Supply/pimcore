@@ -10,33 +10,83 @@
             { label: product.name }
         ]" />
 
-        <div class="flex items-center justify-between">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">{{ product.name }}</h1>
-        </div>
-
         <hr class="my-6 border-gray-300" />
 
         <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 items-start">
             <twig:Gallery />
 
             <div class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                <twig:ProductSummary
-                    :name="product.name"
-                    :description="product.description"
-                    :productId="product.productId"
-                    :upc="product.upc"
-                    :stockHome="null"
-                    :stockOther="null"
-                    :price="null"
-                    :highlights="null"
-                    :specs="product.features"
-                    :videos="null"
-                    :contacts="null"
-                    :shippingPolicy="null"
-                    addToCartText="Add to Cart"
-                    :cartProductId="product.productId"
-                    cartUom="ea"
-                />
+                {% set accordionItems = [] %}
+
+                {% if product.description %}
+                    {% set accordionItems = accordionItems|merge([{
+                        title: 'Description',
+                        content: product.description,
+                        open: true
+                    }]) %}
+                {% endif %}
+                {% if product.features %}
+                    {% set accordionItems = accordionItems|merge([{ title: 'Product Highlights', content: product.features }]) %}
+                {% endif %}
+
+                {% set width = product.width is defined ? product.width : null %}
+                {% set length = product.length is defined ? product.length : null %}
+                {% set height = product.height is defined ? product.height : null %}
+                {% set weight = product.weight is defined ? product.weight : null %}
+
+                {% if width is not null or length is not null or height is not null or weight is not null %}
+                    {% set dimensionsList = [] %}
+                    {% if width is not null %}
+                        {% set dimensionsList = dimensionsList|merge(['Width: ' ~ width]) %}
+                    {% endif %}
+                    {% if length is not null %}
+                        {% set dimensionsList = dimensionsList|merge(['Length: ' ~ length]) %}
+                    {% endif %}
+                    {% if height is not null %}
+                        {% set dimensionsList = dimensionsList|merge(['Height: ' ~ height]) %}
+                    {% endif %}
+                    {% if weight is not null %}
+                        {% set dimensionsList = dimensionsList|merge(['Weight: ' ~ weight]) %}
+                    {% endif %}
+                    {% set accordionItems = accordionItems|merge([{
+                        title: 'Specifications',
+                        list: dimensionsList
+                    }]) %}
+                {% endif %}
+
+                {% set contactsList = [] %}
+                {% if contactsList|length > 0 %}
+                    {% set accordionItems = accordionItems|merge([{
+                        title: 'Contact',
+                        list: contactsList
+                    }]) %}
+                {% endif %}
+
+                <div class="space-y-4">
+                    <h1 class="text-2xl font-bold mcs-primary-text">{{ product.name|default('Product Name') }}</h1>
+
+                    <twig:ProductPrice
+                        :productId="product.productId"
+                        :uom="uom"
+                    />
+
+                    <twig:ProductActions
+                        :quantity="1"
+                        addToCartText="Add to Cart"
+                        :cartProductId="product.productId"
+                        :cartUom="uom"
+                    />
+
+                    <twig:ProductAvailability
+                        :productId="product.productId"
+                        :modelNumber="product.modelNumber is defined ? product.modelNumber : null"
+                        :upc="product.upc"
+                        :stockHome="null"
+                        :stockOther="null"
+                    />
+
+                    <twig:Accordion :items="accordionItems" />
+                </div>
 
                 <div class="mt-6 border border-gray-200 rounded-lg overflow-hidden">
                     <a href="/calculator" class="flex items-center gap-4 p-4 hover:bg-gray-50 transition" aria-label="Open calculator">
