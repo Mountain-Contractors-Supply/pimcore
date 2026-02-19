@@ -15,6 +15,28 @@ use Pimcore\Model\Element\ElementInterface;
 
 abstract class AbstractProduct extends AbstractModel implements ProductInterface, PreAddUpdateAwareInterface
 {
+    private ?string $price = null;
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[\Override]
+    public function setPrice(?string $price): static
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
     /**
      * @return ProductCategory[]
      */

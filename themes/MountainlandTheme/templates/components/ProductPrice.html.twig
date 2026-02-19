@@ -2,7 +2,7 @@
     <div
         data-controller="symfony--ux-turbo--mercure-turbo-stream"
         data-symfony--ux-turbo--mercure-turbo-stream-hub-value="{{ app.request.schemeAndHttpHost ~ '/hub/.well-known/mercure' }}"
-        data-symfony--ux-turbo--mercure-turbo-stream-topic-value="product-prices-{{ app.user.id }}"
+        data-symfony--ux-turbo--mercure-turbo-stream-topic-value="product-prices-{{ account_branch_id() }}"
     ></div>
 {% endif %}
 
@@ -11,5 +11,5 @@
         class="price-tag price-target-{{ productId }}_{{ uom }}"
         data-price-loader-target="placeholder"
         data-id="{{ productId }}_{{ uom }}"
-    >{{ price|default('$999.99') }}</span>
+    >{{ price|default('-') }}</span>
 </div>
