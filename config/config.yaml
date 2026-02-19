@@ -52,12 +52,8 @@ ux_map:
 mercure:
     hubs:
         default:
-            # Internal (PHP/Messenger worker talks to the container directly)
             url: 'http://mercure/.well-known/mercure'
-
-            # External — use a relative (same-origin) path so you don't have to hard-code a host
-            public_url: '/hub/.well-known/mercure'
-
+            public_url: '/hub'
             jwt:
                 secret: '%env(MERCURE_JWT)%'
                 publish: ['*']
