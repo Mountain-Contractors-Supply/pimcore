@@ -41,7 +41,7 @@
             <button class="btn-link remove-item"
                     data-cart-target="removeBtn"
                     data-action="click->cart#remove">Remove</button>
-            <span class="item-subtotal">{{ item.extendedPrice|number_format(2, '.', ',') }}</span>
+            <span class="item-subtotal">${{ item.extendedPrice|number_format(2, '.', ',') }}</span>
         </div>
     </div>
 </article>
