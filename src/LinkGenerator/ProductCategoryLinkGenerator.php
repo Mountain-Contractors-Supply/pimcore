@@ -33,6 +33,7 @@ final readonly class ProductCategoryLinkGenerator implements LinkGeneratorInterf
                 'slug' => StringUtil::toUrl((string)$object->getName()),
                 'page' => $params['page'] ?? 1,
                 'limit' => $params['limit'] ?? 10,
+                'store_id' => $params['store_id'] ?? null,
             ]);
         } catch (\Exception) {
             return '';

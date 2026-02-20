@@ -21,7 +21,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'General Information',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1771603547,
+   'modificationDate' => 1771606686,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\Product\\AbstractProductCategory',
@@ -328,7 +328,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => 'Product',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '@App\\LinkGenerator\\ProductCategoryLinkGenerator',
-   'previewGeneratorReference' => '',
+   'previewGeneratorReference' => '@App\\PreviewGenerator\\StoreAwarePreviewGenerator',
    'compositeIndices' => 
   array (
   ),
