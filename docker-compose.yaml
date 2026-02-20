@@ -65,6 +65,7 @@ services:
               - pimcore-product-key
               - pimcore-instance-identifier
               - pimcore-encryption-secret
+              - mercure-jwt
         env_file:
             -   .env
         secrets:
@@ -72,6 +73,7 @@ services:
             - pimcore-product-key
             - pimcore-instance-identifier
             - pimcore-encryption-secret
+            - mercure-jwt
         depends_on:
             init:
                 condition: service_completed_successfully
@@ -182,14 +184,15 @@ services:
 
     mercure:
         image: dunglas/mercure:latest
-        #restart: unless-stopped
         environment:
             SERVER_NAME: ':80'
-            MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT}
-            MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT}
             MERCURE_EXTRA_DIRECTIVES: |-
                 anonymous
+        secrets:
+            - mercure-jwt
+        entrypoint: [ "/usr/local/bin/mercure-entrypoint-wrapper.sh" ]
         volumes:
+            - ./.docker/mercure/mercure-entrypoint-wrapper.sh:/usr/local/bin/mercure-entrypoint-wrapper.sh:ro
             - pimcore-demo-mercure-data:/data
             - pimcore-demo-mercure-config:/config
 
@@ -211,3 +214,5 @@ secrets:
       file: ./.secrets/pimcore-instance-identifier
     pimcore-encryption-secret:
       file: ./.secrets/pimcore-encryption-secret
+    mercure-jwt:
+        file: ./.secrets/mercure-jwt
