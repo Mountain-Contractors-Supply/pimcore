@@ -1,0 +1,88 @@
+<twig:Breadcrumb :items="[
+    { label: breadcrumbHomeLabel, url: path('home'), icon: breadcrumbHomeIcon|default(null) },
+    { label: breadcrumbCurrentLabel }
+]" />
+<h1 style="font-family: var(--secondary-font); font-size: 42pt; color: #11175e;">{{ title }}</h1>
+<h2>{{ subtitle }}</h2>
+<hr class="sidebar-divider" style="width: {{ dividerWidth }}" />
+<br />
+
+<div id="filter-container">
+    <div class="location-input-group">
+        <div class="location-radius-group">
+            <div class="zip-container">
+                <label for="zip-input"><strong>{{ searchLabel }}</strong></label>
+                <input
+                    type="text"
+                    id="zip-input"
+                    name="zip-input"
+                    placeholder="{{ searchPlaceholder }}"
+                    data-model="draftSearchTerm"
+                    value="{{ draftSearchTerm }}"
+                />
+                <button id="location-btn" type="button">
+                    <img src="{{ asset(locationIconPath) }}" style="height: 25px" />
+                    {{ useCurrentLocationText }}
+                </button>
+            </div>
+            <div class="radius-container">
+                <label for="radius-select"><strong>{{ radiusLabel }}</strong></label>
+                <select id="radius-select">
+                    {% for option in radiusOptions %}
+                        <option value="{{ option.value }}"{% if option.value == selectedRadius %} selected{% endif %}>{{ option.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <strong>
+            <h3 style="font-family: var(--primary-font); color: #11175e; font-size: 16pt;">{{ supplyHeading }}</h3>
+        </strong>
+        <hr class="sidebar-divider" style="width: {{ supplyDividerWidth }}" />
+    </div>
+
+    {% set productChunks = productTypes|batch(6, []) %}
+    <div class="checkbox-row">
+        {% for column in productChunks %}
+            <div class="checkbox-column">
+                {% for productType in column %}
+                    {% if productType %}
+                        {% set value = productType.productTypeId %}
+                        <label>
+                            <input
+                                type="checkbox"
+                                data-model="draftSelectedProductTypes"
+                                value="{{ value }}"
+                                class="custom-checkbox-input"
+                                {% if value in selectedProductTypes %}checked{% endif %}
+                            />
+                            <span class="custom-checkbox"></span>
+                            <img src="{{ asset(productType.icon) }}" style="height: 24px" />
+                            {{ productType.name }}
+                        </label>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="button-group">
+        <button
+            type="button"
+            id="search-now-btn"
+            data-action="click->live#action"
+            data-live-action-param="applyFilters"
+        >
+            {{ searchButtonText }}
+        </button>
+
+        <button
+            type="button"
+            id="reset-filters-btn"
+            data-action="click->live#action"
+            data-live-action-param="resetFilters"
+        >
+            {{ resetButtonText }}
+        </button>
+    </div>
+</div>

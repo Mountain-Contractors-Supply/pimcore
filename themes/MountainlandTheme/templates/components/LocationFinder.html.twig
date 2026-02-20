@@ -1,206 +1,133 @@
-<div {{ attributes }}>
-    <!-- Sidebar toggle button for mobile -->
-    <button id="sidebar-toggle" aria-label="Toggle filters sidebar">►</button>
+<div {{ attributes.defaults({ class: 'bg-gray-50' }) }} data-controller="locations" data-live-component>
+    <!-- Sidebar toggle button for mobile - LAST Stack: Stimulus target -->
+    <button id="sidebar-toggle" aria-label="Toggle filters sidebar" data-locations-target="sidebarToggle" class="lg:hidden fixed right-4 top-24 z-30 w-10 h-10 rounded-full bg-white shadow border border-gray-200 text-gray-700">►</button>
 
     <main class="page-wrapper">
-        <div class="layout-wrapper">
-            <aside class="sidebar">
-                <br>
-                <h2><a href="{{ path('home') }}">Home</a> / Locations</h2>
-                <h1 style="font-family: var(--secondary-font); font-size: 42pt; color: #11175e;">Locations</h1>
-                <h2>Find Your Nearest Branch or Shop by Supply</h2>
-                <hr class="sidebar-divider" style="width: 800px" />
-                <br />
-
-                <div id="filter-container">
-                    <div class="location-input-group">
-                        <div class="location-radius-group">
-                            <div class="zip-container">
-                                <label for="zip-input"><strong>Enter Your Zip Code, or City & State</strong></label>
-                                <input
-                                    type="text"
-                                    id="zip-input"
-                                    name="zip-input"
-                                    placeholder="Your Location"
-                                    data-model="draftSearchTerm"
-                                    value="{{ this.draftSearchTerm }}"
-                                />
-                                <button id="location-btn" type="button">
-                                    <img src="{{ asset('images/misc/location-icon.png') }}" style="height: 25px" />
-                                    Use Current Location
-                                </button>
-                            </div>
-                            <div class="radius-container">
-                                <label for="radius-select"><strong>Radius</strong></label>
-                                <select id="radius-select">
-                                    <option value="10">10 miles</option>
-                                    <option value="25" selected>25 miles</option>
-                                    <option value="50">50 miles</option>
-                                    <option value="100">100 miles</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <strong>
-                            <h3 style="font-family: var(--primary-font); color: #11175e; font-size: 16pt;">Search by Supply</h3>
-                        </strong>
-                        <hr class="sidebar-divider" style="width: 765px" />
-                    </div>
-
-                    {% set productChunks = this.productTypes|batch(6, []) %}
-                    <div class="checkbox-row">
-                        {% for column in productChunks %}
-                            <div class="checkbox-column">
-                                {% for productType in column %}
-                                    {% if productType %}
-                                        {% set value = productType.productTypeId %}
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                data-model="draftSelectedProductTypes"
-                                                value="{{ value }}"
-                                                class="custom-checkbox-input"
-                                                {% if value in this.draftSelectedProductTypes %}checked{% endif %}
-                                            />
-                                            <span class="custom-checkbox"></span>
-                                            <img src="{{ asset(productType.icon) }}" style="height: 24px" />
-                                            {{ productType.name }}
-                                        </label>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="button-group">
-                        <button
-                            type="button"
-                            id="search-now-btn"
-                            data-action="click->live#action"
-                            data-live-action-param="applyFilters"
-                        >
-                            Search Now
-                        </button>
-
-                        <button
-                            type="button"
-                            id="reset-filters-btn"
-                            data-action="click->live#action"
-                            data-live-action-param="resetFilters"
-                        >
-                            Reset Filters
-                        </button>
-                    </div>
+        <div class="bg-white border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <nav class="text-sm text-gray-500">
+                    <a href="{{ path('home') }}" class="hover:text-gray-700">Home</a> / Locations
+                </nav>
+                <div class="mt-3">
+                    <h1 class="text-4xl font-bold mcs-primary-text">Locations</h1>
+                    <p class="mt-2 text-lg text-gray-600">Find Your Nearest Branch or Shop by Supply</p>
                 </div>
-            </aside>
-
-            <div id="map-wrapper" data-controller="locations">
-                {{ ux_map(this.map, {
-                    style: 'height: 100%; width: 100%;'
-                }) }}
             </div>
         </div>
 
-        <div id="sidebar-overlay"></div>
-
-        <hr style="width: 97%;">
-
-        <h1 id="location-count" class="location-count-heading">
-            <span id="filtered-location-count">{{ this.filteredLocations|length }}</span> Locations Near You
-        </h1>
-
-        <div class="layout-wrapper">
-            <div class="location-list-wrapper">
-                <div id="location-list" class="location-list">
-                    {% for branch in this.filteredLocations %}
-                        <div class="location-item">
-                            <div class="location-main">
-                                <h4>{{ branch.name }}</h4>
-                                <div class="location-address">📍 {{ branch.address|format_address }}</div>
-                                <div class="location-services">
-                                    {% for productType in branch.productTypes %}
-                                        <span class="service-tag">
-                                        <img src="{{ productType.icon }}" alt="{{ productType.name }}" style="height: 16px; margin-right: 4px; vertical-align: middle;">{{ productType.name }}
-                                    </span>
-                                    {% endfor %}
+        <div class="w-screen -ml-4 sm:-ml-6 lg:-ml-8 px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <div class="layout-wrapper grid grid-cols-2 gap-6 h-[700px]">
+                <div id="filter-container" data-locations-target="filterContainer" class="sidebar bg-white border border-gray-200 rounded-xl shadow-sm lg:sticky lg:top-24 flex flex-col h-full p-5 overflow-hidden">
+                        <div class="location-input-group space-y-2 flex-shrink-0">
+                            <div class="location-radius-group grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <div class="zip-container space-y-2">
+                                    <label for="zip-input" class="text-sm font-semibold text-gray-700">Enter Your Zip Code, or City &amp; State</label>
+                                    <input
+                                        type="text"
+                                        id="zip-input"
+                                        name="zip-input"
+                                        placeholder="Your Location"
+                                        data-locations-target="zipInput"
+                                        data-model="draftSearchTerm"
+                                        value="{{ this.draftSearchTerm }}"
+                                        class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                                    />
+                                    <!-- LAST Stack: Stimulus action for geolocation -->
+                                    <button id="location-btn" type="button" data-locations-target="locationBtn" class="inline-flex items-center justify-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
+                                        <img src="{{ asset('images/misc/location-icon.png') }}" alt="Location" class="h-5 w-5" />
+                                        Use Current Location
+                                    </button>
                                 </div>
-                                <div class="location-actions">
-                                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination={{ branch.address|format_address|url_encode }}" target="_blank" class="directions-btn"><p>Directions</p></a>
-                                    <button class="call-btn">Call</button>
-                                    <div class="phone-panel" data-controller="phone">
-                                    <button class="phone-panel-close" aria-label="Close phone panel">×</button>
-
-                                        {% for phoneNumber in branch.phoneNumbers %}
-                                            <div class="phone-number-item">
-                                                <div class="phone-number-label">{{ phoneNumber.phoneNumberText }}</div>
-                                                <div class="phone-number">{{ phoneNumber.phoneNumber }}</div>
-                                                <div class="call-options">
-                                                    <a href="tel:{{ phoneNumber.phoneNumber|format_phone }}" class="call-option-btn primary">Call</a>
-                                                    <button
-                                                        class="call-option-btn secondary"
-                                                        type="button"
-                                                        data-action="click->phone#copy"
-                                                        data-phone-number="{{ phoneNumber.phoneNumber|default('') }}"
-                                                    >
-                                                        Copy
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                    {% if branch.isValidForCurrentOnlineStore %}
-                                        <button
-                                            type="button"
-                                            class="main-store-btn"
-                                            data-controller="locations"
-                                            data-action="click->locations#setMainStore"
-                                            data-branch-id="{{ branch.id }}"
-                                        >
-                                            Select Branch
-                                        </button>
-
-                                    {% endif %}
+                                <div class="radius-container space-y-2">
+                                    <label for="radius-select" class="text-sm font-semibold text-gray-700">Radius</label>
+                                    <select id="radius-select" data-locations-target="radiusSelect" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                                        <option value="10">10 miles</option>
+                                        <option value="25" selected>25 miles</option>
+                                        <option value="50">50 miles</option>
+                                        <option value="100">100 miles</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="location-hours">
-                                <div class="hours-header">Hours</div>
-                                <div class="hours-row"><span class="hours-time">{{ branch.hours }}</span></div>
-                                <div class="location-phones">
-                                    {% for phoneNumber in branch.phoneNumbers %}
-                                        <div class="location-contact">
-                                            📞 <span class="phone-label">{{ phoneNumber.phoneNumberText }}:</span>
-                                            <a href="tel:{{ phoneNumber.phoneNumber|format_phone }}">{{ phoneNumber.phoneNumber }}</a>
-                                        </div>
-                                    {% endfor %}
-                                </div>
+
+                            <div class="space-y-2 flex-shrink-0">
+                                <h3 class="text-sm font-semibold mcs-primary-text">Search by Supply</h3>
+                                <hr class="border-gray-200" />
                             </div>
                         </div>
-                    {% else %}
-                        <div class="location-card">
-                            <h3>No locations match your filters.</h3>
+
+                        {% set productChunks = this.productTypes|batch(6, []) %}
+                        {% set productFilterForm = this.productFilterForm.createView() %}
+                        <div class="checkbox-row grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5 flex-1 overflow-y-auto min-h-0">
+                            {% for column in productChunks %}
+                                <div class="checkbox-column space-y-1.5">
+                                    {% for productType in column %}
+                                        {% if productType %}
+                                            {% set fieldName = productType.productTypeId %}
+                                            {% set field = productFilterForm[fieldName] %}
+                                            <label class="flex items-center gap-2 text-xs text-gray-700 hover:bg-gray-50 rounded px-1 py-0.5 cursor-pointer">
+                                                {{ form_widget(field, {
+                                                    attr: {
+                                                        class: 'custom-checkbox-input h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500',
+                                                        'data-model': 'draftSelectedProductTypes'
+                                                    }
+                                                }) }}
+                                                <img src="{{ asset(productType.icon) }}" alt="{{ productType.name }}" class="h-5 w-5" />
+                                                <span>{{ productType.name }}</span>
+                                            </label>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
+
+                        <div class="button-group mt-auto flex-shrink-0 grid grid-cols-2 gap-3">
+                            <button
+                                type="button"
+                                id="search-now-btn"
+                                data-action="live#action"
+                                data-live-action-param="applyFilters"
+                                class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                            >
+                                Search Now
+                            </button>
+
+                            <button
+                                type="button"
+                                id="reset-filters-btn"
+                                data-action="live#action"
+                                data-live-action-param="resetFilters"
+                                class="rounded-md border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                            >
+                                Reset Filters
+                            </button>
+                        </div>
+                    </div>
+
+                <div id="map-wrapper" class="rounded-xl overflow-hidden border border-gray-200 shadow-sm bg-white h-full w-full">
+                    <twig:LocationMap :map="this.map" />
                 </div>
-
-                <br>
-                <h2 style="font-family: var(--secondary-font); font-size: 16pt; color: #11175e;">
-                    Can't find a location? Call us at <a>_____</a> or contact us <a>here.</a> We're happy to help.
-                </h2>
             </div>
 
-            <aside class="sidebar">
-                <div style="padding: 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 625px; width: 100%;">
-                    <h2 style="color: var(--primary-color); font-family: var(--secondary-font); font-size: 50pt; margin: 0; line-height: 1.2;">
-                        <span id="state-count-map">__</span> STATES.<br><span id="location-count-map">__</span> LOCATIONS.
-                    </h2>
-                    <h3 style="color: var(--primary-color); font-family: var(--secondary-font); font-size: 32pt; margin: 0.5rem 0 0 0; line-height: 1.3; white-space: nowrap;">
-                        ALL READY TO SERVE YOU!<br>+ FREE DELIVERY
-                    </h3>
-                    <div style="display: flex; justify-content: center; margin-top: -1.5rem;">
-                        <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="header-logo" />
+            <div id="sidebar-overlay" data-locations-target="sidebarOverlay" class="fixed inset-0 bg-black/40 hidden lg:hidden"></div>
+
+            <hr class="border-gray-200" />
+
+            <div class="layout-wrapper grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 items-start">
+                <twig:LocationList :locations="this.filteredLocations" countHeading="{{ this.countHeading ?? 'Locations Near You' }}" />
+
+                <aside class="sidebar">
+                    <div class="flex min-h-[625px] w-full flex-col items-center justify-center rounded-xl bg-white p-6 text-center shadow-sm border border-gray-200">
+                        <h2 class="text-4xl font-bold mcs-primary-text leading-tight">
+                            <span id="state-count-map">__</span> STATES.<br><span id="location-count-map">__</span> LOCATIONS.
+                        </h2>
+                        <h3 class="mt-2 text-2xl font-semibold mcs-primary-text leading-snug">
+                            ALL READY TO SERVE YOU!<br>+ FREE DELIVERY
+                        </h3>
+                        <div class="mt-4 flex justify-center">
+                            <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="header-logo h-10" />
+                        </div>
                     </div>
-                </div>
-            </aside>
-        </div>
+                </aside>
+            </div>
     </main>
 </div>
