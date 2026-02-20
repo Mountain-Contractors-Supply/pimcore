@@ -1,0 +1,9 @@
+{% for item in categories.pagination.items %}
+    <a href="{{ path('pimcore_element', {
+        'element': item,
+    }) }}" data-turbo-frame="_top">{{ item.name }}</a><br/>
+{% endfor %}
+
+{{ knp_pagination_render(categories.pagination, '', {
+    'limit': app.request.query.get('limit', 10)
+}) }}

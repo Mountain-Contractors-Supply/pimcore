@@ -9,7 +9,7 @@
  * - localizedfields [localizedfields]
  * -- name [input]
  * - showProducts [checkbox]
- * - image [image]
+ * - imageRef [image]
  * - categoryId [input]
  * - products [reverseObjectRelation]
  */
@@ -21,7 +21,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'General Information',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1763747217,
+   'modificationDate' => 1771603547,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\Product\\AbstractProductCategory',
@@ -106,7 +106,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'tooltip' => '',
                      'mandatory' => true,
                      'noteditable' => false,
-                     'index' => false,
+                     'index' => true,
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
@@ -118,7 +118,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'defaultValue' => NULL,
+                     'defaultValue' => '',
                      'columnLength' => 190,
                      'regex' => '',
                      'regexFlags' => 
@@ -172,7 +172,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-                 'name' => 'image',
+                 'name' => 'imageRef',
                  'title' => 'Category Image',
                  'tooltip' => '',
                  'mandatory' => false,
@@ -212,7 +212,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'defaultValue' => NULL,
+                 'defaultValue' => '',
                  'columnLength' => 190,
                  'regex' => '',
                  'regexFlags' => 
@@ -327,7 +327,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
    'group' => 'Product',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => '',
+   'linkGeneratorReference' => '@App\\LinkGenerator\\ProductCategoryLinkGenerator',
    'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
