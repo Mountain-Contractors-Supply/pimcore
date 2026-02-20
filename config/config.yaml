@@ -49,6 +49,19 @@ ux_map:
     google_maps:
         default_map_id: '%env(GOOGLE_MAPS_MAP_ID)'
 
+mercure:
+    hubs:
+        default:
+            url: 'http://mercure/.well-known/mercure'
+            public_url: '/hub'
+            jwt:
+                secret: '%env(MERCURE_JWT)%'
+                publish: ['*']
+
+turbo:
+    broadcast:
+        enabled: true
+
      # config_location:
      #    image_thumbnails:
      #        write_target:

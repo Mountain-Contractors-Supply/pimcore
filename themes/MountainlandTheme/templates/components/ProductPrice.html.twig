@@ -1,0 +1,15 @@
+{% if app.user %}
+    <div
+        data-controller="symfony--ux-turbo--mercure-turbo-stream"
+        data-symfony--ux-turbo--mercure-turbo-stream-hub-value="{{ app.request.schemeAndHttpHost ~ '/hub/.well-known/mercure' }}"
+        data-symfony--ux-turbo--mercure-turbo-stream-topic-value="product-prices-{{ account_branch_id() }}"
+    ></div>
+{% endif %}
+
+<div class="text-3xl font-bold text-gray-900 my-4">
+    <span
+        class="price-tag price-target-{{ productId }}_{{ uom }}"
+        data-price-loader-target="placeholder"
+        data-id="{{ productId }}_{{ uom }}"
+    >{{ price|default('-') }}</span>
+</div>

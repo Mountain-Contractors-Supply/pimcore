@@ -3,7 +3,7 @@
         <h2>Order Summary</h2>
         <div class="summary-row">
             <span>Subtotal</span>
-            <span id="summary-subtotal"></span>
+            <span id="summary-subtotal">${{ cart.subTotal|number_format(2, '.', ',') }}</span>
         </div>
         <div class="summary-row">
             <span>Shipping</span>
@@ -11,14 +11,14 @@
         </div>
         <div class="summary-row">
             <span>Tax (est.)</span>
-            <span id="summary-tax"></span>
+            <span id="summary-tax">${{ cart.tax|number_format(2, '.', ',') }}</span>
         </div>
         <hr />
         <div class="summary-row total">
             <span>Total</span>
-            <span id="summary-total"></span>
+            <span id="summary-total">${{ cart.totalDue|number_format(2, '.', ',') }}</span>
         </div>
-        <a href="{{ path('checkout') }}" class="btn-primary full">Proceed to Checkout</a>
+        <a href="{{ path('checkout') }}" class="btn-primary full" data-turbo-frame="_top">Proceed to Checkout</a>
         <a href="{{ path('home') }}" class="btn-secondary full">Continue Shopping</a>
     </div>
     <a href="#" class="return-policy-link">View Return Policy</a>

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\LinkGenerator;
 
-use App\Website\Tool\Text;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
+use McSupply\EcommerceBundle\Utility\StringUtil;
 use Pimcore\Model\DataObject\ClassDefinition\LinkGeneratorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -30,7 +30,8 @@ final readonly class ProductLinkGenerator implements LinkGeneratorInterface
         try {
             return $this->urlGenerator->generate('product_detail', [
                 'productId' => (int)$object->getProductId(),
-                'slug' => Text::toUrl((string)$object->getName()),
+                'slug' => StringUtil::toUrl((string)$object->getName()),
+                'uom' => $params['parameters']['uom'] ?? null,
                 'store_id' => $params['store_id'] ?? null,
             ]);
         } catch (\Exception) {
