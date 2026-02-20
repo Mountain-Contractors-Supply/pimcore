@@ -31,10 +31,10 @@ final readonly class ProductLinkGenerator implements LinkGeneratorInterface
             return $this->urlGenerator->generate('product_detail', [
                 'productId' => (int)$object->getProductId(),
                 'slug' => StringUtil::toUrl((string)$object->getName()),
-                'uom' => $params['parameters']['uom'] ?? null,
+                'uom' => $params['parameters']['uom'] ?? 'ea',
                 'store_id' => $params['store_id'] ?? null,
             ]);
-        } catch (\Exception) {
+        } catch (\Exception $exception) {
             return '';
         }
     }

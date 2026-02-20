@@ -35,7 +35,7 @@ final readonly class ProductCategoryLinkGenerator implements LinkGeneratorInterf
                 'limit' => $params['limit'] ?? 10,
                 'store_id' => $params['store_id'] ?? null,
             ]);
-        } catch (\Exception) {
+        } catch (\Exception $exception) {
             return '';
         }
     }
