@@ -44,8 +44,8 @@ final readonly class PimcoreProductCategoryListingProvider implements DataProvid
             return null;
         }
 
-        $page = $this->requestStack->getMainRequest()->query->getInt('page', 1);
-        $limit = $this->requestStack->getMainRequest()->query->getInt('limit', 10);
+        $page = $this->requestStack->getMainRequest()?->query->getInt('page', 1) ?? 1;
+        $limit = $this->requestStack->getMainRequest()?->query->getInt('limit', 10) ?? 10;
         $listing = (new ProductCategory\Listing())->setCondition("parentId = ?", [$id]);
 
         return new ProductCategoryListing($this->paginator->paginate($listing, $page, $limit));

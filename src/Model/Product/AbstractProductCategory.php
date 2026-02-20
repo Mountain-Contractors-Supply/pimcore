@@ -32,7 +32,7 @@ abstract class AbstractProductCategory extends AbstractModel implements ProductC
      * @inheritDoc
      */
     #[\Override]
-    public function setImage(?string $image): static
+    public function setImage(string $image): static
     {
         $this->getImageRef()?->setFilename($image);
 
