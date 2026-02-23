@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\Company;
 
 use McSupply\EcommerceBundle\Dto\Company\AccountInterface;
 use McSupply\EcommerceBundle\Dto\User\CustomerInterface;
-use McSupply\EcommerceBundle\Provider\AccountProviderInterface;
-use McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface;
+use McSupply\EcommerceBundle\Provider\Company\AccountProviderInterface;
+use McSupply\EcommerceBundle\Provider\OnlineStore\OnlineStoreProviderInterface;
 use Pimcore\Model\DataObject\Account;
 use Symfony\Bundle\SecurityBundle\Security;
 

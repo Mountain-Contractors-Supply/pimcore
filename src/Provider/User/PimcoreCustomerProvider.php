@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\User;
 
 use McSupply\EcommerceBundle\Attribute\DataProvider;
-use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Dto\User\CustomerInterface;
+use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Pimcore\Model\DataObject\Customer;
 

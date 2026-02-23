@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\Product;
 
 use Exception;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
-use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
+use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Pimcore\Model\DataObject\Product;
 use Symfony\Component\HttpFoundation\RequestStack;

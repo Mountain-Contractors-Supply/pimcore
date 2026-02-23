@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\Address;
 
 use McSupply\EcommerceBundle\Dto\Address\AddressInterface;
-use McSupply\EcommerceBundle\Provider\AccountProviderInterface;
-use McSupply\EcommerceBundle\Provider\AddressProviderInterface;
+use McSupply\EcommerceBundle\Provider\Address\AddressProviderInterface;
+use McSupply\EcommerceBundle\Provider\Company\AccountProviderInterface;
 
 final readonly class AddressProvider implements AddressProviderInterface
 {
