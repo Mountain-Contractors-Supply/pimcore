@@ -1,0 +1,12 @@
+<div class="flex justify-between items-center text-sm">
+    <span class="text-gray-600">{{ label }}:</span>
+    <span class="flex items-center gap-2">
+        {% if stock is defined and stock > 0 %}
+            <img src="{{ asset('var/assets/images/misc/green-check.webp') }}" alt="In stock" class="w-4 h-4" />
+            <span class="text-green-600 font-medium">{{ stock }} Available</span>
+        {% else %}
+            <img src="{{ asset('var/assets/images/misc/out-of-stock.webp') }}" alt="Stock status" class="w-4 h-4" />
+            <span class="text-gray-500">Check Availability</span>
+        {% endif %}
+    </span>
+</div>
