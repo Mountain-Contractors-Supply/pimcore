@@ -1,0 +1,33 @@
+{% set brandLabel = brandLabel|default('Brand Name') %}
+{% set partNumberLabel = partNumberLabel|default('Part Number') %}
+{% set subtitle = subtitle|default('Quickly Search & find parts in our huge selection!') %}
+
+<section class="mt-12 bg-gray-100">
+    <div style="background-color: var(--secondary-color);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+                <div>
+                    <h2 class="text-4xl font-bold">
+                        <span class="block mcs-primary-text">Replacement</span>
+                        <span class="block mcs-primary-text">Part <span class="text-white mcs-primary-bg px-2">Finder</span></span>
+                    </h2>
+                </div>
+                <div class="flex-1 w-full lg:w-auto">
+                    <p class="text-lg mb-4" style="color: var(--tertiary-color);">{{ subtitle }}</p>
+                    <div class="search-boxes grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="search-box">
+                            <label for="brand" class="block text-sm font-semibold text-gray-700 mb-2">{{ brandLabel }}</label>
+                            <input type="text" id="brand" name="brand" placeholder="{{ brandLabel }}" 
+                                class="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="search-box">
+                            <label for="part-number" class="block text-sm font-semibold text-gray-700 mb-2">{{ partNumberLabel }}</label>
+                            <input type="text" id="part-number" name="part-number" placeholder="{{ partNumberLabel }}"
+                                class="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

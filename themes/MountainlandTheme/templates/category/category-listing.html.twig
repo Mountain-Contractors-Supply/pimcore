@@ -1,9 +1,28 @@
-{% for item in categories.pagination.items %}
-    <a href="{{ path('pimcore_element', {
-        'element': item,
-    }) }}" data-turbo-frame="_top">{{ item.name }}</a><br/>
-{% endfor %}
+{% extends 'layout.html.twig' %}
 
-{{ knp_pagination_render(categories.pagination, '', {
-    'limit': app.request.query.get('limit', 10)
-}) }}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <main>
+        <twig:PartFinder />
+
+        <div class="bg-white border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <twig:Breadcrumb :items="[
+                    { label: 'Home', url: path('home'), icon: 'var/assets/images/misc/home.webp' },
+                    { label: 'All Products', url: '#' },
+                    { label: 'Categories' }
+                ]" />
+            </div>
+        </div>
+
+        <twig:Grid 
+            :items="categories.pagination.items" 
+            title="Shop By Category" 
+        />
+    </main>
+{% endblock %}
