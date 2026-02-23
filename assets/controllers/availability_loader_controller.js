@@ -39,13 +39,13 @@ export default class extends Controller {
                 const elements = document.querySelectorAll(`.availability-target-${id}`);
 
                 elements.forEach(el => {
-                    this.applyPriceEffect(el, availability);
+                    this.applyAvailabilityEffect(el, availability);
                 });
             }
         });
     }
 
-    applyPriceEffect(element, availability) {
+    applyAvailabilityEffect(element, availability) {
         element.innerText = availability;
         element.classList.add('availability-loaded');
     }
