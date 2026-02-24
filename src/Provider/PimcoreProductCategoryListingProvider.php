@@ -6,6 +6,7 @@ namespace App\Provider;
 
 use Knp\Component\Pager\PaginatorInterface;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
+use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductCategoryListing;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
@@ -45,7 +46,9 @@ final readonly class PimcoreProductCategoryListingProvider implements DataProvid
         }
 
         $page = $this->requestStack->getMainRequest()?->query->getInt('page', 1) ?? 1;
-        $limit = $this->requestStack->getMainRequest()?->query->getInt('limit', 10) ?? 10;
+        $limit = $this->requestStack->getMainRequest()
+            ?->query->getInt('limit', ProductCategoryInterface::DEFAULT_PER_PAGE_COUNT) ??
+            ProductCategoryInterface::DEFAULT_PER_PAGE_COUNT;
         $listing = (new ProductCategory\Listing())->setCondition("parentId = ?", [$id]);
 
         return new ProductCategoryListing($this->paginator->paginate($listing, $page, $limit));
