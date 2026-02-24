@@ -2,62 +2,70 @@
 
 {% block checkout_step %}
     <section class="checkout-step-panel is-active" data-step="payment">
-        <article class="card payment-method-card is-expanded" data-payment-method="credit-card">
-            <div class="payment-method-header">
-                <label>
-                    <input type="radio" name="payment-method" value="credit-card" checked />
-                    <h3>Credit Card</h3>
-                </label>
-            </div>
-            <div class="payment-method-content">
-                <h4 class="section-subtitle">Card Information</h4>
-                <div class="form-group">
-                    <label for="card-name">Cardholder name</label>
-                    <input id="card-name" type="text" placeholder="Name on card" />
-                </div>
-                <div class="form-group">
-                    <label for="card-number">Card number</label>
-                    <input id="card-number" type="text" placeholder="1234 5678 9012 3456" />
-                </div>
-                <div class="form-group-row">
-                    <div class="form-group">
-                        <label for="expiry-date">Expiration date</label>
-                        <input id="expiry-date" type="text" placeholder="MM/YY" />
-                    </div>
-                    <div class="form-group">
-                        <label for="cvv">CVV</label>
-                        <input id="cvv" type="text" placeholder="123" />
-                    </div>
-                </div>
-            </div>
+        {% for paymentMethod in form.paymentMethodCode  %}
+        <article class="card">
+            {{ form_widget(paymentMethod) }}
+            <span>{{ paymentMethod.vars.label }}</span>
         </article>
-
-        <article class="card payment-method-card" data-payment-method="net-due">
-            <div class="payment-method-header">
-                <label>
-                    <input type="radio" name="payment-method" value="net-due" />
-                    <h3>Net Due In Days</h3>
-                </label>
-            </div>
-        </article>
-
-        <article class="card payment-method-card" data-payment-method="pay-at-pickup">
-            <div class="payment-method-header">
-                <label>
-                    <input type="radio" name="payment-method" value="pay-at-pickup" />
-                    <h3>Pay at Pickup</h3>
-                </label>
-            </div>
-            <div class="payment-method-content">
-                <div class="info-box">
-                    <p>You will pay for your order when you pick it up at the branch location. We accept cash, check, and card payments at pickup.</p>
-                    <ul>
-                        <li>Payment due at time of pickup</li>
-                        <li>Accepted methods: Cash, Check, Credit/Debit Card</li>
-                        <li>Order must be picked up within 7 days</li>
-                    </ul>
-                </div>
-            </div>
-        </article>
+        {% endfor %}
     </section>
+{#    <section>#}
+{#        <article class="card payment-method-card is-expanded" data-payment-method="credit-card">#}
+{#            <div class="payment-method-header">#}
+{#                <label>#}
+{#                    <input type="radio" name="payment-method" value="credit-card" checked />#}
+{#                    <h3>Credit Card</h3>#}
+{#                </label>#}
+{#            </div>#}
+{#            <div class="payment-method-content">#}
+{#                <h4 class="section-subtitle">Card Information</h4>#}
+{#                <div class="form-group">#}
+{#                    <label for="card-name">Cardholder name</label>#}
+{#                    <input id="card-name" type="text" placeholder="Name on card" />#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="card-number">Card number</label>#}
+{#                    <input id="card-number" type="text" placeholder="1234 5678 9012 3456" />#}
+{#                </div>#}
+{#                <div class="form-group-row">#}
+{#                    <div class="form-group">#}
+{#                        <label for="expiry-date">Expiration date</label>#}
+{#                        <input id="expiry-date" type="text" placeholder="MM/YY" />#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <label for="cvv">CVV</label>#}
+{#                        <input id="cvv" type="text" placeholder="123" />#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </article>#}
+
+{#        <article class="card payment-method-card" data-payment-method="net-due">#}
+{#            <div class="payment-method-header">#}
+{#                <label>#}
+{#                    <input type="radio" name="payment-method" value="net-due" />#}
+{#                    <h3>Net Due In Days</h3>#}
+{#                </label>#}
+{#            </div>#}
+{#        </article>#}
+
+{#        <article class="card payment-method-card" data-payment-method="pay-at-pickup">#}
+{#            <div class="payment-method-header">#}
+{#                <label>#}
+{#                    <input type="radio" name="payment-method" value="pay-at-pickup" />#}
+{#                    <h3>Pay at Pickup</h3>#}
+{#                </label>#}
+{#            </div>#}
+{#            <div class="payment-method-content">#}
+{#                <div class="info-box">#}
+{#                    <p>You will pay for your order when you pick it up at the branch location. We accept cash, check, and card payments at pickup.</p>#}
+{#                    <ul>#}
+{#                        <li>Payment due at time of pickup</li>#}
+{#                        <li>Accepted methods: Cash, Check, Credit/Debit Card</li>#}
+{#                        <li>Order must be picked up within 7 days</li>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{#        </article>#}
+{#    </section>#}
 {% endblock %}
