@@ -21,7 +21,6 @@ RUN --mount=type=secret,id=kernel-secret,uid=1000 \
     --mount=type=secret,id=pimcore-product-key,env=PIMCORE_PRODUCT_KEY,uid=1000 \
     --mount=type=secret,id=pimcore-instance-identifier,env=PIMCORE_INSTANCE_IDENTIFIER,uid=1000 \
     --mount=type=secret,id=pimcore-encryption-secret,env=PIMCORE_ENCRYPTION_SECRET,uid=1000 \
-    --mount=type=secret,id=mercure-jwt,env=MERCURE_JWT,uid=1000 \
         set -eux; \
         cd /var/www/html; \
         runuser -u www-data -- php /usr/local/bin/composer install; \
