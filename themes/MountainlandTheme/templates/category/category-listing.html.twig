@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+{% endblock %}
+
+{% block content %}
+    {% set categoryId = app.request.attributes.get('id') %}
+    {% set parentCategory = categoryId ? pimcore_object(categoryId|number_format(0, '', '')) : null %}
+    
+    {% set breadcrumbItems = [
+        { label: 'Home', url: path('home'), icon: 'var/assets/images/misc/home.webp' },
+        { label: 'All Categories', url: path('home') ~ '#categories' }
+    ] %}
+    
+    {% if parentCategory and parentCategory.name %}
+        {% set breadcrumbItems = breadcrumbItems|merge([{ label: parentCategory.name }]) %}
+    {% endif %}
+    
+    <main>
+        <twig:PartFinder />
+
+        <div class="bg-white border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <twig:Breadcrumb :items="breadcrumbItems" />
+            </div>
+        </div>
+
+        <twig:Grid 
+            :items="categories.pagination.items" 
+            title="Shop By Category" 
+        />
+    </main>
+{% endblock %}

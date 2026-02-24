@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\PreviewGenerator;
 
-use App\LinkGenerator\ProductLinkGenerator;
 use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
+use Pimcore\Model\DataObject\ClassDefinition\LinkGeneratorInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\ClassDefinition\PreviewGeneratorInterface;
 use Pimcore\Model\DataObject\OnlineStore;
 
-final readonly class StoreAwarePreviewGenerator implements PreviewGeneratorInterface
+abstract readonly class AbstractStoreAwarePreviewGenerator implements PreviewGeneratorInterface
 {
-    public function __construct(
-        private ProductLinkGenerator $linkGenerator
-    ) {}
+    public function __construct(private LinkGeneratorInterface $linkGenerator) {}
 
     /**
      * @inheritDoc

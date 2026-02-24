@@ -24,6 +24,7 @@ Forked from https://github.com/TorqIT/pimcore-skeleton.
 1. From within the php container (`docker compose exec --user www-data -it php bash -l`) or docker exec, run `bin/console assets:install public --symlink`
 1. From within the php container (`docker compose exec --user www-data -it php bash -l`) or docker exec, run `bin/console importmap:install`
 1. From within the php container (`docker compose exec --user www-data -it php bash -l`) or docker exec, run `bin/console asset-map:compile`
+1. From within the php container (`docker compose exec --user www-data -it php bash -l`) or docker exec, run `bin/console tailwind:build` _you can append `-w` to watch for changes and auto update_
 1. Go to `localhost:8415` in your browser to access the Pimcore admin (port is controlled by the `WEB_EXTERNAL_PORT` environment variable). Use username `admin` and password `pimcore` to log in.
 
 ## Getting updates from skeleton
