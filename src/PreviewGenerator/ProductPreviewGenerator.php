@@ -8,7 +8,8 @@ use App\LinkGenerator\ProductLinkGenerator;
 
 final readonly class ProductPreviewGenerator extends AbstractStoreAwarePreviewGenerator
 {
-    public function __construct(ProductLinkGenerator $linkGenerator) {
+    public function __construct(ProductLinkGenerator $linkGenerator)
+    {
         parent::__construct($linkGenerator);
     }
 }

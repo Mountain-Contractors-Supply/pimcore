@@ -34,7 +34,10 @@ abstract class AbstractProductCategory extends AbstractModel implements ProductC
     #[\Override]
     public function setImage(string $image): static
     {
-        $this->getImageRef()?->setFilename($image);
+        $imageRef = $this->getImageRef();
+        if ($imageRef !== null) {
+            $imageRef->setFilename($image);
+        }
 
         return $this;
     }
