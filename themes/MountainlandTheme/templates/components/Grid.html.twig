@@ -1,10 +1,11 @@
 {% set title = title|default('Shop By Category') %}
+{% set initialCount = initialCount|default(8) %}
+{% set controllerName = controllerName|default('toggle-grid') %}
 {% set iconExtension = iconExtension|default('png') %}
 {% set iconBasePath = iconBasePath|default('var/assets/images/product-types/icons/') %}
 {% set useLink = useLink|default(true) %}
-{% set pagination = pagination|default(null) %}
 
-<section class="py-12">
+<section class="py-12" data-controller="{{ controllerName }}">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {% if title %}
             <div class="mb-8">
@@ -13,10 +14,12 @@
         {% endif %}
         
         <div class="divisions-container">
-            <div class="divisions-grid">
+            <div class="divisions-grid" data-toggle-grid-target="grid">
                 {% for item in items %}
                     <twig:GridItem 
                         :item="item" 
+                        :index="loop.index" 
+                        :initialCount="initialCount"
                         :iconExtension="iconExtension"
                         :iconBasePath="iconBasePath"
                         :useLink="useLink"
@@ -24,12 +27,8 @@
                 {% endfor %}
             </div>
 
-            {% if pagination %}
-                <div class="pagination-wrapper mt-12">
-                    {{ knp_pagination_render(pagination, 'components/pagination.html.twig', {
-                        'limit': app.request.query.get('limit', 10)
-                    }) }}
-                </div>
+            {% if items|length > initialCount %}
+                {% include 'components/ViewMore.html.twig' with { controllerName: controllerName } %}
             {% endif %}
         </div>
     </div>
