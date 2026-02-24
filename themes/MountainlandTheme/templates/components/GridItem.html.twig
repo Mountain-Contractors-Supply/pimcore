@@ -10,13 +10,12 @@
     {%- set attributes = '' -%}
 {%- endif -%}
 
-{%- set isHidden = index > initialCount -%}
 {%- set iconSlug = item.name|lower|trim|replace({' ': '-', '&': 'and', ',': '', '.': '', '/': '-'}) -%}
 {%- set iconPath = iconBasePath ~ iconSlug ~ '-icon.' ~ iconExtension -%}
 
 <{{ element }} 
    {% if useLink %}href="{{ path('pimcore_element', {'element': item}) }}" data-turbo-frame="_top"{% endif %}
-   class="division-box group block bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg hover:border-blue-200 transition-all duration-200{% if isHidden %} hidden{% endif %}">
+   class="division-box group block bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg hover:border-blue-200 transition-all duration-200">
     <div class="p-6 flex flex-col items-center text-center h-full">
         {% if item.imageRef %}
             <img src="{{ item.imageRef.path }}" 
