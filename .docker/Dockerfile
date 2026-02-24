@@ -59,3 +59,8 @@ ENV PHP_IDE_CONFIG=serverName=localhost
 COPY /.docker/php-debug/xdebug.conf /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 COPY /.docker/php-debug/start-php-debug.sh /start-php-debug.sh
 CMD [ "/start-php-debug.sh" ]
+
+FROM dunglas/mercure:latest AS mercure
+
+COPY ./.docker/secrets-to-env-vars.sh /etc/profile.d/secrets-to-env-vars.sh
+RUN chmod +x /etc/profile.d/secrets-to-env-vars.sh

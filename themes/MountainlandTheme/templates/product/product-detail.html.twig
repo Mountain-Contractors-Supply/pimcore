@@ -30,17 +30,17 @@
                 {% endif %}
 
                 {% set width = product.width is defined ? product.width : null %}
-                {% set depth = product.depth is defined ? product.depth : null %}
+                {% set length = product.length is defined ? product.length : null %}
                 {% set height = product.height is defined ? product.height : null %}
                 {% set weight = product.weight is defined ? product.weight : null %}
 
-                {% if width is not null or depth is not null or height is not null or weight is not null %}
+                {% if width is not null or length is not null or height is not null or weight is not null %}
                     {% set dimensionsList = [] %}
                     {% if width is not null %}
                         {% set dimensionsList = dimensionsList|merge(['Width: ' ~ width]) %}
                     {% endif %}
-                    {% if depth is not null %}
-                        {% set dimensionsList = dimensionsList|merge(['Length: ' ~ depth]) %}
+                    {% if length is not null %}
+                        {% set dimensionsList = dimensionsList|merge(['Length: ' ~ length]) %}
                     {% endif %}
                     {% if height is not null %}
                         {% set dimensionsList = dimensionsList|merge(['Height: ' ~ height]) %}
@@ -65,13 +65,16 @@
                 <div class="space-y-4">
                     <h1 class="text-2xl font-bold mcs-primary-text">{{ product.name|default('Product Name') }}</h1>
 
-                    <div class="text-3xl font-bold text-gray-900">$999.99</div>
+                    <twig:ProductPrice
+                        :productId="product.productId"
+                        :uom="uom"
+                    />
 
                     <twig:ProductActions
                         :quantity="1"
                         addToCartText="Add to Cart"
                         :cartProductId="product.productId"
-                        cartUom="ea"
+                        :cartUom="uom"
                     />
 
                     <twig:ProductAvailability

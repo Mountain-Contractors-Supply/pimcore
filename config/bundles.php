@@ -14,4 +14,5 @@ return [
     Pimcore\Bundle\GenericExecutionEngineBundle\PimcoreGenericExecutionEngineBundle::class => ['all' => true],
     Pimcore\Bundle\GenericDataIndexBundle\PimcoreGenericDataIndexBundle::class => ['all' => true],
     Pimcore\Bundle\OpenSearchClientBundle\PimcoreOpenSearchClientBundle::class => ['all' => true],
+    Symfony\Bundle\MercureBundle\MercureBundle::class => ['all' => true],
 ];

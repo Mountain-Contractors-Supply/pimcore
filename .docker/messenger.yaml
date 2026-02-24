@@ -9,3 +9,10 @@ framework:
             pimcore_generic_data_index_queue : 'amqp://rabbitmq:5672/%2f/pimcore_generic_data_index_queue'
             scheduler_generic_data_index : 'amqp://rabbitmq:5672/%2f/scheduler_generic_data_index'
             pimcore_generic_execution_engine : 'amqp://rabbitmq:5672/%2f/pimcore_generic_execution_engine'
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+
+            # OR for immediate testing, use sync to handle it right away
+            sync: 'sync://'
+
+        routing:
+            'McSupply\EcommerceBundle\Message\PriceUpdateMessage': async

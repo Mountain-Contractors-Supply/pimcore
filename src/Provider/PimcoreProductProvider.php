@@ -10,6 +10,7 @@ use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
 use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Pimcore\Model\DataObject\Product;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<ProductInterface>
@@ -17,13 +18,19 @@ use Pimcore\Model\DataObject\Product;
 #[DataProvider(ProductInterface::class, DefaultDataResolver::class, 10)]
 final readonly class PimcoreProductProvider implements DataProviderInterface
 {
+    public function __construct(
+        private RequestStack $requestStack,
+    ) {}
+
     /**
      * @inheritDoc
      */
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
-        return true;
+        $route = $this->requestStack->getMainRequest()?->attributes->get('_route');
+
+        return in_array($route, ['product_detail', 'cart', 'cart_list_partial']);
     }
 
     /**
