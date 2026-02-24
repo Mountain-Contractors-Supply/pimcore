@@ -77,13 +77,28 @@
                         :cartUom="uom"
                     />
 
-                    <twig:ProductAvailability
-                        :productId="product.productId"
-                        :modelNumber="product.modelNumber is defined ? product.modelNumber : null"
-                        :upc="product.upc"
-                        :stockHome="null"
-                        :stockOther="null"
-                    />
+                    <div class="space-y-3 py-4 border-y border-gray-200">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Item #:</span>
+                            <span class="font-medium text-gray-900">{{ product.productId }}</span>
+                        </div>
+                        {% if product.modelNumber %}
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Model #:</span>
+                                <span class="font-medium text-gray-900">{{ product.modelNumber }}</span>
+                            </div>
+                        {% endif %}
+                        {% if product.upc %}
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">UPC:</span>
+                                <span class="font-medium text-gray-900">{{ product.upc }}</span>
+                            </div>
+                        {% endif %}
+                        <twig:ProductAvailability
+                            :productId="product.productId"
+                            :uom="uom"
+                        />
+                    </div>
 
                     <twig:Accordion :items="accordionItems" />
                 </div>
@@ -99,7 +114,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <twig:ProductUpsell title="You May Also Need..." :products="productsUpsell ?? []" />

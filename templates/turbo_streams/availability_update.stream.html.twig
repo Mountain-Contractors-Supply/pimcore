@@ -1,0 +1,13 @@
+<turbo-stream action="update" targets=".availability-target-{{ productId }}">
+    <template>
+        <twig:ProductAvailabilitySummary
+            label="Home"
+            :stock="availability.currentBranchQuantity"
+        />
+
+        <twig:ProductAvailabilitySummary
+            label="Other"
+            :stock="availability.otherBranchQuantity"
+        />
+    </template>
+</turbo-stream>

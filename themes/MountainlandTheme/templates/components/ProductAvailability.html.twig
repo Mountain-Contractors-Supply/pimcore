@@ -1,42 +1,13 @@
-<div class="space-y-3 py-4 border-y border-gray-200">
-    <div class="flex justify-between text-sm">
-        <span class="text-gray-600">Item #:</span>
-        <span class="font-medium text-gray-900">{{ productId|default('N/A') }}</span>
-    </div>
-    {% if modelNumber %}
-    <div class="flex justify-between text-sm">
-        <span class="text-gray-600">Model #:</span>
-        <span class="font-medium text-gray-900">{{ modelNumber }}</span>
-    </div>
-    {% endif %}
-    {% if upc %}
-    <div class="flex justify-between text-sm">
-        <span class="text-gray-600">UPC:</span>
-        <span class="font-medium text-gray-900">{{ upc }}</span>
-    </div>
-    {% endif %}
-    <div class="flex justify-between items-center text-sm">
-        <span class="text-gray-600">Home:</span>
-        <span class="flex items-center gap-2">
-            {% if stockHome is defined and stockHome > 0 %}
-                <img src="{{ asset('var/assets/images/misc/green-check.webp') }}" alt="In stock" class="w-4 h-4" />
-                <span class="text-green-600 font-medium">{{ stockHome }} Available</span>
-            {% else %}
-                <img src="{{ asset('var/assets/images/misc/out-of-stock.webp') }}" alt="Stock status" class="w-4 h-4" />
-                <span class="text-gray-500">Check Availability</span>
-            {% endif %}
-        </span>
-    </div>
-    <div class="flex justify-between items-center text-sm">
-        <span class="text-gray-600">Other:</span>
-        <span class="flex items-center gap-2">
-            {% if stockOther is defined and stockOther > 0 %}
-                <img src="{{ asset('var/assets/images/misc/green-check.webp') }}" alt="In stock" class="w-4 h-4" />
-                <span class="text-green-600 font-medium">{{ stockOther }} Available</span>
-            {% else %}
-                <img src="{{ asset('var/assets/images/misc/out-of-stock.webp') }}" alt="Stock status" class="w-4 h-4" />
-                <span class="text-gray-500">Check Availability</span>
-            {% endif %}
-        </span>
-    </div>
+{% if app.user %}
+    <div
+        data-controller="symfony--ux-turbo--mercure-turbo-stream"
+        data-symfony--ux-turbo--mercure-turbo-stream-hub-value="{{ app.request.schemeAndHttpHost ~ '/hub/.well-known/mercure' }}"
+        data-symfony--ux-turbo--mercure-turbo-stream-topic-value="product-availability-{{ productId }}_{{ uom }}"
+    ></div>
+{% endif %}
+
+<div
+    class="availability-target-{{ productId }}_{{ uom }}"
+    data-availability-loader-target="availability"
+    data-id="{{ productId }}_{{ uom }}">
 </div>
