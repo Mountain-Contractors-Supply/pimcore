@@ -1,0 +1,24 @@
+{# Custom pagination template for KnpPaginatorBundle #}
+<nav class="flex justify-center items-center gap-2 mt-8" aria-label="Pagination">
+    {% if pageCount > 1 %}
+        {% if previous is defined %}
+            <a href="{{ path(route, knp_pagination_query(query, previous, options)) }}" class="px-4 py-2 mcs-primary-text border border-gray-300 rounded transition hover:bg-[var(--primary-color)] hover:text-white focus:bg-[var(--primary-color)] focus:text-white hover:border-[var(--primary-color)] focus:border-[var(--primary-color)]">← Previous</a>
+        {% else %}
+            <span class="px-4 py-2 text-gray-400 border border-gray-200 rounded cursor-not-allowed">← Previous</span>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page == current %}
+                <span class="px-4 py-2 mcs-primary-bg text-white rounded border mcs-primary-border">{{ page }}</span>
+            {% else %}
+                <a href="{{ path(route, knp_pagination_query(query, page, options)) }}" class="px-4 py-2 mcs-primary-text border border-gray-300 rounded transition hover:bg-[var(--primary-color)] hover:text-white focus:bg-[var(--primary-color)] focus:text-white hover:border-[var(--primary-color)] focus:border-[var(--primary-color)]">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if next is defined %}
+            <a href="{{ path(route, knp_pagination_query(query, next, options)) }}" class="px-4 py-2 mcs-primary-text border border-gray-300 rounded transition hover:bg-[var(--primary-color)] hover:text-white focus:bg-[var(--primary-color)] focus:text-white hover:border-[var(--primary-color)] focus:border-[var(--primary-color)]">Next →</a>
+        {% else %}
+            <span class="px-4 py-2 text-gray-400 border border-gray-200 rounded cursor-not-allowed">Next →</span>
+        {% endif %}
+    {% endif %}
+</nav>
