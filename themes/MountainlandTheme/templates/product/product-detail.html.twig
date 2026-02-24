@@ -8,7 +8,7 @@
         <twig:Breadcrumb :items="[
             { label: 'Home', url: path('home'), icon: 'var/assets/images/misc/home.webp' },
             { label: product.name }
-        ]" />
+        ]" :includeBack="true" />
 
         <hr class="my-6 border-gray-300" />
 

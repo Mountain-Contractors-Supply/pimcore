@@ -1,11 +1,22 @@
 {% set resolvedItems = items|default([]) %}
 {% set separator = separator|default('>') %}
 {% set rootClass = class|default('') %}
+{% set includeBack = includeBack|default(false) %}
+{% set referer = app.request.headers.get('referer') %}
+
+{% if includeBack and referer and referer != app.request.uri and resolvedItems|length > 0 %}
+    {% set refererPath = referer|replace({(app.request.schemeAndHttpHost ~ '/'): ''}) %}
+    {% set refererSlug = refererPath|split('?')|first|trim('/')|split('/')|last %}
+    {% set inferredBackLabel = refererSlug ? refererSlug|replace({'-': ' ', '_': ' '})|title : 'Previous Page' %}
+    {% set backLabel = backLabel|default(inferredBackLabel) %}
+    {% set backItem = { label: backLabel, url: referer, icon: backIcon|default(null) } %}
+    {% set resolvedItems = [resolvedItems[0]]|merge([backItem])|merge(resolvedItems|slice(1)) %}
+{% endif %}
 
 <div class="mb-4">
     <nav class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-600 {{ rootClass }}" aria-label="Breadcrumb">
         {% for item in resolvedItems %}
-            {% if item.icon is defined %}
+            {% if item.icon is defined and item.icon is not null %}
                 <img src="{{ asset(item.icon) }}" alt="{{ item.label|default('') }}" class="w-4 h-4" />
             {% endif %}
             {% if item.url is defined %}

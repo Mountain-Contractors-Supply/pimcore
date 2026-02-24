@@ -28,9 +28,7 @@
             </div>
 
             {% if items|length > initialCount %}
-                <twig:GridViewMoreButton 
-                    :controllerName="controllerName"
-                />
+                {% include 'components/ViewMore.html.twig' with { controllerName: controllerName } %}
             {% endif %}
         </div>
     </div>
