@@ -39,6 +39,7 @@ services:
                 - pimcore-product-key
                 - pimcore-instance-identifier
                 - pimcore-encryption-secret
+                - mercure-jwt
         depends_on:
             db:
                 condition: service_healthy
@@ -49,6 +50,7 @@ services:
             - pimcore-product-key
             - pimcore-instance-identifier
             - pimcore-encryption-secret
+            - mercure-jwt
         volumes:
             - .:/var/www/html
             - ./.docker/init/init.sh:/init.sh
@@ -65,6 +67,7 @@ services:
               - pimcore-product-key
               - pimcore-instance-identifier
               - pimcore-encryption-secret
+              - mercure-jwt
         env_file:
             -   .env
         secrets:
@@ -72,6 +75,7 @@ services:
             - pimcore-product-key
             - pimcore-instance-identifier
             - pimcore-encryption-secret
+            - mercure-jwt
         depends_on:
             init:
                 condition: service_completed_successfully
@@ -171,25 +175,30 @@ services:
 
     opensearch:
         image: opensearchproject/opensearch:2
+        entrypoint: ["/usr/local/bin/opensearch-entrypoint-wrapper.sh"]
+        volumes:
+            - ./.docker/opensearch/opensearch-entrypoint-wrapper.sh:/usr/local/bin/opensearch-entrypoint-wrapper.sh:ro
         environment:
             - discovery.type=single-node
             - plugins.security.disabled=true
             - action.auto_create_index=false
             - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
-            - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+        secrets:
+            - opensearch-initial-admin-password
         ports:
             - "9200:9200"
 
     mercure:
         image: dunglas/mercure:latest
-        #restart: unless-stopped
         environment:
             SERVER_NAME: ':80'
-            MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT}
-            MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT}
             MERCURE_EXTRA_DIRECTIVES: |-
                 anonymous
+        secrets:
+            - mercure-jwt
+        entrypoint: [ "/usr/local/bin/mercure-entrypoint-wrapper.sh" ]
         volumes:
+            - ./.docker/mercure/mercure-entrypoint-wrapper.sh:/usr/local/bin/mercure-entrypoint-wrapper.sh:ro
             - pimcore-demo-mercure-data:/data
             - pimcore-demo-mercure-config:/config
 
@@ -211,3 +220,7 @@ secrets:
       file: ./.secrets/pimcore-instance-identifier
     pimcore-encryption-secret:
       file: ./.secrets/pimcore-encryption-secret
+    mercure-jwt:
+        file: ./.secrets/mercure-jwt
+    opensearch-initial-admin-password:
+        file: ./.secrets/opensearch-initial-admin-password

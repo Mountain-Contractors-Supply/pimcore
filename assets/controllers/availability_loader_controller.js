@@ -1,19 +1,19 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ["price"]
+    static targets = ["availability"]
 
     connect() {
-        this.fetchPrices();
+        this.fetchAvailability();
     }
 
-    fetchPrices() {
-        const allIds = this.priceTargets.map(el => el.dataset.id);
+    fetchAvailability() {
+        const allIds = this.availabilityTargets.map(el => el.dataset.id);
         const uniqueIds = [...new Set(allIds)];
 
         if (uniqueIds.length === 0) return;
 
-        fetch('/price', {
+        fetch('/availability', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,24 +29,24 @@ export default class extends Controller {
                 this.updateAllInstances(data);
             })
             .catch(error => {
-                console.error('Error fetching prices:', error);
+                console.error('Error fetching availability:', error);
             });
     }
 
     updateAllInstances(data) {
-        Object.entries(data).forEach(([id, price]) => {
-            if (price !== 'Loading...') {
-                const elements = document.querySelectorAll(`.price-target-${id}`);
+        Object.entries(data).forEach(([id, availability]) => {
+            if (availability !== 'Loading...') {
+                const elements = document.querySelectorAll(`.availability-target-${id}`);
 
                 elements.forEach(el => {
-                    this.applyPriceEffect(el, price);
+                    this.applyAvailabilityEffect(el, availability);
                 });
             }
         });
     }
 
-    applyPriceEffect(element, price) {
-        element.innerText = price;
-        element.classList.add('price-loaded');
+    applyAvailabilityEffect(element, availability) {
+        element.innerText = availability;
+        element.classList.add('availability-loaded');
     }
 }

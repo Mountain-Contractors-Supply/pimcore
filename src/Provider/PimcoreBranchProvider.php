@@ -28,7 +28,9 @@ final readonly class PimcoreBranchProvider implements DataProviderInterface
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
-        return $this->requestStack->getMainRequest()?->attributes->get('_route') === 'branch_data_partial';
+        $route = $this->requestStack->getMainRequest()?->attributes->get('_route');
+
+        return in_array($route, ['branch_data_partial', 'carts-ship-branch-post']);
     }
 
     /**
