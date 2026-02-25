@@ -19,18 +19,12 @@ abstract class AbstractProductCategory extends AbstractModel implements ProductC
      */
     public abstract function getImageRef(): ?Image;
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getImage(): ?string
     {
         return $this->getImageRef()?->getFullPath();
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function setImage(string $image): static
     {
@@ -42,9 +36,14 @@ abstract class AbstractProductCategory extends AbstractModel implements ProductC
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
+    #[\Override]
+    public function getParentCategory(): ?ProductCategoryInterface
+    {
+        $parent = $this->getParent();
+
+        return $parent instanceof ProductCategoryInterface ? $parent : null;
+    }
+
     #[\Override]
     public function onPreAdd(): void
     {
@@ -52,9 +51,6 @@ abstract class AbstractProductCategory extends AbstractModel implements ProductC
         $this->onPreUpdate();
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function onPreUpdate(): void
     {

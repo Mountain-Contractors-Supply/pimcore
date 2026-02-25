@@ -7,28 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    {% set categoryId = app.request.attributes.get('id') %}
-    {% set parentCategory = categoryId ? pimcore_object(categoryId|number_format(0, '', '')) : null %}
-    
-    {% set breadcrumbItems = [
-        { label: 'Home', url: path('home'), icon: 'var/assets/images/misc/home.webp' },
-        { label: 'All Categories', url: path('root_category') }
-    ] %}
-    
-    {% if parentCategory and parentCategory.name %}
-        {% set breadcrumbItems = breadcrumbItems|merge([{ label: parentCategory.name }]) %}
-    {% endif %}
-    
     <main>
         <twig:PartFinder />
 
-        <div class="bg-white border-b border-gray-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                <twig:Breadcrumb :items="breadcrumbItems" />
-            </div>
-        </div>
-
         <turbo-frame id="category-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth">
+            <div class="bg-white border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                    <twig:Navigation:Breadcrumb />
+                </div>
+            </div>
+
             <twig:Grid
                 :items="categories.pagination.items"
                 :pagination="categories.pagination"
