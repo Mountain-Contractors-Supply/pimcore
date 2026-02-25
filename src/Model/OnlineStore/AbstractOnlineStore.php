@@ -10,8 +10,10 @@ use App\Model\Traits\SetKeyFromValueTrait;
 use McSupply\EcommerceBundle\Dto\Company\ValidBranchAwareTrait;
 use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
 use McSupply\EcommerceBundle\Dto\Payment\ValidPaymentMethodAwareTrait;
+use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use McSupply\EcommerceBundle\Dto\Shipping\ValidShipMethodAwareTrait;
 use Pimcore\Model\Asset\Image;
+use Pimcore\Model\Element\AbstractElement;
 
 abstract class AbstractOnlineStore extends AbstractModel implements OnlineStoreInterface, PreAddUpdateAwareInterface
 {
@@ -32,18 +34,24 @@ abstract class AbstractOnlineStore extends AbstractModel implements OnlineStoreI
     public abstract function setLogoRef(?Image $image): static;
 
     /**
-     * @inheritDoc
+     * @return AbstractElement|null
      */
-    #[\Override]
+    public abstract function getRootCategoryRef(): ?AbstractElement;
 
+    #[\Override]
+    public function getRootProductCategory(): ?ProductCategoryInterface
+    {
+        $categoryRef = $this->getRootCategoryRef();
+
+        return $categoryRef instanceof ProductCategoryInterface ? $categoryRef : null;
+    }
+
+    #[\Override]
     public function getLogo(): ?string
     {
         return $this->getLogoRef()?->getFullPath();
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
 
     public function setLogo(?string $logo): static
@@ -53,9 +61,6 @@ abstract class AbstractOnlineStore extends AbstractModel implements OnlineStoreI
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function onPreAdd(): void
     {
@@ -63,11 +68,7 @@ abstract class AbstractOnlineStore extends AbstractModel implements OnlineStoreI
         $this->onPreUpdate();
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
-
     public function onPreUpdate(): void
     {
         $this->setKeyFromValue((string)$this->getName());
