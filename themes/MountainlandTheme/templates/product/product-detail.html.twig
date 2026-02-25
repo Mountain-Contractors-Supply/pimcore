@@ -5,10 +5,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <twig:AlertBanner message="*Pricing has been adjusted based on your Job Quote" icon="var/assets/images/misc/flag.webp" />
 
-        <twig:Breadcrumb :items="[
-            { label: 'Home', url: path('home'), icon: 'var/assets/images/misc/home.webp' },
-            { label: product.name }
-        ]" :includeBack="true" />
+        <twig:Navigation:Breadcrumb />
 
         <hr class="my-6 border-gray-300" />
 

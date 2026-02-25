@@ -1,5 +1,8 @@
 <div class="mb-4">
     <nav class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-600" aria-label="Breadcrumb">
+        <img src="{{ asset('var/assets/images/misc/home.webp') }}" alt="Home" class="w-4 h-4" />
+        <a href="{{ path('home') }}" class="mcs-primary-text hover:opacity-70 transition">Home</a>
+        <span class="text-gray-400">&gt;</span>
         {% for item in this.breadcrumbs|reverse %}
             {% if item.icon is defined and item.icon is not null %}
                 <img src="{{ asset(item.icon) }}" alt="{{ item.label|default('') }}" class="w-4 h-4" />
