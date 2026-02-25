@@ -28,7 +28,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1771445590,
+   'modificationDate' => 1772032540,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -1043,7 +1043,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => 'Product',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '@App\\LinkGenerator\\ProductLinkGenerator',
-   'previewGeneratorReference' => '@App\\PreviewGenerator\\StoreAwarePreviewGenerator',
+   'previewGeneratorReference' => '@App\\PreviewGenerator\\ProductPreviewGenerator',
    'compositeIndices' => 
   array (
   ),
@@ -1072,44 +1072,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-       'name' => 'depthRef',
-       'title' => 'Depth',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'unitWidth' => '',
-       'defaultUnit' => NULL,
-       'validUnits' => 
-      array (
-        0 => 'in',
-        1 => 'ft',
-      ),
-       'unique' => false,
-       'autoConvert' => false,
-       'defaultValueGenerator' => '',
-       'width' => '',
-       'defaultValue' => NULL,
-       'integer' => false,
-       'unsigned' => false,
-       'minValue' => NULL,
-       'maxValue' => NULL,
-       'decimalSize' => NULL,
-       'decimalPrecision' => NULL,
-    )),
   ),
    'blockedVarsForExport' => 
   array (

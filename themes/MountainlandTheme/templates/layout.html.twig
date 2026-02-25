@@ -39,7 +39,7 @@
 </head>
 <body data-controller="price-loader availability-loader">
     <header id="header" data-turbo-permanent>
-        {{ include('partials/_header.html.twig') }}
+        {% include 'partials/_header.html.twig' with {'isLink': isLink} %}
     </header>
 
     <main>

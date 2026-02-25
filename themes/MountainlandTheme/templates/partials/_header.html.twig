@@ -363,7 +363,12 @@
                 {% if page.isVisible() %}
                     {% set isActive = page.isActive() %}
                     {% set pageDocument = pimcore_document(page.get('id')) %}
-                    {% set displayTitle = pageDocument.getTitle() ?: (pageDocument.getProperty('navigation_name') ?: page.getLabel()) %}
+
+                    {% if pageDocument is instanceof('\\Pimcore\\Model\\Document\\Link') %}
+                        {% set displayTitle = page %}
+                    {% else %}
+                        {% set displayTitle = pageDocument.getTitle() ?: (pageDocument.getProperty('navigation_name') ?: page.getLabel()) %}
+                    {% endif %}
                     <li>
                         <a href="{{ page.getHref() }}"{% if isActive %} class="active"{% endif %}>{{ displayTitle }}</a>
                     </li>

@@ -21,7 +21,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'General Information',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1771610197,
+   'modificationDate' => 1772033521,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\Product\\AbstractProductCategory',
