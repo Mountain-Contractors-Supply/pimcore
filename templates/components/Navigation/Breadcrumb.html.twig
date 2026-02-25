@@ -1,0 +1,17 @@
+<div class="mb-4">
+    <nav class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-600" aria-label="Breadcrumb">
+        {% for item in this.breadcrumbs|reverse %}
+            {% if item.icon is defined and item.icon is not null %}
+                <img src="{{ asset(item.icon) }}" alt="{{ item.label|default('') }}" class="w-4 h-4" />
+            {% endif %}
+            {% if item.url is null %}
+                <span class="font-semibold text-gray-900">{{ item.name }}</span>
+            {% else %}
+                <a href="{{ item.url }}" class="mcs-primary-text hover:opacity-70 transition">{{ item.name }}</a>
+            {% endif %}
+            {% if not loop.last %}
+                <span class="text-gray-400">&gt;</span>
+            {% endif %}
+        {% endfor %}
+    </nav>
+</div>

@@ -42,6 +42,14 @@ abstract class AbstractProductCategory extends AbstractModel implements ProductC
         return $this;
     }
 
+    #[\Override]
+    public function getParentCategory(): ?ProductCategoryInterface
+    {
+        $parent = $this->getParent();
+
+        return $parent instanceof ProductCategoryInterface ? $parent : null;
+    }
+
     /**
      * @inheritDoc
      */
