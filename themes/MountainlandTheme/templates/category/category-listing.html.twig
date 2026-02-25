@@ -12,7 +12,7 @@
     
     {% set breadcrumbItems = [
         { label: 'Home', url: path('home'), icon: 'var/assets/images/misc/home.webp' },
-        { label: 'All Categories', url: path('home') ~ '#categories' }
+        { label: 'All Categories', url: path('root_category') }
     ] %}
     
     {% if parentCategory and parentCategory.name %}
@@ -28,10 +28,12 @@
             </div>
         </div>
 
-        <twig:Grid 
-            :items="categories.pagination.items" 
-            :pagination="categories.pagination"
-            title="Shop By Category" 
-        />
+        <turbo-frame id="category-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth">
+            <twig:Grid
+                :items="categories.pagination.items"
+                :pagination="categories.pagination"
+                title="Shop By Category"
+            />
+        </turbo-frame>
     </main>
 {% endblock %}
