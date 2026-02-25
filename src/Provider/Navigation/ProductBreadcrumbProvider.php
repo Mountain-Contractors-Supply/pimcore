@@ -7,9 +7,7 @@ namespace App\Provider\Navigation;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Navigation\Breadcrumb;
 use McSupply\EcommerceBundle\Dto\Navigation\Link;
-use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
-use McSupply\EcommerceBundle\LinkGenerator\ProductCategoryLinkGenerator;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Resolver\DataResolverAwareInterface;
 use McSupply\EcommerceBundle\Resolver\DataResolverAwareTrait;
@@ -26,7 +24,6 @@ final class ProductBreadcrumbProvider implements DataProviderInterface, DataReso
 
     public function __construct(
         private readonly RequestStack $requestStack,
-        private readonly ProductCategoryLinkGenerator $productCategoryLinkGenerator,
     ) {}
 
     #[\Override]
@@ -44,18 +41,6 @@ final class ProductBreadcrumbProvider implements DataProviderInterface, DataReso
         ]);
 
         $breadcrumbs->add(new Link((string)$product->getName()));
-//        $parent = $product->getParentCategory();
-//
-//        while ($parent instanceof ProductCategoryInterface) {
-//            $breadcrumbs->add(
-//                new Link(
-//                    (string)$parent->getName(),
-//                    $this->productCategoryLinkGenerator->generate($parent)
-//                )
-//            );
-//
-//            $parent = $parent->getParentCategory();
-//        }
 
         return $breadcrumbs;
     }
