@@ -12,11 +12,10 @@
         {% set isLink = false %}
 
         {% if document is instanceof('\\Pimcore\\Model\\Document\\Link') %}
-            {% set document = document.getObject() %}
             {% set isLink = true %}
         {% endif %}
 
-        {% if document.getTitle() is not empty %}
+        {% if not isLink and document.getTitle() is not empty %}
             {% do pimcore_head_title().append(document.getTitle()) %}
         {% endif %}
     {% endapply %}
