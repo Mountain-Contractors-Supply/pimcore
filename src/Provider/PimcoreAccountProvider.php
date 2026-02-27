@@ -23,7 +23,8 @@ final readonly class PimcoreAccountProvider implements DataProviderInterface
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
-        return true;
+        // TODO: Implement properly once we need something other than the default hydrator
+        return false;
     }
 
     /**

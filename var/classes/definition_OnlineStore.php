@@ -8,7 +8,7 @@
  * - name [input]
  * - site [select]
  * - theme [select]
- * - rootCategory [manyToOneRelation]
+ * - rootCategoryRef [manyToOneRelation]
  * - requireLogin [checkbox]
  * - logoRef [image]
  * - validBranches [manyToManyObjectRelation]
@@ -23,7 +23,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1770935818,
+   'modificationDate' => 1771964921,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\OnlineStore\\AbstractOnlineStore',
@@ -198,7 +198,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                       3 =>
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                         'name' => 'rootCategory',
+                         'name' => 'rootCategoryRef',
                          'title' => 'Root Category',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -597,6 +597,48 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' =>
   array (
+    0 =>
+    \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+       'name' => 'rootCategory',
+       'title' => 'Root Category',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => true,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' =>
+      array (
+      ),
+       'classes' =>
+      array (
+        0 =>
+        array (
+          'classes' => 'ProductCategory',
+        ),
+      ),
+       'displayMode' => 'grid',
+       'pathFormatterClass' => '',
+       'assetInlineDownloadAllowed' => false,
+       'assetUploadPath' => '',
+       'allowToClearRelation' => true,
+       'objectsAllowed' => true,
+       'assetsAllowed' => false,
+       'assetTypes' =>
+      array (
+      ),
+       'documentsAllowed' => false,
+       'documentTypes' =>
+      array (
+      ),
+       'width' => '',
+    )),
   ),
    'blockedVarsForExport' =>
   array (

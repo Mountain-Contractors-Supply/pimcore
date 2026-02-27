@@ -5,10 +5,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <twig:AlertBanner message="*Pricing has been adjusted based on your Job Quote" icon="var/assets/images/misc/flag.webp" />
 
-        <twig:Breadcrumb :items="[
-            { label: 'Home', url: path('home'), icon: 'var/assets/images/misc/home.webp' },
-            { label: product.name }
-        ]" />
+        <twig:Navigation:Breadcrumb />
 
         <hr class="my-6 border-gray-300" />
 
@@ -30,17 +27,17 @@
                 {% endif %}
 
                 {% set width = product.width is defined ? product.width : null %}
-                {% set depth = product.depth is defined ? product.depth : null %}
+                {% set length = product.length is defined ? product.length : null %}
                 {% set height = product.height is defined ? product.height : null %}
                 {% set weight = product.weight is defined ? product.weight : null %}
 
-                {% if width is not null or depth is not null or height is not null or weight is not null %}
+                {% if width is not null or length is not null or height is not null or weight is not null %}
                     {% set dimensionsList = [] %}
                     {% if width is not null %}
                         {% set dimensionsList = dimensionsList|merge(['Width: ' ~ width]) %}
                     {% endif %}
-                    {% if depth is not null %}
-                        {% set dimensionsList = dimensionsList|merge(['Length: ' ~ depth]) %}
+                    {% if length is not null %}
+                        {% set dimensionsList = dimensionsList|merge(['Length: ' ~ length]) %}
                     {% endif %}
                     {% if height is not null %}
                         {% set dimensionsList = dimensionsList|merge(['Height: ' ~ height]) %}
@@ -65,22 +62,40 @@
                 <div class="space-y-4">
                     <h1 class="text-2xl font-bold mcs-primary-text">{{ product.name|default('Product Name') }}</h1>
 
-                    <div class="text-3xl font-bold text-gray-900">$999.99</div>
+                    <twig:ProductPrice
+                        :productId="product.productId"
+                        :uom="uom"
+                    />
 
                     <twig:ProductActions
                         :quantity="1"
                         addToCartText="Add to Cart"
                         :cartProductId="product.productId"
-                        cartUom="ea"
+                        :cartUom="uom"
                     />
 
-                    <twig:ProductAvailability
-                        :productId="product.productId"
-                        :modelNumber="product.modelNumber is defined ? product.modelNumber : null"
-                        :upc="product.upc"
-                        :stockHome="null"
-                        :stockOther="null"
-                    />
+                    <div class="space-y-3 py-4 border-y border-gray-200">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Item #:</span>
+                            <span class="font-medium text-gray-900">{{ product.productId }}</span>
+                        </div>
+                        {% if product.modelNumber %}
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Model #:</span>
+                                <span class="font-medium text-gray-900">{{ product.modelNumber }}</span>
+                            </div>
+                        {% endif %}
+                        {% if product.upc %}
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">UPC:</span>
+                                <span class="font-medium text-gray-900">{{ product.upc }}</span>
+                            </div>
+                        {% endif %}
+                        <twig:ProductAvailability
+                            :productId="product.productId"
+                            :uom="uom"
+                        />
+                    </div>
 
                     <twig:Accordion :items="accordionItems" />
                 </div>
@@ -96,7 +111,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <twig:ProductUpsell title="You May Also Need..." :products="productsUpsell ?? []" />

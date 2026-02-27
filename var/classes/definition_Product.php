@@ -17,7 +17,7 @@
  * - categoriesRef [manyToManyObjectRelation]
  * - widthRef [quantityValue]
  * - heightRef [quantityValue]
- * - depthRef [quantityValue]
+ * - lengthRef [quantityValue]
  * - weightRef [quantityValue]
  */
 
@@ -28,7 +28,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1771007808,
+   'modificationDate' => 1772032540,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -834,10 +834,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                 'name' => 'Shipping',
+                 'name' => 'Specs',
                  'type' => NULL,
                  'region' => NULL,
-                 'title' => 'Shipping',
+                 'title' => 'Specs',
                  'width' => '',
                  'height' => '',
                  'collapsible' => false,
@@ -924,8 +924,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   )),
                   2 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'depthRef',
-                     'title' => 'Depth',
+                     'name' => 'lengthRef',
+                     'title' => 'Length',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1043,7 +1043,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => 'Product',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '@App\\LinkGenerator\\ProductLinkGenerator',
-   'previewGeneratorReference' => '@App\\PreviewGenerator\\StoreAwarePreviewGenerator',
+   'previewGeneratorReference' => '@App\\PreviewGenerator\\ProductPreviewGenerator',
    'compositeIndices' => 
   array (
   ),

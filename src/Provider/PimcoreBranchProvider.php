@@ -10,6 +10,7 @@ use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Dto\Company\BranchInterface;
 use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Pimcore\Model\DataObject\Branch;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<BranchInterface>
@@ -17,13 +18,19 @@ use Pimcore\Model\DataObject\Branch;
 #[DataProvider(BranchInterface::class, DefaultDataResolver::class, 10)]
 final readonly class PimcoreBranchProvider implements DataProviderInterface
 {
+    public function __construct(
+        private RequestStack $requestStack,
+    ) {}
+
     /**
      * @inheritDoc
      */
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
-        return true;
+        $route = $this->requestStack->getMainRequest()?->attributes->get('_route');
+
+        return in_array($route, ['branch_data_partial', 'carts-ship-branch-post']);
     }
 
     /**
