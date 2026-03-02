@@ -119,9 +119,9 @@
                                 <div class="location-address">📍 {{ branch.address|format_address }}</div>
                                 <div class="location-services">
                                     {% for productType in branch.productTypes %}
-                                        <span class="service-tag">
-                                        <img src="{{ productType.icon }}" alt="{{ productType.name }}" style="height: 16px; margin-right: 4px; vertical-align: middle;">{{ productType.name }}
-                                    </span>
+                                        <span class="service-tag" style="display: inline-flex; align-items: center; gap: 4px;">
+                                            <img src="{{ productType.icon }}" alt="{{ productType.name }}" style="height: 16px; vertical-align: middle;">{{ productType.name }}
+                                        </span>
                                     {% endfor %}
                                 </div>
                                 <div class="location-actions">
