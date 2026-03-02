@@ -1,4 +1,4 @@
-<div {{ attributes }}>
+<div {{ attributes }} data-controller="locations">
     <!-- Sidebar toggle button for mobile -->
     <button id="sidebar-toggle" aria-label="Toggle filters sidebar">►</button>
 
@@ -77,7 +77,6 @@
                                         <button
                                             type="button"
                                             class="main-store-btn"
-                                            data-controller="locations"
                                             data-action="click->locations#setMainStore"
                                             data-branch-id="{{ branch.id }}"
                                         >

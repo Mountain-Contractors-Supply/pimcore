@@ -44,8 +44,8 @@ class FilterBox
         }
     }
 
-    public function isSelected(string $value): bool
+    public function isSelected(string|int $value): bool
     {
-        return in_array($value, $this->selectedValues, true);
+        return in_array((string)$value, array_map('strval', $this->selectedValues), true);
     }
 }

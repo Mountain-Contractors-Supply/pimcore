@@ -32,7 +32,6 @@ export default class extends Controller {
 
             if (typeof marker.addEventListener === 'function') {
                 marker.addEventListener('gmp-click', handler);
-                marker.addEventListener('click', handler);
             }
         };
 
@@ -48,32 +47,64 @@ export default class extends Controller {
             this.mapElement.removeEventListener('ux:map:connect', this.onMapConnect);
             this.mapElement.removeEventListener('ux:map:marker:after-create', this.onMarkerAfterCreate);
         }
+
+        if (this.hasLocationBtnTarget && this.onLocationBtnClick) {
+            this.locationBtnTarget.removeEventListener('click', this.onLocationBtnClick);
+        }
+
+        if (this.hasSidebarToggleTarget && this.onSidebarToggleClick) {
+            this.sidebarToggleTarget.removeEventListener('click', this.onSidebarToggleClick);
+        }
+
+        if (this.hasSidebarOverlayTarget && this.onSidebarOverlayClick) {
+            this.sidebarOverlayTarget.removeEventListener('click', this.onSidebarOverlayClick);
+        }
+
+        if (this.hasZipInputTarget && this.onZipInputKeyDown) {
+            this.zipInputTarget.removeEventListener('keydown', this.onZipInputKeyDown);
+        }
     }
 
     // LAST Stack: Event listeners for Stimulus interactions
     attachEventListeners() {
         // Geolocation button
         if (this.hasLocationBtnTarget) {
-            this.locationBtnTarget.addEventListener('click', (e) => this.handleGeolocation(e));
+            if (!this.onLocationBtnClick) {
+                this.onLocationBtnClick = (e) => this.handleGeolocation(e);
+            }
+
+            this.locationBtnTarget.addEventListener('click', this.onLocationBtnClick);
         }
 
         // Sidebar toggle for mobile
         if (this.hasSidebarToggleTarget) {
-            this.sidebarToggleTarget.addEventListener('click', (e) => this.toggleSidebar(e));
+            if (!this.onSidebarToggleClick) {
+                this.onSidebarToggleClick = (e) => this.toggleSidebar(e);
+            }
+
+            this.sidebarToggleTarget.addEventListener('click', this.onSidebarToggleClick);
         }
 
         // Close sidebar when overlay is clicked
         if (this.hasSidebarOverlayTarget) {
-            this.sidebarOverlayTarget.addEventListener('click', (e) => this.closeSidebar(e));
+            if (!this.onSidebarOverlayClick) {
+                this.onSidebarOverlayClick = (e) => this.closeSidebar(e);
+            }
+
+            this.sidebarOverlayTarget.addEventListener('click', this.onSidebarOverlayClick);
         }
 
         // Enter key on zip input to apply filters
         if (this.hasZipInputTarget) {
-            this.zipInputTarget.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    this.applyFiltersAction();
-                }
-            });
+            if (!this.onZipInputKeyDown) {
+                this.onZipInputKeyDown = (e) => {
+                    if (e.key === 'Enter') {
+                        this.applyFiltersAction();
+                    }
+                };
+            }
+
+            this.zipInputTarget.addEventListener('keydown', this.onZipInputKeyDown);
         }
     }
 
