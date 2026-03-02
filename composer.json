@@ -56,8 +56,6 @@
   "autoload": {
     "psr-4": {
       "App\\": "src/",
-      "MountainlandTheme\\Components\\": "themes/MountainlandTheme/src/Components/",
-      "MountainlandTheme\\Twig\\Components\\": "themes/MountainlandTheme/Twig/Components/",
       "Pimcore\\Model\\DataObject\\": "var/classes/DataObject"
     }
   },
