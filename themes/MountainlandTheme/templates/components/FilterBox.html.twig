@@ -1,0 +1,83 @@
+<div {{ attributes.defaults({ id: 'filter-container', class: 'sidebar bg-white border border-gray-200 rounded-xl shadow-sm lg:sticky lg:top-24 flex flex-col h-full p-5 overflow-hidden' }) }} data-locations-target="filterContainer">
+    <div class="location-input-group space-y-2 flex-shrink-0">
+        <div class="location-radius-group grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div class="zip-container space-y-2">
+                <label for="zip-input" class="text-sm font-semibold text-gray-700">Enter Your Zip Code, or City &amp; State</label>
+                <input
+                    type="text"
+                    id="zip-input"
+                    name="zip-input"
+                    placeholder="Your Location"
+                    data-locations-target="zipInput"
+                    data-model="{{ this.searchTermModel }}"
+                    value="{{ this.searchTermValue }}"
+                    class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                />
+                <button id="location-btn" type="button" data-locations-target="locationBtn" class="inline-flex items-center justify-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
+                    <img src="{{ asset('images/misc/location-icon.webp') }}" alt="Location" class="h-5 w-5" />
+                    Use Current Location
+                </button>
+            </div>
+            <div class="radius-container space-y-2">
+                <label for="radius-select" class="text-sm font-semibold text-gray-700">Radius</label>
+                <select id="radius-select" data-locations-target="radiusSelect" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                    <option value="10">10 miles</option>
+                    <option value="25" selected>25 miles</option>
+                    <option value="50">50 miles</option>
+                    <option value="100">100 miles</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="space-y-2 flex-shrink-0">
+            <h3 class="text-sm font-semibold mcs-primary-text">Search by Supply</h3>
+            <hr class="border-gray-200" />
+        </div>
+    </div>
+
+    {% set productChunks = this.productTypes|batch(6, []) %}
+    <div class="checkbox-row grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5 flex-1 overflow-y-auto min-h-0">
+        {% for column in productChunks %}
+            <div class="checkbox-column space-y-1.5">
+                {% for productType in column %}
+                    {% if productType %}
+                        {% set value = productType.productTypeId %}
+                        <label class="flex items-center gap-2 text-xs text-gray-700 hover:bg-gray-50 rounded px-1 py-0.5 cursor-pointer">
+                            <input
+                                type="checkbox"
+                                data-model="{{ this.selectedValuesModel }}"
+                                value="{{ value }}"
+                                class="custom-checkbox-input h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                {% if this.isSelected(value) %}checked{% endif %}
+                            />
+                            <img src="{{ asset(productType.icon) }}" alt="{{ productType.name }}" class="h-5 w-5" />
+                            <span>{{ productType.name }}</span>
+                        </label>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="button-group mt-auto flex-shrink-0 grid grid-cols-2 gap-3">
+        <button
+            type="button"
+            id="search-now-btn"
+            data-action="live#action"
+            data-live-action-param="{{ this.searchAction }}"
+            class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+        >
+            Search Now
+        </button>
+
+        <button
+            type="button"
+            id="reset-filters-btn"
+            data-action="live#action"
+            data-live-action-param="{{ this.resetAction }}"
+            class="rounded-md border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+        >
+            Reset Filters
+        </button>
+    </div>
+</div>

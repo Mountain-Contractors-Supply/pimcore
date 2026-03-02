@@ -12,93 +12,18 @@
                 <hr class="sidebar-divider" style="width: 800px" />
                 <br />
 
-                <div id="filter-container">
-                    <div class="location-input-group">
-                        <div class="location-radius-group">
-                            <div class="zip-container">
-                                <label for="zip-input"><strong>Enter Your Zip Code, or City & State</strong></label>
-                                <input
-                                    type="text"
-                                    id="zip-input"
-                                    name="zip-input"
-                                    placeholder="Your Location"
-                                    data-model="draftSearchTerm"
-                                    value="{{ this.draftSearchTerm }}"
-                                />
-                                <button id="location-btn" type="button">
-                                    <img src="{{ asset('images/misc/location-icon.png') }}" style="height: 25px" />
-                                    Use Current Location
-                                </button>
-                            </div>
-                            <div class="radius-container">
-                                <label for="radius-select"><strong>Radius</strong></label>
-                                <select id="radius-select">
-                                    <option value="10">10 miles</option>
-                                    <option value="25" selected>25 miles</option>
-                                    <option value="50">50 miles</option>
-                                    <option value="100">100 miles</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <strong>
-                            <h3 style="font-family: var(--primary-font); color: #11175e; font-size: 16pt;">Search by Supply</h3>
-                        </strong>
-                        <hr class="sidebar-divider" style="width: 765px" />
-                    </div>
-
-                    {% set productChunks = this.productTypes|batch(6, []) %}
-                    <div class="checkbox-row">
-                        {% for column in productChunks %}
-                            <div class="checkbox-column">
-                                {% for productType in column %}
-                                    {% if productType %}
-                                        {% set value = productType.productTypeId %}
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                data-model="draftSelectedProductTypes"
-                                                value="{{ value }}"
-                                                class="custom-checkbox-input"
-                                                {% if value in this.draftSelectedProductTypes %}checked{% endif %}
-                                            />
-                                            <span class="custom-checkbox"></span>
-                                            <img src="{{ asset(productType.icon) }}" style="height: 24px" />
-                                            {{ productType.name }}
-                                        </label>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="button-group">
-                        <button
-                            type="button"
-                            id="search-now-btn"
-                            data-action="click->live#action"
-                            data-live-action-param="applyFilters"
-                        >
-                            Search Now
-                        </button>
-
-                        <button
-                            type="button"
-                            id="reset-filters-btn"
-                            data-action="click->live#action"
-                            data-live-action-param="resetFilters"
-                        >
-                            Reset Filters
-                        </button>
-                    </div>
-                </div>
+                <twig:FilterBox
+                    :productTypes="this.productTypes"
+                    :searchTermValue="this.searchInput"
+                    :selectedValues="this.selectedFilters"
+                    searchTermModel="searchInput"
+                    selectedValuesModel="selectedFilters"
+                    searchAction="applyFilters"
+                    resetAction="resetFilters"
+                />
             </aside>
 
-            <div id="map-wrapper" data-controller="locations">
-                {{ ux_map(this.map, {
-                    style: 'height: 100%; width: 100%;'
-                }) }}
-            </div>
+            <twig:LocationMap :map="this.map" style="height: 100%; width: 100%;" id="map-wrapper" />
         </div>
 
         <div id="sidebar-overlay"></div>

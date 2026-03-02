@@ -4,6 +4,9 @@ services:
         autoconfigure: true
         public: false
 
+    MountainlandTheme\Components\:
+        resource: '../../themes/MountainlandTheme/src/Components/*'
+
     app.theme.select:
         class: App\OptionProvider\ThemeSelect
         public: true
