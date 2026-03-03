@@ -1,4 +1,3 @@
 twig_component:
     defaults:
-        'MountainlandTheme\Components\': 'components/'
         'McSupply\EcommerceBundle\Twig\Components\': 'components/'
