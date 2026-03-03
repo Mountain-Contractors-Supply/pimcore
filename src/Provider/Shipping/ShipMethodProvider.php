@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\Shipping;
 
 use Exception;
 use McSupply\EcommerceBundle\Dto\Shipping\ShipMethodInterface;
-use McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface;
-use McSupply\EcommerceBundle\Provider\ShipMethodProviderInterface;
+use McSupply\EcommerceBundle\Provider\OnlineStore\OnlineStoreProviderInterface;
+use McSupply\EcommerceBundle\Provider\Shipping\ShipMethodProviderInterface;
 use Pimcore\Model\DataObject\ShipMethod;
 
 final readonly class ShipMethodProvider implements ShipMethodProviderInterface

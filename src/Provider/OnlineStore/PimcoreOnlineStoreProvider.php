@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\OnlineStore;
 
 use Exception;
 use McSupply\EcommerceBundle\Attribute\DataProvider;

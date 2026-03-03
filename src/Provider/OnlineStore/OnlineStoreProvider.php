@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\OnlineStore;
 
 use Exception;
 use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
-use McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface;
+use McSupply\EcommerceBundle\Provider\OnlineStore\OnlineStoreProviderInterface;
 use Pimcore\Http\Request\Resolver\DocumentResolver;
 use Pimcore\Model\DataObject\OnlineStore;
 use Pimcore\Model\Document;

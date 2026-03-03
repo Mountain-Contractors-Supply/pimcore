@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Theme;
 
-use McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface;
+use McSupply\EcommerceBundle\Provider\OnlineStore\OnlineStoreProviderInterface;
 use Pimcore\Http\Request\Resolver\PimcoreContextResolver;
 use Sylius\Bundle\ThemeBundle\Context\SettableThemeContext;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;

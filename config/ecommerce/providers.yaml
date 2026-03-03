@@ -7,26 +7,26 @@ services:
     App\Provider\:
         resource: '../../src/Provider'
 
-    McSupply\EcommerceBundle\Provider\CustomerProviderInterface:
-        '@App\Provider\CustomerProvider'
+    McSupply\EcommerceBundle\Provider\User\CustomerProviderInterface:
+        '@App\Provider\User\CustomerProvider'
 
-    McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface:
-        '@App\Provider\OnlineStoreProvider'
+    McSupply\EcommerceBundle\Provider\OnlineStore\OnlineStoreProviderInterface:
+        '@App\Provider\OnlineStore\OnlineStoreProvider'
 
-    McSupply\EcommerceBundle\Provider\BranchProviderInterface:
-        '@App\Provider\BranchProvider'
+    McSupply\EcommerceBundle\Provider\Company\BranchProviderInterface:
+        '@App\Provider\Company\BranchProvider'
 
-    McSupply\EcommerceBundle\Provider\AccountProviderInterface:
-        '@App\Provider\AccountProvider'
+    McSupply\EcommerceBundle\Provider\Company\AccountProviderInterface:
+        '@App\Provider\Company\AccountProvider'
 
-    McSupply\EcommerceBundle\Provider\ProductTypeProviderInterface:
-        '@App\Provider\ProductTypeProvider'
+    McSupply\EcommerceBundle\Provider\Product\ProductTypeProviderInterface:
+        '@App\Provider\Product\ProductTypeProvider'
 
-    McSupply\EcommerceBundle\Provider\ShipMethodProviderInterface:
-        '@App\Provider\ShipMethodProvider'
+    McSupply\EcommerceBundle\Provider\Shipping\ShipMethodProviderInterface:
+        '@App\Provider\Shipping\ShipMethodProvider'
 
-    McSupply\EcommerceBundle\Provider\PaymentMethodProviderInterface:
-        '@App\Provider\PaymentMethodProvider'
+    McSupply\EcommerceBundle\Provider\Payment\PaymentMethodProviderInterface:
+        '@App\Provider\Payment\PaymentMethodProvider'
 
-    McSupply\EcommerceBundle\Provider\AddressProviderInterface:
-        '@App\Provider\AddressProvider'
+    McSupply\EcommerceBundle\Provider\Address\AddressProviderInterface:
+        '@App\Provider\Address\AddressProvider'
