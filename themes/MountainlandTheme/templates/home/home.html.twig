@@ -29,7 +29,7 @@
         </div>
 
         <div class="divisions-container">
-            <img src="{{ asset('images/branding/divisions.png') }}" alt="{{ productTypes|length }} DIVISIONS BUILT TO SERVE YOU"/>
+            <img src="{{ asset('images/branding/divisions.webp') }}" alt="{{ productTypes|length }} DIVISIONS BUILT TO SERVE YOU"/>
             <div class="divisions-grid" data-home-target="divisionsGrid">
                 {% for productType in productTypes %}
                     <div class="division-box{% if loop.index > 8 %} hidden{% endif %}"{% if productType.image %} style="background-image:url('{{ asset(productType.image) }}');"{% endif %}>
@@ -54,7 +54,7 @@
                 <div class="location-finder">
                     {% set locationsDoc = pimcore_document_by_path('/locations') %}
                     <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}" class="location-btn-link">
-                        <img src="{{ asset('images/misc/location-button.png') }}" alt="Find Location">
+                        <img src="{{ asset('images/misc/location-button.webp') }}" alt="Find Location">
                         <p class="location-btn-text">CLICK TO FIND A LOCATION NEAR YOU</p>
                     </a>
                 </div>
@@ -63,7 +63,7 @@
 
         <section class="events-section">
             <div class="events-container">
-                <img src="{{ asset('images/branding/events.png') }}" alt="Mountainland Events" class="events-image">
+                <img src="{{ asset('images/branding/events.webp') }}" alt="Mountainland Events" class="events-image">
                 <div class="events-content">
                     <div class="events-box">
                         <h2 id="events-title" data-home-target="eventsTitle">MOUNTAINLAND EVENTS</h2>
@@ -80,7 +80,7 @@
         <section class="expert-section">
             <div class="expert-container">
                 <div class="expert-image-container">
-                    <img src="{{ asset('images/misc/text-an-expert.png') }}" alt="Text an Expert">
+                    <img src="{{ asset('images/misc/text-an-expert.webp') }}" alt="Text an Expert">
                 </div>
                 <div class="expert-boxes-grid">
                     <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
