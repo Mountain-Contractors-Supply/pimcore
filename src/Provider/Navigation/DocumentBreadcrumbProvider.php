@@ -32,10 +32,11 @@ final readonly class DocumentBreadcrumbProvider implements DataProviderInterface
     public function get(string $className, mixed $data = null): Breadcrumb
     {
         $document = $this->getCurrentDocument();
-        $breadcrumbs = new Breadcrumb();
-        $breadcrumbs->add(new Link((string)$document->getTitle()));
+        $title = $document !== null && method_exists($document, 'getTitle')
+            ? $document->getTitle()
+            : 'Untitled';
 
-        return $breadcrumbs;
+        return new Breadcrumb([new Link($title)]);
     }
 
     #[\Override]
