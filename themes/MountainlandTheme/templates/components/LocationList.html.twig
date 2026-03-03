@@ -1,0 +1,79 @@
+<div {{ attributes.defaults({ class: this.class }) }}>
+    <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+        <h2 id="location-count" class="location-count-heading text-xl font-bold mcs-primary-text">
+            <span id="location-count-value">{{ this.getLocationCount() }}</span> {{ this.countHeading }}
+        </h2>
+        <span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">{{ this.statusBadge }}</span>
+    </div>
+    <div {{ attributes.defaults({ class: this.listClass }) }}>
+        {% for branch in this.locations %}
+            <div class="location-item flex flex-col lg:flex-row gap-4 p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-blue-200 transition bg-white">
+                <div class="location-main space-y-2">
+                    <h4 class="text-lg font-semibold mcs-primary-text">{{ branch.name }}</h4>
+                    <div class="location-address text-sm text-gray-600">📍 {{ branch.address|format_address }}</div>
+                    <div class="location-services flex flex-wrap gap-2">
+                        {% for productType in branch.productTypes %}
+                            <span class="service-tag inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                                <img src="{{ productType.icon }}" alt="{{ productType.name }}" class="h-4 w-4" />
+                                {{ productType.name }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                    <div class="location-actions relative flex flex-wrap items-center gap-2">
+                        <a href="https://www.google.com/maps/dir/?api=1&amp;destination={{ branch.address|format_address|url_encode }}" target="_blank" class="directions-btn inline-flex items-center rounded-md border border-blue-600 px-3 py-1.5 text-sm font-semibold text-blue-600 hover:bg-blue-50"><p>Directions</p></a>
+                        <button class="call-btn inline-flex items-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-blue-700">Call</button>
+                        <div class="phone-panel absolute z-20 mt-2 w-72 rounded-lg border border-gray-200 bg-white p-3 shadow-lg" data-controller="phone">
+                        <button class="phone-panel-close absolute right-2 top-2 text-gray-400 hover:text-gray-600" aria-label="Close phone panel">×</button>
+
+                            {% for phoneNumber in branch.phoneNumbers %}
+                                <div class="phone-number-item space-y-2 border-b border-gray-200 pb-3 last:border-b-0 last:pb-0">
+                                    <div class="phone-number-label text-xs font-semibold text-gray-500">{{ phoneNumber.phoneNumberText }}</div>
+                                    <div class="phone-number text-sm font-semibold text-gray-900">{{ phoneNumber.phoneNumber }}</div>
+                                    <div class="call-options flex gap-2">
+                                        <a href="tel:{{ phoneNumber.phoneNumber|format_phone }}" class="call-option-btn primary inline-flex items-center rounded-md bg-blue-600 px-3 py-1 text-xs font-semibold text-white hover:bg-blue-700">Call</a>
+                                        <button
+                                            class="call-option-btn secondary inline-flex items-center rounded-md border border-gray-300 px-3 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-50"
+                                            type="button"
+                                            data-action="click->phone#copy"
+                                            data-phone-number="{{ phoneNumber.phoneNumber|default('') }}"
+                                        >
+                                            Copy
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if branch.isValidForCurrentOnlineStore %}
+                            <button
+                                type="button"
+                                class="main-store-btn inline-flex items-center rounded-md border border-gray-300 px-3 py-1.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                                data-controller="locations"
+                                data-action="click->locations#setMainStore"
+                                data-branch-id="{{ branch.id }}"
+                            >
+                                Select Branch
+                            </button>
+
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="location-hours rounded-lg bg-gray-50 p-3 text-sm text-gray-700 lg:ml-auto lg:min-w-[200px]">
+                    <div class="hours-header font-semibold text-gray-900">Hours</div>
+                    <div class="hours-row"><span class="hours-time">{{ branch.hours }}</span></div>
+                    <div class="location-phones mt-2 space-y-1">
+                        {% for phoneNumber in branch.phoneNumbers %}
+                            <div class="location-contact">
+                                📞 <span class="phone-label font-semibold">{{ phoneNumber.phoneNumberText }}:</span>
+                                <a href="tel:{{ phoneNumber.phoneNumber|format_phone }}" class="text-blue-600 hover:text-blue-700">{{ phoneNumber.phoneNumber }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="location-card rounded-lg border border-gray-200 bg-white p-4 text-sm text-gray-600">
+                <h3 class="font-semibold text-gray-900">No locations match your filters.</h3>
+            </div>
+        {% endfor %}
+    </div>
+</div>

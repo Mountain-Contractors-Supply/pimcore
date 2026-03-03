@@ -1,6 +1,11 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
+    static targets = ['zipInput', 'radiusSelect', 'locationBtn', 'sidebarToggle', 'sidebarOverlay', 'filterContainer'];
+    static values = {
+        currentLocation: Object,
+    };
+
     connect() {
         this.mapElement = this.element.querySelector('[data-controller~="symfony--ux-google-map--map"]');
 
@@ -33,12 +38,101 @@ export default class extends Controller {
 
         this.mapElement.addEventListener('ux:map:connect', this.onMapConnect);
         this.mapElement.addEventListener('ux:map:marker:after-create', this.onMarkerAfterCreate);
+
+        // LAST Stack: Attach event listeners for geolocation and sidebar
+        this.attachEventListeners();
     }
 
     disconnect() {
         if (this.mapElement) {
             this.mapElement.removeEventListener('ux:map:connect', this.onMapConnect);
             this.mapElement.removeEventListener('ux:map:marker:after-create', this.onMarkerAfterCreate);
+        }
+    }
+
+    // LAST Stack: Event listeners for Stimulus interactions
+    attachEventListeners() {
+        // Geolocation button
+        if (this.hasLocationBtnTarget) {
+            this.locationBtnTarget.addEventListener('click', (e) => this.handleGeolocation(e));
+        }
+
+        // Sidebar toggle for mobile
+        if (this.hasSidebarToggleTarget) {
+            this.sidebarToggleTarget.addEventListener('click', (e) => this.toggleSidebar(e));
+        }
+
+        // Close sidebar when overlay is clicked
+        if (this.hasSidebarOverlayTarget) {
+            this.sidebarOverlayTarget.addEventListener('click', (e) => this.closeSidebar(e));
+        }
+
+        // Enter key on zip input to apply filters
+        if (this.hasZipInputTarget) {
+            this.zipInputTarget.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.applyFiltersAction();
+                }
+            });
+        }
+    }
+
+    handleGeolocation(event) {
+        event.preventDefault();
+
+        if (!navigator.geolocation) {
+            alert('Geolocation is not supported by your browser');
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                this.currentLocationValue = { lat: latitude, lng: longitude };
+
+                // Update UI with coordinates
+                if (this.hasZipInputTarget) {
+                    this.zipInputTarget.value = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+                }
+
+                // Trigger live component update
+                this.applyFiltersAction();
+            },
+            (error) => {
+                console.error('Geolocation error:', error);
+                alert('Unable to get your location. Please check your browser permissions.');
+            }
+        );
+    }
+
+    applyFiltersAction() {
+        // Get the live component element and dispatch event
+        const liveComponent = this.element.closest('[data-live-component]');
+        if (liveComponent) {
+            liveComponent.dispatchEvent(new CustomEvent('live:action-invoke', {
+                detail: { action: 'applyFilters' },
+                bubbles: true,
+            }));
+        }
+    }
+
+    toggleSidebar(event) {
+        event.preventDefault();
+        if (this.hasFilterContainerTarget) {
+            this.filterContainerTarget.classList.toggle('hidden');
+        }
+        if (this.hasSidebarOverlayTarget) {
+            this.sidebarOverlayTarget.classList.toggle('hidden');
+        }
+    }
+
+    closeSidebar(event) {
+        event.preventDefault();
+        if (this.hasFilterContainerTarget) {
+            this.filterContainerTarget.classList.add('hidden');
+        }
+        if (this.hasSidebarOverlayTarget) {
+            this.sidebarOverlayTarget.classList.add('hidden');
         }
     }
 
