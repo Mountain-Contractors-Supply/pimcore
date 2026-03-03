@@ -1,3 +1,0 @@
-twig_component:
-    defaults:
-        McSupply\EcommerceBundle\Twig\Components\: 'components/'

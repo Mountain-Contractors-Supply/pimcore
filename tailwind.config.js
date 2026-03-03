@@ -8,6 +8,7 @@ module.exports = {
     "./templates/**/*.html.twig",
     "./src/Twig/Components/**/*.php",
     "./vendor/tales-from-a-dev/flowbite-bundle/templates/**/*.html.twig",
+    "./vendor/mcsupply/ecommerce-bundle/templates/**/*.html.twig",
   ],
   darkMode: 'media',
   theme: {
