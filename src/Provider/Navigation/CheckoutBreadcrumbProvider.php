@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * @implements DataProviderInterface<Breadcrumb>
  */
-#[DataProvider(Breadcrumb::class, DefaultDataResolver::class, 10)]
+#[DataProvider(Breadcrumb::class, DefaultDataResolver::class, 20)]
 final readonly class CheckoutBreadcrumbProvider implements DataProviderInterface
 {
     public function __construct(
