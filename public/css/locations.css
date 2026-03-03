@@ -11,7 +11,7 @@ LAYOUT
     width: 100%;
     overflow-x: hidden;
     padding: 2em;
-    gap: 4em;
+    gap: 50px;
     box-sizing: border-box;
     justify-content: center;
 }
@@ -25,12 +25,12 @@ LAYOUT
 }
 
 .sidebar {
-    flex: 1 1 48%;
+    flex: 1 1 50%;
     display: flex;
     flex-direction: column;
     gap: 1em;
     padding: 0;
-    max-width: 75%;
+    max-width: none;
     box-sizing: border-box;
 }
 
@@ -74,7 +74,7 @@ LAYOUT
     padding: 1.5em;
     margin-bottom: 1em;
     box-sizing: border-box;
-    width: 800px;
+    width: 100%;
     min-height: 560px;
     overflow: visible;
     display: flex;

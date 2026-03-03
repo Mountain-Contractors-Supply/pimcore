@@ -1,0 +1,3 @@
+ux_twig_component:
+    twig_paths:
+        - themes/MountainlandTheme/templates/components
