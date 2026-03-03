@@ -7,10 +7,7 @@ namespace App\Provider\Navigation;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Navigation\Breadcrumb;
 use McSupply\EcommerceBundle\Dto\Navigation\Link;
-use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
-use McSupply\EcommerceBundle\Resolver\DataResolverAwareInterface;
-use McSupply\EcommerceBundle\Resolver\DataResolverAwareTrait;
 use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -18,31 +15,22 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * @implements DataProviderInterface<Breadcrumb>
  */
 #[DataProvider(Breadcrumb::class, DefaultDataResolver::class, 20)]
-final class ProductBreadcrumbProvider implements DataProviderInterface, DataResolverAwareInterface
+final readonly class CheckoutBreadcrumbProvider implements DataProviderInterface
 {
-    use DataResolverAwareTrait;
-
     public function __construct(
-        private readonly RequestStack $requestStack,
+        private RequestStack $requestStack,
     ) {}
 
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
-        return $this->requestStack->getMainRequest()?->attributes->get('_route') === 'product_detail';
+        return $this->requestStack->getMainRequest()?->attributes->get('_route') === 'checkout_step';
     }
 
     #[\Override]
     public function get(string $className, mixed $data = null): Breadcrumb
     {
-        $breadcrumbs = new Breadcrumb();
-        $product = $this->dataResolver->get(ProductInterface::class, [
-            'productId' => $this->requestStack->getMainRequest()?->attributes->get('product'),
-        ]);
-
-        $breadcrumbs->add(new Link((string)$product->getName()));
-
-        return $breadcrumbs;
+        return new Breadcrumb([new Link('Checkout')]);
     }
 
     #[\Override]

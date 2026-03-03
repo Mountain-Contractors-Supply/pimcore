@@ -7,9 +7,7 @@
 
 {% block content %}
     <main class="checkout-page">
-        <div class="checkout-breadcrumbs">
-            <a href="{{ path('home') }}">Home</a> / <span>Checkout</span>
-        </div>
+        <twig:Navigation:Breadcrumb />
 
         <header class="checkout-header">
             <div>
@@ -36,7 +34,7 @@
             </div>
 
             {{ form_start(form, {
-                action: path('checkout-step', { step: app.request.attributes.get('step') }),
+                action: path('checkout_step', { step: app.request.attributes.get('step') }),
                 attr: { 'data-turbo-frame': 'checkout-frame' }
             }) }}
             <div class="checkout-grid">

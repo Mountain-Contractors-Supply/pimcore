@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * @implements DataProviderInterface<Breadcrumb>
  */
-#[DataProvider(Breadcrumb::class, DefaultDataResolver::class, 10)]
+#[DataProvider(Breadcrumb::class, DefaultDataResolver::class, 20)]
 final class CategoryBreadcrumbProvider implements DataProviderInterface, DataResolverAwareInterface
 {
     use DataResolverAwareTrait;
