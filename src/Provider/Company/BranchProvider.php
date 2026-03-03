@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\Company;
 
 use Exception;
 use McSupply\EcommerceBundle\Dto\Company\BranchInterface;
-use McSupply\EcommerceBundle\Provider\BranchProviderInterface;
-use McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface;
+use McSupply\EcommerceBundle\Provider\Company\BranchProviderInterface;
+use McSupply\EcommerceBundle\Provider\OnlineStore\OnlineStoreProviderInterface;
 use Pimcore\Model\DataObject\Branch;
 
 final readonly class BranchProvider implements BranchProviderInterface

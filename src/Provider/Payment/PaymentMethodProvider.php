@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\Payment;
 
 use Exception;
 use McSupply\EcommerceBundle\Dto\Payment\PaymentMethodInterface;
-use McSupply\EcommerceBundle\Provider\OnlineStoreProviderInterface;
-use McSupply\EcommerceBundle\Provider\PaymentMethodProviderInterface;
+use McSupply\EcommerceBundle\Provider\OnlineStore\OnlineStoreProviderInterface;
+use McSupply\EcommerceBundle\Provider\Payment\PaymentMethodProviderInterface;
 use Pimcore\Model\DataObject\PaymentMethod;
 
 final readonly class PaymentMethodProvider implements PaymentMethodProviderInterface
