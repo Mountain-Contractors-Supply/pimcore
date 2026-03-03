@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\User;
 
 use McSupply\EcommerceBundle\Dto\User\CustomerInterface;
-use McSupply\EcommerceBundle\Provider\CustomerProviderInterface;
+use McSupply\EcommerceBundle\Provider\User\CustomerProviderInterface;
 use Pimcore\Model\DataObject\Customer;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;

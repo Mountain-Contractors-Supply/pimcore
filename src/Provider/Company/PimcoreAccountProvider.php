@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\Company;
 
 use Exception;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
-use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Dto\Company\AccountInterface;
+use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Pimcore\Model\DataObject\Account;
 

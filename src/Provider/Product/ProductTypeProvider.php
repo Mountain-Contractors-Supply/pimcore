@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\Product;
 
 use Exception;
-use McSupply\EcommerceBundle\Provider\ProductTypeProviderInterface;
+use McSupply\EcommerceBundle\Provider\Product\ProductTypeProviderInterface;
 use Pimcore\Model\DataObject\ProductType;
 
 final readonly class ProductTypeProvider implements ProductTypeProviderInterface

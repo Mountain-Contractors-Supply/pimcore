@@ -4,7 +4,7 @@ security:
             id: Pimcore\Security\User\UserProvider
 
         customer_provider:
-            id: App\Provider\CustomerProvider
+            id: App\Provider\User\CustomerProvider
 
     firewalls:
         dev:

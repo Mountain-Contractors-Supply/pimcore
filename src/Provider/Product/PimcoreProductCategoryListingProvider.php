@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Provider\Product;
 
 use Knp\Component\Pager\PaginatorInterface;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
