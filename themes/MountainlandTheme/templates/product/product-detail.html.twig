@@ -62,12 +62,12 @@
                 <div class="space-y-4">
                     <h1 class="text-2xl font-bold mcs-primary-text">{{ product.name|default('Product Name') }}</h1>
 
-                    <twig:ProductPrice
+                    <twig:Product:ProductPrice
                         :productId="product.productId"
                         :uom="uom"
                     />
 
-                    <twig:ProductActions
+                    <twig:Product:ProductActions
                         :quantity="1"
                         addToCartText="Add to Cart"
                         :cartProductId="product.productId"
@@ -91,7 +91,8 @@
                                 <span class="font-medium text-gray-900">{{ product.upc }}</span>
                             </div>
                         {% endif %}
-                        <twig:ProductAvailability
+
+                        <twig:Product:ProductAvailability
                             :productId="product.productId"
                             :uom="uom"
                         />
@@ -113,8 +114,8 @@
         </div>
     </div>
 
-    <twig:ProductUpsell title="You May Also Need..." :products="productsUpsell ?? []" />
+    <twig:Product:ProductUpsell title="You May Also Need..." :products="productsUpsell ?? []" />
 
-    <twig:ProductFaq :faqs="faqs ?? []" />
+    <twig:Product:ProductFaq :faqs="faqs ?? []" />
 </div>
 {% endblock %}
