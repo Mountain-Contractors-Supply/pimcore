@@ -1,0 +1,74 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Provider\Navigation;
+
+use Exception;
+use McSupply\EcommerceBundle\Attribute\DataProvider;
+use McSupply\EcommerceBundle\Dto\Navigation\Link;
+use McSupply\EcommerceBundle\Provider\DataProviderInterface;
+use McSupply\EcommerceBundle\Resolver\DataResolverAwareInterface;
+use McSupply\EcommerceBundle\Resolver\DataResolverAwareTrait;
+use Pimcore\Model\DataObject\OnlineStore;
+use Pimcore\Model\Document;
+use Pimcore\Model\Site;
+
+#[DataProvider(Link::class, priority: 20)]
+final class PimcoreMenuProvider implements DataProviderInterface, DataResolverAwareInterface
+{
+    use DataResolverAwareTrait;
+
+    #[\Override]
+    public function supports(string $className, mixed $data = null): bool
+    {
+        return true;
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[\Override]
+    public function get(string $className, mixed $data = null): Link
+    {
+        $site = $this->dataResolver->get(OnlineStore::class)->getSite();
+        $maxDepth = $data['maxDepth'] ?? null;
+
+        return $this->getLinks(Site::getById((int)$site)->getRootDocument(), $maxDepth);
+    }
+
+    #[\Override]
+    public function save(mixed $dto, mixed $data = null): void
+    {
+    }
+
+    /**
+     * @param Document $document
+     * @param int|null $maxDepth
+     * @param int $currentDepth
+     * @return Link|null
+     */
+    private function getLinks(Document $document, ?int $maxDepth = null, int $currentDepth = 0): ?Link
+    {
+        if ($document instanceof Document\Hardlink) {
+            $document = $document->getSourceDocument();
+        }
+
+        if (!$document->getProperty('navigation_exclude') && method_exists($document, 'getHref')) {
+            $link = new Link(
+                $document->getProperty('navigation_name'),
+                $document->getHref()
+            );
+
+            if ($document->hasChildren() && ($maxDepth === null || $currentDepth < $maxDepth)) {
+                foreach ($document->getChildren() as $child) {
+                    $link->addChild($this->getLinks($child, $maxDepth, $currentDepth + 1));
+                }
+            }
+
+            return $link;
+        }
+
+        return null;
+    }
+}
