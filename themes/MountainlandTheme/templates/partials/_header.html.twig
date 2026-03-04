@@ -342,38 +342,6 @@
 
 <nav class="navbar">
     <div class="navbar-left">
-        {% if not document is defined or not document %}
-            {% set document = pimcore_document(4) %}
-        {% endif %}
-
-        {# get the document which should be used to start in navigation | default home #}
-        {% set navStartNode = document.getProperty('navigationRoot') %}
-        {% if not navStartNode is instanceof('Pimcore\Model\Document\Page') %}
-            {% set navStartNode = pimcore_document(4) %}
-        {% endif %}
-
-        {% set mainNavigation = pimcore_build_nav({
-            active: document,
-            root: navStartNode,
-            cache: false
-        }) %}
-
-        <ul class="navbar-links">
-            {% for page in mainNavigation %}
-                {% if page.isVisible() %}
-                    {% set isActive = page.isActive() %}
-                    {% set pageDocument = pimcore_document(page.get('id')) %}
-
-                    {% if pageDocument is instanceof('\\Pimcore\\Model\\Document\\Link') %}
-                        {% set displayTitle = page %}
-                    {% else %}
-                        {% set displayTitle = pageDocument.getTitle() ?: (pageDocument.getProperty('navigation_name') ?: page.getLabel()) %}
-                    {% endif %}
-                    <li>
-                        <a href="{{ page.getHref() }}"{% if isActive %} class="active"{% endif %}>{{ displayTitle }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+        <twig:Navigation:NavigationBar />
     </div>
 </nav>
