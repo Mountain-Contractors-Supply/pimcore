@@ -332,7 +332,9 @@
 <div class="header-content">
     <div class="header-left">
         <a href="{{ path('home') }}">
-            <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="header-logo" />
+            {% if getStoreLogo() %}
+                <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="header-logo" />
+            {% endif %}
         </a>
     </div>
     <div class="header-right">

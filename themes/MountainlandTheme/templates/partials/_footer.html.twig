@@ -187,6 +187,8 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Supply" class="footer-logo">
+        {% if getStoreLogo() %}
+            <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Supply" class="footer-logo">
+        {% endif %}
     </div>
 </footer>
