@@ -9,16 +9,17 @@ use McSupply\EcommerceBundle\Dto\Navigation\Breadcrumb;
 use McSupply\EcommerceBundle\Dto\Navigation\Link;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
+use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use McSupply\EcommerceBundle\Resolver\DataResolverAwareInterface;
 use McSupply\EcommerceBundle\Resolver\DataResolverAwareTrait;
-use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<Breadcrumb>
+ * @implements ReadOperationInterface<Breadcrumb>
  */
-#[DataProvider(Breadcrumb::class, DefaultDataResolver::class, 20)]
-final class ProductBreadcrumbProvider implements DataProviderInterface, DataResolverAwareInterface
+#[DataProvider(Breadcrumb::class, 20)]
+final class ProductBreadcrumbProvider implements DataProviderInterface, ReadOperationInterface, DataResolverAwareInterface
 {
     use DataResolverAwareTrait;
 
@@ -43,10 +44,5 @@ final class ProductBreadcrumbProvider implements DataProviderInterface, DataReso
         $breadcrumbs->add(new Link((string)$product->getName()));
 
         return $breadcrumbs;
-    }
-
-    #[\Override]
-    public function save(mixed $dto, mixed $data = null): void
-    {
     }
 }

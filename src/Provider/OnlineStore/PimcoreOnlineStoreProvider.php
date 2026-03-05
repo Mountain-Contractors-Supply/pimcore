@@ -8,7 +8,7 @@ use Exception;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
-use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
+use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Http\Request\Resolver\DocumentResolver;
 use Pimcore\Model\DataObject\OnlineStore;
 use Pimcore\Model\Document;
@@ -18,9 +18,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<OnlineStoreInterface>
+ * @implements ReadOperationInterface<OnlineStoreInterface>
  */
-#[DataProvider(OnlineStoreInterface::class, DefaultDataResolver::class, 10)]
-final readonly class PimcoreOnlineStoreProvider implements DataProviderInterface
+#[DataProvider(OnlineStoreInterface::class, 10)]
+final readonly class PimcoreOnlineStoreProvider implements DataProviderInterface, ReadOperationInterface
 {
     public function __construct(
         private RequestStack $requestStack,
@@ -54,15 +55,6 @@ final readonly class PimcoreOnlineStoreProvider implements DataProviderInterface
         return $onlineStore;
     }
 
-    #[\Override]
-    public function save(mixed $dto, mixed $data = null): void
-    {
-        // TODO: Implement save() method.
-    }
-
-    /**
-     * @return Site|null
-     */
     private function resolveSite(): ?Site
     {
         $request = $this->requestStack->getMainRequest();

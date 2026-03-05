@@ -8,15 +8,16 @@ use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Navigation\Breadcrumb;
 use McSupply\EcommerceBundle\Dto\Navigation\Link;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
-use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
+use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Model\Document;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<Breadcrumb>
+ * @implements ReadOperationInterface<Breadcrumb>
  */
-#[DataProvider(Breadcrumb::class, DefaultDataResolver::class, 10)]
-final readonly class DocumentBreadcrumbProvider implements DataProviderInterface
+#[DataProvider(Breadcrumb::class, 10)]
+final readonly class DocumentBreadcrumbProvider implements DataProviderInterface, ReadOperationInterface
 {
     public function __construct(
         private RequestStack $requestStack,
@@ -39,14 +40,6 @@ final readonly class DocumentBreadcrumbProvider implements DataProviderInterface
         return new Breadcrumb([new Link($title)]);
     }
 
-    #[\Override]
-    public function save(mixed $dto, mixed $data = null): void
-    {
-    }
-
-    /**
-     * @return Document|null
-     */
     private function getCurrentDocument(): ?Document
     {
         return $this->requestStack->getCurrentRequest()?->attributes->get('contentDocument');

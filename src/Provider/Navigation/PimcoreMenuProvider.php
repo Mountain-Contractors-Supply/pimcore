@@ -8,6 +8,7 @@ use Exception;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Navigation\Link;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
+use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use McSupply\EcommerceBundle\Resolver\DataResolverAwareInterface;
 use McSupply\EcommerceBundle\Resolver\DataResolverAwareTrait;
 use Pimcore\Model\DataObject\OnlineStore;
@@ -16,9 +17,10 @@ use Pimcore\Model\Site;
 
 /**
  * @implements DataProviderInterface<Link>
+ * @implements ReadOperationInterface<Link>
  */
-#[DataProvider(Link::class, priority: 20)]
-final class PimcoreMenuProvider implements DataProviderInterface, DataResolverAwareInterface
+#[DataProvider(Link::class, 20)]
+final class PimcoreMenuProvider implements DataProviderInterface, DataResolverAwareInterface, ReadOperationInterface
 {
     use DataResolverAwareTrait;
 
@@ -45,17 +47,6 @@ final class PimcoreMenuProvider implements DataProviderInterface, DataResolverAw
         return $this->getLinks($document, $maxDepth);
     }
 
-    #[\Override]
-    public function save(mixed $dto, mixed $data = null): void
-    {
-    }
-
-    /**
-     * @param Document $document
-     * @param int|null $maxDepth
-     * @param int $currentDepth
-     * @return Link|null
-     */
     private function getLinks(Document $document, ?int $maxDepth = null, int $currentDepth = 0): ?Link
     {
         if ($document instanceof Document\Hardlink) {

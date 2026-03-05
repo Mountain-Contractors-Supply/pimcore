@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace App\Provider\Company;
 
-use Exception;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Company\AccountInterface;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
-use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
+use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Model\DataObject\Account;
 
 /**
- * @implements DataProviderInterface<Account>
+ * @implements DataProviderInterface<AccountInterface>
+ * @implements ReadOperationInterface<AccountInterface>
  */
-#[DataProvider(AccountInterface::class, DefaultDataResolver::class, 10)]
-final readonly class PimcoreAccountProvider implements DataProviderInterface
+#[DataProvider(AccountInterface::class, 10)]
+final readonly class PimcoreAccountProvider implements DataProviderInterface, ReadOperationInterface
 {
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
@@ -27,9 +24,6 @@ final readonly class PimcoreAccountProvider implements DataProviderInterface
         return false;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function get(string $className, mixed $data = null): ?AccountInterface
     {
@@ -40,16 +34,5 @@ final readonly class PimcoreAccountProvider implements DataProviderInterface
         $account = Account::getByAccountId($data['accountId'], 1);
 
         return $account instanceof Account ? $account : null;
-    }
-
-    /**
-     * @inheritDoc
-     *
-     * @throws Exception
-     */
-    #[\Override]
-    public function save(mixed $dto, mixed $data = null): void
-    {
-        $dto->save();
     }
 }

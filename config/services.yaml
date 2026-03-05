@@ -1,5 +1,4 @@
 imports:
-    - { resource: 'ecommerce/providers.yaml' }
     - { resource: 'theme/theme.yaml' }
 
 parameters:
