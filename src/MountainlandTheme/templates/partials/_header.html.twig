@@ -1,0 +1,77 @@
+<div class="relative z-[100] w-full border-b border-[var(--secondary-color)] bg-white">
+    <div class="flex h-[33px] w-full items-center justify-between bg-[var(--secondary-color)]">
+        <div class="overflow-x-auto">
+            <ul class="m-0 flex list-none p-0">
+                <li><a href="{{ path('home') }}" class="relative flex h-[33px] items-center px-[0.8rem] text-[0.9rem] uppercase text-[var(--primary-color)] transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white [font-family:var(--primary-font)]">Home</a></li>
+                <li><a href="#" class="relative flex h-[33px] items-center px-[0.8rem] text-[0.9rem] uppercase text-[var(--primary-color)] transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white [font-family:var(--primary-font)]">Plumbing</a></li>
+                <li><a href="#" class="relative flex h-[33px] items-center px-[0.8rem] text-[0.9rem] uppercase text-[var(--primary-color)] transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white [font-family:var(--primary-font)]">Heating & Cooling</a></li>
+                <li><a href="#" class="relative flex h-[33px] items-center px-[0.8rem] text-[0.9rem] uppercase text-[var(--primary-color)] transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white [font-family:var(--primary-font)]">Power Equipment</a></li>
+                <li><a href="#" class="relative flex h-[33px] items-center px-[0.8rem] text-[0.9rem] uppercase text-[var(--primary-color)] transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white [font-family:var(--primary-font)]">Landscape Irrigation</a></li>
+                <li><a href="#" class="relative flex h-[33px] items-center px-[0.8rem] text-[0.9rem] uppercase text-[var(--primary-color)] transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white [font-family:var(--primary-font)]">Pump & Drilling</a></li>
+                <li><a href="#" class="relative flex h-[33px] items-center px-[0.8rem] text-[0.9rem] uppercase text-[var(--primary-color)] transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white [font-family:var(--primary-font)]">More+</a></li>
+            </ul>
+        </div>
+
+        <div class="flex items-center gap-0 pr-4">
+            {% if is_granted('ROLE_USER') %}
+                <turbo-frame
+                    id="cart-data-frame"
+                    src="{{ path('cart_header_partial') }}"
+                    data-controller="refresh"
+                    data-action="cart-updated@window->refresh#reload branch-updated@window->refresh#reload"
+                    loading="lazy">
+                          <a href="{{ path('cart') }}"
+                              class="flex h-[33px] items-center gap-2 px-4 text-[0.9rem] text-[var(--primary-color)] transition-all duration-300 hover:bg-black/15 [font-family:var(--primary-font)]"
+                       aria-label="View Cart"
+                       data-turbo-frame="_top">
+                        <img src="{{ asset('images/misc/shopping-bag.webp') }}" alt="Bag" class="h-[26px] w-auto" />
+                        <div class="flex flex-col leading-[1.2]"></div>
+                    </a>
+                </turbo-frame>
+
+                <turbo-frame
+                    id="branch-data-frame"
+                    src="{{ path('branch_data_partial') }}"
+                    data-controller="refresh"
+                    data-action="branch-updated@window->refresh#reload"
+                    loading="lazy">
+                    <a id="branch-dropdown" href="/locations" data-turbo-frame="_top" class="inline-block">
+                        <div id="branch-info" class="flex h-[33px] cursor-pointer items-center gap-2 px-2 text-[0.75rem] text-[var(--primary-color)] transition hover:bg-[rgba(17,23,94,0.05)] [font-family:var(--primary-font)]">
+                            <img src="{{ asset('images/misc/location-icon.webp') }}" alt="Location" class="h-6 w-auto shrink-0" />
+                            <span id="branch-status" class="text-[0.75rem] italic opacity-90"></span>
+                        </div>
+                    </a>
+                </turbo-frame>
+
+                <div id="user-dropdown" data-controller="header" class="relative inline-block">
+                    <button id="user-info" data-action="click->header#toggle" class="flex h-[33px] items-center px-3 text-[0.85rem] text-[var(--primary-color)] transition hover:bg-[rgba(17,23,94,0.05)] [font-family:var(--primary-font)]" type="button">
+                        <span>Welcome, <span class="font-semibold">{{ app.user.firstname ?? app.user.email }}</span>!</span>
+                    </button>
+                    <div id="dropdown-menu" data-header-target="menu" class="absolute right-0 top-full z-[1000] mt-2 hidden min-w-[200px] rounded border border-[rgba(17,23,94,0.15)] bg-white shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+                        <a href="{{ path('customer_dashboard') }}" class="block border-b border-[rgba(17,23,94,0.1)] px-4 py-3 text-[0.9rem] text-[var(--primary-color)] transition hover:bg-[rgba(17,23,94,0.05)] [font-family:var(--primary-font)]">Account</a>
+                        <a href="{{ path('customer-logout') }}" class="block px-4 py-3 text-[0.9rem] text-[var(--primary-color)] transition hover:bg-[rgba(17,23,94,0.05)] [font-family:var(--primary-font)]" data-turbo="false">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ path('customer-signin') }}" class="flex h-[33px] items-center px-4 text-[0.9rem] uppercase text-[var(--primary-color)] transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white [font-family:var(--primary-font)]">SIGN IN / SIGN UP</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="flex flex-row flex-wrap items-center justify-between overflow-hidden px-[15px] py-2 text-left">
+        <div>
+            <a href="{{ path('home') }}">
+                {% if getStoreLogo() %}
+                    <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="mt-0 block h-auto w-[300px]" />
+                {% endif %}
+            </a>
+        </div>
+        <div></div>
+    </div>
+
+    <nav class="relative z-[120] m-0 flex h-[64px] w-full items-center justify-center overflow-visible bg-[var(--primary-color)]">
+        <div class="overflow-visible pl-0">
+            <twig:Navigation:NavigationBar />
+        </div>
+    </nav>
+</div>
