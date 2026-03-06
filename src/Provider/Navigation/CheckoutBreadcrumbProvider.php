@@ -8,14 +8,15 @@ use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Navigation\Breadcrumb;
 use McSupply\EcommerceBundle\Dto\Navigation\Link;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
-use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
+use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<Breadcrumb>
+ * @implements ReadOperationInterface<Breadcrumb>
  */
-#[DataProvider(Breadcrumb::class, DefaultDataResolver::class, 20)]
-final readonly class CheckoutBreadcrumbProvider implements DataProviderInterface
+#[DataProvider(Breadcrumb::class, 20)]
+final readonly class CheckoutBreadcrumbProvider implements DataProviderInterface, ReadOperationInterface
 {
     public function __construct(
         private RequestStack $requestStack,
@@ -31,10 +32,5 @@ final readonly class CheckoutBreadcrumbProvider implements DataProviderInterface
     public function get(string $className, mixed $data = null): Breadcrumb
     {
         return new Breadcrumb([new Link('Checkout')]);
-    }
-
-    #[\Override]
-    public function save(mixed $dto, mixed $data = null): void
-    {
     }
 }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Theme;
 
-use McSupply\EcommerceBundle\Provider\OnlineStore\OnlineStoreProviderInterface;
+use App\Provider\OnlineStore\PimcoreOnlineStoreProvider;
+use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
 use Pimcore\Http\Request\Resolver\PimcoreContextResolver;
 use Sylius\Bundle\ThemeBundle\Context\SettableThemeContext;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
@@ -15,16 +16,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
 final readonly class OnlineStoreThemeContext implements ThemeContextInterface
 {
     public function __construct(
-        private ThemeRepositoryInterface     $themeRepository,
-        private SettableThemeContext         $settableThemeContext,
-        private OnlineStoreProviderInterface $onlineStoreProvider,
-        private RequestStack                 $requestStack,
-        private PimcoreContextResolver       $pimcoreContext,
+        private ThemeRepositoryInterface   $themeRepository,
+        private SettableThemeContext       $settableThemeContext,
+        private RequestStack               $requestStack,
+        private PimcoreContextResolver     $pimcoreContext,
+        private PimcoreOnlineStoreProvider $onlineStoreProvider,
     ) {}
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getTheme(): ?ThemeInterface
     {
@@ -41,7 +39,7 @@ final readonly class OnlineStoreThemeContext implements ThemeContextInterface
         }
 
         try {
-            $onlineStore = $this->onlineStoreProvider->getOnlineStore();
+            $onlineStore = $this->onlineStoreProvider->get(OnlineStoreInterface::class);
             $themeName = $onlineStore?->getTheme();
 
             return $themeName !== null ? $this->themeRepository->findOneByName($themeName) : null;

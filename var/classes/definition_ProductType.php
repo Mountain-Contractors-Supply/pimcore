@@ -17,7 +17,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1763747224,
+   'modificationDate' => 1772738662,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\Product\\AbstractProductType',
@@ -132,7 +132,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'uploadPath' => '/images/product-types',
+             'uploadPath' => '/images/product-types/icons',
              'width' => '',
              'height' => '',
           )),

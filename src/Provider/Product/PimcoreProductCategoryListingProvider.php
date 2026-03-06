@@ -9,33 +9,28 @@ use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductCategoryListing;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
-use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
+use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Model\DataObject\ProductCategory;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<ProductCategoryListing>
+ * @implements ReadOperationInterface<ProductCategoryListing>
  */
-#[DataProvider(ProductCategoryListing::class, DefaultDataResolver::class, 10)]
-final readonly class PimcoreProductCategoryListingProvider implements DataProviderInterface
+#[DataProvider(ProductCategoryListing::class, 10)]
+final readonly class PimcoreProductCategoryListingProvider implements DataProviderInterface, ReadOperationInterface
 {
     public function __construct(
         private PaginatorInterface $paginator,
         private RequestStack $requestStack,
     ) {}
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
         return true;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function get(string $className, mixed $data = null): ?ProductCategoryListing
     {
@@ -52,14 +47,5 @@ final readonly class PimcoreProductCategoryListingProvider implements DataProvid
         $listing = (new ProductCategory\Listing())->setCondition("parentId = ?", [$id]);
 
         return new ProductCategoryListing($this->paginator->paginate($listing, $page, $limit));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    #[\Override]
-    public function save(mixed $dto, mixed $data = null): void
-    {
-        // TODO: Implement save() method.
     }
 }

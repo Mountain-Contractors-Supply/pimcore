@@ -4,27 +4,24 @@ declare(strict_types=1);
 
 namespace App\Provider\Product;
 
-use Exception;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
-use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
+use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Model\DataObject\Product;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<ProductInterface>
+ * @implements ReadOperationInterface<ProductInterface>
  */
-#[DataProvider(ProductInterface::class, DefaultDataResolver::class, 10)]
-final readonly class PimcoreProductProvider implements DataProviderInterface
+#[DataProvider(ProductInterface::class, 10)]
+final readonly class PimcoreProductProvider implements DataProviderInterface, ReadOperationInterface
 {
     public function __construct(
         private RequestStack $requestStack,
     ) {}
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
@@ -33,9 +30,6 @@ final readonly class PimcoreProductProvider implements DataProviderInterface
         return in_array($route, ['product_detail', 'cart', 'cart_list_partial']);
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function get(string $className, mixed $data = null): ?ProductInterface
     {
@@ -48,16 +42,5 @@ final readonly class PimcoreProductProvider implements DataProviderInterface
         $product = Product::getByProductId($productId, 1);
 
         return $product instanceof ProductInterface ? $product : null;
-    }
-
-    /**
-     * @param Product $dto
-     * @inheritDoc
-     * @throws Exception
-     */
-    #[\Override]
-    public function save(mixed $dto, mixed $data = null): void
-    {
-        $dto->save();
     }
 }

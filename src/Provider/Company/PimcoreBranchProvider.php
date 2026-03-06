@@ -4,27 +4,24 @@ declare(strict_types=1);
 
 namespace App\Provider\Company;
 
-use Exception;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Company\BranchInterface;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
-use McSupply\EcommerceBundle\Resolver\DefaultDataResolver;
+use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Model\DataObject\Branch;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<BranchInterface>
+ * @implements ReadOperationInterface<BranchInterface>
  */
-#[DataProvider(BranchInterface::class, DefaultDataResolver::class, 10)]
-final readonly class PimcoreBranchProvider implements DataProviderInterface
+#[DataProvider(BranchInterface::class, 10)]
+final readonly class PimcoreBranchProvider implements DataProviderInterface, ReadOperationInterface
 {
     public function __construct(
         private RequestStack $requestStack,
     ) {}
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
@@ -33,9 +30,6 @@ final readonly class PimcoreBranchProvider implements DataProviderInterface
         return in_array($route, ['branch_data_partial', 'carts-ship-branch-post']);
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function get(string $className, mixed $data = null): ?BranchInterface
     {
@@ -46,16 +40,5 @@ final readonly class PimcoreBranchProvider implements DataProviderInterface
         $branch = Branch::getById($data['id']);
 
         return $branch instanceof BranchInterface ? $branch : null;
-    }
-
-    /**
-     * @param Branch $dto
-     * @inheritDoc
-     * @throws Exception
-     */
-    #[\Override]
-    public function save(mixed $dto, mixed $data = null): void
-    {
-        $dto->save();
     }
 }
