@@ -28,7 +28,7 @@ class PimcoreProductTypeArrayProvider implements DataProviderInterface, ReadOper
      * @throws Exception
      */
     #[\Override]
-    public function get(string $className, mixed $data = null): mixed
+    public function get(string $className, mixed $data = null): ProductTypeArray
     {
         $productTypes = new ProductTypeArray();
 

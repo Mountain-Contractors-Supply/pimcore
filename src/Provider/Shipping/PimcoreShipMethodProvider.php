@@ -26,7 +26,7 @@ final readonly class PimcoreShipMethodProvider implements DataProviderInterface,
     #[\Override]
     public function get(string $className, mixed $data = null): ?ShipMethodInterface
     {
-        if (!isset($data['id'])) {
+        if (!isset($data['code'])) {
             return null;
         }
 

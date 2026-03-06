@@ -26,6 +26,10 @@ class PimcorePaymentMethodProvider implements DataProviderInterface, ReadOperati
     #[\Override]
     public function get(string $className, mixed $data = null): ?PaymentMethodInterface
     {
+        if (!isset($data['code'])) {
+            return null;
+        }
+
         $paymentMethod = PaymentMethod::getByCode($data['code'], 1);
 
         return $paymentMethod instanceof PaymentMethodInterface ? $paymentMethod : null;

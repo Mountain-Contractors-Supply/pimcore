@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<ProductCategoryListing>
- * @implements ReadOperationInterface<ProductCategoryInterface>
+ * @implements ReadOperationInterface<ProductCategoryListing>
  */
 #[DataProvider(ProductCategoryListing::class, 10)]
 final readonly class PimcoreProductCategoryListingProvider implements DataProviderInterface, ReadOperationInterface

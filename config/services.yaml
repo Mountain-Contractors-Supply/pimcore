@@ -54,7 +54,7 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/{Model}/'
+            - '../src/Model/'
 
     App\LinkGenerator\:
         resource: '../src/LinkGenerator'
