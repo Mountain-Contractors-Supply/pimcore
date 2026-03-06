@@ -51,23 +51,10 @@ services:
         autoconfigure: true
         public: false
 
-    App\Controller\:
-        resource: '../src/Controller'
-        public: true
-        tags: [ 'controller.service_arguments' ]
-
-    App\Command\:
-        resource: '../src/Command/*'
-        tags: [ 'console.command' ]
-
-    App\OptionProvider\:
-        resource: '../src/OptionProvider'
-
-    App\Provider\:
-        resource: '../src/Provider'
-
-    App\EventListener\:
-        resource: '../src/EventListener'
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/{Model}/'
 
     App\LinkGenerator\:
         resource: '../src/LinkGenerator'
