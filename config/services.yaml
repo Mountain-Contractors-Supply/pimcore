@@ -67,3 +67,9 @@ services:
     App\ExpressionLanguage\BasicExpressionProvider:
         tags:
             - { name: 'pimcore.calculated_value.expression_language_provider' }
+
+    mcsupply.ecommerce.customer_password_hasher_factory:
+        class: Pimcore\Security\Hasher\Factory\UserAwarePasswordHasherFactory
+        arguments:
+            - Pimcore\Security\Hasher\PasswordFieldHasher
+            - [ 'password' ]

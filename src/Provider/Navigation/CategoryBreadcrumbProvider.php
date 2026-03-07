@@ -11,8 +11,8 @@ use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use McSupply\EcommerceBundle\LinkGenerator\ProductCategoryLinkGenerator;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
-use McSupply\EcommerceBundle\Resolver\DataResolverAwareInterface;
-use McSupply\EcommerceBundle\Resolver\DataResolverAwareTrait;
+use McSupply\EcommerceBundle\Provider\DataResolverAwareInterface;
+use McSupply\EcommerceBundle\Provider\DataResolverAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
