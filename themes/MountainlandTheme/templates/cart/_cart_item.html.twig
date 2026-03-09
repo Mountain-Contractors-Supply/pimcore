@@ -10,8 +10,7 @@
         <div class="item-row">
             <div>
                 <h3>
-                    <a href="{{ path('pimcore_element', {
-                        'element': item.product,
+                    <a href="{{ element_path(item.product, {
                         'uom': item.quantityOrdered.uom
                     }) }}" data-turbo-frame="_top">{{ item.product.name }}</a>
                 </h3>
