@@ -1,0 +1,48 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <main>
+        <twig:PartFinder />
+
+        <turbo-frame id="category-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth">
+            <div class="bg-white border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                    <twig:Navigation:Breadcrumb />
+                </div>
+            </div>
+
+            <div class="divisions-container">
+                <div class="divisions-grid">
+                    {% set items = products.pagination.items %}
+                    {% set pagination = products.pagination %}
+                    {% for item in items %}
+                        <twig:Card>
+                            <a href="{{ element_path(item) }}" data-turbo-frame="_top">{{ item.name }}</a>
+
+                            <twig:Product:ProductActions
+                                :quantity="1"
+                                addToCartText="Add to Cart"
+                                :cartProductId="item.productId"
+                                cartUom="ea"
+                            />
+                        </twig:Card>
+                    {% endfor %}
+                </div>
+
+                {% if pagination %}
+                    <div class="pagination-wrapper mt-12">
+                        {{ knp_pagination_render(pagination, 'components/Navigation/Pagination.html.twig', {
+                            'limit': app.request.query.get('limit', 10)
+                        }) }}
+                    </div>
+                {% endif %}
+            </div>
+        </turbo-frame>
+    </main>
+{% endblock %}
