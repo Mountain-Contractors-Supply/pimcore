@@ -2,8 +2,36 @@
 
 {% block checkout_step %}
     <section class="checkout-step-panel is-active" data-step="review">
-        <article class="card">
+        {{ include('checkout/_review_info_section.html.twig', {
+            'title': 'Sold To',
+            'info_items': [
+                { 'label': 'Customer Name', 'value': order.billTo.name },
+                { 'label': 'Account Name', 'value': order.billTo.name },
+                { 'label': 'Phone Number', 'value': '' },
+                { 'label': 'Email', 'value': '' }
+            ]
+        }) }}
 
-        </article>
+        {{ include('checkout/_review_info_section.html.twig', {
+            'title': 'Ship To',
+            'info_items': [
+                { 'label': 'Shipping Method', 'value': order.shipMethod.name },
+                { 'label': 'Address', 'value': order.address.line1 ~ ', ' ~ order.address.city ~ ', ' ~ order.address.state ~ ', ' ~ order.address.zip },
+                { 'label': 'Requested Ship Date', 'value': order.requireDate|date("m/d/Y") }
+            ]
+        }) }}
+
+        {{ include('checkout/_review_info_section.html.twig', {
+            'title': 'Payment',
+            'info_items': [
+                { 'label': 'Payment Method', 'value': order.paymentMethod.name },
+                { 'label': 'Billing Address', 'value': order.billTo.address.line1 ~ ', ' ~ order.billTo.address.city ~ ', ' ~ order.billTo.address.state ~ ', ' ~ order.billTo.address.zip }
+            ]
+        }) }}
+
+        {{ include('checkout/_step_navigation.html.twig', {
+            'prev_step': 'payment',
+            'prev_text': 'Back to payment'
+        }) }}
     </section>
 {% endblock %}

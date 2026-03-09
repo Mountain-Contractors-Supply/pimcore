@@ -4,11 +4,7 @@
         {% for item in info_items %}
             <div class="review-info-item">
                 <span class="review-label">{{ item.label }}:</span>
-                {% if isDataBound %}
-                    <span id="{{ item.id|default('') }}" data-source="{{ item.source }}" data-type="{{ item.type|default('input') }}"></span>
-                {% else %}
-                    <span id="{{ item.id|default('') }}">{{ item.value }}</span>
-                {% endif %}
+                <span>{{ item.value }}</span>
             </div>
         {% endfor %}
     </div>
