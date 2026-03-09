@@ -40,10 +40,10 @@ final readonly class PimcoreProductListingProvider implements DataProviderInterf
             return null;
         }
 
-        $page = $this->requestStack->getMainRequest()?->query->getInt('page', 1) ?? 1;
-        $limit = $this->requestStack->getMainRequest()
-            ?->query->getInt('limit', ProductInterface::DEFAULT_PER_PAGE_COUNT) ??
-            ProductInterface::DEFAULT_PER_PAGE_COUNT;
+        $mainRequest = $this->requestStack->getMainRequest();
+        $page = $mainRequest?->query->getInt('page', 1) ?? 1;
+        $limit = $mainRequest?->query->getInt('limit',
+            ProductInterface::DEFAULT_PER_PAGE_COUNT) ?? ProductInterface::DEFAULT_PER_PAGE_COUNT;
 
         $listing = new Product\Listing();
         $listing->setCondition(
