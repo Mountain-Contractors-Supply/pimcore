@@ -6,6 +6,7 @@ namespace App\Model\Product;
 
 use App\EventListener\PreAddUpdateAwareInterface;
 use App\Model\AbstractModel;
+use McSupply\EcommerceBundle\Dto\Navigation\SlugAwareTrait;
 use McSupply\EcommerceBundle\Dto\Product\LineInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
 use Pimcore\Model\DataObject\Data\QuantityValue;
@@ -15,20 +16,16 @@ use Pimcore\Model\Element\ElementInterface;
 
 abstract class AbstractProduct extends AbstractModel implements ProductInterface, PreAddUpdateAwareInterface
 {
+    use SlugAwareTrait;
+
     private ?string $price = null;
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function setPrice(?string $price): static
     {
@@ -48,63 +45,21 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
      * @return $this
      */
     public abstract function setCategoriesRef(?array $categoriesRef): static;
-
-    /**
-     * @return QuantityValue|null
-     */
     public abstract function getWidthRef(): ?QuantityValue;
-
-    /**
-     * @param QuantityValue|null $widthRef
-     * @return $this
-     */
     public abstract function setWidthRef(?QuantityValue $widthRef): static;
-
-    /**
-     * @return QuantityValue|null
-     */
     public abstract function getHeightRef(): ?QuantityValue;
-
-    /**
-     * @param QuantityValue|null $heightRef
-     * @return $this
-     */
     public abstract function setHeightRef(?QuantityValue $heightRef): static;
-
-    /**
-     * @return QuantityValue|null
-     */
     public abstract function getLengthRef(): ?QuantityValue;
-
-    /**
-     * @param QuantityValue|null $lengthRef
-     * @return $this
-     */
     public abstract function setLengthRef(?QuantityValue $lengthRef): static;
-
-    /**
-     * @return QuantityValue|null
-     */
     public abstract function getWeightRef(): ?QuantityValue;
-
-    /**
-     * @param QuantityValue|null $weightRef
-     * @return $this
-     */
     public abstract function setWeightRef(?QuantityValue $weightRef): static;
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getProductId(): ?string
     {
         return $this->getKey();
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function setProductId(?string $productId): static
     {
@@ -113,9 +68,6 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getLine(): LineInterface
     {
@@ -129,9 +81,6 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $parent;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function setLine(?LineInterface $line): static
     {
@@ -142,9 +91,6 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getBrandName(): string
     {
@@ -162,9 +108,6 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $this->getCategoriesRef();
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function setCategories(?array $categories): static
     {
@@ -174,18 +117,12 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function onPreAdd(): void
     {
         $this->onPreUpdate();
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function onPreUpdate(): void
     {
@@ -193,18 +130,12 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         $this->formatUpc();
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getWidth(): ?string
     {
         return $this->formatQuantityValue($this->getWidthRef());
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function setWidth(?string $width): static
     {
@@ -213,18 +144,12 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getHeight(): ?string
     {
         return $this->formatQuantityValue($this->getHeightRef());
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function setHeight(?string $height): static
     {
@@ -233,18 +158,12 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getLength(): ?string
     {
         return $this->formatQuantityValue($this->getLengthRef());
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function setLength(?string $length): static
     {
@@ -253,18 +172,12 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function getWeight(): ?string
     {
         return $this->formatQuantityValue($this->getWeightRef());
     }
 
-    /**
-     * @inheritDoc
-     */
     #[\Override]
     public function setWeight(?string $weight): static
     {
@@ -273,9 +186,6 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $this;
     }
 
-    /**
-     * @return void
-     */
     private function formatUpc(): void
     {
         if (empty($this->getUpc())) {
@@ -308,10 +218,6 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         }
     }
 
-    /**
-     * @param QuantityValue|null $value
-     * @return string|null
-     */
     private function formatQuantityValue(?QuantityValue $value): ?string
     {
         if ($value === null) {
@@ -321,10 +227,6 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return sprintf('%s %s', $value->getValue(), $value->getUnit()?->getAbbreviation());
     }
 
-    /**
-     * @param string|null $quantityValue
-     * @return QuantityValue|null
-     */
     private function prepareQuantityValue(?string $quantityValue): ?QuantityValue
     {
         if ($quantityValue === null) {

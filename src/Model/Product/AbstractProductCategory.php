@@ -7,16 +7,15 @@ namespace App\Model\Product;
 use App\EventListener\PreAddUpdateAwareInterface;
 use App\Model\AbstractModel;
 use App\Model\Traits\SetKeyFromValueTrait;
+use McSupply\EcommerceBundle\Dto\Navigation\SlugAwareTrait;
 use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use Pimcore\Model\Asset\Image;
 
 abstract class AbstractProductCategory extends AbstractModel implements ProductCategoryInterface, PreAddUpdateAwareInterface
 {
     use SetKeyFromValueTrait;
+    use SlugAwareTrait;
 
-    /**
-     * @return Image|null
-     */
     public abstract function getImageRef(): ?Image;
 
     #[\Override]
