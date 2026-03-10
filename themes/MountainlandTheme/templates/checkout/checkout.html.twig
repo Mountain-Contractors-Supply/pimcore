@@ -15,7 +15,7 @@
             </div>
         </header>
 
-        <turbo-frame id="checkout-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth">
+        <turbo-frame id="checkout-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="nearest" data-autoscroll-behavior="smooth">
             <div class="checkout-steps" data-active-step="shipping">
                 {% set stepClass = ' is-complete' %}
                 {% for step in steps %}

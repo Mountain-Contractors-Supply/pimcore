@@ -9,6 +9,7 @@ use McSupply\EcommerceBundle\Dto\Company\AccountInterface;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Model\DataObject\Account;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @implements DataProviderInterface<AccountInterface>
@@ -17,11 +18,16 @@ use Pimcore\Model\DataObject\Account;
 #[DataProvider(AccountInterface::class, 10)]
 final readonly class PimcoreAccountProvider implements DataProviderInterface, ReadOperationInterface
 {
+    public function __construct(
+        private RequestStack $requestStack,
+    ) {}
+
     #[\Override]
     public function supports(string $className, mixed $data = null): bool
     {
-        // TODO: Implement properly once we need something other than the default hydrator
-        return false;
+        $route = $this->requestStack->getMainRequest()?->attributes->get('_route');
+
+        return str_starts_with($route, 'checkout');
     }
 
     #[\Override]
