@@ -35,7 +35,12 @@
                     {% endfor %}
                 </div>
 
-                <twig:Navigation:PaginationControls :pagination="pagination|default(null)" />
+                {% if pagination %}
+                    <twig:Navigation:PaginationControls
+                        :pagination="pagination"
+                        :limit="app.request.query.get('limit', 10)"
+                    />
+                {% endif %}
             </div>
         </turbo-frame>
     </main>

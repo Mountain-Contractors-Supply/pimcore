@@ -10,7 +10,7 @@
         <hr class="my-6 border-gray-300" />
 
         <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 items-start">
-            <twig:Product:ProductDetailImage :alt="product.name|default('Product image')" />
+            <twig:Ui:Image :alt="product.name|default('Product image')" />
 
             <twig:Card variant="outlined" class="space-y-4">
                 {% set accordionItems = [] %}
@@ -60,9 +60,9 @@
                 {% endif %}
 
                 <div class="space-y-4">
-                    <twig:Product:ProductDetailHeader
-                        :brandName="product.brandName|default(null)"
-                        :itemName="product.name|default('Product Name')"
+                    <twig:Ui:Header
+                        tag="h1"
+                        :text="((product.brandName|default('') ~ ' ' ~ product.name|default('Product Name'))|trim)"
                     />
 
                     <twig:Product:ProductPrice
@@ -83,9 +83,9 @@
                     />
 
                     <div class="space-y-3 py-4 border-y border-gray-200">
-                        <twig:Product:ProductDetailLabel label="Item #:" :value="product.productId|default(null)" showWhenEmpty="true" />
-                        <twig:Product:ProductDetailLabel label="UPC:" :value="product.upc|default(null)" />
-                        <twig:Product:ProductDetailLabel label="Model #:" :value="product.modelNumber|default(null)" />
+                        <twig:Ui:Label label="Item #:" :value="product.productId|default(null)" :showWhenEmpty="true" />
+                        <twig:Ui:Label label="UPC:" :value="product.upc|default(null)" />
+                        <twig:Ui:Label label="Model #:" :value="product.modelNumber|default(null)" />
                     </div>
 
                     <twig:Accordion :items="accordionItems" />
