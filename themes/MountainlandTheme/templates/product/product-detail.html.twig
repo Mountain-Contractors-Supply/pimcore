@@ -10,9 +10,9 @@
         <hr class="my-6 border-gray-300" />
 
         <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 items-start">
-            <twig:Gallery />
+            <twig:Ui:Image :alt="product.name|default('Product image')" />
 
-            <div class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+            <twig:Card variant="outlined" class="space-y-4">
                 {% set accordionItems = [] %}
 
                 {% if product.description %}
@@ -67,12 +67,20 @@
                         :uom="uom"
                     />
 
-                    <twig:Product:ProductActions
-                        :quantity="1"
-                        addToCartText="Add to Cart"
-                        :cartProductId="product.productId"
-                        :cartUom="uom"
-                    />
+                    <div data-controller="cart" data-cart-product-id-value="{{ product.productId }}" data-cart-uom-value="{{ uom }}">
+                        <div class="my-4 space-y-3">
+                            <div>
+                                <twig:QuantityInput :value="1" :min="1" name="quantity" data-cart-target="qtyInput" />
+                            </div>
+
+                            <div class="flex items-stretch gap-3 flex-nowrap">
+                                <twig:Product:ProductAddToCart text="Add to Cart" class="flex-1 min-w-0" />
+                                <twig:Product:ProductAddToList />
+                            </div>
+                        </div>
+
+                        <div class="hidden text-sm text-gray-600 -mt-2 mb-4" data-cart-target="inCartMessage"></div>
+                    </div>
 
                     <twig:Product:ProductAvailability
                         :productId="product.productId"
@@ -80,22 +88,9 @@
                     />
 
                     <div class="space-y-3 py-4 border-y border-gray-200">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Item #:</span>
-                            <span class="font-medium text-gray-900">{{ product.productId }}</span>
-                        </div>
-                        {% if product.modelNumber %}
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-600">Model #:</span>
-                                <span class="font-medium text-gray-900">{{ product.modelNumber }}</span>
-                            </div>
-                        {% endif %}
-                        {% if product.upc %}
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-600">UPC:</span>
-                                <span class="font-medium text-gray-900">{{ product.upc }}</span>
-                            </div>
-                        {% endif %}
+                        <twig:Ui:Label label="Item #:" :value="product.productId|default(null)" :showWhenEmpty="true" />
+                        <twig:Ui:Label label="UPC:" :value="product.upc|default(null)" />
+                        <twig:Ui:Label label="Model #:" :value="product.modelNumber|default(null)" />
                     </div>
 
                     <twig:Accordion :items="accordionItems" />
@@ -110,7 +105,7 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </twig:Card>
         </div>
     </div>
 

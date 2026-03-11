@@ -7,42 +7,57 @@
 {% endblock %}
 
 {% block content %}
-    <main>
-        <twig:PartFinder />
+    <twig:PartFinder />
 
-        <turbo-frame id="category-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth">
-            <div class="bg-white border-b border-gray-200">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <twig:Navigation:Breadcrumb />
-                </div>
+    <turbo-frame id="category-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth" style="display: block; margin-bottom: 20px;">
+        <div class="bg-white border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <twig:Navigation:Breadcrumb />
+            </div>
+        </div>
+
+        <div class="divisions-container">
+            <div class="divisions-grid" style="grid-template-rows: none;">
+                {% set items = products.pagination.items %}
+                {% set pagination = products.pagination %}
+                {% for item in items %}
+                    <twig:Card>
+                        <a href="{{ element_path(item) }}" data-turbo-frame="_top">{{ item.name }}</a>
+
+                        <twig:Product:ProductPrice
+                            :productId="item.productId"
+                            uom="ea"
+                        />
+
+                        <twig:Product:ProductAvailability
+                            :productId="item.productId"
+                            uom="ea"
+                        />
+
+                        <div data-controller="cart" data-cart-product-id-value="{{ item.productId }}" data-cart-uom-value="ea">
+                            <div class="my-4 space-y-3">
+                                <div>
+                                    <twig:QuantityInput :value="1" :min="1" name="quantity" data-cart-target="qtyInput" />
+                                </div>
+
+                                <div class="flex items-stretch gap-3 flex-nowrap">
+                                    <twig:Product:ProductAddToCart text="Add to Cart" class="flex-1 min-w-0" />
+                                    <twig:Product:ProductAddToList />
+                                </div>
+                            </div>
+
+                            <div class="hidden text-sm text-gray-600 -mt-2 mb-4" data-cart-target="inCartMessage"></div>
+                        </div>
+                    </twig:Card>
+                {% endfor %}
             </div>
 
-            <div class="divisions-container">
-                <div class="divisions-grid">
-                    {% set items = products.pagination.items %}
-                    {% set pagination = products.pagination %}
-                    {% for item in items %}
-                        <twig:Card>
-                            <a href="{{ element_path(item) }}" data-turbo-frame="_top">{{ item.name }}</a>
-
-                            <twig:Product:ProductActions
-                                :quantity="1"
-                                addToCartText="Add to Cart"
-                                :cartProductId="item.productId"
-                                cartUom="ea"
-                            />
-                        </twig:Card>
-                    {% endfor %}
-                </div>
-
-                {% if pagination %}
-                    <div class="pagination-wrapper mt-12">
-                        {{ knp_pagination_render(pagination, 'components/Navigation/Pagination.html.twig', {
-                            'limit': app.request.query.get('limit', 10)
-                        }) }}
-                    </div>
-                {% endif %}
-            </div>
-        </turbo-frame>
-    </main>
+            {% if pagination %}
+                <twig:Navigation:PaginationControls
+                    :pagination="pagination"
+                    :limit="app.request.query.get('limit', 10)"
+                />
+            {% endif %}
+        </div>
+    </turbo-frame>
 {% endblock %}
