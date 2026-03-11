@@ -24,12 +24,20 @@
                     <twig:Card>
                         <a href="{{ element_path(item) }}" data-turbo-frame="_top">{{ item.name }}</a>
 
-                        <twig:Product:ProductActions
-                            :quantity="1"
-                            addToCartText="Add to Cart"
-                            :cartProductId="item.productId"
-                            cartUom="ea"
-                        />
+                        <div data-controller="cart" data-cart-product-id-value="{{ item.productId }}" data-cart-uom-value="ea">
+                            <div class="my-4 space-y-3">
+                                <div>
+                                    <twig:QuantityInput :value="1" :min="1" name="quantity" data-cart-target="qtyInput" />
+                                </div>
+
+                                <div class="flex items-stretch gap-3 flex-nowrap">
+                                    <twig:Product:ProductAddToCart text="Add to Cart" class="flex-1 min-w-0" />
+                                    <twig:Product:ProductAddToList />
+                                </div>
+                            </div>
+
+                            <div class="hidden text-sm text-gray-600 -mt-2 mb-4" data-cart-target="inCartMessage"></div>
+                        </div>
                     </twig:Card>
                 {% endfor %}
             </div>

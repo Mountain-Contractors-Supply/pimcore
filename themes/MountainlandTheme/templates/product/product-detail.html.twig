@@ -70,12 +70,20 @@
                         :uom="uom"
                     />
 
-                    <twig:Product:ProductActions
-                        :quantity="1"
-                        addToCartText="Add to Cart"
-                        :cartProductId="product.productId"
-                        :cartUom="uom"
-                    />
+                    <div data-controller="cart" data-cart-product-id-value="{{ product.productId }}" data-cart-uom-value="{{ uom }}">
+                        <div class="my-4 space-y-3">
+                            <div>
+                                <twig:QuantityInput :value="1" :min="1" name="quantity" data-cart-target="qtyInput" />
+                            </div>
+
+                            <div class="flex items-stretch gap-3 flex-nowrap">
+                                <twig:Product:ProductAddToCart text="Add to Cart" class="flex-1 min-w-0" />
+                                <twig:Product:ProductAddToList />
+                            </div>
+                        </div>
+
+                        <div class="hidden text-sm text-gray-600 -mt-2 mb-4" data-cart-target="inCartMessage"></div>
+                    </div>
 
                     <twig:Product:ProductAvailability
                         :productId="product.productId"
