@@ -35,13 +35,7 @@
                     {% endfor %}
                 </div>
 
-                {% if pagination %}
-                    <div class="pagination-wrapper mt-12">
-                        {{ knp_pagination_render(pagination, 'components/Navigation/Pagination.html.twig', {
-                            'limit': app.request.query.get('limit', 10)
-                        }) }}
-                    </div>
-                {% endif %}
+                <twig:Navigation:PaginationControls :pagination="pagination|default(null)" />
             </div>
         </turbo-frame>
     </main>

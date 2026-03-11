@@ -10,9 +10,9 @@
         <hr class="my-6 border-gray-300" />
 
         <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 items-start">
-            <twig:Gallery />
+            <twig:Product:ProductDetailImage :alt="product.name|default('Product image')" />
 
-            <div class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+            <twig:Card variant="outlined" class="space-y-4">
                 {% set accordionItems = [] %}
 
                 {% if product.description %}
@@ -60,7 +60,10 @@
                 {% endif %}
 
                 <div class="space-y-4">
-                    <h1 class="text-2xl font-bold mcs-primary-text">{{ product.name|default('Product Name') }}</h1>
+                    <twig:Product:ProductDetailHeader
+                        :brandName="product.brandName|default(null)"
+                        :itemName="product.name|default('Product Name')"
+                    />
 
                     <twig:Product:ProductPrice
                         :productId="product.productId"
@@ -80,22 +83,9 @@
                     />
 
                     <div class="space-y-3 py-4 border-y border-gray-200">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Item #:</span>
-                            <span class="font-medium text-gray-900">{{ product.productId }}</span>
-                        </div>
-                        {% if product.modelNumber %}
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-600">Model #:</span>
-                                <span class="font-medium text-gray-900">{{ product.modelNumber }}</span>
-                            </div>
-                        {% endif %}
-                        {% if product.upc %}
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-600">UPC:</span>
-                                <span class="font-medium text-gray-900">{{ product.upc }}</span>
-                            </div>
-                        {% endif %}
+                        <twig:Product:ProductDetailLabel label="Item #:" :value="product.productId|default(null)" showWhenEmpty="true" />
+                        <twig:Product:ProductDetailLabel label="UPC:" :value="product.upc|default(null)" />
+                        <twig:Product:ProductDetailLabel label="Model #:" :value="product.modelNumber|default(null)" />
                     </div>
 
                     <twig:Accordion :items="accordionItems" />
@@ -110,7 +100,7 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </twig:Card>
         </div>
     </div>
 

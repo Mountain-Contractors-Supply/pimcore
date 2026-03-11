@@ -19,9 +19,12 @@
 
             <twig:Grid
                 :items="categories.pagination.items"
-                :pagination="categories.pagination"
                 title="Shop By Category"
             />
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <twig:Navigation:PaginationControls :pagination="categories.pagination" />
+            </div>
         </turbo-frame>
     </main>
 {% endblock %}
