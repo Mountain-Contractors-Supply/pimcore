@@ -24,6 +24,18 @@
                     <twig:Card>
                         <a href="{{ element_path(item) }}" data-turbo-frame="_top">{{ item.name }}</a>
 
+                        <twig:Product:ProductPrice
+                            :productId="item.productId"
+                            uom="ea"
+                            label="Price"
+                        />
+
+                        <twig:Product:ProductAvailability
+                            :productId="item.productId"
+                            uom="ea"
+                            label="Availability"
+                        />
+
                         <div data-controller="cart" data-cart-product-id-value="{{ item.productId }}" data-cart-uom-value="ea">
                             <div class="my-4 space-y-3">
                                 <div>
