@@ -27,13 +27,11 @@
                         <twig:Product:ProductPrice
                             :productId="item.productId"
                             uom="ea"
-                            label="Price"
                         />
 
                         <twig:Product:ProductAvailability
                             :productId="item.productId"
                             uom="ea"
-                            label="Availability"
                         />
 
                         <div data-controller="cart" data-cart-product-id-value="{{ item.productId }}" data-cart-uom-value="ea">
