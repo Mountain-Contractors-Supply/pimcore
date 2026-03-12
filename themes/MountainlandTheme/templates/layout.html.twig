@@ -37,6 +37,20 @@
     {% block head %}{% endblock %}
 </head>
 <body data-controller="price-loader availability-loader">
+    {% if app.user %}
+        <div
+            data-controller="symfony--ux-turbo--mercure-turbo-stream"
+            data-symfony--ux-turbo--mercure-turbo-stream-hub-value="{{ app.request.schemeAndHttpHost ~ '/hub/.well-known/mercure' }}"
+            data-symfony--ux-turbo--mercure-turbo-stream-topic-value="product-prices-{{ account_branch_id() }}"
+        ></div>
+
+        <div
+            data-controller="symfony--ux-turbo--mercure-turbo-stream"
+            data-symfony--ux-turbo--mercure-turbo-stream-hub-value="{{ app.request.schemeAndHttpHost ~ '/hub/.well-known/mercure' }}"
+            data-symfony--ux-turbo--mercure-turbo-stream-topic-value="product-availability-{{ account_branch_id() }}"
+        ></div>
+    {% endif %}
+
     <header id="header" data-turbo-permanent>
         {% include 'partials/_header.html.twig' %}
     </header>
