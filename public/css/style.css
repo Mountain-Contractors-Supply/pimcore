@@ -811,6 +811,24 @@ header ul li {
     max-width: 1400px;
 }
 
+.product-category-subheader {
+    margin: 0 0 1rem;
+}
+
+.product-category-subheader h2 {
+    margin: 0 0 0.45rem;
+    font-family: var(--secondary-font);
+    color: var(--primary-color);
+    font-size: 1.55rem;
+}
+
+.product-category-subheader p {
+    margin: 0;
+    color: #4b5563;
+    line-height: 1.5;
+    font-size: 0.98rem;
+}
+
 .product-listing-layout {
     display: grid;
     grid-template-columns: 320px minmax(0, 1fr);
@@ -825,6 +843,7 @@ header ul li {
 .product-listing-results .pagination-wrapper {
     /* Compensate for the fixed left filter rail so pager appears centered on the page. */
     transform: translateX(calc((-320px - 1.5rem) / 2));
+    margin-top: 1.5rem;
 }
 
 .product-sort-toolbar {
