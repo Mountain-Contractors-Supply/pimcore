@@ -40,11 +40,11 @@
                         { value: '100', label: '100' }
                     ] %}
 
-                    <div class="mb-4 flex justify-start md:justify-end">
+                    <div class="mb-4 flex flex-wrap items-center justify-start gap-4 md:justify-end">
                         <form
                             method="get"
                             action="{{ app.request.pathinfo }}"
-                            class="inline-flex flex-wrap items-end gap-3"
+                            class="inline-flex items-center gap-2"
                             data-turbo="true"
                             data-turbo-action="advance"
                             data-turbo-frame="category-frame"
@@ -52,7 +52,7 @@
                             data-action="change->filter-box#submitNow"
                         >
                             {% for key, value in currentQuery %}
-                                {% if key not in ['sort', 'limit', 'page'] %}
+                                {% if key not in ['sort', 'page'] %}
                                     {% if value is iterable %}
                                         {% for item in value %}
                                             <input type="hidden" name="{{ key }}[]" value="{{ item }}" />
@@ -69,9 +69,32 @@
                                 label="Sort By"
                                 :selectedValue="currentSort"
                                 :options="sortOptions"
-                                labelClass="text-sm font-semibold text-[var(--primary-color)]"
+                                labelClass="self-center whitespace-nowrap text-sm font-semibold text-[var(--primary-color)]"
                                 selectClass="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                             />
+                        </form>
+
+                        <form
+                            method="get"
+                            action="{{ app.request.pathinfo }}"
+                            class="inline-flex items-center gap-2"
+                            data-turbo="true"
+                            data-turbo-action="advance"
+                            data-turbo-frame="_top"
+                            data-controller="filter-box"
+                            data-action="change->filter-box#submitNow"
+                        >
+                            {% for key, value in currentQuery %}
+                                {% if key not in ['limit', 'page'] %}
+                                    {% if value is iterable %}
+                                        {% for item in value %}
+                                            <input type="hidden" name="{{ key }}[]" value="{{ item }}" />
+                                        {% endfor %}
+                                    {% else %}
+                                        <input type="hidden" name="{{ key }}" value="{{ value }}" />
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
 
                             <twig:Form:Select
                                 id="product-limit-select"
@@ -79,7 +102,7 @@
                                 label="Items per page"
                                 :selectedValue="currentLimit"
                                 :options="limitOptions"
-                                labelClass="text-sm font-semibold text-[var(--primary-color)]"
+                                labelClass="self-center whitespace-nowrap text-sm font-semibold text-[var(--primary-color)]"
                                 selectClass="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                             />
                         </form>
@@ -93,9 +116,18 @@
                         </p>
                     </section>
 
+                    {% set pagination = products.pagination %}
+                    {% if pagination %}
+                        <twig:Navigation:PaginationControls
+                            class="mb-6"
+                            align="right"
+                            :pagination="pagination"
+                            :limit="app.request.query.get('limit', 10)"
+                        />
+                    {% endif %}
+
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
                         {% set items = products.pagination.items %}
-                        {% set pagination = products.pagination %}
                         {% for item in items %}
                             <twig:Card>
                                 <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="block mb-4">
@@ -134,7 +166,8 @@
 
                     {% if pagination %}
                         <twig:Navigation:PaginationControls
-                            class="mt-6 md:-translate-x-[calc((320px+1.5rem)/2)]"
+                            class="mt-6"
+                            align="right"
                             :pagination="pagination"
                             :limit="app.request.query.get('limit', 10)"
                         />
