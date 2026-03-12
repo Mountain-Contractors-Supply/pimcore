@@ -3,7 +3,6 @@
 {% block head %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
 {% endblock %}
 
 {% block content %}
@@ -16,21 +15,36 @@
             </div>
         </div>
 
-        <div class="divisions-container product-listing-container">
-            <div class="product-listing-layout">
-                <aside class="product-filter-sidebar" aria-label="Product Filters">
+        <div class="mx-auto mt-10 w-full max-w-[1400px] px-4">
+            <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
+                <aside class="lg:sticky lg:top-6" aria-label="Product Filters">
                     <twig:Category:FilterBox actionPath="{{ app.request.pathinfo }}" turboFrame="category-frame" />
                 </aside>
 
-                <div class="product-listing-results">
+                <div class="space-y-4">
                     {% set currentSort = app.request.query.get('sort', 'relevance') %}
+                    {% set currentLimit = app.request.query.get('limit', 10) %}
                     {% set currentQuery = app.request.query.all %}
+                    {% set sortOptions = [
+                        { value: 'relevance', label: 'Relevance' },
+                        { value: 'name-asc', label: 'Name (A-Z)' },
+                        { value: 'name-desc', label: 'Name (Z-A)' },
+                        { value: 'price-asc', label: 'Price (Low to High)' },
+                        { value: 'price-desc', label: 'Price (High to Low)' },
+                        { value: 'newest', label: 'Newest' }
+                    ] %}
+                    {% set limitOptions = [
+                        { value: '10', label: '10' },
+                        { value: '20', label: '20' },
+                        { value: '50', label: '50' },
+                        { value: '100', label: '100' }
+                    ] %}
 
-                    <div class="product-sort-toolbar">
+                    <div class="mb-4 flex justify-start md:justify-end">
                         <form
                             method="get"
                             action="{{ app.request.pathinfo }}"
-                            class="product-sort-form"
+                            class="inline-flex flex-wrap items-end gap-3"
                             data-turbo="true"
                             data-turbo-action="advance"
                             data-turbo-frame="category-frame"
@@ -38,7 +52,7 @@
                             data-action="change->filter-box#submitNow"
                         >
                             {% for key, value in currentQuery %}
-                                {% if key not in ['sort', 'page'] %}
+                                {% if key not in ['sort', 'limit', 'page'] %}
                                     {% if value is iterable %}
                                         {% for item in value %}
                                             <input type="hidden" name="{{ key }}[]" value="{{ item }}" />
@@ -49,31 +63,45 @@
                                 {% endif %}
                             {% endfor %}
 
-                            <label for="product-sort-select">Sort By</label>
-                            <select id="product-sort-select" name="sort">
-                                <option value="relevance" {% if currentSort == 'relevance' %}selected{% endif %}>Relevance</option>
-                                <option value="name-asc" {% if currentSort == 'name-asc' %}selected{% endif %}>Name (A-Z)</option>
-                                <option value="name-desc" {% if currentSort == 'name-desc' %}selected{% endif %}>Name (Z-A)</option>
-                                <option value="price-asc" {% if currentSort == 'price-asc' %}selected{% endif %}>Price (Low to High)</option>
-                                <option value="price-desc" {% if currentSort == 'price-desc' %}selected{% endif %}>Price (High to Low)</option>
-                                <option value="newest" {% if currentSort == 'newest' %}selected{% endif %}>Newest</option>
-                            </select>
+                            <twig:Form:Select
+                                id="product-sort-select"
+                                name="sort"
+                                label="Sort By"
+                                :selectedValue="currentSort"
+                                :options="sortOptions"
+                                labelClass="text-sm font-semibold text-[var(--primary-color)]"
+                                selectClass="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                            />
+
+                            <twig:Form:Select
+                                id="product-limit-select"
+                                name="limit"
+                                label="Items per page"
+                                :selectedValue="currentLimit"
+                                :options="limitOptions"
+                                labelClass="text-sm font-semibold text-[var(--primary-color)]"
+                                selectClass="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                            />
                         </form>
                     </div>
 
-                    <section class="product-category-subheader" aria-labelledby="product-category-title">
-                        <h2 id="product-category-title">Product Category</h2>
-                        <p>
+                    <section class="mb-4" aria-labelledby="product-category-title">
+                        <h2 id="product-category-title" class="mb-2 text-2xl font-semibold text-[var(--primary-color)]">Product Category</h2>
+                        <p class="text-sm leading-6 text-gray-600">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         </p>
                     </section>
 
-                    <div class="divisions-grid" style="grid-template-rows: none;">
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
                         {% set items = products.pagination.items %}
                         {% set pagination = products.pagination %}
                         {% for item in items %}
                             <twig:Card>
+                                <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="block mb-4">
+                                    <twig:Ui:Image :alt="item.name|default('Product image')" />
+                                </a>
+
                                 <a href="{{ element_path(item) }}" data-turbo-frame="_top">{{ item.name }}</a>
 
                                 <twig:Product:ProductPrice
@@ -106,6 +134,7 @@
 
                     {% if pagination %}
                         <twig:Navigation:PaginationControls
+                            class="mt-6 md:-translate-x-[calc((320px+1.5rem)/2)]"
                             :pagination="pagination"
                             :limit="app.request.query.get('limit', 10)"
                         />
