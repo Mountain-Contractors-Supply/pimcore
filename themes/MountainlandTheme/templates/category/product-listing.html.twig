@@ -9,14 +9,11 @@
     <twig:PartFinder />
 
     <turbo-frame id="category-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth" style="display: block; margin-bottom: 20px;">
-        <div class="bg-white border-b border-gray-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="bg-white">
+            <div class="mx-auto px-6 sm:px-8 lg:px-10 py-10">
                 <twig:Navigation:Breadcrumb />
-            </div>
-        </div>
 
-        <div class="mx-auto mt-10 w-full max-w-[1400px] px-4">
-            <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
+                <div class="mt-8 px-2 sm:px-4 lg:px-6 xl:px-8 grid grid-cols-1 items-start gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
                 <aside class="lg:sticky lg:top-6" aria-label="Product Filters">
                     <twig:Category:FilterBox actionPath="{{ app.request.pathinfo }}" turboFrame="category-frame" />
                 </aside>
@@ -118,15 +115,15 @@
                         />
                     {% endif %}
 
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                         {% set items = products.pagination.items %}
                         {% for item in items %}
-                            <twig:Card>
-                                <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="block mb-4">
-                                    <twig:Ui:Image :alt="item.name|default('Product image')" />
+                            <twig:Card class="p-3.5">
+                                <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="block mb-3">
+                                    <twig:Ui:Image :alt="item.name|default('Product image')" class="max-w-[190px] mx-auto" />
                                 </a>
 
-                                <a href="{{ element_path(item) }}" data-turbo-frame="_top">{{ item.name }}</a>
+                                <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="text-sm leading-5 font-medium">{{ item.name }}</a>
 
                                 <twig:Product:ProductPrice
                                     :productId="item.productId"
@@ -134,8 +131,8 @@
                                 />
 
                                 <div data-controller="cart" data-cart-product-id-value="{{ item.productId }}" data-cart-uom-value="ea">
-                                    <div class="my-4 space-y-3">
-                                        <div class="flex items-center gap-2">
+                                    <div class="my-3 space-y-2.5">
+                                        <div class="flex items-center gap-4">
                                             <twig:QuantityInput :value="1" :min="1" name="quantity" data-cart-target="qtyInput" />
 
                                             <twig:Product:ProductAvailability
@@ -165,6 +162,7 @@
                             :limit="app.request.query.get('limit', 10)"
                         />
                     {% endif %}
+                </div>
                 </div>
             </div>
         </div>
