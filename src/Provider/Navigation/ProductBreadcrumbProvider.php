@@ -7,7 +7,9 @@ namespace App\Provider\Navigation;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Navigation\Breadcrumb;
 use McSupply\EcommerceBundle\Dto\Navigation\Link;
+use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
+use McSupply\EcommerceBundle\LinkGenerator\ProductCategoryLinkGenerator;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use McSupply\EcommerceBundle\Provider\DataResolverAwareInterface;
@@ -25,6 +27,7 @@ final class ProductBreadcrumbProvider implements DataProviderInterface, ReadOper
 
     public function __construct(
         private readonly RequestStack $requestStack,
+        private readonly ProductCategoryLinkGenerator $productCategoryLinkGenerator,
     ) {}
 
     #[\Override]
@@ -42,6 +45,33 @@ final class ProductBreadcrumbProvider implements DataProviderInterface, ReadOper
         ]);
 
         $breadcrumbs->add(new Link((string)$product->getName()));
+        $categories = $product->getCategories();
+
+        if (!empty($categories)) {
+            $category = $this->dataResolver->get(ProductCategoryInterface::class, [
+                'id' => $product->getCategories()[0]->getId(),
+            ]);
+
+            $breadcrumbs->add(
+                new Link(
+                    (string)$category->getName(),
+                    $this->productCategoryLinkGenerator->generate($category)
+                )
+            );
+
+            $parent = $category->getParentCategory();
+
+            while ($parent instanceof ProductCategoryInterface) {
+                $breadcrumbs->add(
+                    new Link(
+                        (string)$parent->getName(),
+                        $this->productCategoryLinkGenerator->generate($parent)
+                    )
+                );
+
+                $parent = $parent->getParentCategory();
+            }
+        }
 
         return $breadcrumbs;
     }
