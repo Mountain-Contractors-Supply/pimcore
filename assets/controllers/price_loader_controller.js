@@ -23,30 +23,6 @@ export default class extends Controller {
         })
             .then(response => {
                 if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
             })
-            .then(data => {
-                this.updateAllInstances(data);
-            })
-            .catch(error => {
-                console.error('Error fetching prices:', error);
-            });
-    }
-
-    updateAllInstances(data) {
-        Object.entries(data).forEach(([id, price]) => {
-            if (price !== 'Loading...') {
-                const elements = document.querySelectorAll(`.price-target-${id}`);
-
-                elements.forEach(el => {
-                    this.applyPriceEffect(el, price);
-                });
-            }
-        });
-    }
-
-    applyPriceEffect(element, price) {
-        element.innerText = price;
-        element.classList.add('price-loaded');
     }
 }

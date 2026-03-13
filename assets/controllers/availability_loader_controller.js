@@ -23,30 +23,6 @@ export default class extends Controller {
         })
             .then(response => {
                 if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
             })
-            .then(data => {
-                this.updateAllInstances(data);
-            })
-            .catch(error => {
-                console.error('Error fetching availability:', error);
-            });
-    }
-
-    updateAllInstances(data) {
-        Object.entries(data).forEach(([id, availability]) => {
-            if (availability !== 'Loading...') {
-                const elements = document.querySelectorAll(`.availability-target-${id}`);
-
-                elements.forEach(el => {
-                    this.applyAvailabilityEffect(el, availability);
-                });
-            }
-        });
-    }
-
-    applyAvailabilityEffect(element, availability) {
-        element.innerText = availability;
-        element.classList.add('availability-loaded');
     }
 }
