@@ -38,17 +38,10 @@
 </head>
 <body data-controller="price-loader availability-loader">
     {% if app.user %}
-        {% set topicId = topic_id() %}
         <div
             data-controller="symfony--ux-turbo--mercure-turbo-stream"
             data-symfony--ux-turbo--mercure-turbo-stream-hub-value="{{ app.request.schemeAndHttpHost ~ '/hub/.well-known/mercure' }}"
-            data-symfony--ux-turbo--mercure-turbo-stream-topic-value="product-prices-{{ topicId }}"
-        ></div>
-
-        <div
-            data-controller="symfony--ux-turbo--mercure-turbo-stream"
-            data-symfony--ux-turbo--mercure-turbo-stream-hub-value="{{ app.request.schemeAndHttpHost ~ '/hub/.well-known/mercure' }}"
-            data-symfony--ux-turbo--mercure-turbo-stream-topic-value="product-availability-{{ topicId }}"
+            data-symfony--ux-turbo--mercure-turbo-stream-topic-value="{{ topic_id() }}"
         ></div>
     {% endif %}
 
