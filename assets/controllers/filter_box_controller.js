@@ -47,6 +47,14 @@ export default class extends Controller {
             return;
         }
 
-        this.element.submit();
+        const submitter = this.element.querySelector('button[type="submit"], input[type="submit"]');
+        if (submitter && typeof submitter.click === "function") {
+            submitter.click();
+            return;
+        }
+        const event = new Event("submit", { bubbles: true, cancelable: true });
+        if (this.element.dispatchEvent(event)) {
+            this.element.submit();
+        }
     }
 }

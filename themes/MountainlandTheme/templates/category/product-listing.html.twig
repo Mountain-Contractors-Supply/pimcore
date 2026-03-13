@@ -23,7 +23,7 @@
 
                 <div class="space-y-4">
                     {% set currentSort = app.request.query.get('sort', 'relevance') %}
-                    {% set currentLimit = app.request.query.get('limit', 10) %}
+                    {% set currentLimit = app.request.query.get('limit', '10') %}
                     {% set currentQuery = app.request.query.all %}
                     {% set sortOptions = [
                         { value: 'relevance', label: 'Relevance' },
@@ -80,7 +80,7 @@
                             class="inline-flex items-center gap-2"
                             data-turbo="true"
                             data-turbo-action="advance"
-                            data-turbo-frame="_top"
+                            data-turbo-frame="category-frame"
                             data-controller="filter-box"
                             data-action="change->filter-box#submitNow"
                         >
@@ -108,21 +108,13 @@
                         </form>
                     </div>
 
-                    <section class="mb-4" aria-labelledby="product-category-title">
-                        <h2 id="product-category-title" class="mb-2 text-2xl font-semibold text-[var(--primary-color)]">Product Category</h2>
-                        <p class="text-sm leading-6 text-gray-600">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </p>
-                    </section>
-
                     {% set pagination = products.pagination %}
                     {% if pagination %}
                         <twig:Navigation:PaginationControls
                             class="mb-6"
                             align="right"
                             :pagination="pagination"
-                            :limit="app.request.query.get('limit', 10)"
+                            :limit="app.request.query.get('limit', '10')"
                         />
                     {% endif %}
 
