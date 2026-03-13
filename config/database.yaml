@@ -5,7 +5,7 @@ doctrine:
                 host: "%env(DATABASE_HOST)%"
                 port: "%env(string:DATABASE_PORT)%"
                 user: "%env(DATABASE_USER)%"
-                password: "%env(DATABASE_PASSWORD)%"
+                password: '%env(default::file:DATABASE_PASSWORD_FILE)%'
                 dbname: "%env(DATABASE_NAME)%"
                 mapping_types:
                     enum: string
