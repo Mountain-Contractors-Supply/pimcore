@@ -57,7 +57,6 @@ mercure:
             jwt:
                 secret: '%env(MERCURE_JWT)%'
                 publish: ['*']
-                subscribe: []
 
 turbo:
     broadcast:
