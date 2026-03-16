@@ -23,7 +23,7 @@ export default class extends Controller {
 
     clickOutside(event) {
         if (this.hasMenuTarget && !this.element.contains(event.target)) {
-            this.menuTarget.classList.remove('show')
+            this.menuTarget.classList.toggle('show')
         }
     }
 }
