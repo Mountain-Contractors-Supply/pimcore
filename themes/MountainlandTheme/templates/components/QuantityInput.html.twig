@@ -3,11 +3,11 @@
 {% set resolvedStep = step|default(1) %}
 {% set resolvedName = name|default('quantity') %}
 
-<div class="inline-flex items-center gap-2" data-controller="numeric-input">
-    <button type="button" class="h-10 w-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50" data-action="click->numeric-input#decrease" aria-label="Decrease">−</button>
+<div class="inline-flex items-center overflow-hidden rounded-md border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-blue-500" data-controller="numeric-input">
+    <button type="button" class="flex h-10 w-9 items-center justify-center border-r border-gray-300 text-lg text-[var(--primary-color)] transition-colors hover:bg-gray-50" data-action="click->numeric-input#decrease" aria-label="Decrease">−</button>
     <input
         type="number"
-        class="h-10 w-10 rounded-lg border border-gray-300 px-1 text-center mcs-primary-ring focus:ring-2"
+        class="h-10 w-11 border-0 bg-transparent px-1 text-center text-sm font-medium text-gray-800 focus:outline-none focus:ring-0"
         name="{{ resolvedName }}"
         {% if id is defined %}id="{{ id }}"{% endif %}
         value="{{ resolvedValue }}"
@@ -17,5 +17,5 @@
         data-numeric-input-target="input"
         data-cart-target="qtyInput"
     />
-    <button type="button" class="h-10 w-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50" data-action="click->numeric-input#increase" aria-label="Increase">+</button>
+    <button type="button" class="flex h-10 w-9 items-center justify-center border-l border-gray-300 text-lg text-[var(--primary-color)] transition-colors hover:bg-gray-50" data-action="click->numeric-input#increase" aria-label="Increase">+</button>
 </div>
