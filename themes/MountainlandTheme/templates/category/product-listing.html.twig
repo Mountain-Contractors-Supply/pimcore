@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <twig:PartFinder />
+{#    <twig:PartFinder />#}
 
     <turbo-frame id="category-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth" style="display: block; margin-bottom: 20px;">
         <div class="bg-white">
@@ -14,157 +14,157 @@
                 <twig:Navigation:Breadcrumb />
 
                 <div class="mt-8 grid grid-cols-1 items-start gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
-                <aside class="lg:sticky lg:top-6" aria-label="Product Filters">
-                    <twig:Category:FilterBox actionPath="{{ app.request.pathinfo }}" turboFrame="category-frame" />
-                </aside>
+                    <aside class="lg:sticky lg:top-6" aria-label="Product Filters">
+                        <twig:Category:FilterBox actionPath="{{ app.request.pathinfo }}" turboFrame="category-frame" />
+                    </aside>
 
-                <div class="space-y-4">
-                    {% set currentSort = app.request.query.get('sort', 'relevance') %}
-                    {% set currentLimit = app.request.query.get('limit', '10') %}
-                    {% set currentQuery = app.request.query.all %}
-                    {% set sortOptions = [
-                        { value: 'relevance', label: 'Relevance' },
-                        { value: 'name-asc', label: 'Name (A-Z)' },
-                        { value: 'name-desc', label: 'Name (Z-A)' },
-                        { value: 'price-asc', label: 'Price (Low to High)' },
-                        { value: 'price-desc', label: 'Price (High to Low)' },
-                        { value: 'newest', label: 'Newest' }
-                    ] %}
-                    {% set limitOptions = [
-                        { value: '10', label: '10' },
-                        { value: '20', label: '20' },
-                        { value: '50', label: '50' },
-                        { value: '100', label: '100' }
-                    ] %}
+                    <div class="space-y-4">
+                        {% set currentSort = app.request.query.get('sort', 'relevance') %}
+                        {% set currentLimit = app.request.query.get('limit', '10') %}
+                        {% set currentQuery = app.request.query.all %}
+                        {% set sortOptions = [
+                            { value: 'relevance', label: 'Relevance' },
+                            { value: 'name-asc', label: 'Name (A-Z)' },
+                            { value: 'name-desc', label: 'Name (Z-A)' },
+                            { value: 'price-asc', label: 'Price (Low to High)' },
+                            { value: 'price-desc', label: 'Price (High to Low)' },
+                            { value: 'newest', label: 'Newest' }
+                        ] %}
+                        {% set limitOptions = [
+                            { value: '10', label: '10' },
+                            { value: '20', label: '20' },
+                            { value: '50', label: '50' },
+                            { value: '100', label: '100' }
+                        ] %}
 
-                    <div class="mb-4 flex flex-wrap items-center justify-start gap-4 md:justify-end">
-                        <form
-                            method="get"
-                            action="{{ app.request.pathinfo }}"
-                            class="inline-flex items-center gap-2"
-                            data-turbo="true"
-                            data-turbo-action="advance"
-                            data-turbo-frame="category-frame"
-                            data-controller="filter-box"
-                            data-action="change->filter-box#submitNow"
-                        >
-                            {% for key, value in currentQuery %}
-                                {% if key not in ['sort', 'page'] %}
-                                    {% if value is iterable %}
-                                        {% for item in value %}
-                                            <input type="hidden" name="{{ key }}[]" value="{{ item }}" />
-                                        {% endfor %}
-                                    {% else %}
-                                        <input type="hidden" name="{{ key }}" value="{{ value }}" />
+                        <div class="mb-4 flex flex-wrap items-center justify-start gap-4 md:justify-end">
+                            <form
+                                method="get"
+                                action="{{ app.request.pathinfo }}"
+                                class="inline-flex items-center gap-2"
+                                data-turbo="true"
+                                data-turbo-action="advance"
+                                data-turbo-frame="category-frame"
+                                data-controller="filter-box"
+                                data-action="change->filter-box#submitNow"
+                            >
+                                {% for key, value in currentQuery %}
+                                    {% if key not in ['sort', 'page'] %}
+                                        {% if value is iterable %}
+                                            {% for item in value %}
+                                                <input type="hidden" name="{{ key }}[]" value="{{ item }}" />
+                                            {% endfor %}
+                                        {% else %}
+                                            <input type="hidden" name="{{ key }}" value="{{ value }}" />
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-                            {% endfor %}
+                                {% endfor %}
 
-                            <twig:Form:Select
-                                id="product-sort-select"
-                                name="sort"
-                                label="Sort By"
-                                :selectedValue="currentSort"
-                                :options="sortOptions"
-                                labelClass="self-center whitespace-nowrap text-sm font-semibold text-[var(--primary-color)]"
-                                selectClass="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                            />
-                        </form>
-
-                        <form
-                            method="get"
-                            action="{{ app.request.pathinfo }}"
-                            class="inline-flex items-center gap-2"
-                            data-turbo="true"
-                            data-turbo-action="advance"
-                            data-turbo-frame="category-frame"
-                            data-controller="filter-box"
-                            data-action="change->filter-box#submitNow"
-                        >
-                            {% for key, value in currentQuery %}
-                                {% if key not in ['limit', 'page'] %}
-                                    {% if value is iterable %}
-                                        {% for item in value %}
-                                            <input type="hidden" name="{{ key }}[]" value="{{ item }}" />
-                                        {% endfor %}
-                                    {% else %}
-                                        <input type="hidden" name="{{ key }}" value="{{ value }}" />
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-
-                            <twig:Form:Select
-                                id="product-limit-select"
-                                name="limit"
-                                label="Items per page"
-                                :selectedValue="currentLimit"
-                                :options="limitOptions"
-                                labelClass="self-center whitespace-nowrap text-sm font-semibold text-[var(--primary-color)]"
-                                selectClass="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                            />
-                        </form>
-                    </div>
-
-                    {% set pagination = products.pagination %}
-                    {% if pagination %}
-                        <twig:Navigation:PaginationControls
-                            class="mb-6"
-                            align="right"
-                            :pagination="pagination"
-                            :limit="app.request.query.get('limit', '10')"
-                        />
-                    {% endif %}
-
-                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
-                        {% set items = products.pagination.items %}
-                        {% for item in items %}
-                            <twig:Card class="h-full p-3.5 flex flex-col">
-                                <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="block mb-3">
-                                    <twig:Ui:Image :alt="item.name|default('Product image')" class="w-full max-w-xs mx-auto" />
-                                </a>
-
-                                <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="min-h-10 overflow-hidden text-sm font-medium leading-5 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" title="{{ item.name }}">{{ item.name }}</a>
-
-                                <twig:Product:ProductPrice
-                                    :productId="item.productId"
-                                    uom="ea"
+                                <twig:Form:Select
+                                    id="product-sort-select"
+                                    name="sort"
+                                    label="Sort By"
+                                    :selectedValue="currentSort"
+                                    :options="sortOptions"
+                                    labelClass="self-center whitespace-nowrap text-sm font-semibold text-[var(--primary-color)]"
+                                    selectClass="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                 />
+                            </form>
 
-                                <div class="mt-auto" data-controller="cart" data-cart-product-id-value="{{ item.productId }}" data-cart-uom-value="ea">
-                                    <div class="my-3 space-y-2.5">
-                                        <div class="flex items-center gap-2">
-                                            <twig:QuantityInput :value="1" :min="1" name="quantity" data-cart-target="qtyInput" />
+                            <form
+                                method="get"
+                                action="{{ app.request.pathinfo }}"
+                                class="inline-flex items-center gap-2"
+                                data-turbo="true"
+                                data-turbo-action="advance"
+                                data-turbo-frame="category-frame"
+                                data-controller="filter-box"
+                                data-action="change->filter-box#submitNow"
+                            >
+                                {% for key, value in currentQuery %}
+                                    {% if key not in ['limit', 'page'] %}
+                                        {% if value is iterable %}
+                                            {% for item in value %}
+                                                <input type="hidden" name="{{ key }}[]" value="{{ item }}" />
+                                            {% endfor %}
+                                        {% else %}
+                                            <input type="hidden" name="{{ key }}" value="{{ value }}" />
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
 
-                                            <div class="min-w-0 text-xs leading-4">
-                                                <twig:Product:ProductAvailability
-                                                    :productId="item.productId"
-                                                    uom="ea"
-                                                    :inline="true"
-                                                />
+                                <twig:Form:Select
+                                    id="product-limit-select"
+                                    name="limit"
+                                    label="Items per page"
+                                    :selectedValue="currentLimit"
+                                    :options="limitOptions"
+                                    labelClass="self-center whitespace-nowrap text-sm font-semibold text-[var(--primary-color)]"
+                                    selectClass="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                                />
+                            </form>
+                        </div>
+
+                        {% set pagination = products.pagination %}
+                        {% if pagination %}
+                            <twig:Navigation:PaginationControls
+                                class="mb-6"
+                                align="right"
+                                :pagination="pagination"
+                                :limit="app.request.query.get('limit', '10')"
+                            />
+                        {% endif %}
+
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
+                            {% set items = products.pagination.items %}
+                            {% for item in items %}
+                                <twig:Card class="h-full p-3.5 flex flex-col">
+                                    <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="block mb-3">
+                                        <twig:Ui:Image :alt="item.name|default('Product image')" class="w-full max-w-xs mx-auto" />
+                                    </a>
+
+                                    <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="min-h-10 overflow-hidden text-sm font-medium leading-5 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" title="{{ item.name }}">{{ item.name }}</a>
+
+                                    <twig:Product:ProductPrice
+                                        :productId="item.productId"
+                                        uom="ea"
+                                    />
+
+                                    <div class="mt-auto" data-controller="cart" data-cart-product-id-value="{{ item.productId }}" data-cart-uom-value="ea">
+                                        <div class="my-3 space-y-2.5">
+                                            <div class="flex items-center gap-2">
+                                                <twig:QuantityInput :value="1" :min="1" name="quantity" data-cart-target="qtyInput" />
+
+                                                <div class="min-w-0 text-xs leading-4">
+                                                    <twig:Product:ProductAvailability
+                                                        :productId="item.productId"
+                                                        uom="ea"
+                                                        :inline="true"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-stretch gap-3 flex-nowrap">
+                                                <twig:Product:ProductAddToCart text="Add to Cart" class="flex-1 min-w-0" />
+                                                <twig:Product:ProductAddToList />
                                             </div>
                                         </div>
 
-                                        <div class="flex items-stretch gap-3 flex-nowrap">
-                                            <twig:Product:ProductAddToCart text="Add to Cart" class="flex-1 min-w-0" />
-                                            <twig:Product:ProductAddToList />
-                                        </div>
+                                        <div class="hidden text-sm text-gray-600 -mt-2 mb-4" data-cart-target="inCartMessage"></div>
                                     </div>
+                                </twig:Card>
+                            {% endfor %}
+                        </div>
 
-                                    <div class="hidden text-sm text-gray-600 -mt-2 mb-4" data-cart-target="inCartMessage"></div>
-                                </div>
-                            </twig:Card>
-                        {% endfor %}
+                        {% if pagination %}
+                            <twig:Navigation:PaginationControls
+                                class="mt-6"
+                                align="right"
+                                :pagination="pagination"
+                                :limit="app.request.query.get('limit', 10)"
+                            />
+                        {% endif %}
                     </div>
-
-                    {% if pagination %}
-                        <twig:Navigation:PaginationControls
-                            class="mt-6"
-                            align="right"
-                            :pagination="pagination"
-                            :limit="app.request.query.get('limit', 10)"
-                        />
-                    {% endif %}
-                </div>
                 </div>
             </div>
         </div>
