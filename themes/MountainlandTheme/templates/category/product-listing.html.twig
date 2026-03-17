@@ -3,33 +3,6 @@
 {% block head %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-        <style>
-            input[type="number"]::-webkit-inner-spin-button,
-            input[type="number"]::-webkit-outer-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
-            input[type="number"] {
-                -moz-appearance: textfield;
-            }
-
-            .inline-flex[data-controller="numeric-input"] button {
-                border-left: none !important;
-                border-right: none !important;
-            }
-            .inline-flex[data-controller="numeric-input"] button:first-child {
-                border-right: none !important;
-            }
-            .inline-flex[data-controller="numeric-input"] button:last-child {
-                border-left: none !important;
-            }
-            .inline-flex[data-controller="numeric-input"] {
-                border-radius: 0.375rem;
-            }
-            .inline-flex[data-controller="numeric-input"] input[type="number"] {
-                border: none !important;
-            }
-        </style>
 {% endblock %}
 
 {% block content %}
