@@ -3,6 +3,16 @@
 {% block head %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+        <style>
+            input[type="number"]::-webkit-inner-spin-button,
+            input[type="number"]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
+        </style>
 {% endblock %}
 
 {% block content %}
