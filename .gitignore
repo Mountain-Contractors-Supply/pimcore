@@ -66,3 +66,5 @@ supervisord.log
 /var/config/needs-install.lock
 
 /assets/vendor/
+
+.DS_Store
