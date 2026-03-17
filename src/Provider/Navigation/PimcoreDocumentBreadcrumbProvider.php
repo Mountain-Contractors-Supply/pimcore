@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * @implements ReadOperationInterface<Breadcrumb>
  */
 #[DataProvider(Breadcrumb::class, 10)]
-final readonly class DocumentBreadcrumbProvider implements DataProviderInterface, ReadOperationInterface
+final readonly class PimcoreDocumentBreadcrumbProvider implements DataProviderInterface, ReadOperationInterface
 {
     public function __construct(
         private RequestStack $requestStack,
