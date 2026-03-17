@@ -67,4 +67,4 @@ supervisord.log
 
 /assets/vendor/
 
-/.DS_Store
+.DS_Store
