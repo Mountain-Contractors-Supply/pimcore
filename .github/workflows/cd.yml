@@ -30,18 +30,18 @@ jobs:
       # SLACK_WORKFLOW_STATUS_WEBHOOK_URL: ${{ secrets.SLACK_CHANNEL_WEBHOOK_URL }}
       BUILD_TIME_SECRETS: >
         {
-            "pimcore-product-key": ${{ secrets.PIMCORE_PRODUCT_KEY }},
-            "pimcore-instance-identifier": ${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }},
-            "pimcore-encryption-secret": ${{ secrets.PIMCORE_ENCRYPTION_SECRET }},
-            "mercure-jwt": ${{ secrets.MERCURE_JWT }}
+            "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
+            "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
+            "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}",
+            "mercure-jwt": "${{ secrets.MERCURE_JWT }}"
         }
       RUN_TIME_SECRETS: >
         {
           "database-password": "${{ secrets.DATABASE_PASSWORD }}",
           "pimcore-admin-password": "${{ secrets.PIMCORE_ADMIN_PASSWORD }}",
           "kernel-secret": "${{ secrets.KERNEL_SECRET }}",
-          "pimcore-product-key": ${{ secrets.PIMCORE_PRODUCT_KEY }},
-          "pimcore-instance-identifier": ${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }},
-          "pimcore-encryption-secret": ${{ secrets.PIMCORE_ENCRYPTION_SECRET }},
-          "mercure-jwt": ${{ secrets.MERCURE_JWT }}
+          "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
+          "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
+          "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}",
+          "mercure-jwt": "${{ secrets.MERCURE_JWT }}"
         }
