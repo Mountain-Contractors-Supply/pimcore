@@ -727,8 +727,6 @@ turbo-frame[busy] {
     position: relative;
     display: inline-block;
     isolation: isolate;
-
-    /* helps avoid header/flex jitter */
     flex: 0 0 auto;
     min-inline-size: 2em;
     min-block-size: 1em;
