@@ -17,7 +17,7 @@ jobs:
       ENVIRONMENT: dev
       # RUNNER: ${{ github.ref_name }}
       RUNNER: dev
-      CONTAINER_REGISTRY: "ghcr.io/Mountain-Contractors-Supply/pimcore"
+      CONTAINER_REGISTRY: "ghcr.io/mountain-contractors-supply/pimcore"
       # DOCKER_COMPOSE_FILE: "docker-compose.${{ github.ref_name }}.yaml"
       DOCKER_COMPOSE_FILE: "docker-compose.dev.yaml"
       # ENV_FILE: ".env.${{ github.ref_name }}"
