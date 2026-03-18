@@ -23,6 +23,20 @@ RUN --mount=type=secret,id=kernel-secret,uid=1000 \
     --mount=type=secret,id=pimcore-instance-identifier,env=PIMCORE_INSTANCE_IDENTIFIER,uid=1000 \
     --mount=type=secret,id=pimcore-encryption-secret,env=PIMCORE_ENCRYPTION_SECRET,uid=1000 \
         set -eux; \
+        export APP_ENV=prod; \
+        export APP_DEBUG=0; \
+        export PIMCORE_ENVIRONMENT=prod; \
+        # Dummy env var values to satisfy the Symfony commands below
+        export DATABASE_HOST=''; \
+        export DATABASE_PORT=0; \
+        export DATABASE_NAME=''; \
+        export DATABASE_USER=''; \
+        export DATABASE_SERVER_VERSION='0.0.0'; \
+        export REDIS_DB="0"; \
+        export REDIS_SESSION_DB="0"; \
+        export REDIS_HOST='redis://redis'; \
+        export OPENSEARCH_HOST='http://localhost'; \
+        export DEFAULT_DOMAIN_NAME='localhost'; \
         cd /var/www/html; \
         runuser -u www-data -- php /usr/local/bin/composer install; \
         runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \

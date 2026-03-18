@@ -7,17 +7,6 @@ parameters:
     env(MERCURE_JWT_FILE): '/run/secrets/mercure-jwt'
     env(DATABASE_PASSWORD_FILE): '/run/secrets/database-password'
 
-    # These are default values for connecting to the database/Redis cache that the Docker build sometimes requires to be set.
-    # Once the app is actually running, they will be replaced with actual values.
-    env(DATABASE_HOST): ''
-    env(DATABASE_PORT): 0
-    env(DATABASE_NAME): ''
-    env(DATABASE_USER): ''
-    env(DATABASE_SERVER_VERSION): '0.0.0'
-    env(REDIS_DB): "0"
-    env(REDIS_SESSION_DB): "0"
-    env(REDIS_HOST): 'redis://redis'
-
     # customize the full path to external executables
     # normally they are auto-detected by `which program` or auto-discovered in the configured path in
     # System Settings -> General -> Additional $PATH variable
