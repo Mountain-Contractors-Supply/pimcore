@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   CD:
-    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/deploy-to-vm-docker-compose.yml@improvement/cd-to-vm-checkout-docker-dir
+    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/deploy-to-vm-docker-compose.yml@improvement/cd-to-vm-improvements
     with:
       # ENVIRONMENT: ${{ github.ref_name }}
       ENVIRONMENT: dev
@@ -25,8 +25,13 @@ jobs:
       # IMAGES_TAG: "${{ github.ref_name }}"
       IMAGES_TAG: "dev"
       NON_PIMCORE_SERVICES: "redis mercure opensearch"
+      GITHUB_APP_CHECKOUT: true
+      GITHUB_APP_CHECKOUT_REPOSITORIES: pimcore,ecommerce-bundle
+      SUBMODULES: true
     secrets:
       CALLER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_APP_ID: ${{ secrets.GH_APP_ID }}
+      GITHUB_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
       # SLACK_WORKFLOW_STATUS_WEBHOOK_URL: ${{ secrets.SLACK_CHANNEL_WEBHOOK_URL }}
       BUILD_TIME_SECRETS: >
         {
