@@ -52,6 +52,8 @@ services:
         depends_on:
             db:
                 condition: service_healthy
+            opensearch:
+                condition: service_healthy
         env_file:
             - .env
         volumes:
@@ -132,6 +134,32 @@ services:
             - .:/var/www/html
             - ./.docker/supervisord/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
 
+    smtp:
+        container_name: ${APP_NAME}-smtp
+        image: rnwood/smtp4dev:v3
+        ports:
+            - ${SMTP_PORT_EXTERNAL}:80
+        volumes:
+            - smtp4dev-data:/smtp4dev
+        environment:
+            - ServerOptions__HostName=smtp4dev
+
+    opensearch:
+        container_name: ${APP_NAME}-opensearch
+        healthcheck:
+            test: curl -s http://localhost:9200 >/dev/null || exit 1
+            interval: 5s
+            timeout: 10s
+            retries: 6
+        volumes:
+            - opensearch-data:/usr/share/opensearch/data
+
+    mercure:
+        container_name: ${APP_NAME}-mercure
+        volumes:
+            - mercure-data:/data
+            - mercure-config:/config
+
     # The following two services are used for testing.
     # We restrict these services to the test profile only, so we don't spin them up with every `docker compose up`.
     # See: https://docs.docker.com/compose/profiles/
@@ -159,38 +187,12 @@ services:
             - pimcore-test-var:/var/www/html/var
             - pimcore-test-public-var:/var/www/html/public/var
 
-    smtp:
-        container_name: ${APP_NAME}-smtp
-        image: rnwood/smtp4dev:v3
-        ports:
-            - ${SMTP_PORT_EXTERNAL}:80
-        volumes:
-            - smtp4dev-data:/smtp4dev
-        environment:
-            - ServerOptions__HostName=smtp4dev
-
-    opensearch:
-        container_name: ${APP_NAME}-opensearch
-        healthcheck:
-            test: curl -s http://localhost:9200 >/dev/null || exit 1
-            interval: 5s
-            timeout: 10s
-            retries: 6
-        volumes:
-            - opensearch-data:/usr/share/opensearch/data
-
-    mercure:
-        container_name: ${APP_NAME}-mercure
-        volumes:
-            - pimcore-demo-mercure-data:/data
-            - pimcore-demo-mercure-config:/config
-
 volumes:
     pimcore-database:
     pimcore-test-database:
     pimcore-test-var:
     pimcore-test-public-var:
     smtp4dev-data:
-    pimcore-demo-mercure-config:
-    pimcore-demo-mercure-data:
+    mercure-config:
+    mercure-data:
     opensearch-data:
