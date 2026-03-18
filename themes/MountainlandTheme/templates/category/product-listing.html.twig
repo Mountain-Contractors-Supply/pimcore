@@ -144,13 +144,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="flex items-stretch gap-3 flex-nowrap">
-                                                <twig:Product:ProductAddToCart text="Add to Cart" class="flex-1 min-w-0" />
+                                            <div class="flex items-stretch gap-3 flex-nowrap relative">
+                                                <div class="relative flex-1 min-w-0">
+                                                    <twig:Product:ProductAddToCart text="Add to Cart" class="w-full" />
+                                                </div>
                                                 <twig:Product:ProductAddToList />
                                             </div>
                                         </div>
 
-                                        <div class="hidden text-sm text-gray-600 -mt-2 mb-4" data-cart-target="inCartMessage"></div>
                                     </div>
                                 </twig:Card>
                             {% endfor %}

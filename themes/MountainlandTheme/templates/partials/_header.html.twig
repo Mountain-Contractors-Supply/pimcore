@@ -332,7 +332,8 @@
 <div class="header-content">
     <div class="header-left">
         <a href="{{ path('home') }}">
-            <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="header-logo" />
+            {% set storeLogo = getStoreLogo() %}
+            <img src="{{ asset(storeLogo ?: 'images/misc/location-button.webp') }}" alt="Mountainland Logo" class="header-logo" />
         </a>
     </div>
     <div class="header-right">

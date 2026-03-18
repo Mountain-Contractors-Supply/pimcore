@@ -80,27 +80,27 @@ export default class extends Controller {
             const response = await fetch('/carts');
             if (!response.ok) {
                 this.inCartMessageTarget.classList.add('hidden');
+                this.inCartMessageTarget.textContent = '';
                 return;
             }
 
             const cart = await response.json();
-            
-            // Convert items to array if it's an object
             const itemsArray = Array.isArray(cart.items) ? cart.items : Object.values(cart.items || {});
-            
             const item = itemsArray.find(i => 
                 i.product?.productId === this.productIdValue && 
                 i.quantityOrdered?.uom === this.uomValue
             );
 
             if (item && item.quantityOrdered?.quantity > 0) {
-                this.inCartMessageTarget.textContent = `Currently in cart: ${item.quantityOrdered.quantity}`;
+                this.inCartMessageTarget.textContent = item.quantityOrdered.quantity;
                 this.inCartMessageTarget.classList.remove('hidden');
             } else {
+                this.inCartMessageTarget.textContent = '';
                 this.inCartMessageTarget.classList.add('hidden');
             }
         } catch (error) {
             console.error('Failed to update in-cart display:', error);
+            this.inCartMessageTarget.textContent = '';
             this.inCartMessageTarget.classList.add('hidden');
         }
     }
