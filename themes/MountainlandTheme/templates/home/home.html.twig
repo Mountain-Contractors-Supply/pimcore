@@ -9,17 +9,13 @@
 {% block content %}
     <div data-controller="home">
 
-        {% render '@cva/Banner.html.twig' with {
-            bannerClass: '',
-            bannerImage: asset('var/assets/images/branding/mls-darren.webp'),
-            bannerAlt: 'Mountainland Supply Banner',
-            imageClass: 'main-banner',
-            overlayClass: '',
-            contentClass: '',
-            bannerSmallText: "Together, Let's",
-            smallTextClass: 'banner-small-text',
-            bannerTitle: 'MOVE MTNS.'
-        } %}
+        <twig:Banner
+            variant="hero"
+            bannerImage="{{ asset('var/assets/images/branding/mls-darren.webp') }}"
+            bannerAlt="Mountainland Supply Banner"
+            bannerSmallText="Together, Let's"
+            bannerTitle="MOVE MTNS."
+        />
 
         <div class="family-container">
             <div class="family-section">
