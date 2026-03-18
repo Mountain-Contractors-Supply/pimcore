@@ -17,13 +17,13 @@ export default class extends Controller {
         event.stopPropagation()
 
         if (this.hasMenuTarget) {
-            this.menuTarget.classList.toggle('hidden')
+            this.menuTarget.classList.toggle('show')
         }
     }
 
     clickOutside(event) {
         if (this.hasMenuTarget && !this.element.contains(event.target)) {
-            this.menuTarget.classList.add('hidden')
+            this.menuTarget.classList.remove('show')
         }
     }
 }
