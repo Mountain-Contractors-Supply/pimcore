@@ -19,6 +19,7 @@ services:
       - pimcore-versions:/var/www/html/var/versions
       - pimcore-assets:/var/www/html/public/var/assets
       - pimcore-public-tmp:/var/www/html/public/var/tmp
+      - pimcore-installer:/var/www/html/var/installer
     networks:
       - internal_network
       - redis_network
@@ -43,7 +44,6 @@ services:
       - pimcore-versions:/var/www/html/var/versions
       - pimcore-assets:/var/www/html/public/var/assets
       - pimcore-public-tmp:/var/www/html/public/var/tmp
-      - /mnt/website_files:/mnt/website_files:ro
     networks:
       - internal_network
       - redis_network
@@ -66,7 +66,6 @@ services:
       - pimcore-versions:/var/www/html/var/versions
       - pimcore-assets:/var/www/html/public/var/assets
       - pimcore-public-tmp:/var/www/html/public/var/tmp
-      - /mnt/website_files:/mnt/website_files:ro
     networks:
       - internal_network
       - redis_network
@@ -103,7 +102,7 @@ volumes:
     external: true
   pimcore-public-tmp:
     external: true
-  website_files:
+  pimcore-installer:
     external: true
 
 networks:
