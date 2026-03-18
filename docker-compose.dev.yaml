@@ -1,0 +1,143 @@
+services:
+    redis:
+        container_name: ${APP_NAME}-redis
+
+    init:
+        env_file:
+            - .env.dev
+        volumes:
+
+    php:
+        container_name: ${APP_NAME}-php
+        build:
+            dockerfile: ./.docker/Dockerfile
+            target: php
+            secrets:
+                - kernel-secret
+                - pimcore-product-key
+                - pimcore-instance-identifier
+                - pimcore-encryption-secret
+                - mercure-jwt
+        env_file:
+            - .env
+        depends_on:
+            init:
+                condition: service_completed_successfully
+        ports:
+            - "${WEB_PORT_EXTERNAL}:80"
+        volumes:
+            - .:/var/www/html
+            - ./.docker/php-debug/nginx-debug.conf:/etc/nginx/sites-available/default:ro
+            - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
+
+    php-debug:
+        container_name: ${APP_NAME}-php-debug
+        build:
+            dockerfile: ./.docker/Dockerfile
+            target: php-debug
+            secrets:
+                - kernel-secret
+                - pimcore-product-key
+                - pimcore-instance-identifier
+                - pimcore-encryption-secret
+                - mercure-jwt
+        environment:
+            - XDEBUG_CONFIG=remote_enable=1
+            - PHP_IDE_CONFIG=serverName=localhost
+        env_file:
+            - .env
+        secrets:
+            - kernel-secret
+            - pimcore-product-key
+            - pimcore-instance-identifier
+            - pimcore-encryption-secret
+            - database-password
+            - mercure-jwt
+        depends_on:
+            init:
+                condition: service_completed_successfully
+        volumes:
+            - .:/var/www/html
+
+    supervisord:
+        container_name: ${APP_NAME}-supervisord
+        build:
+            dockerfile: ./.docker/Dockerfile
+            target: supervisord
+            secrets:
+                - kernel-secret
+                - pimcore-product-key
+                - pimcore-instance-identifier
+                - pimcore-encryption-secret
+                - mercure-jwt
+        depends_on:
+            init:
+                condition: service_completed_successfully
+        env_file:
+            - .env
+        volumes:
+            - .:/var/www/html
+            - ./.docker/supervisord/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
+
+    smtp:
+        container_name: ${APP_NAME}-smtp
+        image: rnwood/smtp4dev:v3
+        ports:
+            - ${SMTP_PORT_EXTERNAL}:80
+        volumes:
+            - smtp4dev-data:/smtp4dev
+        environment:
+            - ServerOptions__HostName=smtp4dev
+
+    opensearch:
+        container_name: ${APP_NAME}-opensearch
+        healthcheck:
+            test: curl -s http://localhost:9200 >/dev/null || exit 1
+            interval: 5s
+            timeout: 10s
+            retries: 6
+        volumes:
+            - opensearch-data:/usr/share/opensearch/data
+
+    mercure:
+        container_name: ${APP_NAME}-mercure
+        volumes:
+            - mercure-data:/data
+            - mercure-config:/config
+
+    # The following two services are used for testing.
+    # We restrict these services to the test profile only, so we don't spin them up with every `docker compose up`.
+    # See: https://docs.docker.com/compose/profiles/
+    test-db:
+        profiles: ["test"]
+        extends:
+            service: db
+        volumes:
+            - pimcore-test-database:/var/lib/mysql
+
+    test-php:
+        profiles: ["test"]
+        extends:
+            service: php
+        environment:
+            APP_ENV: test
+            PIMCORE_TEST_DB_DSN: ${PIMCORE_TEST_DB_DSN:-mysql://pimcore:pimcore@test-db/pimcore}
+            PIMCORE_INSTALL_ADMIN_USERNAME: pimcore
+            PIMCORE_INSTALL_ADMIN_PASSWORD: pimcore
+            PIMCORE_INSTALL_MYSQL_HOST_SOCKET: test-db
+        depends_on:
+            test-db:
+                condition: service_healthy
+        volumes:
+            - pimcore-test-var:/var/www/html/var
+            - pimcore-test-public-var:/var/www/html/public/var
+
+volumes:
+    pimcore-database:
+    pimcore-test-database:
+    pimcore-test-var:
+    pimcore-test-public-var:
+    smtp4dev-data:
+    mercure-config:
+    mercure-data:
+    opensearch-data:

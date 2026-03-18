@@ -37,6 +37,8 @@ RUN --mount=type=secret,id=kernel-secret,uid=1000 \
         export REDIS_HOST='redis://redis'; \
         export OPENSEARCH_HOST='http://localhost'; \
         export DEFAULT_DOMAIN_NAME='localhost'; \
+        export MERCURE_URL_CLIENT='http://localhost/'; \
+        export MERCURE_URL_SERVER='http://localhost/'; \
         cd /var/www/html; \
         runuser -u www-data -- php /usr/local/bin/composer install; \
         runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \

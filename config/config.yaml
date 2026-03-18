@@ -16,8 +16,8 @@ pimcore_generic_data_index:
 pimcore_studio_backend:
     mercure_settings:
         jwt_key: '%env(file:MERCURE_JWT_FILE)%'
-        hub_url_client: 'http://localhost/hub'
-        hub_url_server: 'http://mercure/.well-known/mercure'
+        hub_url_client: '%env(MERCURE_URL_CLIENT)%'
+        hub_url_server: '%env(MERCURE_URL_SERVER)%'
 
 pimcore_data_hub:
     config_location:
@@ -50,8 +50,8 @@ ux_map:
 mercure:
     hubs:
         default:
-            url: 'http://mercure/.well-known/mercure'
-            public_url: '/hub'
+            url: '%env(MERCURE_URL_SERVER)%'
+            public_url: '%env(MERCURE_URL_CLIENT)%'
             jwt:
                 secret: '%env(file:MERCURE_JWT_FILE)%'
                 publish: ['*']
