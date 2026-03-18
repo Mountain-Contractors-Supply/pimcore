@@ -147,7 +147,8 @@
                                             <div class="flex items-stretch gap-3 flex-nowrap relative">
                                                 <div class="relative flex-1 min-w-0">
                                                     <twig:Product:ProductAddToCart text="Add to Cart" class="w-full" />
-                                                    <twig:Badge content="" colorClass="bg-amber-400" class="in-cart-badge hidden absolute -top-1.5 -right-1.5 z-20 shadow-lg ring-2 ring-white w-6 h-6 flex items-center justify-center text-xs" id="cart-badge-{{ item.productId }}" />
+                                                    {# add "hidden" class after backend #}
+                                                    <twig:Badge content="1" colorClass="bg-amber-400" class="in-cart-badge absolute -top-1.5 -right-1.5 z-20 shadow-lg ring-2 ring-white w-6 h-6 flex items-center justify-center text-xs" id="cart-badge-{{ item.productId }}" />
                                                 </div>
                                                 <twig:Product:ProductAddToList />
                                             </div>
