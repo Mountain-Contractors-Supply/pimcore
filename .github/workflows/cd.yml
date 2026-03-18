@@ -1,39 +1,47 @@
 name: CD
 
 on:
-    push:
-        branches: [dev, prod]
+  push:
+    # branches: [dev, prod]
+    branches: [feature/cd-to-vm]
 
 concurrency:
-    group: cd__${{ github.ref_name }}
-    cancel-in-progress: true
+  group: cd__${{ github.ref_name }}
+  cancel-in-progress: true
 
 jobs:
-    CD:
-        uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/deploy-to-vm-docker-compose.yml@v7
-        with:
-            ENVIRONMENT: ${{ github.ref_name }}
-            RUNNER: ${{ github.ref_name }}
-            CONTAINER_REGISTRY: "ghcr.io/Mountain-Contractors-Supply/pimcore"
-            DOCKER_COMPOSE_FILE: "docker-compose.${{ github.ref_name }}.yaml"
-            ENV_FILE: ".env.${{ github.ref_name }}"
-            IMAGES_TAG: "${{ github.ref_name }}"
-            NON_PIMCORE_SERVICES: "redis mercure opensearch"
-        secrets:
-            CALLER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SLACK_WORKFLOW_STATUS_WEBHOOK_URL: ${{ secrets.SLACK_CHANNEL_WEBHOOK_URL }}
-            BUILD_TIME_SECRETS: >
-                {
-                    "pimcore-product-key": ${{ secrets.PIMCORE_PRODUCT_KEY }},
-                    "pimcore-instance-identifier": ${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }},
-                    "pimcore-encryption-secret": ${{ secrets.PIMCORE_ENCRYPTION_SECRET }},
-                    "mercure-jwt": ${{ secrets.MERCURE_JWT }}
-                }
-            RUN_TIME_SECRETS: >
-                {
-                  "pimcore-install-mysql-password": "${{ secrets.DATABASE_PASSWORD }}",
-                  "pimcore-admin-password": "${{ secrets.PIMCORE_ADMIN_PASSWORD }}",
-                  "database-password": "${{ secrets.DATABASE_PASSWORD }}",
-                  "kernel-secret": "${{ secrets.KERNEL_SECRET }}",
-                  "mercure-jwt": "${{ secrets.MERCURE_JWT }}"
-                }
+  CD:
+    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/deploy-to-vm-docker-compose.yml@improvement/cd-to-vm-checkout-docker-dir
+    with:
+      # ENVIRONMENT: ${{ github.ref_name }}
+      ENVIRONMENT: dev
+      # RUNNER: ${{ github.ref_name }}
+      RUNNER: dev
+      CONTAINER_REGISTRY: "ghcr.io/Mountain-Contractors-Supply/pimcore"
+      # DOCKER_COMPOSE_FILE: "docker-compose.${{ github.ref_name }}.yaml"
+      DOCKER_COMPOSE_FILE: "docker-compose.dev.yaml"
+      # ENV_FILE: ".env.${{ github.ref_name }}"
+      ENV_FILE: ".env.dev"
+      # IMAGES_TAG: "${{ github.ref_name }}"
+      IMAGES_TAG: "dev"
+      NON_PIMCORE_SERVICES: "redis mercure opensearch"
+    secrets:
+      CALLER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # SLACK_WORKFLOW_STATUS_WEBHOOK_URL: ${{ secrets.SLACK_CHANNEL_WEBHOOK_URL }}
+      BUILD_TIME_SECRETS: >
+        {
+            "pimcore-product-key": ${{ secrets.PIMCORE_PRODUCT_KEY }},
+            "pimcore-instance-identifier": ${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }},
+            "pimcore-encryption-secret": ${{ secrets.PIMCORE_ENCRYPTION_SECRET }},
+            "mercure-jwt": ${{ secrets.MERCURE_JWT }}
+        }
+      RUN_TIME_SECRETS: >
+        {
+          "database-password": "${{ secrets.DATABASE_PASSWORD }}",
+          "pimcore-admin-password": "${{ secrets.PIMCORE_ADMIN_PASSWORD }}",
+          "kernel-secret": "${{ secrets.KERNEL_SECRET }}",
+          "pimcore-product-key": ${{ secrets.PIMCORE_PRODUCT_KEY }},
+          "pimcore-instance-identifier": ${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }},
+          "pimcore-encryption-secret": ${{ secrets.PIMCORE_ENCRYPTION_SECRET }},
+          "mercure-jwt": ${{ secrets.MERCURE_JWT }}
+        }
