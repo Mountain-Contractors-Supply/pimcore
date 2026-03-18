@@ -38,7 +38,7 @@ jobs:
         {
             "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
             "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
-            "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}",
+            "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}"
         }
       RUN_TIME_SECRETS: >
         {
