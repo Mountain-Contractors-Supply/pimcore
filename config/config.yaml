@@ -246,10 +246,6 @@ framework:
                 adapter: cache.adapter.redis_tag_aware
                 provider: "redis://%env(REDIS_HOST)%:6379/%env(REDIS_DB)%" # Redis DNS, see: https://symfony.com/doc/current/components/cache/adapters/redis_adapter.html#configure-the-connection
 
-twig:
-    paths:
-        '%kernel.project_dir%/themes/MountainlandTheme/templates': ~
-
 #### USE SESSION HANDLER CONFIGURED IN php.ini
 #    session:
 #        handler_id: null
