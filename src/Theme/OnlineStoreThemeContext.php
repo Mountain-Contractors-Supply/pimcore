@@ -42,30 +42,9 @@ final readonly class OnlineStoreThemeContext implements ThemeContextInterface
             $onlineStore = $this->onlineStoreProvider->get(OnlineStoreInterface::class);
             $themeName = $onlineStore?->getTheme();
 
-            if ($themeName !== null) {
-                $resolvedTheme = $this->themeRepository->findOneByName($themeName);
-
-                if ($resolvedTheme !== null) {
-                    return $resolvedTheme;
-                }
-            }
-
-            return $this->resolveFallbackTheme();
+            return $themeName !== null ? $this->themeRepository->findOneByName($themeName) : null;
         } catch (\Exception) {
-            return $this->resolveFallbackTheme();
+            return $this->settableThemeContext->getTheme();
         }
-    }
-
-    private function resolveFallbackTheme(): ?ThemeInterface
-    {
-        $setTheme = $this->settableThemeContext->getTheme();
-
-        if ($setTheme !== null) {
-            return $setTheme;
-        }
-
-        $allThemes = $this->themeRepository->findAll();
-
-        return $allThemes[0] ?? null;
     }
 }
