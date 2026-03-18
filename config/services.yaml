@@ -4,7 +4,7 @@ imports:
 parameters:
     env(KERNEL_SECRET_FILE): '/run/secrets/kernel-secret'
     env(KERNEL_SECRET): '%env(file:KERNEL_SECRET_FILE)%'
-    env(APP_SECRET): '%env(KERNEL_SECRET)%'
+    env(APP_SECRET): '%env(file:KERNEL_SECRET_FILE)%'
     secret: '%env(KERNEL_SECRET)%'
 
     env(MERCURE_SECRET_FILE): '/run/secrets/mercure-jwt'
