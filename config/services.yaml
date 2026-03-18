@@ -2,11 +2,16 @@ imports:
     - { resource: 'theme/theme.yaml' }
 
 parameters:
-    kernel_secret_file_fallback: '/run/secrets/kernel-secret'
-    secret: '%env(file:default:kernel_secret_file_fallback:KERNEL_SECRET_FILE)%'
-    env(MERCURE_JWT_FILE): '/run/secrets/mercure-jwt'
-    env(MERCURE_JWT): '%env(file:MERCURE_JWT_FILE)%'
+    env(KERNEL_SECRET_FILE): '/run/secrets/kernel-secret'
+    env(KERNEL_SECRET): '%env(file:KERNEL_SECRET_FILE)%'
+    env(APP_SECRET): '%env(KERNEL_SECRET)%'
+    secret: '%env(KERNEL_SECRET)%'
+
+    env(MERCURE_SECRET_FILE): '/run/secrets/mercure-jwt'
+    env(MERCURE_JWT): '%env(file:MERCURE_SECRET_FILE)%'
+
     env(DATABASE_PASSWORD_FILE): '/run/secrets/database-password'
+    env(DATABASE_PASSWORD): '%env(file:DATABASE_PASSWORD_FILE)%'
 
     # customize the full path to external executables
     # normally they are auto-detected by `which program` or auto-discovered in the configured path in

@@ -16,8 +16,7 @@ COPY /.docker/composer-install-dependencies.sh /composer-install-dependencies.sh
 RUN /composer-install-dependencies.sh
 COPY /.docker/secrets-to-env-vars.sh /etc/profile.d/secrets-to-env-vars.sh
 COPY --chown=www-data:www-data / /var/www/html
-RUN --mount=type=secret,id=kernel-secret,uid=1000 \
-    --mount=type=secret,id=mercure-jwt,uid=1000 \
+RUN \
     # These three secrets are deliberately mounted as env vars rather than files as required by Pimcore
     --mount=type=secret,id=pimcore-product-key,env=PIMCORE_PRODUCT_KEY,uid=1000 \
     --mount=type=secret,id=pimcore-instance-identifier,env=PIMCORE_INSTANCE_IDENTIFIER,uid=1000 \
@@ -26,12 +25,14 @@ RUN --mount=type=secret,id=kernel-secret,uid=1000 \
         export APP_ENV=prod; \
         export APP_DEBUG=0; \
         export PIMCORE_ENVIRONMENT=prod; \
-        # Dummy env var values to satisfy the Symfony commands below
+        # Dummy env var values required by the Symfony commands below
+        export KERNEL_SECRET='secret'; \
         export DATABASE_HOST=''; \
         export DATABASE_PORT=0; \
         export DATABASE_NAME=''; \
         export DATABASE_USER=''; \
         export DATABASE_SERVER_VERSION='0.0.0'; \
+        export DATABASE_PASSWORD=''; \
         export REDIS_DB="0"; \
         export REDIS_SESSION_DB="0"; \
         export REDIS_HOST='redis://redis'; \
@@ -39,6 +40,7 @@ RUN --mount=type=secret,id=kernel-secret,uid=1000 \
         export DEFAULT_DOMAIN_NAME='localhost'; \
         export MERCURE_URL_CLIENT='http://localhost/'; \
         export MERCURE_URL_SERVER='http://localhost/'; \
+        export MERCURE_JWT='jwt'; \
         cd /var/www/html; \
         runuser -u www-data -- php /usr/local/bin/composer install; \
         runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \

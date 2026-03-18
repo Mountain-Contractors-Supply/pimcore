@@ -44,11 +44,9 @@ services:
       dockerfile: ./.docker/Dockerfile
       target: init
       secrets:
-        - kernel-secret
         - pimcore-product-key
         - pimcore-instance-identifier
         - pimcore-encryption-secret
-        - mercure-jwt
     depends_on:
       db:
         condition: service_healthy
@@ -68,11 +66,9 @@ services:
       dockerfile: ./.docker/Dockerfile
       target: php
       secrets:
-        - kernel-secret
         - pimcore-product-key
         - pimcore-instance-identifier
         - pimcore-encryption-secret
-        - mercure-jwt
     env_file:
       - .env
     depends_on:
@@ -91,11 +87,9 @@ services:
       dockerfile: ./.docker/Dockerfile
       target: php-debug
       secrets:
-        - kernel-secret
         - pimcore-product-key
         - pimcore-instance-identifier
         - pimcore-encryption-secret
-        - mercure-jwt
     environment:
       - XDEBUG_CONFIG=remote_enable=1
       - PHP_IDE_CONFIG=serverName=localhost
@@ -120,11 +114,9 @@ services:
       dockerfile: ./.docker/Dockerfile
       target: supervisord
       secrets:
-        - kernel-secret
         - pimcore-product-key
         - pimcore-instance-identifier
         - pimcore-encryption-secret
-        - mercure-jwt
     depends_on:
       init:
         condition: service_completed_successfully
