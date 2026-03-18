@@ -5,6 +5,7 @@ parameters:
     kernel_secret_file_fallback: '/run/secrets/kernel-secret'
     secret: '%env(file:default:kernel_secret_file_fallback:KERNEL_SECRET_FILE)%'
     env(MERCURE_JWT_FILE): '/run/secrets/mercure-jwt'
+    env(MERCURE_JWT): '%env(file:MERCURE_JWT_FILE)%'
     env(DATABASE_PASSWORD_FILE): '/run/secrets/database-password'
 
     # customize the full path to external executables
