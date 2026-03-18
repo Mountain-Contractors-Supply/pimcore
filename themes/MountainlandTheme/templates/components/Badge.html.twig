@@ -1,11 +1,3 @@
-{#
-  Badge.html.twig
-  Props:
-    - content: string or number (required)
-    - class: string (optional, for extra Tailwind classes)
-    - colorClass: string (optional, default: 'bg-amber-400')
-    - textClass: string (optional, default: 'text-white')
-#}
 <span
   class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold {{ colorClass|default('bg-amber-400') }} {{ textClass|default('text-white') }} {{ class|default('') }}"
   data-badge-target
