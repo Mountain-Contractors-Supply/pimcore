@@ -35,6 +35,13 @@
 }
 
 /*
+    TAILWIND BACKGROUND
+*/
+.mcs-tertiary-bg {
+    background-color: var(--tertiary-color) !important;
+}
+
+/*
    BASE STYLES
 */
 body {
