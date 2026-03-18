@@ -1,87 +1,87 @@
 services:
-    redis:
-        image: redis:alpine
-        command:
-            [
-                redis-server,
-                --maxmemory 128mb,
-                --maxmemory-policy volatile-lru,
-                --save "",
-            ]
+  redis:
+    image: redis:alpine
+    command:
+      [
+        redis-server,
+        --maxmemory 128mb,
+        --maxmemory-policy volatile-lru,
+        --save "",
+      ]
 
-    init:
-        secrets:
-            - kernel-secret
-            - pimcore-product-key
-            - pimcore-instance-identifier
-            - pimcore-encryption-secret
-            - pimcore-admin-password
-            - database-password
-            - mercure-jwt
+  init:
+    secrets:
+      - kernel-secret
+      - pimcore-product-key
+      - pimcore-instance-identifier
+      - pimcore-encryption-secret
+      - pimcore-admin-password
+      - database-password
+      - mercure-jwt
 
-    php:
-        secrets:
-            - kernel-secret
-            - pimcore-product-key
-            - pimcore-instance-identifier
-            - pimcore-encryption-secret
-            - database-password
-            - mercure-jwt
+  php:
+    secrets:
+      - kernel-secret
+      - pimcore-product-key
+      - pimcore-instance-identifier
+      - pimcore-encryption-secret
+      - database-password
+      - mercure-jwt
 
-    supervisord:
-        secrets:
-            - kernel-secret
-            - pimcore-product-key
-            - pimcore-instance-identifier
-            - pimcore-encryption-secret
-            - pimcore-admin-password
-            - database-password
-            - mercure-jwt
+  supervisord:
+    secrets:
+      - kernel-secret
+      - pimcore-product-key
+      - pimcore-instance-identifier
+      - pimcore-encryption-secret
+      - pimcore-admin-password
+      - database-password
+      - mercure-jwt
 
-    opensearch:
-        image: opensearchproject/opensearch:2
-        environment:
-            - node.name=${APP_NAME}-pimcore-opensearch
-            - "DISABLE_SECURITY_PLUGIN=true"
-            - discovery.type=single-node
-            - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-            - cluster.routing.allocation.disk.threshold_enabled=false
-            - indices.query.bool.max_clause_count=3000
-            - action.auto_create_index=false
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-            nofile:
-                soft: 65536
-                hard: 65536
-        cap_add:
-            - IPC_LOCK
+  opensearch:
+    image: opensearchproject/opensearch:2
+    environment:
+      - node.name=${APP_NAME}-pimcore-opensearch
+      - "DISABLE_SECURITY_PLUGIN=true"
+      - discovery.type=single-node
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - indices.query.bool.max_clause_count=3000
+      - action.auto_create_index=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
 
-    mercure:
-        image: dunglas/mercure:latest
-        environment:
-            SERVER_NAME: ":80"
-            MERCURE_EXTRA_DIRECTIVES: |-
-                anonymous
-        secrets:
-            - mercure-jwt
-        entrypoint: ["/usr/local/bin/mercure-entrypoint-wrapper.sh"]
-        volumes:
-            - ./.docker/mercure/mercure-entrypoint-wrapper.sh:/usr/local/bin/mercure-entrypoint-wrapper.sh:ro
+  mercure:
+    image: dunglas/mercure:latest
+    environment:
+      SERVER_NAME: ":80"
+      MERCURE_EXTRA_DIRECTIVES: |-
+        anonymous
+    secrets:
+      - mercure-jwt
+    entrypoint: ["/usr/local/bin/mercure-entrypoint-wrapper.sh"]
+    volumes:
+      - ./.docker/mercure/mercure-entrypoint-wrapper.sh:/usr/local/bin/mercure-entrypoint-wrapper.sh:ro
 
 secrets:
-    kernel-secret:
-        file: ./.secrets/kernel-secret
-    pimcore-product-key:
-        file: ./.secrets/pimcore-product-key
-    pimcore-instance-identifier:
-        file: ./.secrets/pimcore-instance-identifier
-    pimcore-encryption-secret:
-        file: ./.secrets/pimcore-encryption-secret
-    pimcore-admin-password:
-        file: ./.secrets/pimcore-admin-password
-    database-password:
-        file: ./.secrets/database-password
-    mercure-jwt:
-        file: ./.secrets/mercure-jwt
+  kernel-secret:
+    file: ./.secrets/kernel-secret
+  pimcore-product-key:
+    file: ./.secrets/pimcore-product-key
+  pimcore-instance-identifier:
+    file: ./.secrets/pimcore-instance-identifier
+  pimcore-encryption-secret:
+    file: ./.secrets/pimcore-encryption-secret
+  pimcore-admin-password:
+    file: ./.secrets/pimcore-admin-password
+  database-password:
+    file: ./.secrets/database-password
+  mercure-jwt:
+    file: ./.secrets/mercure-jwt
