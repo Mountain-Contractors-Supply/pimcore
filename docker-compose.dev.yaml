@@ -6,7 +6,7 @@ services:
       - redis_network
 
   init:
-    image: ghcr.io/Mountain-Contractors-Supply/pimcore/init:dev
+    image: ghcr.io/mountain-contractors-supply/pimcore/init:dev
     pull_policy: always
     env_file:
       - .env.dev
@@ -25,7 +25,7 @@ services:
       - opensearch_network
 
   php:
-    image: ghcr.io/Mountain-Contractors-Supply/pimcore/php:dev
+    image: ghcr.io/mountain-contractors-supply/pimcore/php:dev
     pull_policy: always
     restart: unless-stopped
     environment:
@@ -52,7 +52,7 @@ services:
       - mercure_network
 
   supervisord:
-    image: ghcr.io/Mountain-Contractors-Supply/pimcore/supervisord:dev
+    image: ghcr.io/mountain-contractors-supply/pimcore/supervisord:dev
     pull_policy: always
     restart: unless-stopped
     env_file:
