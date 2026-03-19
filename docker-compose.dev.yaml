@@ -32,7 +32,6 @@ services:
     environment:
       - VIRTUAL_PORT=80
       - VIRTUAL_HOST=${DOMAIN_NAME}
-      - LETSENCRYPT_HOST=${DOMAIN_NAME}
     env_file:
       - .env.dev
     volumes:
