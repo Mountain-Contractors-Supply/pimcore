@@ -465,6 +465,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     default_cookie_lifetime?: int|Param, // Default lifetime of the cookie containing the JWT, in seconds. Defaults to the value of "framework.session.cookie_lifetime". // Default: null
  *     enable_profiler?: bool|Param, // Deprecated: The child node "enable_profiler" at path "mercure.enable_profiler" is deprecated. // Enable Symfony Web Profiler integration.
  * }
+ * @psalm-type TalesFromADevTwigExtraTailwindConfig = array{
+ *     tailwind_merge?: array{
+ *         additional_configuration?: mixed, // Default: []
+ *     },
+ * }
  * @psalm-type CoreShopMenuConfig = array{
  *     autoconfigure_with_attributes?: scalar|Param|null, // Default: false
  * }
@@ -2938,6 +2943,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     pimcore_generic_data_index?: PimcoreGenericDataIndexConfig,
  *     pimcore_open_search_client?: PimcoreOpenSearchClientConfig,
  *     mercure?: MercureConfig,
+ *     tales_from_a_dev_twig_extra_tailwind?: TalesFromADevTwigExtraTailwindConfig,
  *     core_shop_menu?: CoreShopMenuConfig,
  *     core_shop_pimcore?: CoreShopPimcoreConfig,
  *     framework?: FrameworkConfig,
@@ -2986,6 +2992,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         pimcore_generic_data_index?: PimcoreGenericDataIndexConfig,
  *         pimcore_open_search_client?: PimcoreOpenSearchClientConfig,
  *         mercure?: MercureConfig,
+ *         tales_from_a_dev_twig_extra_tailwind?: TalesFromADevTwigExtraTailwindConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,
