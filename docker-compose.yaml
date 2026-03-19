@@ -9,6 +9,11 @@ services:
         --save "",
       ]
 
+  rabbitmq:
+    image: rabbitmq:alpine
+    volumes:
+      - pimcore-rabbitmq:/var/lib/rabbitmq/
+
   init:
     secrets:
       - kernel-secret
@@ -69,6 +74,9 @@ services:
     entrypoint: ["/usr/local/bin/mercure-entrypoint-wrapper.sh"]
     volumes:
       - ./.docker/mercure/mercure-entrypoint-wrapper.sh:/usr/local/bin/mercure-entrypoint-wrapper.sh:ro
+
+volumes:
+  pimcore-rabbitmq:
 
 secrets:
   kernel-secret:

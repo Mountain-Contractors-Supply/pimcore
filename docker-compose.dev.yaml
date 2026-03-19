@@ -5,6 +5,12 @@ services:
     networks:
       - redis_network
 
+  rabbitmq:
+    container_name: ${APP_NAME}-rabbitmq
+    restart: unless-stopped
+    networks:
+      - rabbitmq_network
+
   init:
     image: ghcr.io/mountain-contractors-supply/pimcore/init:dev
     pull_policy: always
@@ -23,6 +29,7 @@ services:
     networks:
       - internal_network
       - redis_network
+      - rabbitmq_network
       - opensearch_network
 
   php:
@@ -46,6 +53,7 @@ services:
     networks:
       - internal_network
       - redis_network
+      - rabbitmq_network
       - nginx_network
       - opensearch_network
       - mercure_network
@@ -68,6 +76,7 @@ services:
     networks:
       - internal_network
       - redis_network
+      - rabbitmq_network
       - opensearch_network
       - mercure_network
 
@@ -109,6 +118,8 @@ volumes:
 networks:
   internal_network:
   redis_network:
+    external: true
+  rabbitmq_network:
     external: true
   nginx_network:
     external: true

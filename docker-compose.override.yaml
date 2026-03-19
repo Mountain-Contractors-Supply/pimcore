@@ -2,6 +2,9 @@ services:
   redis:
     container_name: ${APP_NAME}-redis
 
+  rabbitmq:
+    container_name: ${APP_NAME}-rabbitmq
+
   db:
     container_name: ${APP_NAME}-db
     image: mariadb:10.11
@@ -79,7 +82,6 @@ services:
     volumes:
       - .:/var/www/html
       - ./.docker/php-debug/nginx-debug.conf:/etc/nginx/sites-available/default:ro
-      - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
 
   php-debug:
     container_name: ${APP_NAME}-php-debug
