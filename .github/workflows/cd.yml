@@ -24,7 +24,7 @@ jobs:
       ENV_FILE: ".env.dev"
       # IMAGES_TAG: "${{ github.ref_name }}"
       IMAGES_TAG: "dev"
-      NON_PIMCORE_SERVICES: "redis mercure opensearch"
+      NON_PIMCORE_SERVICES: "redis mercure opensearch rabbitmq"
       GITHUB_APP_CHECKOUT: true
       GITHUB_APP_CHECKOUT_REPOSITORIES: pimcore,ecommerce-bundle
       SUBMODULES: true
