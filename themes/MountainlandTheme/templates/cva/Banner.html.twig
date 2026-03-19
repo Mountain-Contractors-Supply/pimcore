@@ -1,28 +1,27 @@
-{% cva_component 'banner' with {
-    bannerClass: bannerClass|default(''),
-    bannerImage: bannerImage|default(null),
-    bannerAlt: bannerAlt|default('Banner'),
-    imageClass: imageClass|default(''),
-    overlayClass: overlayClass|default(''),
-    contentClass: contentClass|default(''),
-    bannerSmallText: bannerSmallText|default(null),
-    smallTextClass: smallTextClass|default(''),
-    bannerTitle: bannerTitle|default(null)
-} %}
-    <div class="{{ ['banner-container', bannerClass]|tailwind_merge }}">
-        {% if bannerImage %}
-            <img src="{{ bannerImage }}" alt="{{ bannerAlt }}" class="{{ ['main-banner', imageClass]|tailwind_merge }}"/>
-        {% endif %}
-        <div class="{{ ['banner-overlay', overlayClass]|tailwind_merge }}">
-            <div class="{{ ['banner-content', contentClass]|tailwind_merge }}">
-                {% if bannerSmallText or bannerTitle %}
-                    <h1>
-                        {% if bannerSmallText %}<span class="{{ ['banner-small-text', smallTextClass]|tailwind_merge }}">{{ bannerSmallText }}</span><br>{% endif %}
-                        {{ bannerTitle }}
-                    </h1>
-                {% endif %}
-                {% block banner_extra %}{% endblock %}
-            </div>
+{% set banner = html_cva(
+    base = 'banner-container',
+    variants = {
+        variant: {
+            hero: 'bg-primary text-white',
+            default: ''
+        }
+    },
+    defaultVariants = { variant: 'default' }
+) %}
+
+<div class="{{ banner.apply({ variant: variant|default('default') })|tailwind_merge }}">
+    {% if bannerImage is defined and bannerImage %}
+        <img src="{{ bannerImage }}" alt="{{ bannerAlt|default('Banner') }}" class="main-banner"/>
+    {% endif %}
+    <div class="banner-overlay">
+        <div class="banner-content">
+            {% if bannerSmallText is defined or bannerTitle is defined %}
+                <h1>
+                    {% if bannerSmallText is defined %}<span class="banner-small-text">{{ bannerSmallText }}</span><br>{% endif %}
+                    {{ bannerTitle|default('') }}
+                </h1>
+            {% endif %}
+            {% block banner_extra %}{% endblock %}
         </div>
     </div>
-{% endcva_component %}
+</div>
