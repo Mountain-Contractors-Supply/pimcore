@@ -17,16 +17,14 @@
             bannerTitle="MOVE MTNS."
         />
 
-        <div class="family-container">
-            <div class="family-section">
-                <h1>Part of the Family?</h1>
-                <a href="{{ path('customer-signin') }}"><h3>SIGN IN OR REQUEST ONLINE ACCESS</h3></a>
-            </div>
-            <div class="family-section">
-                <h1>Joining the Family?</h1>
-                <a href="#"><h3>GET STARTED & SIGN UP TODAY!</h3></a>
-            </div>
-        </div>
+        <twig:FamilyCTA
+            left_title="Part of the Family?"
+            left_href="{{ path('customer-signin') }}"
+            left_cta="SIGN IN OR REQUEST ONLINE ACCESS"
+            right_title="Joining the Family?"
+            right_href="#"
+            right_cta="GET STARTED & SIGN UP TODAY!"
+        />
 
         <div class="divisions-container">
             <img src="{{ asset('images/branding/divisions.webp') }}" alt="{{ productTypes|length }} DIVISIONS BUILT TO SERVE YOU"/>
