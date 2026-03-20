@@ -62,21 +62,11 @@
             </div>
         </section>
 
-        <section class="events-section">
-            <div class="events-container">
-                <img src="{{ asset('images/branding/events.webp') }}" alt="Mountainland Events" class="events-image">
-                <div class="events-content">
-                    <div class="events-box">
-                        <h2 id="events-title" data-home-target="eventsTitle">MOUNTAINLAND EVENTS</h2>
-                        <div class="events-arrow">
-                            <span class="arrow-bar" id="events-bar" data-home-target="eventsBar" aria-hidden="true"></span>
-                            <span class="arrow-head" aria-hidden="true">→</span>
-                        </div>
-                    </div>
-                    <p class="events-tagline">Because Every Project Starts ― and Ends ― with You.</p>
-                </div>
-            </div>
-        </section>
+        <twig:EventsSection
+            image="{{ asset('images/branding/events.webp') }}"
+            title="MOUNTAINLAND EVENTS"
+            tagline="Because Every Project Starts ― and Ends ― with You."
+        />
 
         <section class="expert-section">
             <div class="expert-container">
