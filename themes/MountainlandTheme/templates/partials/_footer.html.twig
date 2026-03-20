@@ -187,7 +187,6 @@
         </div>
     </div>
     <div class="footer-bottom">
-        {% set storeLogo = getStoreLogo() %}
-        <img src="{{ asset(storeLogo ?: 'images/misc/location-button.webp') }}" alt="Mountainland Supply" class="footer-logo">
+        <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Supply" class="footer-logo">
     </div>
 </footer>

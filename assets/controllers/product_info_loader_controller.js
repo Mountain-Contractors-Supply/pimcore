@@ -1,10 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ["availability"]
+    static targets = ["productInfo"];
 
-    availabilityTargetConnected() {
-        const allIds = this.availabilityTargets.map(el => el.dataset.id);
+    productInfoTargetConnected() {
+        const allIds = this.productInfoTargets.map(el => el.dataset.id);
         const uniqueIds = [...new Set(allIds)];
 
         if (uniqueIds.length === 0) return;
@@ -12,7 +12,7 @@ export default class extends Controller {
         // Debounce to avoid multiple rapid calls
         clearTimeout(this.fetchTimeout);
         this.fetchTimeout = setTimeout(() => {
-            fetch('/availability', {
+            fetch('/product-info', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
