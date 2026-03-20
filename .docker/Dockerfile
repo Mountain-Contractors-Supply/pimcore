@@ -25,7 +25,7 @@ RUN \
         export APP_ENV=prod; \
         export APP_DEBUG=0; \
         export PIMCORE_ENVIRONMENT=prod; \
-        # Dummy env var values required by the Symfony commands below
+        # Dummy env var values required by the Symfony commands below, overriden by real values at runtime
         export KERNEL_SECRET='secret'; \
         export DATABASE_HOST=''; \
         export DATABASE_PORT=0; \
