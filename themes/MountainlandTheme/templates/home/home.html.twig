@@ -32,9 +32,12 @@
             <img src="{{ asset('images/branding/divisions.webp') }}" alt="{{ productTypes|length }} DIVISIONS BUILT TO SERVE YOU"/>
             <div class="divisions-grid" data-home-target="divisionsGrid">
                 {% for productType in productTypes %}
-                    <div class="division-box{% if loop.index > 8 %} hidden{% endif %}"{% if productType.image %} style="background-image:url('{{ asset(productType.image) }}');"{% endif %}>
-                        <div class="division-box-content"><h3>{{ productType.name }}</h3><hr><p class="shop-now">Shop Now</p></div>
-                    </div>
+                    <twig:DivisionBox
+                        :name="productType.name"
+                        :image="productType.image ? asset(productType.image) : null"
+                        :index="loop.index"
+                        :visibleCount="8"
+                    />
                 {% endfor %}
             </div>
             <div class="view-toggle-container">
