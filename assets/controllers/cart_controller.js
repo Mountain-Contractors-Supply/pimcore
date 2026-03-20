@@ -58,7 +58,14 @@ export default class extends Controller {
                 params.body = new URLSearchParams({ quantity });
             }
 
-            await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, params);
+            const response = await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, params);
+
+            if (response.ok) {
+                const frame = this.element.closest('turbo-frame');
+                if (frame) {
+                    frame.reload();
+                }
+            }
         } catch (error) {
         }
     }

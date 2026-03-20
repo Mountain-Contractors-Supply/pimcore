@@ -75,12 +75,15 @@
                                 <twig:Product:ProductAvailability
                                     :productId="product.productId"
                                     :uom="uom"
-                                    :inline="true"
                                 />
                             </div>
 
                             <div class="flex items-stretch gap-3 flex-nowrap">
-                                <twig:Product:ProductAddToCart text="Add to Cart" class="flex-1 min-w-0" :badgeClass="product.productId" />
+                                <twig:Product:ProductAddToCart
+                                    :productId="product.productId"
+                                    :uom="uom"
+                                    text="Add to Cart"
+                                />
                                 <twig:Product:ProductAddToList />
                             </div>
                         </div>
