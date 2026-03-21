@@ -139,14 +139,17 @@
                                                     <twig:Product:ProductAvailability
                                                         :productId="item.productId"
                                                         uom="ea"
-                                                        :inline="true"
                                                     />
                                                 </div>
                                             </div>
 
                                             <div class="flex items-stretch gap-3 flex-nowrap relative">
                                                 <div class="relative flex-1 min-w-0">
-                                                    <twig:Product:ProductAddToCart text="Add to Cart" class="w-full" />
+                                                    <twig:Product:ProductAddToCart
+                                                        :productId="item.productId"
+                                                        uom="ea"
+                                                        text="Add to Cart"
+                                                    />
                                                 </div>
                                                 <twig:Product:ProductAddToList />
                                             </div>

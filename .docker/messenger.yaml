@@ -10,9 +10,8 @@ framework:
             scheduler_generic_data_index : 'amqp://rabbitmq:5672/%2f/scheduler_generic_data_index'
             pimcore_generic_execution_engine : 'amqp://rabbitmq:5672/%2f/pimcore_generic_execution_engine'
 
-            # OR for immediate testing, use sync to handle it right away
             sync: 'sync://'
 
         routing:
-            'McSupply\EcommerceBundle\Message\PriceUpdateMessage': pimcore_generic_execution_engine
-            'McSupply\EcommerceBundle\Message\AvailabilityUpdateMessage': pimcore_generic_execution_engine
+            'McSupply\EcommerceBundle\Message\PriceUpdateMessage': sync
+            'McSupply\EcommerceBundle\Message\AvailabilityUpdateMessage': sync

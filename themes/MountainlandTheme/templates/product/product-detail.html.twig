@@ -80,12 +80,14 @@
                             </div>
 
                             <div class="flex items-stretch gap-3 flex-nowrap">
-                                <twig:Product:ProductAddToCart text="Add to Cart" class="flex-1 min-w-0" />
+                                <twig:Product:ProductAddToCart
+                                    :productId="product.productId"
+                                    :uom="uom"
+                                    text="Add to Cart"
+                                />
                                 <twig:Product:ProductAddToList />
                             </div>
                         </div>
-
-                        <div class="hidden text-sm text-gray-600 -mt-2 mb-4" data-cart-target="inCartMessage"></div>
                     </div>
 
                     <div class="space-y-3 py-4 border-y border-gray-200">

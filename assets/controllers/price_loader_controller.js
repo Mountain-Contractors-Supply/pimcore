@@ -1,7 +1,12 @@
 import { Controller } from '@hotwired/stimulus';
+import * as Turbo from '@hotwired/turbo';
 
 export default class extends Controller {
     static targets = ["price"]
+
+    disconnect() {
+        clearTimeout(this.fetchTimeout);
+    }
 
     priceTargetConnected() {
         const allIds = this.priceTargets.map(el => el.dataset.id);
@@ -11,18 +16,23 @@ export default class extends Controller {
 
         // Debounce to avoid multiple rapid calls
         clearTimeout(this.fetchTimeout);
-        this.fetchTimeout = setTimeout(() => {
-            fetch('/price', {
+        this.fetchTimeout = setTimeout(async () => {
+            const response = await fetch('/price', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Accept': 'text/vnd.turbo-stream.html'
                 },
                 body: JSON.stringify({ productIds: uniqueIds })
-            })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                })
+            });
+
+            if (response.ok) {
+                const html = await response.text();
+
+                if (html) {
+                    Turbo.renderStreamMessage(html);
+                }
+            }
         }, 50);
     }
 }
