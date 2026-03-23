@@ -288,8 +288,6 @@
             <turbo-frame
                 id="cart-data-frame"
                 src="{{ path('cart_header_partial') }}"
-                data-controller="refresh"
-                data-action="cart-updated@window->refresh#reload branch-updated@window->refresh#reload"
                 loading="lazy">
                 <a href="{{ path('cart') }}"
                    class="bag-link"
@@ -303,8 +301,6 @@
             <turbo-frame
                 id="branch-data-frame"
                 src="{{ path('branch_data_partial') }}"
-                data-controller="refresh"
-                data-action="branch-updated@window->refresh#reload"
                 loading="lazy">
                 <a class="branch-dropdown" id="branch-dropdown" href="/locations" data-turbo-frame="_top">
                     <div class="branch-info" id="branch-info">

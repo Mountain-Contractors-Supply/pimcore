@@ -1,7 +1,4 @@
-<turbo-frame
-    id="cart-list-frame"
-    data-controller="refresh"
-    data-action="cart-updated@window->refresh#reload">
+<turbo-frame id="cart-list-frame">
     <div class="cart-grid">
         <div class="cart-items">
             {% for item in cart.items  %}
