@@ -27,103 +27,35 @@
         />
 
         <div class="divisions-container">
-            <img src="{{ asset('images/branding/divisions.webp') }}" alt="{{ productTypes|length }} DIVISIONS BUILT TO SERVE YOU"/>
+            <twig:Ui:Image :src="asset('images/branding/divisions.webp')" alt="{{ productTypes|length }} DIVISIONS BUILT TO SERVE YOU" wrapper_class="aspect-auto w-full bg-transparent shadow-none" img_class="w-full h-auto object-cover p-0" />
             <div class="divisions-grid" data-home-target="divisionsGrid">
                 {% for productType in productTypes %}
-                    <twig:DivisionBox
-                        :name="productType.name"
-                        :image="productType.image ? asset(productType.image) : null"
-                        :index="loop.index"
-                        :visibleCount="8"
-                    />
+                    <twig:Box :title="productType.name" :image="productType.image ? asset(productType.image) : null" :index="loop.index" :visibleCount="8" wrapper_class="division-box" content_class="division-box-content" />
                 {% endfor %}
             </div>
             <div class="view-toggle-container">
-                <button class="view-toggle-btn" data-home-target="viewToggleBtn" data-action="click->home#toggleDivisions">VIEW MORE ▼</button>
+                <twig:Button variant="view-more" data-home-target="viewToggleBtn" data-action="click->home#toggleDivisions">VIEW MORE ▼</twig:Button>
             </div>
         </div>
 
         <section class="locations-cta-section">
             <div class="locations-cta-container">
-                <div class="locations-info">
-                    <div class="locations-count">
-                        <div>{{ branchSummary.stateCount }} STATES,</div>
-                        <div>{{ branchSummary.branchCount }} LOCATIONS.</div>
-                    </div>
-                    <div class="work-together">LET'S WORK TOGETHER</div>
-                </div>
-                <div class="location-finder">
-                    {% set locationsDoc = pimcore_document_by_path('/locations') %}
-                    <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}" class="location-btn-link">
-                        <img src="{{ asset('images/misc/location-button.webp') }}" alt="Find Location">
-                        <p class="location-btn-text">CLICK TO FIND A LOCATION NEAR YOU</p>
-                    </a>
-                </div>
-            </div>
-        </section>
+                <section class="expert-section">
+                    <div class="expert-container max-w-6xl mx-auto px-4">
+                        <div class="expert-inner flex flex-col md:flex-row md:items-start md:space-x-8">
+                            <div class="expert-image-container md:w-1/3 mb-6 md:mb-0">
+                                <twig:Ui:Image :src="asset('images/misc/text-an-expert.webp')" alt="Text an Expert" wrapper_class="w-auto bg-transparent shadow-none" img_class="w-full h-auto object-contain p-0" />
+                            </div>
 
-        <twig:EventsSection
-            image="{{ asset('images/branding/events.webp') }}"
-            title="MOUNTAINLAND EVENTS"
-            tagline="Because Every Project Starts ― and Ends ― with You."
-        />
-
-        <section class="expert-section">
-            <div class="expert-container">
-                <div class="expert-image-container">
-                    <img src="{{ asset('images/misc/text-an-expert.webp') }}" alt="Text an Expert">
-                </div>
-                <div class="expert-boxes-grid">
-                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
-                        <div class="expert-box-content">
-                            <h3>PLUMBING</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                            <div class="md:flex-1">
+                                <div class="expert-boxes-grid md:flex-1">
+                                    {% for title in ['PLUMBING','HVAC','PUMP & DRILLING','WATERWORKS','TURF IRRIGATION','AG IRRIGATION','ESPAÑOL','ORDER NOW'] %}
+                                        <twig:Box :title="title" wrapper_class="expert-box" content_class="expert-box-content" />
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
-                        <div class="expert-box-content">
-                            <h3>HVAC</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                        </div>
-                    </div>
-                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
-                        <div class="expert-box-content">
-                            <h3>PUMP & DRILLING</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                        </div>
-                    </div>
-                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
-                        <div class="expert-box-content">
-                            <h3>WATERWORKS</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                        </div>
-                    </div>
-                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
-                        <div class="expert-box-content">
-                            <h3>TURF IRRIGATION</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                        </div>
-                    </div>
-                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
-                        <div class="expert-box-content">
-                            <h3>AG IRRIGATION</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                        </div>
-                    </div>
-                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
-                        <div class="expert-box-content">
-                            <h3>ESPAÑOL</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                        </div>
-                    </div>
-                    <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
-                        <div class="expert-box-content">
-                            <h3>ORDER NOW</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                </section>
     </div>
 {% endblock %}
