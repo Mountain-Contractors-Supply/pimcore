@@ -44,10 +44,6 @@ RUN \
         cd /var/www/html; \
         runuser -u www-data -- php /usr/local/bin/composer install; \
         runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \
-        # Build assets via Tailwind and AssetMapper
-        runuser -u www-data -- /var/www/html/bin/console tailwind:build; \
-        runuser -u www-data -- /var/www/html/bin/console importmap:install; \
-        runuser -u www-data -- /var/www/html/bin/console asset-map:compile; \
         runuser -u www-data -- /var/www/html/bin/console cache:warmup
 
 FROM base AS init
@@ -64,6 +60,11 @@ COPY /.docker/php/php.ini /usr/local/etc/php/conf.d/docker-pimcore-php.ini
 COPY /.docker/php/nginx.conf /etc/nginx/sites-available/default
 COPY /.docker/php/supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./.docker/php/start-php.sh /start-php.sh
+RUN \
+  # Build assets via Tailwind and AssetMapper
+  runuser -u www-data -- /var/www/html/bin/console tailwind:build; \
+  runuser -u www-data -- /var/www/html/bin/console importmap:install; \
+  runuser -u www-data -- /var/www/html/bin/console asset-map:compile; \
 CMD [ "/start-php.sh" ]
 
 FROM base AS supervisord
