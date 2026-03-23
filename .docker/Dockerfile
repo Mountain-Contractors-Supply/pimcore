@@ -44,6 +44,10 @@ RUN \
         cd /var/www/html; \
         runuser -u www-data -- php /usr/local/bin/composer install; \
         runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \
+        # Build assets via Tailwind and AssetMapper
+        runuser -u www-data -- /var/www/html/bin/console tailwind:build; \
+        runuser -u www-data -- /var/www/html/bin/console importmap:install; \
+        runuser -u www-data -- /var/www/html/bin/console asset-map:compile; \
         runuser -u www-data -- /var/www/html/bin/console cache:warmup
 
 FROM base AS init

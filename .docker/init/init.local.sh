@@ -14,4 +14,9 @@ then
     runuser -u www-data -- bin/console cache:clear
 fi
 
+# Install assets via Tailwind and AssetMapper (done here so local public/ folder is populated)
+runuser -u www-data -- /var/www/html/bin/console tailwind:build
+runuser -u www-data -- /var/www/html/bin/console importmap:install
+runuser -u www-data -- /var/www/html/bin/console asset-map:compile
+
 /init.sh
