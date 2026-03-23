@@ -2,14 +2,14 @@ import { Controller } from '@hotwired/stimulus';
 import * as Turbo from '@hotwired/turbo';
 
 export default class extends Controller {
-    static targets = ["availability"]
+    static targets = ["incart"]
 
     disconnect() {
         clearTimeout(this.fetchTimeout);
     }
 
-    availabilityTargetConnected() {
-        const allIds = this.availabilityTargets.map(el => el.dataset.id);
+    incartTargetConnected() {
+        const allIds = this.incartTargets.map(el => el.dataset.id);
         const uniqueIds = [...new Set(allIds)];
 
         if (uniqueIds.length === 0) return;
@@ -17,7 +17,7 @@ export default class extends Controller {
         // Debounce to avoid multiple rapid calls
         clearTimeout(this.fetchTimeout);
         this.fetchTimeout = setTimeout(async () => {
-            const response = await fetch('/availability', {
+            const response = await fetch('/cart/incart', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

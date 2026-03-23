@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import * as Turbo from "@hotwired/turbo";
 
 export default class extends Controller {
     toggleSidebar(event) {
@@ -34,13 +35,22 @@ export default class extends Controller {
         }
 
         try {
-            await fetch('/carts/ship-branch', {
+            const response = await fetch('/carts/ship-branch', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ branchId: numericBranchId }),
             });
+
+            if (response.ok) {
+                const contentType = response.headers.get('Content-Type') || '';
+
+                if (contentType.includes('text/vnd.turbo-stream.html')) {
+                    const html = await response.text();
+                    Turbo.renderStreamMessage(html);
+                }
+            }
         } catch (error) {
             alert('Unable to set main store. Please try again or contact support if the problem persists.');
         }
