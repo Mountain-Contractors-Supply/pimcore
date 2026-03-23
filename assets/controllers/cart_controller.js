@@ -1,20 +1,13 @@
 import { Controller } from "@hotwired/stimulus";
+import * as Turbo from "@hotwired/turbo";
 
 export default class extends Controller {
-    static targets = ["qtyInput", "decreaseBtn", "increaseBtn", "inCartMessage"];
+    static targets = ["qtyInput", "decreaseBtn", "increaseBtn"];
     static values = {
         productId: String,
         uom: String,
         minQuantity: { type: Number, default: 1 }
     };
-
-    connect() {
-        this.updateInCartDisplay().catch((error) => {
-            if (this.hasInCartMessageTarget) {
-                this.inCartMessageTarget.classList.add('hidden');
-            }
-        });
-    }
 
     async add() {
         const quantity = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget?.value, 10) || this.minQuantityValue);
@@ -23,8 +16,6 @@ export default class extends Controller {
         if (this.qtyInputTarget) {
             this.qtyInputTarget.value = String(this.minQuantityValue);
         }
-
-        await this.updateInCartDisplay();
     }
 
     async decrease() {
@@ -68,40 +59,17 @@ export default class extends Controller {
                 params.body = new URLSearchParams({ quantity });
             }
 
-            await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, params);
-        } catch (error) {
-        }
-    }
+            const response = await fetch(`/carts/items/${encodeURIComponent(this.productIdValue)}/${encodeURIComponent(this.uomValue)}`, params);
 
-    async updateInCartDisplay() {
-        if (!this.hasInCartMessageTarget) return;
+            if (response.ok) {
+                const contentType = response.headers.get('Content-Type') || '';
 
-        try {
-            const response = await fetch('/carts');
-            if (!response.ok) {
-                this.inCartMessageTarget.classList.add('hidden');
-                this.inCartMessageTarget.textContent = '';
-                return;
-            }
-
-            const cart = await response.json();
-            const itemsArray = Array.isArray(cart.items) ? cart.items : Object.values(cart.items || {});
-            const item = itemsArray.find(i => 
-                i.product?.productId === this.productIdValue && 
-                i.quantityOrdered?.uom === this.uomValue
-            );
-
-            if (item && item.quantityOrdered?.quantity > 0) {
-                this.inCartMessageTarget.textContent = item.quantityOrdered.quantity;
-                this.inCartMessageTarget.classList.remove('hidden');
-            } else {
-                this.inCartMessageTarget.textContent = '';
-                this.inCartMessageTarget.classList.add('hidden');
+                if (contentType.includes('text/vnd.turbo-stream.html')) {
+                    const html = await response.text();
+                    Turbo.renderStreamMessage(html);
+                }
             }
         } catch (error) {
-            console.error('Failed to update in-cart display:', error);
-            this.inCartMessageTarget.textContent = '';
-            this.inCartMessageTarget.classList.add('hidden');
         }
     }
 }
