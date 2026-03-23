@@ -2,7 +2,8 @@ name: CD
 
 on:
   push:
-    branches: [dev, prod]
+    # branches: [dev, prod]
+    branches: [feature/cd-to-vm]
 
 concurrency:
   group: cd__${{ github.ref_name }}
@@ -12,11 +13,16 @@ jobs:
   CD:
     uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/deploy-to-vm-docker-compose.yml@improvement/cd-to-vm-improvements
     with:
-      ENVIRONMENT: ${{ github.ref_name }}
+      # ENVIRONMENT: ${{ github.ref_name }}
+      ENVIRONMENT: dev
+      # RUNNER: ${{ github.ref_name }}
       RUNNER: dev
       CONTAINER_REGISTRY: "ghcr.io/mountain-contractors-supply/pimcore"
+      # DOCKER_COMPOSE_FILE: "docker-compose.${{ github.ref_name }}.yaml"
       DOCKER_COMPOSE_FILE: "docker-compose.dev.yaml"
+      # ENV_FILE: ".env.${{ github.ref_name }}"
       ENV_FILE: ".env.dev"
+      # IMAGES_TAG: ${{ github.ref_name }}
       IMAGES_TAG: "dev"
       NON_PIMCORE_SERVICES: "redis mercure opensearch rabbitmq"
       GITHUB_APP_CHECKOUT: true
