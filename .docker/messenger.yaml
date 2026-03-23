@@ -11,6 +11,7 @@ framework:
             pimcore_generic_execution_engine : 'amqp://rabbitmq:5672/%2f/pimcore_generic_execution_engine'
 
             sync: 'sync://'
+            async: 'amqp://rabbitmq:5672/%2f/async'
 
         routing:
             'McSupply\EcommerceBundle\Message\PriceUpdateMessage': sync
