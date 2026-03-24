@@ -60,7 +60,7 @@
                 {% endif %}
 
                 <div class="space-y-4">
-                    {{ type.h1(product.name|default('Product Name'), 'mcs-primary-text') }}
+                    <h1 class="text-2xl font-bold mcs-primary-text">{{ product.name|default('Product Name') }}</h1>
 
                     <twig:Product:ProductPrice
                         :productId="product.productId"
