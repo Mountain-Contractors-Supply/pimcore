@@ -12,19 +12,19 @@
             <img src="{{ asset('var/assets/images/branding/mls-darren.webp') }}" alt="Mountainland Supply Banner" class="main-banner"/>
             <div class="banner-overlay">
                 <div class="banner-content">
-                    <h1><span class="banner-small-text">Together, Let's</span><br>MOVE MTNS.</h1>
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight"><span class="banner-small-text text-sm md:text-base">Together, Let's</span><br>MOVE MTNS.</h1>
                 </div>
             </div>
         </div>
 
         <div class="family-container">
             <div class="family-section">
-                <h1>Part of the Family?</h1>
-                <a href="{{ path('customer-signin') }}"><h3>SIGN IN OR REQUEST ONLINE ACCESS</h3></a>
+                    <h2 class="text-4xl md:text-6xl font-bold leading-tight text-white">Part of the Family?</h2>
+                <a href="{{ path('customer-signin') }}"><h3 class="text-lg md:text-xl font-semibold text-white">SIGN IN OR REQUEST ONLINE ACCESS</h3></a>
             </div>
             <div class="family-section">
-                <h1>Joining the Family?</h1>
-                <a href="#"><h3>GET STARTED & SIGN UP TODAY!</h3></a>
+                    <h2 class="text-4xl md:text-6xl font-bold leading-tight text-white">Joining the Family?</h2>
+                <a href="#"><h3 class="text-lg md:text-xl font-semibold text-white">GET STARTED & SIGN UP TODAY!</h3></a>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
             <div class="divisions-grid" data-home-target="divisionsGrid">
                 {% for productType in productTypes %}
                     <div class="division-box{% if loop.index > 8 %} hidden{% endif %}"{% if productType.image %} style="background-image:url('{{ asset(productType.image) }}');"{% endif %}>
-                        <div class="division-box-content"><h3>{{ productType.name }}</h3><hr><p class="shop-now">Shop Now</p></div>
+                        <div class="division-box-content"><h3 class="text-lg md:text-xl font-semibold">{{ productType.name }}</h3><hr><p class="shop-now text-base md:text-lg">Shop Now</p></div>
                     </div>
                 {% endfor %}
             </div>
@@ -55,7 +55,7 @@
                     {% set locationsDoc = pimcore_document_by_path('/locations') %}
                     <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}" class="location-btn-link">
                         <img src="{{ asset('images/misc/location-button.webp') }}" alt="Find Location">
-                        <p class="location-btn-text">CLICK TO FIND A LOCATION NEAR YOU</p>
+                        <p class="location-btn-text text-base md:text-lg">CLICK TO FIND A LOCATION NEAR YOU</p>
                     </a>
                 </div>
             </div>
@@ -66,13 +66,13 @@
                 <img src="{{ asset('images/branding/events.webp') }}" alt="Mountainland Events" class="events-image">
                 <div class="events-content">
                     <div class="events-box">
-                        <h2 id="events-title" data-home-target="eventsTitle">MOUNTAINLAND EVENTS</h2>
+                        <h2 id="events-title" data-home-target="eventsTitle" class="text-3xl md:text-5xl font-semibold">MOUNTAINLAND EVENTS</h2>
                         <div class="events-arrow">
                             <span class="arrow-bar" id="events-bar" data-home-target="eventsBar" aria-hidden="true"></span>
                             <span class="arrow-head" aria-hidden="true">→</span>
                         </div>
                     </div>
-                    <p class="events-tagline">Because Every Project Starts ― and Ends ― with You.</p>
+                    <p class="events-tagline text-base md:text-lg">Because Every Project Starts ― and Ends ― with You.</p>
                 </div>
             </div>
         </section>
@@ -85,50 +85,50 @@
                 <div class="expert-boxes-grid">
                     <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
                         <div class="expert-box-content">
-                            <h3>PLUMBING</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                            <h3 class="text-lg md:text-xl font-semibold">PLUMBING</h3>
+                            <div class="expert-box-dropdown"><p class="text-base md:text-lg">Placeholder</p></div>
                         </div>
                     </div>
                     <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
                         <div class="expert-box-content">
-                            <h3>HVAC</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                            <h3 class="text-lg md:text-xl font-semibold">HVAC</h3>
+                            <div class="expert-box-dropdown"><p class="text-base md:text-lg">Placeholder</p></div>
                         </div>
                     </div>
                     <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
                         <div class="expert-box-content">
-                            <h3>PUMP & DRILLING</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                            <h3 class="text-lg md:text-xl font-semibold">PUMP & DRILLING</h3>
+                            <div class="expert-box-dropdown"><p class="text-base md:text-lg">Placeholder</p></div>
                         </div>
                     </div>
                     <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
                         <div class="expert-box-content">
-                            <h3>WATERWORKS</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                            <h3 class="text-lg md:text-xl font-semibold">WATERWORKS</h3>
+                            <div class="expert-box-dropdown"><p class="text-base md:text-lg">Placeholder</p></div>
                         </div>
                     </div>
                     <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
                         <div class="expert-box-content">
-                            <h3>TURF IRRIGATION</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                            <h3 class="text-lg md:text-xl font-semibold">TURF IRRIGATION</h3>
+                            <div class="expert-box-dropdown"><p class="text-base md:text-lg">Placeholder</p></div>
                         </div>
                     </div>
                     <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
                         <div class="expert-box-content">
-                            <h3>AG IRRIGATION</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                            <h3 class="text-lg md:text-xl font-semibold">AG IRRIGATION</h3>
+                            <div class="expert-box-dropdown"><p class="text-base md:text-lg">Placeholder</p></div>
                         </div>
                     </div>
                     <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
                         <div class="expert-box-content">
-                            <h3>ESPAÑOL</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                            <h3 class="text-lg md:text-xl font-semibold">ESPAÑOL</h3>
+                            <div class="expert-box-dropdown"><p class="text-base md:text-lg">Placeholder</p></div>
                         </div>
                     </div>
                     <div class="expert-box" data-home-target="expertBox" data-action="click->home#toggleExpertBox">
                         <div class="expert-box-content">
-                            <h3>ORDER NOW</h3>
-                            <div class="expert-box-dropdown"><p>Placeholder</p></div>
+                            <h3 class="text-lg md:text-xl font-semibold">ORDER NOW</h3>
+                            <div class="expert-box-dropdown"><p class="text-base md:text-lg">Placeholder</p></div>
                         </div>
                     </div>
                 </div>
