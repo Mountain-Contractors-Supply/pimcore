@@ -2,12 +2,12 @@
 
 {% block portal_content %}
             <div class="portal-header">
-                <h1>All Accounts</h1>
-                <p>View and manage all your company accounts</p>
+                {{ type.h1('All Accounts') }}
+                <p class="text-base md:text-lg leading-relaxed">View and manage all your company accounts</p>
             </div>
 
             <div class="portal-card">
-                <h2>Account List</h2>
+                <h2 class="text-3xl md:text-5xl font-semibold">Account List</h2>
                 <div class="accounts-table-wrapper">
                     <table class="accounts-table">
                         <thead>
@@ -52,7 +52,7 @@
 
             <div class="portal-card account-form-card">
                 {% set isEdit = account is defined and account.id is defined %}
-                <h2>{{ isEdit ? 'Edit Account' : 'Add Account' }}</h2>
+                <h2 class="text-3xl md:text-5xl font-semibold">{{ isEdit ? 'Edit Account' : 'Add Account' }}</h2>
                 <form class="account-form" method="post" action="{{ path('customer_accounts') }}">
                     <input type="hidden" name="mode" value="{{ isEdit ? 'edit' : 'add' }}">
                     {% if isEdit %}

@@ -2,12 +2,12 @@
 
 {% block portal_content %}
             <div class="portal-header">
-                <h1>Order History</h1>
-                <p>Search and manage your Orders</p>
+                {{ type.h1('Order History') }}
+                <p class="text-base md:text-lg leading-relaxed">Search and manage your Orders</p>
             </div>
 
             <div class="portal-card account-form-card">
-                <h2>Search Orders</h2>
+                <h2 class="text-3xl md:text-5xl font-semibold">Search Orders</h2>
                 <form class="account-form" method="get" action="{{ path('customer_bids') }}">
                     <div class="form-row">
                         <div class="form-group">
@@ -52,7 +52,7 @@
             </div>
 
             <div class="portal-card">
-                <h2>All Orders</h2>
+                <h2 class="text-3xl md:text-5xl font-semibold">All Orders</h2>
                 <div class="accounts-table-wrapper">
                     <table class="accounts-table">
                         <thead>

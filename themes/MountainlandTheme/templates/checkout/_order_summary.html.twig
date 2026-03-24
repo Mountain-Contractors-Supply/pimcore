@@ -1,7 +1,7 @@
 <turbo-frame id="order-summary-frame">
 
     <div class="card">
-        <h2>Order Summary</h2>
+        <h2 class="text-3xl md:text-5xl font-semibold">Order Summary</h2>
         <div class="summary-row">
             <span>Subtotal</span>
             <span>${{ order.subTotal|number_format(2, '.', ',') }}</span>
@@ -40,7 +40,7 @@
         {% endif %}
 
         {% if fine_print is defined %}
-            <p class="fine-print">{{ fine_print }}</p>
+            <p class="fine-print text-base md:text-sm leading-relaxed">{{ fine_print }}</p>
         {% endif %}
     </div>
 

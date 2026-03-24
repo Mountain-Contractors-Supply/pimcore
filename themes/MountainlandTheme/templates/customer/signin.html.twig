@@ -10,7 +10,7 @@
     <div class="sign-in-corner-grid">
         <div class="sign-in-card">
             <div class="sign-in-header">
-                <h1>Welcome Back</h1>
+                {{ type.h1('Welcome Back') }}
             </div>
 
             {% if error %}
@@ -73,7 +73,7 @@
 
         <div class="signup-card">
             <div class="signup-header">
-                <h1>Join Our Family</h1>
+                {{ type.h2('Join Our Family') }}
             </div>
 
             <div class="signup-form">
@@ -81,16 +81,16 @@
                     <a href="#" class="signup-option">
                         <div class="option-radio"></div>
                         <div class="option-content">
-                            <h3>I AM NEW TO MOUNTAINLAND</h3>
-                            <p>I want to join the Mountainland Family</p>
+                            <h3 class="text-xl md:text-2xl font-medium">I AM NEW TO MOUNTAINLAND</h3>
+                            <p class="text-base md:text-lg leading-relaxed">I want to join the Mountainland Family</p>
                         </div>
                     </a>
 
                     <a href="#" class="signup-option">
                         <div class="option-radio"></div>
                         <div class="option-content">
-                            <h3>I AM AN EXISTING CUSTOMER</h3>
-                            <p>I need online shopping access</p>
+                            <h3 class="text-xl md:text-2xl font-medium">I AM AN EXISTING CUSTOMER</h3>
+                            <p class="text-base md:text-lg leading-relaxed">I need online shopping access</p>
                         </div>
                     </a>
                 </div>
@@ -103,31 +103,31 @@
         <div class="benefits-card">
                 <div class="benefit-item">
                     <div class="benefit-check"><img src="{{ asset('images/misc/check.webp') }}"></div>
-                    <p>Get special pricing</p>
+                    <p class="text-base md:text-lg leading-relaxed">Get special pricing</p>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check"><img src="{{ asset('images/misc/check.webp') }}"></div>
-                    <p>Personalized shopping lists</p>
+                    <p class="text-base md:text-lg leading-relaxed">Personalized shopping lists</p>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check"><img src="{{ asset('images/misc/check.webp') }}"></div>
-                    <p>View promotions, deals, & events</p>
+                    <p class="text-base md:text-lg leading-relaxed">View promotions, deals, & events</p>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check"><img src="{{ asset('images/misc/check.webp') }}"></div>
-                    <p>Contact your salesman</p>
+                    <p class="text-base md:text-lg leading-relaxed">Contact your salesman</p>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check"><img src="{{ asset('images/misc/check.webp') }}"></div>
-                    <p>View your bids & quotes</p>
+                    <p class="text-base md:text-lg leading-relaxed">View your bids & quotes</p>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check"><img src="{{ asset('images/misc/check.webp') }}"></div>
-                    <p>View your order & product history</p>
+                    <p class="text-base md:text-lg leading-relaxed">View your order & product history</p>
                 </div>
                 <div class="benefit-item">
                     <div class="benefit-check"><img src="{{ asset('images/misc/check.webp') }}"></div>
-                    <p>And much, much more</p>
+                    <p class="text-base md:text-lg leading-relaxed">And much, much more</p>
                 </div>
         </div>
     </div>

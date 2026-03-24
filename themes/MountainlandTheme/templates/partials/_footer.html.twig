@@ -130,23 +130,23 @@
 
 <footer class="site-footer">
     <div class="footer-header">
-        <h2>We're Ready to Help</h2>
+        <h2 class="text-3xl md:text-5xl font-semibold uppercase">We're Ready to Help</h2>
     </div>
     <div class="footer-content">
         <div class="footer-column">
             {% set locationsDoc = pimcore_document_by_path('/locations') %}
             <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}" class="location-link">
                 <img src="{{ asset('images/misc/location-button.webp') }}" alt="Location">
-                <h3>Find a Store Near You</h3>
+                <h3 class="text-lg md:text-xl font-medium uppercase">Find a Store Near You</h3>
             </a>
             <div class="hours-info">
-                <h3>Hours</h3>
-                <p>Monday - Friday: 7:00 AM - 5:00 PM</p>
-                <p>Saturday - Sunday: Closed</p>
+                <h3 class="text-lg md:text-xl font-medium uppercase">Hours</h3>
+                <p class="text-sm md:text-base leading-relaxed">Monday - Friday: 7:00 AM - 5:00 PM</p>
+                <p class="text-sm md:text-base leading-relaxed">Saturday - Sunday: Closed</p>
             </div>
         </div>
         <div class="footer-column">
-            <h3>Our Business</h3>
+            <h3 class="text-lg md:text-xl font-medium uppercase">Our Business</h3>
             <ul>
                 <li><a href="#">Purpose Vision Values</a></li>
                 <li><a href="#">About Us</a></li>
@@ -161,7 +161,7 @@
             </ul>
         </div>
         <div class="footer-column">
-            <h3>Useful Links</h3>
+            <h3 class="text-lg md:text-xl font-medium uppercase">Useful Links</h3>
             <ul>
                 <li><a href="#">Events</a></li>
                 <li><a href="#">Credit Application</a></li>
@@ -172,7 +172,7 @@
             </ul>
         </div>
         <div class="footer-column">
-            <h3>Stay In Touch</h3>
+            <h3 class="text-lg md:text-xl font-medium uppercase">Stay In Touch</h3>
             <ul>
                 <li><a href="#">Contact Us</a></li>
                 <li><a href="#">Subscribe for More</a></li>
