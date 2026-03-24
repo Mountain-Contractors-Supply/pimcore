@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Document\Areabrick;
 
+use McSupply\EcommerceBundle\Twig\Components\CvaAwareInterface;
 use Pimcore\Extension\Document\Areabrick\AbstractTemplateAreabrick;
 use Pimcore\Extension\Document\Areabrick\EditableDialogBoxConfiguration;
 use Pimcore\Extension\Document\Areabrick\EditableDialogBoxInterface;
@@ -18,6 +19,7 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
     {
         $config = new EditableDialogBoxConfiguration();
         $config->setWidth(600);
+        /** @var CvaAwareInterface $component */
         $component = new ($this->getComponentClassName());
         $items = [];
 
