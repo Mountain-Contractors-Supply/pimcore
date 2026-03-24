@@ -39,7 +39,7 @@
                         <p class="shop-now font-semibold text-white text-sm mt-1">Shop Now</p>
                     {% endset %}
 
-                    <twig:Box :title="productType.name" :content="divisionContent" :image="productType.image ? asset(productType.image) : null" :index="loop.index" :visibleCount="8" wrapper_class="division-box" content_class="division-box-content" />
+                    <twig:Box variant="division" :title="productType.name" :content="divisionContent" :image="productType.image ? asset(productType.image) : null" :index="loop.index" :visibleCount="8" wrapper_class="division-box" content_class="division-box-content" />
                 {% endfor %}
             </div>
             <div class="view-toggle-container">
@@ -101,7 +101,7 @@
                     <div class="expert-boxes-wrapper max-w-6xl mx-auto px-4">
                         <div class="expert-boxes-grid md:flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {% for title in ['PLUMBING','HVAC','PUMP & DRILLING','WATERWORKS','TURF IRRIGATION','AG IRRIGATION','ESPAÑOL','ORDER NOW'] %}
-                                <twig:Box :title="title" wrapper_class="expert-box" content_class="expert-box-content" />
+                                <twig:Box variant="expert" :title="title" wrapper_class="expert-box" content_class="expert-box-content" />
                             {% endfor %}
                         </div>
                     </div>
