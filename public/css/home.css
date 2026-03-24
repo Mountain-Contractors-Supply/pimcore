@@ -141,17 +141,27 @@
     letter-spacing: 0.5px;
 }
 
-/* White arrow in bottom-right of each division card */
-.division-box::after {
-    content: '→';
-    position: absolute;
-    bottom: 0.75rem;
-    right: 0.75rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #ffffff;
-    pointer-events: none;
+/* Fallback sizing & layout for box variants (ensures reasonable size before Tailwind rebuild) */
+.division-box {
+    position: relative;
+    min-height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.5rem;
+    overflow: hidden;
 }
+
+.expert-box {
+    position: relative;
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+}
+
+/* Arrow for division moved into component markup; remove pseudo-element to avoid duplication */
 
 .view-toggle-container {
     width: 100vw;
@@ -438,17 +448,7 @@
     min-width: 0;
 }
 
-.expert-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 30px 30px 0 0;
-    border-color: white transparent transparent transparent;
-}
+/* Expert triangle moved into component markup */
 
 .expert-box-content {
     text-align: center;
@@ -466,14 +466,7 @@
     margin: 0;
 }
 
-.expert-box::after {
-    content: '▼';
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    font-size: 1.2rem;
-    color: white;
-}
+/* Expert arrow moved into component markup */
 
 .expert-box:hover {
     background-color: #808080;
