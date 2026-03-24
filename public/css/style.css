@@ -542,9 +542,9 @@ label {
 
 /* Mobile and Tablet devices (1024px and below) */
 @media (max-width: 1024px) {
-    body {
-        font-size: 14px;
-    }
+    /*body {*/
+    /*    font-size: 14px;*/
+    /*}*/
 
     main.page-wrapper {
         margin-top: 180px !important;
@@ -616,9 +616,9 @@ label {
 
 /* Mobile devices (768px and below) */
 @media (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
+    /*body {*/
+    /*    font-size: 14px;*/
+    /*}*/
 
     main.page-wrapper {
         margin-top: 180px !important;
