@@ -6,8 +6,8 @@ module.exports = {
     "./assets/**/*.js",
     "./themes/**/templates/**/*.html.twig",
     "./templates/**/*.html.twig",
-    "./bundles/ecommerce-bundle/templates/**/*.html.twig",
     "./vendor/mcsupply/ecommerce-bundle/templates/**/*.html.twig",
+    "./vendor/mcsupply/ecommerce-bundle/src/Twig/Components/**/*.php",
   ],
   darkMode: 'media',
   theme: {

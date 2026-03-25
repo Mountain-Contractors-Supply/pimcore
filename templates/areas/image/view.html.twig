@@ -1,3 +1,11 @@
-<twig:Ui:Image
+{% set imageEditable = pimcore_image('image') %}
+{% set imageAsset = imageEditable.getImage() %}
 
+{% if editmode %}
+    {{ imageEditable|raw }}
+{% elseif imageAsset %}
+    <twig:Ui:Image
+        :src="imageAsset.fullPath"
+        :alt="imageEditable.alt ?: imageAsset.filename"
     />
+{% endif %}

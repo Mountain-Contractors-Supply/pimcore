@@ -1,4 +1,4 @@
-<twig:Layout:TwoColumn bgColor="{{ pimcore_select('bgColor').getData() }}">
+<twig:Layout:TwoColumn :variantValues="variantValues">
     {{ pimcore_area('column1', {
         'type': 'box'
     }) }}
