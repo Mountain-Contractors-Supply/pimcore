@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [dev, prod]
+    branches: [dev, prod, feature/cd-to-vm]
 
 concurrency:
   group: cd__${{ github.ref_name }}
