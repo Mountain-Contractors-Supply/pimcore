@@ -12,6 +12,8 @@
  * - imageRef [image]
  * - categoryId [input]
  * - products [reverseObjectRelation]
+ * - AttributeSet [select]
+ * - HighlightedSpecifications [multiselect]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -21,9 +23,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'General Information',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1772033521,
+   'modificationDate' => 1774537341,
    'userOwner' => 2,
-   'userModification' => 2,
+   'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProductCategory',
    'implementsInterfaces' => '',
    'listingParentClass' => '',
@@ -290,6 +292,92 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'ownerClassId' => 'product',
                  'ownerFieldName' => 'categories',
                  'lazyLoading' => true,
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Attributes',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Attributes',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'AttributeSet',
+                 'title' => 'Attribute Set',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => '',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'enforceValidation' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => 500,
+                 'optionsProviderType' => 'class',
+                 'optionsProviderClass' => 'App\\OptionProvider\\TaxonomyAttributeProvider',
+                 'optionsProviderData' => '',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                 'name' => 'HighlightedSpecifications',
+                 'title' => 'Highlighted Specifications',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxItems' => NULL,
+                 'renderType' => 'tags',
+                 'enforceValidation' => false,
+                 'dynamicOptions' => true,
+                 'defaultValue' => NULL,
+                 'height' => '',
+                 'width' => 500,
+                 'defaultValueGenerator' => '',
+                 'optionsProviderType' => 'class',
+                 'optionsProviderClass' => 'App\\OptionProvider\\HighlightedAttributesProvider',
+                 'optionsProviderData' => '',
               )),
             ),
              'locked' => false,
