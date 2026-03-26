@@ -15,6 +15,9 @@
  * - status [select]
  * - upc [input]
  * - categoriesRef [manyToManyObjectRelation]
+ * - Images [fieldcollections]
+ * - InternalDocuments [manyToManyRelation]
+ * - ExternalDocuments [fieldcollections]
  * - widthRef [quantityValue]
  * - heightRef [quantityValue]
  * - lengthRef [quantityValue]
@@ -28,9 +31,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1772032540,
+   'modificationDate' => 1773764028,
    'userOwner' => 2,
-   'userModification' => 2,
+   'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
    'implementsInterfaces' => '',
    'listingParentClass' => '',
@@ -808,10 +811,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                 'name' => 'Media',
+                 'name' => 'Images',
                  'type' => NULL,
                  'region' => NULL,
-                 'title' => 'Media',
+                 'title' => 'Images',
                  'width' => '',
                  'height' => '',
                  'collapsible' => false,
@@ -820,6 +823,37 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'datatype' => 'layout',
                  'children' => 
                 array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                     'name' => 'Images',
+                     'title' => 'Images',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'allowedTypes' => 
+                    array (
+                      0 => 'Images',
+                    ),
+                     'lazyLoading' => true,
+                     'maxItems' => NULL,
+                     'disallowAddRemove' => false,
+                     'disallowReorder' => false,
+                     'collapsed' => false,
+                     'collapsible' => false,
+                     'border' => false,
+                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -833,6 +867,132 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                 'name' => 'Documents',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => 'Documents',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                     'name' => 'InternalDocuments',
+                     'title' => 'Internal Documents',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => true,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'classes' => 
+                    array (
+                      0 => 
+                      array (
+                        'classes' => '',
+                      ),
+                    ),
+                     'displayMode' => NULL,
+                     'pathFormatterClass' => '',
+                     'maxItems' => NULL,
+                     'assetInlineDownloadAllowed' => false,
+                     'assetUploadPath' => '',
+                     'allowToClearRelation' => true,
+                     'objectsAllowed' => false,
+                     'assetsAllowed' => true,
+                     'assetTypes' => 
+                    array (
+                      0 => 
+                      array (
+                        'assetTypes' => 'unknown',
+                      ),
+                      1 => 
+                      array (
+                        'assetTypes' => 'archive',
+                      ),
+                      2 => 
+                      array (
+                        'assetTypes' => 'audio',
+                      ),
+                      3 => 
+                      array (
+                        'assetTypes' => 'document',
+                      ),
+                      4 => 
+                      array (
+                        'assetTypes' => 'text',
+                      ),
+                    ),
+                     'documentsAllowed' => false,
+                     'documentTypes' => 
+                    array (
+                      0 => 
+                      array (
+                        'documentTypes' => '',
+                      ),
+                    ),
+                     'enableTextSelection' => false,
+                     'width' => '',
+                     'height' => '',
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                     'name' => 'ExternalDocuments',
+                     'title' => 'External Documents',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'allowedTypes' => 
+                    array (
+                      0 => 'Documents',
+                    ),
+                     'lazyLoading' => true,
+                     'maxItems' => NULL,
+                     'disallowAddRemove' => false,
+                     'disallowReorder' => false,
+                     'collapsed' => false,
+                     'collapsible' => false,
+                     'border' => false,
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'panel',
+                 'layout' => NULL,
+                 'border' => false,
+                 'icon' => '',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+              )),
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Specs',
                  'type' => NULL,
