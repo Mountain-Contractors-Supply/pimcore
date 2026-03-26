@@ -6,21 +6,21 @@ namespace App\Document\Areabrick;
 
 use Pimcore\Extension\Document\Areabrick\Attribute\AsAreabrick;
 
-#[AsAreabrick(id: 'box')]
-final class Box extends AbstractConfigurableAreabrick
+#[AsAreabrick(id: 'header')]
+final class Header extends AbstractConfigurableAreabrick
 {
     public function getName(): string
     {
-        return 'Box';
+        return 'Header';
     }
 
     public function getDescription(): string
     {
-        return 'Box';
+        return 'Header';
     }
 
     public function getComponentClassName(): string
     {
-        return \McSupply\EcommerceBundle\Twig\Components\Layout\Box::class;
+        return \McSupply\EcommerceBundle\Twig\Components\Ui\Header::class;
     }
 }

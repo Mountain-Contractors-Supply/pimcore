@@ -23,9 +23,10 @@
    VARIABLES & RESET
 */
 :root {
-    --primary-color: #11175e;
-    --secondary-color: #cccccc;
-    --tertiary-color: #90202f;
+    --primary-color: #fff;
+    --secondary-color: #11175e;
+    --accent1: #cccccc;
+    --accent2: #90202f;
     --primary-font: "Gotham Book", Arial, sans-serif;
     --secondary-font: "Gotham Medium", Arial, sans-serif;
 }

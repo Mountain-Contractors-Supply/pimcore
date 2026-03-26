@@ -1,11 +1,19 @@
-{% set imageEditable = pimcore_image('image') %}
-{% set imageAsset = imageEditable.getImage() %}
+{% extends 'link-wrapper.html.twig' %}
 
-{% if editmode %}
-    {{ imageEditable|raw }}
-{% elseif imageAsset %}
+{% block component %}
+    {% set imageEditable = pimcore_image('image') %}
+    {% set imageAsset = imageEditable.getImage() %}
+
+    {% if editmode %}
+        {{ imageEditable|raw }}
+    {% elseif imageAsset %}
+
     <twig:Ui:Image
         :src="imageAsset.fullPath"
         :alt="imageEditable.alt ?: imageAsset.filename"
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
     />
-{% endif %}
+
+    {% endif %}
+{% endblock %}

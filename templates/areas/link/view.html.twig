@@ -1,0 +1,16 @@
+{% set linkEditable = pimcore_link('link') %}
+{% set linkData = linkEditable.getValue() %}
+
+{% if editmode %}
+    {{ linkEditable|raw }}
+{% elseif linkData %}
+
+    <twig:Navigation:Link
+        href="{{ linkData.path }}"
+        title="{{ linkData.title }}"
+        target="{{ linkData.target }}"
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
+    >{{ linkData.text }}</twig:Navigation:Link>
+
+{% endif %}

@@ -57,7 +57,15 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
             $items[] = $item;
         }
 
-        $config->setItems($items);
+        $items[] = (new Editable\Input())
+            ->setName('additionalClasses')
+            ->setLabel('Additional Classes');
+
+        $items[] = (new Editable\Link())
+            ->setName('links')
+            ->setLabel('Link');
+
+        $config->setItems([$items]);
         $config->setReloadOnClose(true);
 
         return $config;
@@ -79,7 +87,15 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
             }
         }
 
+        /** @var Editable\Link $link */
+        $link = $info->getDocumentElement('links');
+
+        if (!$link->isEmpty()) {
+            $info->setParam('links', $link->getValue());
+        }
+
         $info->setParam('variantValues', $variantValues);
+        $info->setParam('additionalClasses', $info->getDocumentElement('additionalClasses'));
 
         return null;
     }
