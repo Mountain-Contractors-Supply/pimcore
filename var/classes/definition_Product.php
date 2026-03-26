@@ -15,6 +15,7 @@
  * - status [select]
  * - upc [input]
  * - categoriesRef [manyToManyObjectRelation]
+ * - Attributes [classificationstore]
  * - Images [fieldcollections]
  * - InternalDocuments [manyToManyRelation]
  * - ExternalDocuments [fieldcollections]
@@ -31,7 +32,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1773764028,
+   'modificationDate' => 1774538568,
    'userOwner' => 2,
    'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -797,6 +798,47 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'datatype' => 'layout',
                  'children' => 
                 array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Classificationstore::__set_state(array(
+                     'name' => 'Attributes',
+                     'title' => 'Attributes',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'children' => 
+                    array (
+                    ),
+                     'labelWidth' => 0,
+                     'localized' => false,
+                     'storeId' => 2,
+                     'hideEmptyData' => false,
+                     'disallowAddRemove' => false,
+                     'referencedFields' => 
+                    array (
+                    ),
+                     'fieldDefinitionsCache' => NULL,
+                     'allowedGroupIds' => 
+                    array (
+                    ),
+                     'activeGroupDefinitions' => 
+                    array (
+                    ),
+                     'maxItems' => NULL,
+                     'height' => NULL,
+                     'width' => NULL,
+                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -901,10 +943,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'classes' => 
                     array (
-                      0 => 
-                      array (
-                        'classes' => '',
-                      ),
                     ),
                      'displayMode' => NULL,
                      'pathFormatterClass' => '',
@@ -940,10 +978,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'documentsAllowed' => false,
                      'documentTypes' => 
                     array (
-                      0 => 
-                      array (
-                        'documentTypes' => '',
-                      ),
                     ),
                      'enableTextSelection' => false,
                      'width' => '',

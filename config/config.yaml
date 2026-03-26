@@ -60,6 +60,10 @@ turbo:
     broadcast:
         enabled: true
 
+doctrine_migrations:
+    migrations_paths:
+        App\Migration: "%kernel.project_dir%/src/Migration"
+
      # config_location:
      #    image_thumbnails:
      #        write_target:
@@ -230,7 +234,7 @@ framework:
 #    WHEN RUNNING PIMCORE AND OTHER APPLICATIONS ON SAME DOMAIN, SET SESSION COOKIE NAME TO PROVIDE COLLISION
 #    session:
 #        name: "PIMCORE_SESSION_ID"
-        
+
 #### DEFINE LOCATION OF MANIFEST WHEN WORKING WITH SYMFONY ENCORE
 #    assets:
 #        json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
@@ -263,4 +267,3 @@ framework:
 #     return:
 #         name: ''
 #         email: ''
-
