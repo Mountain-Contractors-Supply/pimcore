@@ -11,28 +11,41 @@ use Pimcore\Extension\Document\Areabrick\EditableDialogBoxInterface;
 use Pimcore\Model\Document;
 use Pimcore\Model\Document\Editable;
 use Pimcore\Model\Document\Editable\Area\Info;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick implements EditableDialogBoxInterface
 {
+    private readonly CvaAwareInterface $component;
+
+    public function __construct()
+    {
+        $class = $this->getComponentClassName();
+
+        // Ensure the runtime class actually implements the required interface
+        if (!is_a($class, CvaAwareInterface::class, true)) {
+            throw new \RuntimeException(sprintf(
+                'Component class "%s" must implement %s',
+                $class,
+                CvaAwareInterface::class
+            ));
+        }
+
+        $this->component = new $class();
+
+    }
+
     #[\Override]
     public function getEditableDialogBoxConfiguration(Document\Editable $area, ?Info $info): EditableDialogBoxConfiguration
     {
         $config = new EditableDialogBoxConfiguration();
         $config->setWidth(600);
-        /** @var CvaAwareInterface $component */
-        $component = new ($this->getComponentClassName());
         $items = [];
 
-        foreach ($component->getVariants() as $name => $variant) {
+        foreach ($this->component->getVariants() as $name => $variant) {
             $item = new Editable\Select();
             $item->setName($name);
             $item->setLabel(ucfirst($name));
-            $c = [];
-            $defaultValue = $component->$name;
-
-            if ($defaultValue !== null) {
-                $c['defaultValue'] = $defaultValue;
-            }
+            $c = ['defaultValue' => $this->component->getDefaultVariantValue($name)];
 
             foreach ($variant as $variantName => $variantValue) {
                 $c['store'][] = [
@@ -44,16 +57,67 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
             $items[] = $item;
         }
 
-        $config->setItems([$items]);
+        $config->setItems([
+            'type' => 'tabpanel',
+            'items' => [
+                [
+                    'type' => 'panel',
+                    'title' => 'Variants',
+                    'items' => $items,
+                ],
+                [
+                    'type' => 'panel',
+                    'title' => 'Link',
+                    'items' => [
+                        (new Editable\Link())
+                            ->setName('links')
+                            ->setLabel('Link'),
+                    ],
+                ],
+                [
+                    'type' => 'panel',
+                    'title' => 'Advanced',
+                    'items' => [
+                        (new Editable\Input())
+                            ->setName('additionalClasses')
+                            ->setLabel('Additional Classes'),
+                    ]
+                ]
+            ],
+        ]);
+
         $config->setReloadOnClose(true);
 
         return $config;
     }
 
+    /**
+     * @throws \Exception
+     */
     #[\Override]
-    public function needsReload(): bool
+    public function action(Info $info): ?Response
     {
-        return false;
+        $variantValues = [];
+
+        foreach ($this->component->getVariants() as $name => $variant) {
+            $data = $info->getDocumentElement($name);
+
+            if ($data !== null) {
+                $variantValues[$name] = $data->getData();
+            }
+        }
+
+        /** @var Editable\Link $link */
+        $link = $info->getDocumentElement('links');
+
+        if (!$link->isEmpty()) {
+            $info->setParam('links', $link->getValue());
+        }
+
+        $info->setParam('variantValues', $variantValues);
+        $info->setParam('additionalClasses', $info->getDocumentElement('additionalClasses'));
+
+        return null;
     }
 
     abstract public function getComponentClassName(): string;

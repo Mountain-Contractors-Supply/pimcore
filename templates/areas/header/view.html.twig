@@ -1,0 +1,11 @@
+{% extends 'link-wrapper.html.twig' %}
+
+{% block component %}
+<twig:Ui:Header
+    :variantValues="variantValues"
+    :additionalClasses="additionalClasses"
+    :tag="variantValues.tag"
+>
+    {{ pimcore_input('header') }}
+</twig:Ui:Header>
+{% endblock %}
