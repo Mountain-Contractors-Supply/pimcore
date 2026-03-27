@@ -1991,21 +1991,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     convert_exception?: bool|Param, // Default: false
  *     remove_first_page_param?: bool|Param, // Default: false
  * }
- * @psalm-type DebugConfig = array{
- *     max_items?: int|Param, // Max number of displayed items past the first level, -1 means no limit. // Default: 2500
- *     min_depth?: int|Param, // Minimum tree depth to clone all the items, 1 is default. // Default: 1
- *     max_string_length?: int|Param, // Max length of displayed strings, -1 means no limit. // Default: -1
- *     dump_destination?: scalar|Param|null, // A stream URL where dumps should be written to. // Default: null
- *     theme?: "dark"|"light"|Param, // Changes the color of the dump() output when rendered directly on the templating. "dark" (default) or "light". // Default: "dark"
- * }
- * @psalm-type WebProfilerConfig = array{
- *     toolbar?: bool|array{ // Profiler toolbar configuration
- *         enabled?: bool|Param, // Default: false
- *         ajax_replace?: bool|Param, // Replace toolbar on AJAX requests // Default: false
- *     },
- *     intercept_redirects?: bool|Param, // Default: false
- *     excluded_ajax_paths?: scalar|Param|null, // Default: "^/((index|app(_[\\w]+)?)\\.php/)?_wdt"
- * }
  * @psalm-type PimcoreAdminConfig = array{
  *     gdpr_data_extractor?: array{
  *         dataObjects?: array{ // Settings for DataObjects DataProvider
@@ -2958,8 +2943,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     fos_js_routing?: FosJsRoutingConfig,
  *     flysystem?: FlysystemConfig,
  *     knp_paginator?: KnpPaginatorConfig,
- *     debug?: DebugConfig,
- *     web_profiler?: WebProfilerConfig,
  *     pimcore_admin?: PimcoreAdminConfig,
  *     pimcore_data_hub?: PimcoreDataHubConfig,
  *     pimcore_elasticsearch_client?: PimcoreElasticsearchClientConfig,
@@ -2975,7 +2958,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     core_shop_messenger?: CoreShopMessengerConfig,
  *     knp_menu?: KnpMenuConfig,
  *     pimcore?: PimcoreConfig,
- *     "when@dev"?: array{
+ *     "when@dev_deploy"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
  *         services?: ServicesConfig,
@@ -3076,7 +3059,7 @@ namespace Symfony\Component\Routing\Loader\Configurator;
  *     deprecated?: array{package:string, version:string, message?:string},
  * }
  * @psalm-type RoutesConfig = array{
- *     "when@dev"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
+ *     "when@dev_deploy"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
  *     ...<string, RouteConfig|ImportConfig|AliasConfig>
  * }
  */
