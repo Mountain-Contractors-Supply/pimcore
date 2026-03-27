@@ -1,4 +1,7 @@
-<twig:Layout:ThreeColumn bgColor="{{ pimcore_select('bgColor').getData() }}">
+<twig:Layout:ThreeColumn
+    :variantValues="variantValues"
+    :additionalClasses="additionalClasses"
+>
     {{ pimcore_area('column1', {
         'type': 'box'
     }) }}

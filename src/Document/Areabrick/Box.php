@@ -19,11 +19,6 @@ final class Box extends AbstractConfigurableAreabrick
         return 'Box';
     }
 
-    public function needsReload(): bool
-    {
-        return false;
-    }
-
     public function getComponentClassName(): string
     {
         return \McSupply\EcommerceBundle\Twig\Components\Layout\Box::class;

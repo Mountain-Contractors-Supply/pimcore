@@ -26,6 +26,8 @@
     --primary-color: #11175e;
     --secondary-color: #cccccc;
     --tertiary-color: #90202f;
+    --accent1: #cccccc;
+    --accent2: #90202f;
     --primary-font: "Gotham Book", Arial, sans-serif;
     --secondary-font: "Gotham Medium", Arial, sans-serif;
 }
