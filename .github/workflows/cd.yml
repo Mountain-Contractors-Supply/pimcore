@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [dev, prod]
+    branches: [dev, prod, feature/cd-to-vm]
 
 concurrency:
   group: cd__${{ github.ref_name }}
@@ -17,7 +17,7 @@ jobs:
       CONTAINER_REGISTRY: "ghcr.io/mountain-contractors-supply/pimcore"
       DOCKER_COMPOSE_FILE: "docker-compose.${{ github.ref_name }}.yaml"
       ENV_FILE: ".env.${{ github.ref_name }}"
-      IMAGES_TAG: ${{ github.ref_name }}
+      IMAGES_TAG: ${{ github.ref_name == 'feature/cd-to-vm' && 'feature-cd-to-vm' || github.ref_name }}
       NON_PIMCORE_SERVICES: "redis mercure opensearch rabbitmq"
       GITHUB_APP_CHECKOUT: true
       GITHUB_APP_CHECKOUT_REPOSITORIES: pimcore,ecommerce-bundle
