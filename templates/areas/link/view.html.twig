@@ -5,12 +5,12 @@
     {{ linkEditable|raw }}
 {% elseif linkData %}
 
-    <twig:Navigation:Link
-        href="{{ linkData.path }}"
-        title="{{ linkData.title }}"
-        target="{{ linkData.target }}"
-        :variantValues="variantValues"
-        :additionalClasses="additionalClasses"
-    >{{ linkData.text }}</twig:Navigation:Link>
+<twig:Navigation:Link
+    :href="linkData.path"
+    :title="linkData.title"
+    :target="linkData.target"
+    :variantValues="variantValues"
+    :additionalClasses="additionalClasses"
+>{{ linkData.text }}</twig:Navigation:Link>
 
 {% endif %}

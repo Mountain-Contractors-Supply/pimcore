@@ -45,7 +45,7 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
             $item = new Editable\Select();
             $item->setName($name);
             $item->setLabel(ucfirst($name));
-            $c = ['defaultValue' => $this->component->getVariantValue($name)];
+            $c = ['defaultValue' => $this->component->getDefaultVariantValue($name)];
 
             foreach ($variant as $variantName => $variantValue) {
                 $c['store'][] = [
@@ -57,15 +57,35 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
             $items[] = $item;
         }
 
-        $items[] = (new Editable\Input())
-            ->setName('additionalClasses')
-            ->setLabel('Additional Classes');
+        $config->setItems([
+            'type' => 'tabpanel',
+            'items' => [
+                [
+                    'type' => 'panel',
+                    'title' => 'Variants',
+                    'items' => $items,
+                ],
+                [
+                    'type' => 'panel',
+                    'title' => 'Link',
+                    'items' => [
+                        (new Editable\Link())
+                            ->setName('links')
+                            ->setLabel('Link'),
+                    ],
+                ],
+                [
+                    'type' => 'panel',
+                    'title' => 'Advanced',
+                    'items' => [
+                        (new Editable\Input())
+                            ->setName('additionalClasses')
+                            ->setLabel('Additional Classes'),
+                    ]
+                ]
+            ],
+        ]);
 
-        $items[] = (new Editable\Link())
-            ->setName('links')
-            ->setLabel('Link');
-
-        $config->setItems([$items]);
         $config->setReloadOnClose(true);
 
         return $config;

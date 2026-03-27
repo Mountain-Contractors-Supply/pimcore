@@ -1,20 +1,11 @@
 {% extends 'link-wrapper.html.twig' %}
 
 {% block component %}
-    {% set header = pimcore_input('header') %}
-    {% set headerValue = header.getValue() %}
-
-    {% if editmode %}
-        {{ header|raw }}
-    {% elseif headerValue %}
-
-    <twig:Ui:Header
+<twig:Ui:Header
     :variantValues="variantValues"
     :additionalClasses="additionalClasses"
-    tag="h1"
-    >
-    {{ headerValue }}
-    </twig:Ui:Header>`
-
-    {% endif %}
+    :tag="variantValues.tag"
+>
+    {{ pimcore_input('header') }}
+</twig:Ui:Header>
 {% endblock %}

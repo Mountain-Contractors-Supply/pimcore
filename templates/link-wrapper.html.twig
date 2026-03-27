@@ -1,5 +1,9 @@
 {% if links is defined %}
-<a href="{{ links.path }}">
+<a
+    href="{{ links.path }}"
+    class="{{ links.class }}"
+    target="{{ links.target }}"
+>
 {% endif %}
 
 {% block component %}{% endblock %}
