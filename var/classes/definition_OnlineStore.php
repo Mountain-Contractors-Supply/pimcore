@@ -10,6 +10,8 @@
  * - theme [select]
  * - rootCategoryRef [manyToOneRelation]
  * - requireLogin [checkbox]
+ * - displayAnonymousPrices [checkbox]
+ * - displayAnonymousAvailability [checkbox]
  * - logoRef [image]
  * - validBranches [manyToManyObjectRelation]
  * - validShipMethods [manyToManyObjectRelation]
@@ -23,7 +25,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1771964921,
+   'modificationDate' => 1774897142,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\OnlineStore\\AbstractOnlineStore',
@@ -32,13 +34,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'useTraits' => '',
    'listingUseTraits' => '',
    'encryption' => false,
-   'encryptedTables' =>
+   'encryptedTables' => 
   array (
   ),
    'allowInherit' => false,
    'allowVariants' => false,
    'showVariants' => false,
-   'layoutDefinitions' =>
+   'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
@@ -50,9 +52,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'children' =>
+     'children' => 
     array (
-      0 =>
+      0 => 
       \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
@@ -64,9 +66,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'children' =>
+         'children' => 
         array (
-          0 =>
+          0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'General',
              'type' => NULL,
@@ -78,9 +80,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Region::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
@@ -92,9 +94,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'children' =>
+                 'children' => 
                 array (
-                  0 =>
+                  0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
@@ -106,9 +108,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'name',
                          'title' => 'Name',
@@ -124,13 +126,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => '',
                          'columnLength' => 190,
                          'regex' => '',
-                         'regexFlags' =>
+                         'regexFlags' => 
                         array (
                         ),
                          'unique' => false,
@@ -138,7 +140,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'width' => '',
                          'defaultValueGenerator' => '',
                       )),
-                      1 =>
+                      1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'site',
                          'title' => 'Site',
@@ -154,7 +156,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => '',
@@ -167,7 +169,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'optionsProviderClass' => 'App\\OptionProvider\\SiteSelect',
                          'optionsProviderData' => '',
                       )),
-                      2 =>
+                      2 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'theme',
                          'title' => 'Theme',
@@ -183,7 +185,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => '',
@@ -196,7 +198,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'optionsProviderClass' => '@app.theme.select',
                          'optionsProviderData' => '',
                       )),
-                      3 =>
+                      3 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                          'name' => 'rootCategoryRef',
                          'title' => 'Root Category',
@@ -212,12 +214,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
-                         'classes' =>
+                         'classes' => 
                         array (
-                          0 =>
+                          0 => 
                           array (
                             'classes' => 'ProductCategory',
                           ),
@@ -229,16 +231,16 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'allowToClearRelation' => true,
                          'objectsAllowed' => true,
                          'assetsAllowed' => false,
-                         'assetTypes' =>
+                         'assetTypes' => 
                         array (
                         ),
                          'documentsAllowed' => false,
-                         'documentTypes' =>
+                         'documentTypes' => 
                         array (
                         ),
                          'width' => '',
                       )),
-                      4 =>
+                      4 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'requireLogin',
                          'title' => 'Require Login',
@@ -254,15 +256,59 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'defaultValue' => 1,
                          'defaultValueGenerator' => '',
                       )),
+                      5 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'displayAnonymousPrices',
+                         'title' => 'Display Anonymous Prices',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      6 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'displayAnonymousAvailability',
+                         'title' => 'Display Anonymous Availability',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -272,7 +318,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  1 =>
+                  1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
@@ -284,9 +330,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'children' =>
+                     'children' => 
                     array (
-                      0 =>
+                      0 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'name' => 'logoRef',
                          'title' => 'Logo',
@@ -302,7 +348,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'blockedVarsForExport' =>
+                         'blockedVarsForExport' => 
                         array (
                         ),
                          'uploadPath' => '/images/branding/supplier/logos',
@@ -311,7 +357,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                     ),
                      'locked' => false,
-                     'blockedVarsForExport' =>
+                     'blockedVarsForExport' => 
                     array (
                     ),
                      'fieldtype' => 'panel',
@@ -323,7 +369,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'fieldtype' => 'region',
@@ -331,7 +377,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -341,7 +387,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          1 =>
+          1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Branches',
              'type' => NULL,
@@ -353,9 +399,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'validBranches',
                  'title' => 'Valid Branches',
@@ -371,12 +417,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'classes' =>
+                 'classes' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'classes' => 'Branch',
                   ),
@@ -389,7 +435,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' =>
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
                  'width' => '',
@@ -397,7 +443,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -407,7 +453,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          2 =>
+          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Ship Methods',
              'type' => NULL,
@@ -419,9 +465,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'validShipMethods',
                  'title' => 'Valid Ship Methods',
@@ -437,12 +483,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'classes' =>
+                 'classes' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'classes' => 'ShipMethod',
                   ),
@@ -450,14 +496,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' =>
+                 'visibleFields' => 
                 array (
                 ),
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' =>
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
                  'width' => '',
@@ -465,7 +511,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -475,7 +521,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          3 =>
+          3 => 
           \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Payment Methods',
              'type' => NULL,
@@ -487,9 +533,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'children' =>
+             'children' => 
             array (
-              0 =>
+              0 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'validPaymentMethods',
                  'title' => 'Valid Payment Methods',
@@ -505,12 +551,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'blockedVarsForExport' =>
+                 'blockedVarsForExport' => 
                 array (
                 ),
-                 'classes' =>
+                 'classes' => 
                 array (
-                  0 =>
+                  0 => 
                   array (
                     'classes' => 'PaymentMethod',
                   ),
@@ -518,14 +564,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' =>
+                 'visibleFields' => 
                 array (
                 ),
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
                  'enableTextSelection' => false,
-                 'visibleFieldDefinitions' =>
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
                  'width' => '',
@@ -533,7 +579,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'blockedVarsForExport' =>
+             'blockedVarsForExport' => 
             array (
             ),
              'fieldtype' => 'panel',
@@ -545,7 +591,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
         ),
          'locked' => false,
-         'blockedVarsForExport' =>
+         'blockedVarsForExport' => 
         array (
         ),
          'fieldtype' => 'tabpanel',
@@ -554,7 +600,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       )),
     ),
      'locked' => false,
-     'blockedVarsForExport' =>
+     'blockedVarsForExport' => 
     array (
     ),
      'fieldtype' => 'panel',
@@ -569,13 +615,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
-   'compositeIndices' =>
+   'compositeIndices' => 
   array (
   ),
    'showFieldLookup' => false,
-   'propertyVisibility' =>
+   'propertyVisibility' => 
   array (
-    'grid' =>
+    'grid' => 
     array (
       'id' => true,
       'key' => false,
@@ -584,7 +630,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       'modificationDate' => true,
       'creationDate' => true,
     ),
-    'search' =>
+    'search' => 
     array (
       'id' => true,
       'key' => false,
@@ -595,58 +641,16 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
     ),
   ),
    'enableGridLocking' => false,
-   'deletedDataComponents' =>
-  array (
-    0 =>
-    \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-       'name' => 'rootCategory',
-       'title' => 'Root Category',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => true,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' =>
-      array (
-      ),
-       'classes' =>
-      array (
-        0 =>
-        array (
-          'classes' => 'ProductCategory',
-        ),
-      ),
-       'displayMode' => 'grid',
-       'pathFormatterClass' => '',
-       'assetInlineDownloadAllowed' => false,
-       'assetUploadPath' => '',
-       'allowToClearRelation' => true,
-       'objectsAllowed' => true,
-       'assetsAllowed' => false,
-       'assetTypes' =>
-      array (
-      ),
-       'documentsAllowed' => false,
-       'documentTypes' =>
-      array (
-      ),
-       'width' => '',
-    )),
-  ),
-   'blockedVarsForExport' =>
+   'deletedDataComponents' => 
   array (
   ),
-   'fieldDefinitionsCache' =>
+   'blockedVarsForExport' => 
   array (
   ),
-   'activeDispatchingEvents' =>
+   'fieldDefinitionsCache' => 
+  array (
+  ),
+   'activeDispatchingEvents' => 
   array (
   ),
 ));

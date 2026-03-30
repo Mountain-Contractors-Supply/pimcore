@@ -27,8 +27,8 @@ security:
             entry_point: form_login
             form_login:
                 enable_csrf: true
-                login_path: customer-signin
-                check_path: customer-signin
+                login_path: customer_signin
+                check_path: customer_signin
                 default_target_path: home
             logout:
                 path: customer-logout
