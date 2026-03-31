@@ -16,7 +16,9 @@
  * - upc [input]
  * - categoriesRef [manyToManyObjectRelation]
  * - Images [fieldcollections]
- * - Documents [fieldcollections]
+ * - Manuals [fieldcollections]
+ * - SpecSheets [fieldcollections]
+ * - Misc [fieldcollections]
  * - widthRef [quantityValue]
  * - heightRef [quantityValue]
  * - lengthRef [quantityValue]
@@ -30,7 +32,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1774979371,
+   'modificationDate' => 1774979591,
    'userOwner' => 2,
    'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -882,8 +884,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
-                     'name' => 'Documents',
-                     'title' => 'Documents',
+                     'name' => 'Manuals',
+                     'title' => 'Manuals',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -901,8 +903,72 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'allowedTypes' => 
                     array (
-                      0 => 'InternalDocument',
-                      1 => 'ExternalDocument',
+                      0 => 'ExternalDocument',
+                      1 => 'InternalDocument',
+                    ),
+                     'lazyLoading' => true,
+                     'maxItems' => NULL,
+                     'disallowAddRemove' => false,
+                     'disallowReorder' => false,
+                     'collapsed' => false,
+                     'collapsible' => false,
+                     'border' => false,
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                     'name' => 'SpecSheets',
+                     'title' => 'Spec Sheets',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'allowedTypes' => 
+                    array (
+                      0 => 'ExternalDocument',
+                      1 => 'InternalDocument',
+                    ),
+                     'lazyLoading' => true,
+                     'maxItems' => NULL,
+                     'disallowAddRemove' => false,
+                     'disallowReorder' => false,
+                     'collapsed' => false,
+                     'collapsible' => false,
+                     'border' => false,
+                  )),
+                  2 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                     'name' => 'Misc',
+                     'title' => 'Misc',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'allowedTypes' => 
+                    array (
+                      0 => 'ExternalDocument',
+                      1 => 'InternalDocument',
                     ),
                      'lazyLoading' => true,
                      'maxItems' => NULL,
