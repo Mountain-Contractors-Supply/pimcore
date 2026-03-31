@@ -15,7 +15,6 @@
  * - status [select]
  * - upc [input]
  * - categoriesRef [manyToManyObjectRelation]
- * - Images [fieldcollections]
  * - InternalDocuments [manyToManyRelation]
  * - ExternalDocuments [fieldcollections]
  * - widthRef [quantityValue]
@@ -31,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1773764028,
+   'modificationDate' => 1774972995,
    'userOwner' => 2,
    'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -823,37 +822,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'datatype' => 'layout',
                  'children' => 
                 array (
-                  0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
-                     'name' => 'Images',
-                     'title' => 'Images',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'allowedTypes' => 
-                    array (
-                      0 => 'Images',
-                    ),
-                     'lazyLoading' => true,
-                     'maxItems' => NULL,
-                     'disallowAddRemove' => false,
-                     'disallowReorder' => false,
-                     'collapsed' => false,
-                     'collapsible' => false,
-                     'border' => false,
-                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -901,10 +869,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'classes' => 
                     array (
-                      0 => 
-                      array (
-                        'classes' => '',
-                      ),
                     ),
                      'displayMode' => NULL,
                      'pathFormatterClass' => '',
@@ -940,10 +904,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'documentsAllowed' => false,
                      'documentTypes' => 
                     array (
-                      0 => 
-                      array (
-                        'documentTypes' => '',
-                      ),
                     ),
                      'enableTextSelection' => false,
                      'width' => '',
@@ -1232,6 +1192,37 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+       'name' => 'Images',
+       'title' => 'Images',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'allowedTypes' => 
+      array (
+        0 => 'Images',
+      ),
+       'lazyLoading' => true,
+       'maxItems' => NULL,
+       'disallowAddRemove' => false,
+       'disallowReorder' => false,
+       'collapsed' => false,
+       'collapsible' => false,
+       'border' => false,
+    )),
   ),
    'blockedVarsForExport' => 
   array (
