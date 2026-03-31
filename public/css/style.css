@@ -257,6 +257,24 @@ header:after {
     color: #ffffff !important;
 }
 
+/* Quill alignment support for WYSIWYG content (ql-align-*) */
+.area-wysiwyg .ql-align-center,
+.pimcore_editable_wysiwyg .ql-align-center {
+    text-align: center !important;
+}
+.area-wysiwyg .ql-align-right,
+.pimcore_editable_wysiwyg .ql-align-right {
+    text-align: right !important;
+}
+.area-wysiwyg .ql-align-justify,
+.pimcore_editable_wysiwyg .ql-align-justify {
+    text-align: justify !important;
+}
+.area-wysiwyg .ql-align-left,
+.pimcore_editable_wysiwyg .ql-align-left {
+    text-align: left !important;
+}
+
 /*
    MAIN CONTENT & LAYOUT
 */
