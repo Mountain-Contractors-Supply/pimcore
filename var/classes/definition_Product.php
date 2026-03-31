@@ -30,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1774972995,
+   'modificationDate' => 1774973464,
    'userOwner' => 2,
    'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -810,32 +810,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                 'name' => 'Images',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => 'Images',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'panel',
-                 'layout' => NULL,
-                 'border' => false,
-                 'icon' => '',
-                 'labelWidth' => 100,
-                 'labelAlign' => 'left',
-              )),
-              4 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Documents',
                  'type' => NULL,
                  'region' => NULL,
@@ -952,7 +926,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'labelWidth' => 100,
                  'labelAlign' => 'left',
               )),
-              5 => 
+              4 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Specs',
                  'type' => NULL,
@@ -1192,37 +1166,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
-       'name' => 'Images',
-       'title' => 'Images',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'allowedTypes' => 
-      array (
-        0 => 'Images',
-      ),
-       'lazyLoading' => true,
-       'maxItems' => NULL,
-       'disallowAddRemove' => false,
-       'disallowReorder' => false,
-       'collapsed' => false,
-       'collapsible' => false,
-       'border' => false,
-    )),
   ),
    'blockedVarsForExport' => 
   array (
