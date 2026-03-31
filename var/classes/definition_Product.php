@@ -16,7 +16,7 @@
  * - upc [input]
  * - categoriesRef [manyToManyObjectRelation]
  * - Images [fieldcollections]
- * - InternalDocuments [manyToManyRelation]
+ * - InternalDocuments [advancedManyToManyRelation]
  * - ExternalDocuments [fieldcollections]
  * - widthRef [quantityValue]
  * - heightRef [quantityValue]
@@ -31,7 +31,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1774974640,
+   'modificationDate' => 1774976041,
    'userOwner' => 2,
    'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -882,7 +882,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
                      'name' => 'InternalDocuments',
                      'title' => 'Internal Documents',
                      'tooltip' => '',
@@ -940,7 +940,34 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'enableTextSelection' => false,
                      'width' => '',
-                     'height' => '',
+                     'height' => NULL,
+                     'columns' => 
+                    array (
+                      0 => 
+                      array (
+                        'type' => 'select',
+                        'position' => 1,
+                        'key' => 'DocumentType',
+                        'value' => 'Spec Sheet; Manual; Misc',
+                        'label' => 'Type',
+                      ),
+                      1 => 
+                      array (
+                        'type' => 'bool',
+                        'position' => 2,
+                        'key' => 'isVisibleOnWebsite',
+                        'label' => 'Is Visible on Website',
+                      ),
+                    ),
+                     'columnKeys' => 
+                    array (
+                      0 => 'DocumentType',
+                      1 => 'isVisibleOnWebsite',
+                    ),
+                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
+                     'optimizedAdminLoading' => false,
+                     'enableBatchEdit' => false,
+                     'allowMultipleAssignments' => false,
                   )),
                   1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
@@ -964,6 +991,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'allowedTypes' => 
                     array (
                       0 => 'Documents',
+                      1 => 'DocumentsMisc',
+                      2 => 'DocumentsManual',
                     ),
                      'lazyLoading' => true,
                      'maxItems' => NULL,

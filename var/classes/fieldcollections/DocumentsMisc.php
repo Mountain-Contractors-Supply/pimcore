@@ -2,16 +2,16 @@
 
 /**
  * Fields Summary:
- * - ExternalSpecSheet [link]
- * - isVisibleOnWebsite [checkbox]
+ * - ExternalMisc [link]
+ * - IsVisibleOnWebsite [checkbox]
  */
 
 return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'Documents',
+   'key' => 'DocumentsMisc',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Spec Sheet',
+   'title' => 'Misc',
    'group' => 'Documents',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -43,8 +43,8 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
         array (
           0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Link::__set_state(array(
-             'name' => 'ExternalSpecSheet',
-             'title' => 'External Spec Sheet',
+             'name' => 'ExternalMisc',
+             'title' => 'External Misc',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -72,7 +72,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
           )),
           1 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-             'name' => 'isVisibleOnWebsite',
+             'name' => 'IsVisibleOnWebsite',
              'title' => 'Is Visible On Website',
              'tooltip' => '',
              'mandatory' => false,
@@ -101,7 +101,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
          'layout' => NULL,
          'border' => false,
          'icon' => '',
-         'labelWidth' => 150,
+         'labelWidth' => 100,
          'labelAlign' => 'left',
       )),
     ),
