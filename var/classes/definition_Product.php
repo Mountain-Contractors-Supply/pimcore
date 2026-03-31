@@ -16,8 +16,7 @@
  * - upc [input]
  * - categoriesRef [manyToManyObjectRelation]
  * - Images [fieldcollections]
- * - InternalDocuments [advancedManyToManyRelation]
- * - ExternalDocuments [fieldcollections]
+ * - Documents [fieldcollections]
  * - widthRef [quantityValue]
  * - heightRef [quantityValue]
  * - lengthRef [quantityValue]
@@ -31,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1774976041,
+   'modificationDate' => 1774978590,
    'userOwner' => 2,
    'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -882,97 +881,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
-                     'name' => 'InternalDocuments',
-                     'title' => 'Internal Documents',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                    ),
-                     'displayMode' => NULL,
-                     'pathFormatterClass' => '',
-                     'maxItems' => NULL,
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => false,
-                     'assetsAllowed' => true,
-                     'assetTypes' => 
-                    array (
-                      0 => 
-                      array (
-                        'assetTypes' => 'unknown',
-                      ),
-                      1 => 
-                      array (
-                        'assetTypes' => 'archive',
-                      ),
-                      2 => 
-                      array (
-                        'assetTypes' => 'audio',
-                      ),
-                      3 => 
-                      array (
-                        'assetTypes' => 'document',
-                      ),
-                      4 => 
-                      array (
-                        'assetTypes' => 'text',
-                      ),
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'enableTextSelection' => false,
-                     'width' => '',
-                     'height' => NULL,
-                     'columns' => 
-                    array (
-                      0 => 
-                      array (
-                        'type' => 'select',
-                        'position' => 1,
-                        'key' => 'DocumentType',
-                        'value' => 'Spec Sheet; Manual; Misc',
-                        'label' => 'Type',
-                      ),
-                      1 => 
-                      array (
-                        'type' => 'bool',
-                        'position' => 2,
-                        'key' => 'isVisibleOnWebsite',
-                        'label' => 'Is Visible on Website',
-                      ),
-                    ),
-                     'columnKeys' => 
-                    array (
-                      0 => 'DocumentType',
-                      1 => 'isVisibleOnWebsite',
-                    ),
-                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
-                     'optimizedAdminLoading' => false,
-                     'enableBatchEdit' => false,
-                     'allowMultipleAssignments' => false,
-                  )),
-                  1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
-                     'name' => 'ExternalDocuments',
-                     'title' => 'External Documents',
+                     'name' => 'Documents',
+                     'title' => 'Documents',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -990,9 +901,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'allowedTypes' => 
                     array (
-                      0 => 'Documents',
-                      1 => 'DocumentsMisc',
-                      2 => 'DocumentsManual',
                     ),
                      'lazyLoading' => true,
                      'maxItems' => NULL,
