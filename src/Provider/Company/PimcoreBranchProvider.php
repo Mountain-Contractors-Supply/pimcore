@@ -27,7 +27,14 @@ final readonly class PimcoreBranchProvider implements DataProviderInterface, Rea
     {
         $route = $this->requestStack->getMainRequest()?->attributes->get('_route');
 
-        return in_array($route, ['branch_data_partial', 'carts-ship-branch-post']);
+        return in_array(
+            $route, [
+                'branch_data_partial',
+                'carts-ship-branch-post',
+                'availability',
+                'price'
+            ]
+        );
     }
 
     #[\Override]
