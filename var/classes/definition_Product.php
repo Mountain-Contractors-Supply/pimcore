@@ -30,7 +30,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1774978590,
+   'modificationDate' => 1774979371,
    'userOwner' => 2,
    'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
@@ -901,6 +901,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'allowedTypes' => 
                     array (
+                      0 => 'InternalDocument',
+                      1 => 'ExternalDocument',
                     ),
                      'lazyLoading' => true,
                      'maxItems' => NULL,
