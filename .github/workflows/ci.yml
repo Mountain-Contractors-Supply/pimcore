@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   CI:
-    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/ci-docker.yml@v7
+    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/ci-docker.yml@fix/ci-checkout-submodules
     permissions:
       contents: read
       actions: read
