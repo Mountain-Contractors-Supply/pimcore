@@ -41,6 +41,9 @@ RUN \
         export MERCURE_URL_CLIENT='http://localhost/'; \
         export MERCURE_URL_SERVER='http://localhost/'; \
         export MERCURE_JWT='jwt'; \
+        export KOURIER_USERNAME=''; \
+        export KOURIER_PASSWORD=''; \
+        export KOURIER_URL=''; \
         cd /var/www/html; \
         runuser -u www-data -- php /usr/local/bin/composer install; \
         runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \

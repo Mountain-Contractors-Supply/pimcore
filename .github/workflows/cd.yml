@@ -48,5 +48,6 @@ jobs:
           "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
           "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
           "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}",
-          "mercure-jwt": "${{ secrets.MERCURE_JWT }}"
+          "mercure-jwt": "${{ secrets.MERCURE_JWT }}",
+          "kourier-password": "${{ secrets.KOURIER_PASSWORD }}"
         }

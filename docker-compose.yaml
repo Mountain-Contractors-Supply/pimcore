@@ -23,6 +23,7 @@ services:
       - pimcore-admin-password
       - database-password
       - mercure-jwt
+      - kourier-password
 
   php:
     secrets:
@@ -32,6 +33,7 @@ services:
       - pimcore-encryption-secret
       - database-password
       - mercure-jwt
+      - kourier-password
 
   supervisord:
     secrets:
@@ -42,6 +44,7 @@ services:
       - pimcore-admin-password
       - database-password
       - mercure-jwt
+      - kourier-password
 
   opensearch:
     image: opensearchproject/opensearch:2
@@ -93,3 +96,5 @@ secrets:
     file: ./.secrets/database-password
   mercure-jwt:
     file: ./.secrets/mercure-jwt
+  kourier-password:
+    file: ./.secrets/kourier-password

@@ -11,7 +11,7 @@ if [ "$(mysql -h "$DATABASE_HOST" -u "$DATABASE_USER" -p"$(cat /run/secrets/data
 then
     # Only run cache clear if the database is seeded. If it is not, trying to clear the cache will cause errors.
     # init.sh will handle seeding it
-    runuser -u www-data -- bin/console cache:clear
+    PHP_MEMORY_LIMIT=-1 runuser -u www-data -- bin/console cache:clear
 fi
 
 # Install assets via Tailwind and AssetMapper (done here so local public/ folder is populated)
