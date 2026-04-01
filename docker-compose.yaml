@@ -11,6 +11,8 @@ services:
 
   rabbitmq:
     image: rabbitmq:alpine
+    command: >
+      sh -c "rabbitmq-plugins enable rabbitmq_auth_mechanism_anonymous && rabbitmq-server"
 
   init:
     secrets:
