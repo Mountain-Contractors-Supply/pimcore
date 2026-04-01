@@ -1,0 +1,15 @@
+{% extends 'link-wrapper.html.twig' %}
+
+{% block component %}
+<twig:Layout:TwoColumn
+    :variantValues="variantValues"
+    :additionalClasses="additionalClasses"
+>
+    {{ pimcore_area('column1', {
+        'type': 'box'
+    }) }}
+    {{ pimcore_area('column2', {
+        'type': 'box'
+    }) }}
+</twig:Layout:TwoColumn>
+{% endblock %}

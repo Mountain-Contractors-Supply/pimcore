@@ -37,13 +37,11 @@
     {% block head %}{% endblock %}
 </head>
 <body data-controller="price-loader availability-loader incart-loader">
-    {% if app.user %}
-        <div
-            data-controller="symfony--ux-turbo--mercure-turbo-stream"
-            data-symfony--ux-turbo--mercure-turbo-stream-hub-value="{{ app.request.schemeAndHttpHost ~ '/hub/.well-known/mercure' }}"
-            data-symfony--ux-turbo--mercure-turbo-stream-topic-value="{{ topic_id() }}"
-        ></div>
-    {% endif %}
+    <div
+        data-controller="symfony--ux-turbo--mercure-turbo-stream"
+        data-symfony--ux-turbo--mercure-turbo-stream-hub-value="{{ app.request.schemeAndHttpHost ~ '/hub/.well-known/mercure' }}"
+        data-symfony--ux-turbo--mercure-turbo-stream-topic-value="{{ topic_id() }}"
+    ></div>
 
     <header id="header" data-turbo-permanent>
         {% include 'partials/_header.html.twig' %}
