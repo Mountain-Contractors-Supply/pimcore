@@ -1,4 +1,3 @@
-/* Banner text sizing */
 .banner-small-text {
     font-size: 0.87em;
     font-weight: 600;
@@ -53,7 +52,6 @@
     text-align: center;
 }
 
-/* Constrain the divisions header image */
 .divisions-container > img {
     max-width: 900px;
     width: 100%;
@@ -83,7 +81,6 @@
 
 .division-box {
     background-color: #f8f9fa;
-    /* Enable background images per division */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

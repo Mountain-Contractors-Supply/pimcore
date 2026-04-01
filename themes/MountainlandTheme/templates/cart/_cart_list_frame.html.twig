@@ -1,12 +1,17 @@
-<turbo-frame
-    id="cart-list-frame"
-    data-controller="refresh"
-    data-action="cart-updated@window->refresh#reload">
+<turbo-frame id="cart-list-frame">
     <div class="cart-grid">
         <div class="cart-items">
-            {% for item in cart.items  %}
-                {% include 'cart/_cart_item.html.twig' with {'item': item} %}
-            {% endfor %}
+
+            {% if cart.items is empty %}
+            <section class="empty-cart card">
+                <h2>Your cart is empty</h2>
+                <p>There are no items in your cart yet. Use the Quick Add form below or browse products to add items.</p>
+            </section>
+            {% else %}
+                {% for item in cart.items  %}
+                    {% include 'cart/_cart_item.html.twig' with {'item': item} %}
+                {% endfor %}
+            {% endif %}
 
             <section class="quick-add card">
                 <h2>Quick Add</h2>

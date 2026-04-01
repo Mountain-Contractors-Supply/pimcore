@@ -1,52 +1,38 @@
 import { Controller } from '@hotwired/stimulus';
+import * as Turbo from '@hotwired/turbo';
 
 export default class extends Controller {
     static targets = ["availability"]
 
-    connect() {
-        this.fetchAvailability();
+    disconnect() {
+        clearTimeout(this.fetchTimeout);
     }
 
-    fetchAvailability() {
+    availabilityTargetConnected() {
         const allIds = this.availabilityTargets.map(el => el.dataset.id);
         const uniqueIds = [...new Set(allIds)];
 
         if (uniqueIds.length === 0) return;
 
-        fetch('/availability', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({ productIds: uniqueIds })
-        })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(data => {
-                this.updateAllInstances(data);
-            })
-            .catch(error => {
-                console.error('Error fetching availability:', error);
+        // Debounce to avoid multiple rapid calls
+        clearTimeout(this.fetchTimeout);
+        this.fetchTimeout = setTimeout(async () => {
+            const response = await fetch('/availability', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'text/vnd.turbo-stream.html'
+                },
+                body: JSON.stringify({ productIds: uniqueIds })
             });
-    }
 
-    updateAllInstances(data) {
-        Object.entries(data).forEach(([id, availability]) => {
-            if (availability !== 'Loading...') {
-                const elements = document.querySelectorAll(`.availability-target-${id}`);
+            if (response.ok) {
+                const html = await response.text();
 
-                elements.forEach(el => {
-                    this.applyAvailabilityEffect(el, availability);
-                });
+                if (html) {
+                    Turbo.renderStreamMessage(html);
+                }
             }
-        });
-    }
-
-    applyAvailabilityEffect(element, availability) {
-        element.innerText = availability;
-        element.classList.add('availability-loaded');
+        }, 50);
     }
 }

@@ -1,0 +1,49 @@
+name: CD
+
+on:
+  push:
+    branches: [dev, prod]
+
+concurrency:
+  group: cd__${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  CD:
+    uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/deploy-to-vm-docker-compose.yml@v7
+    with:
+      ENVIRONMENT: ${{ github.ref_name }}
+      RUNNER: ${{ github.ref_name }}
+      CONTAINER_REGISTRY: "ghcr.io/mountain-contractors-supply/pimcore"
+      DOCKER_COMPOSE_FILE: "docker-compose.${{ github.ref_name }}.yaml"
+      ENV_FILE: ".env.${{ github.ref_name }}"
+      IMAGES_TAG: ${{ github.ref_name }}
+      NON_PIMCORE_SERVICES: "redis mercure opensearch rabbitmq"
+      GITHUB_APP_CHECKOUT: true
+      GITHUB_APP_CHECKOUT_REPOSITORIES: pimcore,ecommerce-bundle
+      SUBMODULES: true
+      HEALTHCHECK_ENDPOINT: "/admin"
+    secrets:
+      CALLER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_APP_ID: ${{ secrets.GH_APP_ID }}
+      GITHUB_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      SLACK_WORKFLOW_STATUS_WEBHOOK_URL: ${{ secrets.SLACK_CHANNEL_WEBHOOK_URL }}
+      BUILD_TIME_SECRETS: >
+        {
+            "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
+            "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
+            "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}"
+        }
+      RUN_TIME_SECRETS: >
+        {
+          "database-password": "${{ secrets.DATABASE_PASSWORD }}",
+          "pimcore-admin-password": "${{ secrets.PIMCORE_ADMIN_PASSWORD }}",
+          "kernel-secret": "${{ secrets.KERNEL_SECRET }}",
+          "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
+          "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
+          "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}",
+          "mercure-jwt": "${{ secrets.MERCURE_JWT }}",
+          "kourier-password": "${{ secrets.KOURIER_PASSWORD }}",
+          "google-maps-api-key": "${{ secrets.GOOGLE_MAPS_API_KEY }}",
+          "eclipse-service-pass": "${{ secrets.ECLIPSE_SERVICE_PASS }}"
+        }

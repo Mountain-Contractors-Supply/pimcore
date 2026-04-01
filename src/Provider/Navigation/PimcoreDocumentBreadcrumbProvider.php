@@ -17,20 +17,20 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * @implements ReadOperationInterface<Breadcrumb>
  */
 #[DataProvider(Breadcrumb::class, 10)]
-final readonly class DocumentBreadcrumbProvider implements DataProviderInterface, ReadOperationInterface
+final readonly class PimcoreDocumentBreadcrumbProvider implements DataProviderInterface, ReadOperationInterface
 {
     public function __construct(
         private RequestStack $requestStack,
     ) {}
 
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         return $this->getCurrentDocument() !== null;
     }
 
     #[\Override]
-    public function get(string $className, mixed $data = null): Breadcrumb
+    public function get(string $className, array $data = []): Breadcrumb
     {
         $document = $this->getCurrentDocument();
         $title = $document !== null && method_exists($document, 'getTitle')

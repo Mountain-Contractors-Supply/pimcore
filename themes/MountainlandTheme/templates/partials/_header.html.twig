@@ -284,36 +284,32 @@
         </ul>
     </div>
     <div class="header-top-right">
+        <turbo-frame
+            id="cart-data-frame"
+            src="{{ path('cart_header_partial') }}"
+            loading="lazy">
+            <a href="{{ path('cart') }}"
+               class="bag-link"
+               aria-label="View Cart"
+               data-turbo-frame="_top">
+                <img src="{{ asset('images/misc/shopping-bag.webp') }}" alt="Bag" />
+                <div class="bag-info"></div>
+            </a>
+        </turbo-frame>
+
+        <turbo-frame
+            id="branch-data-frame"
+            src="{{ path('branch_data_partial') }}"
+            loading="lazy">
+            <a class="branch-dropdown" id="branch-dropdown" href="/locations" data-turbo-frame="_top">
+                <div class="branch-info" id="branch-info">
+                    <img src="{{ asset('images/misc/location-icon.webp') }}" alt="Location" class="location-icon" />
+                    <span class="branch-text" id="branch-status"></span>
+                </div>
+            </a>
+        </turbo-frame>
+
         {% if is_granted('ROLE_USER') %}
-            <turbo-frame
-                id="cart-data-frame"
-                src="{{ path('cart_header_partial') }}"
-                data-controller="refresh"
-                data-action="cart-updated@window->refresh#reload branch-updated@window->refresh#reload"
-                loading="lazy">
-                <a href="{{ path('cart') }}"
-                   class="bag-link"
-                   aria-label="View Cart"
-                   data-turbo-frame="_top">
-                    <img src="{{ asset('images/misc/shopping-bag.webp') }}" alt="Bag" />
-                    <div class="bag-info"></div>
-                </a>
-            </turbo-frame>
-
-            <turbo-frame
-                id="branch-data-frame"
-                src="{{ path('branch_data_partial') }}"
-                data-controller="refresh"
-                data-action="branch-updated@window->refresh#reload"
-                loading="lazy">
-                <a class="branch-dropdown" id="branch-dropdown" href="/locations" data-turbo-frame="_top">
-                    <div class="branch-info" id="branch-info">
-                        <img src="{{ asset('images/misc/location-icon.webp') }}" alt="Location" class="location-icon" />
-                        <span class="branch-text" id="branch-status"></span>
-                    </div>
-                </a>
-            </turbo-frame>
-
             <div class="user-dropdown" id="user-dropdown" data-controller="header">
                 <div class="user-info" id="user-info" data-action="click->header#toggle">
                     <span class="welcome-text">Welcome, <span class="user-name">{{ app.user.firstname ?? app.user.email }}</span>!</span>
@@ -324,7 +320,7 @@
                 </div>
             </div>
         {% else %}
-            <a href="{{ path('customer-signin') }}" class="sign-in-link">SIGN IN / SIGN UP</a>
+            <a href="{{ path('customer_signin') }}" class="sign-in-link">SIGN IN / SIGN UP</a>
         {% endif %}
     </div>
 </div>

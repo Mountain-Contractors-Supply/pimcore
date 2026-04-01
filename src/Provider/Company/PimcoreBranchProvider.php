@@ -23,15 +23,22 @@ final readonly class PimcoreBranchProvider implements DataProviderInterface, Rea
     ) {}
 
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         $route = $this->requestStack->getMainRequest()?->attributes->get('_route');
 
-        return in_array($route, ['branch_data_partial', 'carts-ship-branch-post']);
+        return in_array(
+            $route, [
+                'branch_data_partial',
+                'carts-ship-branch-post',
+                'availability',
+                'price'
+            ]
+        );
     }
 
     #[\Override]
-    public function get(string $className, mixed $data = null): ?BranchInterface
+    public function get(string $className, array $data = []): ?BranchInterface
     {
         if (!isset($data['id'])) {
             return null;

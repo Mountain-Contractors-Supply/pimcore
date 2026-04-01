@@ -18,7 +18,11 @@
             <span>Total</span>
             <span id="summary-total">${{ cart.totalDue|number_format(2, '.', ',') }}</span>
         </div>
+
+        {% if not cart.empty %}
         <a href="{{ path('checkout') }}" class="btn-primary full" data-turbo-frame="_top">Proceed to Checkout</a>
+        {% endif %}
+
         <a href="{{ path('root_category') }}" class="btn-secondary full" data-turbo-frame="_top">Continue Shopping</a>
     </div>
     <a href="#" class="return-policy-link">View Return Policy</a>

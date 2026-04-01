@@ -37,9 +37,17 @@ use Symfony\Component\DependencyInjection\Reference;
 use TorqIT\FolderCreatorBundle\FolderCreatorBundle;
 use TorqIT\ObjectLayoutGridBundle\ObjectLayoutGridBundle;
 use TorqIT\RoleCreatorBundle\RoleCreatorBundle;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Kernel extends PimcoreKernel implements CompilerPassInterface
 {
+    public function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
+    {
+        parent::configureContainer($container, $loader, $builder);
+        $container->import('../config/config.yaml');
+    }
+
     /**
      * Adds bundles to register to the bundle collection. The collection is able
      * to handle priorities and environment-specific bundles.

@@ -19,7 +19,7 @@ use Pimcore\Model\DataObject\Branch;
 class PimcoreBranchArrayProvider implements DataProviderInterface, ReadOperationInterface
 {
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         return true;
     }
@@ -28,7 +28,7 @@ class PimcoreBranchArrayProvider implements DataProviderInterface, ReadOperation
      * @throws Exception
      */
     #[\Override]
-    public function get(string $className, mixed $data = null): BranchArray
+    public function get(string $className, array $data = []): BranchArray
     {
         $branches = new BranchArray();
 

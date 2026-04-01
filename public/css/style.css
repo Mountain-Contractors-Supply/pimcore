@@ -26,12 +26,21 @@
     --primary-color: #11175e;
     --secondary-color: #cccccc;
     --tertiary-color: #90202f;
+    --accent1: #cccccc;
+    --accent2: #90202f;
     --primary-font: "Gotham Book", Arial, sans-serif;
     --secondary-font: "Gotham Medium", Arial, sans-serif;
 }
 
 * {
     box-sizing: border-box;
+}
+
+/*
+    TAILWIND BACKGROUND
+*/
+.mcs-tertiary-bg {
+    background-color: var(--tertiary-color) !important;
 }
 
 /*
@@ -218,6 +227,103 @@ header:after {
     padding-left: 0;
 }
 
+/* Force WYSIWYG headings and paragraphs white */
+.area-wysiwyg h1,
+.area-wysiwyg h2,
+.area-wysiwyg h3,
+.area-wysiwyg h4,
+.area-wysiwyg h5,
+.area-wysiwyg h6,
+.area-wysiwyg p,
+.area-wysiwyg h1 a,
+.area-wysiwyg h2 a,
+.area-wysiwyg h3 a,
+.area-wysiwyg h4 a,
+.area-wysiwyg h5 a,
+.area-wysiwyg h6 a,
+.pimcore_editable_wysiwyg h1,
+.pimcore_editable_wysiwyg h2,
+.pimcore_editable_wysiwyg h3,
+.pimcore_editable_wysiwyg h4,
+.pimcore_editable_wysiwyg h5,
+.pimcore_editable_wysiwyg h6,
+.pimcore_editable_wysiwyg p,
+.pimcore_editable_wysiwyg h1 a,
+.pimcore_editable_wysiwyg h2 a,
+.pimcore_editable_wysiwyg h3 a,
+.pimcore_editable_wysiwyg h4 a,
+.pimcore_editable_wysiwyg h5 a,
+.pimcore_editable_wysiwyg h6 a {
+    color: #ffffff !important;
+}
+
+/* Quill alignment support for WYSIWYG content (ql-align-*) */
+.area-wysiwyg .ql-align-center,
+.pimcore_editable_wysiwyg .ql-align-center {
+    text-align: center !important;
+}
+.area-wysiwyg .ql-align-right,
+.pimcore_editable_wysiwyg .ql-align-right {
+    text-align: right !important;
+}
+.area-wysiwyg .ql-align-justify,
+.pimcore_editable_wysiwyg .ql-align-justify {
+    text-align: justify !important;
+}
+.area-wysiwyg .ql-align-left,
+.pimcore_editable_wysiwyg .ql-align-left {
+    text-align: left !important;
+}
+
+/* WYSIWYG heading sizing (scoped to editable areas) */
+.area-wysiwyg h1,
+.pimcore_editable_wysiwyg h1 {
+    font-size: 2.25rem;
+    line-height: 1.15;
+    margin: 0 0 0.75rem;
+    font-weight: 700;
+}
+
+.area-wysiwyg h2,
+.pimcore_editable_wysiwyg h2 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    margin: 0 0 0.6rem;
+    font-weight: 700;
+}
+
+.area-wysiwyg h3,
+.pimcore_editable_wysiwyg h3 {
+    font-size: 1.375rem;
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+}
+
+.area-wysiwyg h4,
+.pimcore_editable_wysiwyg h4 {
+    font-size: 1.125rem;
+    margin-bottom: 0.45rem;
+}
+
+.area-wysiwyg h5,
+.pimcore_editable_wysiwyg h5 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.area-wysiwyg h6,
+.pimcore_editable_wysiwyg h6 {
+    font-size: 0.875rem;
+    margin-bottom: 0.35rem;
+}
+
+.area-wysiwyg p,
+.pimcore_editable_wysiwyg p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+}
 /*
    MAIN CONTENT & LAYOUT
 */
@@ -535,9 +641,9 @@ label {
 
 /* Mobile and Tablet devices (1024px and below) */
 @media (max-width: 1024px) {
-    body {
-        font-size: 14px;
-    }
+    /*body {*/
+    /*    font-size: 14px;*/
+    /*}*/
 
     main.page-wrapper {
         margin-top: 180px !important;
@@ -609,9 +715,9 @@ label {
 
 /* Mobile devices (768px and below) */
 @media (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
+    /*body {*/
+    /*    font-size: 14px;*/
+    /*}*/
 
     main.page-wrapper {
         margin-top: 180px !important;
@@ -727,8 +833,6 @@ turbo-frame[busy] {
     position: relative;
     display: inline-block;
     isolation: isolate;
-
-    /* helps avoid header/flex jitter */
     flex: 0 0 auto;
     min-inline-size: 2em;
     min-block-size: 1em;
@@ -805,3 +909,4 @@ header ul li {
 .divisions-grid.expanded .division-box.hidden {
     display: flex;
 }
+
