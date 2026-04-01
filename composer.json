@@ -37,7 +37,6 @@
     "pimcore/studio-backend-bundle": "^0.10.21",
     "pimcore/studio-ui-bundle": "dev-2312-user-management-document-types-dropdown-is-empty",
     "symfony/amqp-messenger": "^6.2 || ^7.2",
-    "symfony/dotenv": "^6.4.12 || ^7.2",
     "symfony/property-info": "^7.4",
     "symfony/runtime": "^6.4.12 || ^7.3",
     "torqit/pimcore-folder-creator-bundle": ">=4.0.1 <5.0",

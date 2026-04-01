@@ -16,15 +16,41 @@ COPY /.docker/composer-install-dependencies.sh /composer-install-dependencies.sh
 RUN /composer-install-dependencies.sh
 COPY /.docker/secrets-to-env-vars.sh /etc/profile.d/secrets-to-env-vars.sh
 COPY --chown=www-data:www-data / /var/www/html
-RUN --mount=type=secret,id=kernel-secret,uid=1000 \
+RUN \
     # These three secrets are deliberately mounted as env vars rather than files as required by Pimcore
     --mount=type=secret,id=pimcore-product-key,env=PIMCORE_PRODUCT_KEY,uid=1000 \
     --mount=type=secret,id=pimcore-instance-identifier,env=PIMCORE_INSTANCE_IDENTIFIER,uid=1000 \
     --mount=type=secret,id=pimcore-encryption-secret,env=PIMCORE_ENCRYPTION_SECRET,uid=1000 \
         set -eux; \
+        export APP_ENV=prod; \
+        export APP_DEBUG=0; \
+        export PIMCORE_ENVIRONMENT=prod; \
+        # Dummy env var values required by the Symfony commands below, overriden by real values at runtime
+        export KERNEL_SECRET='secret'; \
+        export DATABASE_HOST=''; \
+        export DATABASE_PORT=0; \
+        export DATABASE_NAME=''; \
+        export DATABASE_USER=''; \
+        export DATABASE_SERVER_VERSION='0.0.0'; \
+        export DATABASE_PASSWORD=''; \
+        export REDIS_DB="0"; \
+        export REDIS_SESSION_DB="0"; \
+        export REDIS_HOST='redis://redis'; \
+        export OPENSEARCH_HOST='http://localhost'; \
+        export DEFAULT_DOMAIN_NAME='localhost'; \
+        export MERCURE_URL_CLIENT='http://localhost/'; \
+        export MERCURE_URL_SERVER='http://localhost/'; \
+        export MERCURE_JWT='jwt'; \
+        export KOURIER_USERNAME=''; \
+        export KOURIER_PASSWORD=''; \
+        export KOURIER_URL=''; \
         cd /var/www/html; \
         runuser -u www-data -- php /usr/local/bin/composer install; \
         runuser -u www-data -- /var/www/html/bin/console pimcore:build:classes; \
+        # Build assets via Tailwind and AssetMapper
+        runuser -u www-data -- /var/www/html/bin/console tailwind:build; \
+        runuser -u www-data -- /var/www/html/bin/console importmap:install; \
+        runuser -u www-data -- /var/www/html/bin/console asset-map:compile; \
         runuser -u www-data -- /var/www/html/bin/console cache:warmup
 
 FROM base AS init
@@ -35,7 +61,7 @@ CMD [ "/init.sh" ]
 FROM base AS php
 RUN set -eux; \
     apt-get update -y; \
-    apt-get install -y --no-install-recommends nginx; \
+    apt-get install -y --no-install-recommends nginx wget; \
     rm -rf /var/lib/apt/lists/*;
 COPY /.docker/php/php.ini /usr/local/etc/php/conf.d/docker-pimcore-php.ini
 COPY /.docker/php/nginx.conf /etc/nginx/sites-available/default
@@ -59,8 +85,3 @@ ENV PHP_IDE_CONFIG=serverName=localhost
 COPY /.docker/php-debug/xdebug.conf /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 COPY /.docker/php-debug/start-php-debug.sh /start-php-debug.sh
 CMD [ "/start-php-debug.sh" ]
-
-FROM dunglas/mercure:latest AS mercure
-
-COPY ./.docker/secrets-to-env-vars.sh /etc/profile.d/secrets-to-env-vars.sh
-RUN chmod +x /etc/profile.d/secrets-to-env-vars.sh
