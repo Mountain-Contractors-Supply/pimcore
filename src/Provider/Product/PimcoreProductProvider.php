@@ -23,7 +23,7 @@ final readonly class PimcoreProductProvider implements DataProviderInterface, Re
     ) {}
 
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         $route = $this->requestStack->getMainRequest()?->attributes->get('_route');
 
@@ -31,7 +31,7 @@ final readonly class PimcoreProductProvider implements DataProviderInterface, Re
     }
 
     #[\Override]
-    public function get(string $className, mixed $data = null): ?ProductInterface
+    public function get(string $className, array $data = []): ?ProductInterface
     {
         $productId = $data['productId'] ?? null;
 

@@ -25,7 +25,7 @@ final class PimcoreMenuProvider implements DataProviderInterface, DataResolverAw
     use DataResolverAwareTrait;
 
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         return true;
     }
@@ -34,7 +34,7 @@ final class PimcoreMenuProvider implements DataProviderInterface, DataResolverAw
      * @throws Exception
      */
     #[\Override]
-    public function get(string $className, mixed $data = null): ?Link
+    public function get(string $className, array $data = []): ?Link
     {
         $site = $this->dataResolver->get(OnlineStore::class)->getSite();
 

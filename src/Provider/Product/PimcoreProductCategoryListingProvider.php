@@ -26,13 +26,13 @@ final readonly class PimcoreProductCategoryListingProvider implements DataProvid
     ) {}
 
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         return true;
     }
 
     #[\Override]
-    public function get(string $className, mixed $data = null): ?ProductCategoryListing
+    public function get(string $className, array $data = []): ?ProductCategoryListing
     {
         $id = $data['id'] ?? null;
 

@@ -18,13 +18,13 @@ use Pimcore\Model\DataObject\ShipMethod;
 final readonly class PimcoreShipMethodProvider implements DataProviderInterface, ReadOperationInterface
 {
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
        return true;
     }
 
     #[\Override]
-    public function get(string $className, mixed $data = null): ?ShipMethodInterface
+    public function get(string $className, array $data = []): ?ShipMethodInterface
     {
         if (!isset($data['code'])) {
             return null;

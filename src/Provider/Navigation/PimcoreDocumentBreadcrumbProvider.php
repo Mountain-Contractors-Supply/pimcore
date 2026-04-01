@@ -24,13 +24,13 @@ final readonly class PimcoreDocumentBreadcrumbProvider implements DataProviderIn
     ) {}
 
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         return $this->getCurrentDocument() !== null;
     }
 
     #[\Override]
-    public function get(string $className, mixed $data = null): Breadcrumb
+    public function get(string $className, array $data = []): Breadcrumb
     {
         $document = $this->getCurrentDocument();
         $title = $document !== null && method_exists($document, 'getTitle')
