@@ -11,8 +11,10 @@ services:
 
   rabbitmq:
     image: rabbitmq:alpine
-    command: >
-      sh -c "rabbitmq-plugins enable rabbitmq_auth_mechanism_anonymous && rabbitmq-server"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_LOOPBACK_USERS: "" # allow guest from non-localhost
 
   init:
     secrets:
