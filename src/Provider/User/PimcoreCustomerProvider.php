@@ -22,13 +22,13 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 final readonly class PimcoreCustomerProvider implements DataProviderInterface, ReadOperationInterface, UserProviderInterface
 {
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
        return true;
     }
 
     #[\Override]
-    public function get(string $className, mixed $data = null): ?CustomerInterface
+    public function get(string $className, array $data = []): ?CustomerInterface
     {
         if (!isset($data['id'])) {
             return null;
