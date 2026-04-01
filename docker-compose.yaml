@@ -11,8 +11,6 @@ services:
 
   rabbitmq:
     image: rabbitmq:alpine
-    volumes:
-      - pimcore-rabbitmq:/var/lib/rabbitmq/
 
   init:
     secrets:
@@ -65,8 +63,6 @@ services:
         hard: 65536
     cap_add:
       - IPC_LOCK
-    volumes:
-      - opensearch:/usr/share/opensearch/data
 
   mercure:
     image: dunglas/mercure:latest
@@ -79,10 +75,6 @@ services:
     entrypoint: ["/usr/local/bin/mercure-entrypoint-wrapper.sh"]
     volumes:
       - ./.docker/mercure/mercure-entrypoint-wrapper.sh:/usr/local/bin/mercure-entrypoint-wrapper.sh:ro
-
-volumes:
-  opensearch:
-  pimcore-rabbitmq:
 
 secrets:
   kernel-secret:

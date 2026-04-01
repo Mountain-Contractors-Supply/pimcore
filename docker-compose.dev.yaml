@@ -4,12 +4,16 @@ services:
     restart: unless-stopped
     networks:
       - redis_network
+    volumes:
+      - redis:/data
 
   rabbitmq:
     container_name: ${APP_NAME}-rabbitmq
     restart: unless-stopped
     networks:
       - rabbitmq_network
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
 
   init:
     image: ghcr.io/mountain-contractors-supply/pimcore/init:dev
@@ -88,6 +92,8 @@ services:
     networks:
       - internal_network
       - opensearch_network
+    volumes:
+      - opensearch:/usr/share/opensearch/data
 
   mercure:
     container_name: ${APP_NAME}-mercure
@@ -115,6 +121,12 @@ volumes:
   pimcore-public-tmp:
     external: true
   pimcore-installer:
+    external: true
+  redis:
+    external: true
+  rabbitmq:
+    external: true
+  opensearch:
     external: true
 
 networks:
