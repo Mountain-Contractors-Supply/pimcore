@@ -2,20 +2,14 @@ imports:
     - { resource: 'theme/theme.yaml' }
 
 parameters:
-    kernel_secret_file_fallback: '/run/secrets/kernel-secret'
-    secret: '%env(file:default:kernel_secret_file_fallback:KERNEL_SECRET_FILE)%'
+    env(KERNEL_SECRET_FILE): '/run/secrets/kernel-secret'
+    secret: '%env(KERNEL_SECRET)%'
 
-    # These are default values for connecting to the database/Redis cache that the Docker build sometimes requires to be set.
-    # Once the app is actually running, they will be replaced with actual values.
-    env(DATABASE_HOST): ''
-    env(DATABASE_PORT): 0
-    env(DATABASE_NAME): ''
-    env(DATABASE_USER): ''
-    env(DATABASE_PASSWORD): ''
-    env(DATABASE_SERVER_VERSION): '0.0.0'
-    env(REDIS_DB): "0"
-    env(REDIS_SESSION_DB): "0"
-    env(REDIS_HOST): 'redis://redis'
+    env(MERCURE_SECRET_FILE): '/run/secrets/mercure-jwt'
+    env(MERCURE_JWT): '%env(file:MERCURE_SECRET_FILE)%'
+
+    env(DATABASE_PASSWORD_FILE): '/run/secrets/database-password'
+    env(DATABASE_PASSWORD): '%env(file:DATABASE_PASSWORD_FILE)%'
 
     # customize the full path to external executables
     # normally they are auto-detected by `which program` or auto-discovered in the configured path in

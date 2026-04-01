@@ -6,8 +6,6 @@ pimcore_open_search_client:
     clients:
         default:
             hosts: ['http://opensearch:9200']
-            password: '%env(OPENSEARCH_INITIAL_ADMIN_PASSWORD)%'
-            username: 'admin'
             ssl_verification: false
 
 pimcore_generic_data_index:
@@ -18,8 +16,8 @@ pimcore_generic_data_index:
 pimcore_studio_backend:
     mercure_settings:
         jwt_key: '%env(MERCURE_JWT)%'
-        hub_url_client: 'http://localhost/hub'
-        hub_url_server: 'http://mercure/.well-known/mercure'
+        hub_url_client: '%env(MERCURE_URL_CLIENT)%'
+        hub_url_server: '%env(MERCURE_URL_SERVER)%'
 
 pimcore_data_hub:
     config_location:
@@ -52,8 +50,8 @@ ux_map:
 mercure:
     hubs:
         default:
-            url: 'http://mercure/.well-known/mercure'
-            public_url: '/hub'
+            url: '%env(MERCURE_URL_SERVER)%'
+            public_url: '%env(MERCURE_URL_CLIENT)%'
             jwt:
                 secret: '%env(MERCURE_JWT)%'
                 publish: ['*']

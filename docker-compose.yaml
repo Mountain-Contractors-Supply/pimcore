@@ -1,226 +1,109 @@
 services:
-    redis:
-        container_name: ${APP_NAME}-redis
-        image: redis:alpine
-        command: [ redis-server, --maxmemory 128mb, --maxmemory-policy volatile-lru, --save ""  ]
+  redis:
+    image: redis:alpine
+    command:
+      [
+        redis-server,
+        --maxmemory 128mb,
+        --maxmemory-policy volatile-lru,
+        --save "",
+      ]
 
-    db:
-        container_name: ${APP_NAME}-db
-        image: mariadb:10.11
-        working_dir: /application
-        command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_520_ci, --innodb-file-per-table=1, --local-infile=1 ]
-        volumes:
-            - pimcore-database:/var/lib/mysql
-        environment:
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-            - MYSQL_PORT=${MYSQL_PORT}
-        healthcheck:
-            # The service is considered healthy when:
-            # - connection to pimcore db can be established, and
-            # - we can run a simple SQL query.
-            test: [ "CMD-SHELL", "mysql -h db -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE -e 'SHOW TABLES;'" ]
-            interval: 10s
-            retries: 6
-            start_period: 1m
-            timeout: 3s
-        ports:
-            - "${DATABASE_PORT_EXTERNAL}:${MYSQL_PORT}"
+  rabbitmq:
+    image: rabbitmq:alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_LOOPBACK_USERS: "" # allow guest from non-localhost
 
-    init:
-        container_name: ${APP_NAME}-init
-        build:
-            dockerfile: ./.docker/Dockerfile
-            target: init
-            secrets:
-                - kernel-secret
-                - pimcore-product-key
-                - pimcore-instance-identifier
-                - pimcore-encryption-secret
-                - mercure-jwt
-        depends_on:
-            db:
-                condition: service_healthy
-        env_file:
-            -   .env
-        secrets:
-            - kernel-secret
-            - pimcore-product-key
-            - pimcore-instance-identifier
-            - pimcore-encryption-secret
-            - mercure-jwt
-        volumes:
-            - .:/var/www/html
-            - ./.docker/init/init.sh:/init.sh
-            - ./.docker/init/init.local.sh:/init.local.sh
-        command: [ "/init.local.sh" ]
+  init:
+    secrets:
+      - kernel-secret
+      - pimcore-product-key
+      - pimcore-instance-identifier
+      - pimcore-encryption-secret
+      - pimcore-admin-password
+      - database-password
+      - mercure-jwt
+      - kourier-password
+      - google-maps-api-key
+      - eclipse-service-pass
 
-    php:
-        container_name: ${APP_NAME}-php
-        build:
-          dockerfile: ./.docker/Dockerfile
-          target: php
-          secrets:
-              - kernel-secret
-              - pimcore-product-key
-              - pimcore-instance-identifier
-              - pimcore-encryption-secret
-              - mercure-jwt
-        env_file:
-            -   .env
-        secrets:
-            - kernel-secret
-            - pimcore-product-key
-            - pimcore-instance-identifier
-            - pimcore-encryption-secret
-            - mercure-jwt
-        depends_on:
-            init:
-                condition: service_completed_successfully
-        ports:
-            - "${WEB_PORT_EXTERNAL}:80"
-        volumes:
-            - .:/var/www/html
-            - ./.docker/php-debug/nginx-debug.conf:/etc/nginx/sites-available/default:ro
-            - ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
+  php:
+    secrets:
+      - kernel-secret
+      - pimcore-product-key
+      - pimcore-instance-identifier
+      - pimcore-encryption-secret
+      - database-password
+      - mercure-jwt
+      - kourier-password
+      - google-maps-api-key
+      - eclipse-service-pass
 
-    php-debug:
-        container_name: ${APP_NAME}-php-debug
-        build:
-            dockerfile: ./.docker/Dockerfile
-            target: php-debug
-            secrets:
-                - kernel-secret
-                - pimcore-product-key
-                - pimcore-instance-identifier
-                - pimcore-encryption-secret
-        environment:
-            - XDEBUG_CONFIG=remote_enable=1
-            - PHP_IDE_CONFIG=serverName=localhost
-        env_file:
-            - .env
-        secrets:
-            - kernel-secret
-            - pimcore-product-key
-            - pimcore-instance-identifier
-            - pimcore-encryption-secret
-        depends_on:
-            init:
-                condition: service_completed_successfully
-        volumes:
-            - .:/var/www/html
+  supervisord:
+    secrets:
+      - kernel-secret
+      - pimcore-product-key
+      - pimcore-instance-identifier
+      - pimcore-encryption-secret
+      - pimcore-admin-password
+      - database-password
+      - mercure-jwt
+      - kourier-password
+      - google-maps-api-key
+      - eclipse-service-pass
 
-    supervisord:
-        container_name: ${APP_NAME}-supervisord
-        build:
-            dockerfile: ./.docker/Dockerfile
-            target: supervisord
-            secrets:
-                - kernel-secret
-                - pimcore-product-key
-                - pimcore-instance-identifier
-                - pimcore-encryption-secret
-        depends_on:
-            init:
-                condition: service_completed_successfully
-        env_file:
-            -   .env
-        secrets:
-            - kernel-secret
-            - pimcore-product-key
-            - pimcore-instance-identifier
-            - pimcore-encryption-secret
-        volumes:
-            - .:/var/www/html
-            - ./.docker/supervisord/supervisord.conf:/etc/supervisor/conf.d/pimcore.conf:ro
+  opensearch:
+    image: opensearchproject/opensearch:2
+    environment:
+      - node.name=opensearch
+      - "DISABLE_SECURITY_PLUGIN=true"
+      - discovery.type=single-node
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - indices.query.bool.max_clause_count=3000
+      - action.auto_create_index=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
 
-    # The following two services are used for testing.
-    # We restrict these services to the test profile only, so we don't spin them up with every `docker compose up`.
-    # See: https://docs.docker.com/compose/profiles/
-    test-db:
-        profiles: [ 'test' ]
-        extends:
-            service: db
-        volumes:
-            - pimcore-test-database:/var/lib/mysql
-
-    test-php:
-        profiles: [ 'test' ]
-        extends:
-            service: php
-        environment:
-            APP_ENV: test
-            PIMCORE_TEST_DB_DSN: ${PIMCORE_TEST_DB_DSN:-mysql://pimcore:pimcore@test-db/pimcore}
-            PIMCORE_INSTALL_ADMIN_USERNAME: pimcore
-            PIMCORE_INSTALL_ADMIN_PASSWORD: pimcore
-            PIMCORE_INSTALL_MYSQL_HOST_SOCKET: test-db
-        depends_on:
-            test-db:
-                condition: service_healthy
-        volumes:
-            - pimcore-test-var:/var/www/html/var
-            - pimcore-test-public-var:/var/www/html/public/var
-
-    smtp:
-        container_name: ${APP_NAME}-smtp
-        image: rnwood/smtp4dev:v3
-        ports:
-            - ${SMTP_PORT_EXTERNAL}:80
-        volumes:
-            - smtp4dev-data:/smtp4dev
-        environment:
-            - ServerOptions__HostName=smtp4dev
-
-    opensearch:
-        image: opensearchproject/opensearch:2
-        entrypoint: ["/usr/local/bin/opensearch-entrypoint-wrapper.sh"]
-        volumes:
-            - ./.docker/opensearch/opensearch-entrypoint-wrapper.sh:/usr/local/bin/opensearch-entrypoint-wrapper.sh:ro
-        environment:
-            - discovery.type=single-node
-            - plugins.security.disabled=true
-            - action.auto_create_index=false
-            - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
-        secrets:
-            - opensearch-initial-admin-password
-        ports:
-            - "9200:9200"
-
-    mercure:
-        image: dunglas/mercure:latest
-        environment:
-            SERVER_NAME: ':80'
-            MERCURE_EXTRA_DIRECTIVES: |-
-                anonymous
-        secrets:
-            - mercure-jwt
-        entrypoint: [ "/usr/local/bin/mercure-entrypoint-wrapper.sh" ]
-        volumes:
-            - ./.docker/mercure/mercure-entrypoint-wrapper.sh:/usr/local/bin/mercure-entrypoint-wrapper.sh:ro
-            - pimcore-demo-mercure-data:/data
-            - pimcore-demo-mercure-config:/config
-
-volumes:
-    pimcore-database:
-    pimcore-test-database:
-    pimcore-test-var:
-    pimcore-test-public-var:
-    smtp4dev-data:
-    pimcore-demo-mercure-config:
-    pimcore-demo-mercure-data:
+  mercure:
+    image: dunglas/mercure:latest
+    environment:
+      SERVER_NAME: ":80"
+      MERCURE_EXTRA_DIRECTIVES: |-
+        anonymous
+    secrets:
+      - mercure-jwt
+    entrypoint: ["/usr/local/bin/mercure-entrypoint-wrapper.sh"]
+    volumes:
+      - ./.docker/mercure/mercure-entrypoint-wrapper.sh:/usr/local/bin/mercure-entrypoint-wrapper.sh:ro
 
 secrets:
-    kernel-secret:
-      file: ./.secrets/kernel-secret
-    pimcore-product-key:
-      file: ./.secrets/pimcore-product-key
-    pimcore-instance-identifier:
-      file: ./.secrets/pimcore-instance-identifier
-    pimcore-encryption-secret:
-      file: ./.secrets/pimcore-encryption-secret
-    mercure-jwt:
-        file: ./.secrets/mercure-jwt
-    opensearch-initial-admin-password:
-        file: ./.secrets/opensearch-initial-admin-password
+  kernel-secret:
+    file: ./.secrets/kernel-secret
+  pimcore-product-key:
+    file: ./.secrets/pimcore-product-key
+  pimcore-instance-identifier:
+    file: ./.secrets/pimcore-instance-identifier
+  pimcore-encryption-secret:
+    file: ./.secrets/pimcore-encryption-secret
+  pimcore-admin-password:
+    file: ./.secrets/pimcore-admin-password
+  database-password:
+    file: ./.secrets/database-password
+  mercure-jwt:
+    file: ./.secrets/mercure-jwt
+  kourier-password:
+    file: ./.secrets/kourier-password
+  google-maps-api-key:
+    file: ./.secrets/google-maps-api-key
+  eclipse-service-pass:
+    file: ./.secrets/eclipse-service-pass

@@ -1,0 +1,18 @@
+framework:
+    messenger:
+        transports:
+            pimcore_core: 'amqp://guest:guest@rabbitmq:5672/%2f/pimcore_core'
+            pimcore_maintenance: 'amqp://guest:guest@rabbitmq:5672/%2f/pimcore_maintenance'
+            pimcore_scheduled_tasks: 'amqp://guest:guest@rabbitmq:5672/%2f/pimcore_scheduled_tasks'
+            pimcore_image_optimize: 'amqp://guest:guest@rabbitmq:5672/%2f/pimcore_image_optimize'
+            pimcore_asset_update: 'amqp://guest:guest@rabbitmq:5672/%2f/pimcore_asset_update'
+            pimcore_generic_data_index_queue : 'amqp://guest:guest@rabbitmq:5672/%2f/pimcore_generic_data_index_queue'
+            scheduler_generic_data_index : 'amqp://guest:guest@rabbitmq:5672/%2f/scheduler_generic_data_index'
+            pimcore_generic_execution_engine : 'amqp://guest:guest@rabbitmq:5672/%2f/pimcore_generic_execution_engine'
+
+            sync: 'sync://'
+            async: 'amqp://guest:guest@rabbitmq:5672/%2f/async'
+
+        routing:
+            'McSupply\EcommerceBundle\Message\PriceUpdateMessage': sync
+            'McSupply\EcommerceBundle\Message\AvailabilityUpdateMessage': sync
