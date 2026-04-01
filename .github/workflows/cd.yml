@@ -49,5 +49,7 @@ jobs:
           "pimcore-instance-identifier": "${{ secrets.PIMCORE_INSTANCE_IDENTIFIER }}",
           "pimcore-encryption-secret": "${{ secrets.PIMCORE_ENCRYPTION_SECRET }}",
           "mercure-jwt": "${{ secrets.MERCURE_JWT }}",
-          "kourier-password": "${{ secrets.KOURIER_PASSWORD }}"
+          "kourier-password": "${{ secrets.KOURIER_PASSWORD }}",
+          "google-maps-api-key": "${{ secrets.GOOGLE_MAPS_API_KEY }}",
+          "eclipse-service-pass": "${{ secrets.ECLIPSE_SERVICE_PASS }}"
         }

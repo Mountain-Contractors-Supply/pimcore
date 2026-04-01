@@ -22,6 +22,8 @@ services:
       - database-password
       - mercure-jwt
       - kourier-password
+      - google-maps-api-key
+      - eclipse-service-pass
 
   php:
     secrets:
@@ -32,6 +34,8 @@ services:
       - database-password
       - mercure-jwt
       - kourier-password
+      - google-maps-api-key
+      - eclipse-service-pass
 
   supervisord:
     secrets:
@@ -43,6 +47,8 @@ services:
       - database-password
       - mercure-jwt
       - kourier-password
+      - google-maps-api-key
+      - eclipse-service-pass
 
   opensearch:
     image: opensearchproject/opensearch:2
@@ -93,3 +99,7 @@ secrets:
     file: ./.secrets/mercure-jwt
   kourier-password:
     file: ./.secrets/kourier-password
+  google-maps-api-key:
+    file: ./.secrets/google-maps-api-key
+  eclipse-service-pass:
+    file: ./.secrets/eclipse-service-pass
