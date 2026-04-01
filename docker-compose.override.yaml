@@ -145,8 +145,6 @@ services:
       interval: 5s
       timeout: 10s
       retries: 6
-    volumes:
-      - opensearch-data:/usr/share/opensearch/data
 
   mercure:
     container_name: ${APP_NAME}-mercure
@@ -189,4 +187,3 @@ volumes:
   smtp4dev-data:
   mercure-config:
   mercure-data:
-  opensearch-data:
