@@ -8,7 +8,7 @@ services:
       - redis:/data
 
   rabbitmq:
-    container_name: ${APP_NAME}-rabbitmq
+    container_name: rabbitmq
     restart: unless-stopped
     networks:
       - rabbitmq_network
@@ -87,7 +87,7 @@ services:
       - mercure_network
 
   opensearch:
-    container_name: ${APP_NAME}-opensearch
+    container_name: opensearch
     restart: unless-stopped
     networks:
       - internal_network
@@ -96,7 +96,7 @@ services:
       - opensearch:/usr/share/opensearch/data
 
   mercure:
-    container_name: ${APP_NAME}-mercure
+    container_name: mercure
     restart: unless-stopped
     networks:
       - internal_network
