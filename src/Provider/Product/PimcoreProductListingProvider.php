@@ -35,20 +35,35 @@ final readonly class PimcoreProductListingProvider implements DataProviderInterf
     public function get(string $className, array $data = []): ?ProductListing
     {
         $id = $data['id'] ?? null;
+        $mainRequest = $this->requestStack->getMainRequest();
+        $query = $mainRequest?->query->getString('q');
 
-        if ($id === null) {
+        if ($id === null && empty($query)) {
             return null;
         }
 
-        $mainRequest = $this->requestStack->getMainRequest();
         $page = $mainRequest?->query->getInt('page', 1) ?? 1;
         $limit = $mainRequest?->query->getInt('limit',
             ProductInterface::DEFAULT_PER_PAGE_COUNT) ?? ProductInterface::DEFAULT_PER_PAGE_COUNT;
-
         $listing = new Product\Listing();
+        $conditions = [];
+        $params = [];
+
+        if ($id !== null) {
+            $conditions[] = 'oo_id IN (SELECT src_id FROM object_relations_product WHERE dest_id = ? AND fieldname = ?)';
+            $params[] = $id;
+            $params[] = 'categoriesRef';
+        }
+
+        if (!empty($query)) {
+            $conditions[] = '(name LIKE ?)';
+            $like = '%' . $query . '%';
+            $params[] = $like;
+        }
+
         $listing->setCondition(
-            'oo_id IN (SELECT src_id FROM object_relations_product WHERE dest_id = ? AND fieldname = ?)',
-            [$id, 'categoriesRef']
+            implode(' AND ', $conditions),
+            $params
         );
 
         return new ProductListing($this->paginator->paginate($listing, $page, $limit));
