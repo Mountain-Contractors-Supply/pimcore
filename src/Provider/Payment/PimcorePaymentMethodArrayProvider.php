@@ -19,7 +19,7 @@ use Pimcore\Model\DataObject\PaymentMethod;
 class PimcorePaymentMethodArrayProvider implements DataProviderInterface, ReadOperationInterface
 {
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         return true;
     }
@@ -28,7 +28,7 @@ class PimcorePaymentMethodArrayProvider implements DataProviderInterface, ReadOp
      * @throws Exception
      */
     #[\Override]
-    public function get(string $className, mixed $data = null): PaymentMethodArray
+    public function get(string $className, array $data = []): PaymentMethodArray
     {
         $paymentMethods = new PaymentMethodArray();
 

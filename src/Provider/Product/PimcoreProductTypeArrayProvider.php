@@ -19,7 +19,7 @@ use Pimcore\Model\DataObject\ProductType;
 class PimcoreProductTypeArrayProvider implements DataProviderInterface, ReadOperationInterface
 {
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         return true;
     }
@@ -28,7 +28,7 @@ class PimcoreProductTypeArrayProvider implements DataProviderInterface, ReadOper
      * @throws Exception
      */
     #[\Override]
-    public function get(string $className, mixed $data = null): ProductTypeArray
+    public function get(string $className, array $data = []): ProductTypeArray
     {
         $productTypes = new ProductTypeArray();
 

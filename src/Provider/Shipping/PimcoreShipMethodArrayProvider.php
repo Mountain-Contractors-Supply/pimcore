@@ -19,7 +19,7 @@ use Pimcore\Model\DataObject\ShipMethod;
 class PimcoreShipMethodArrayProvider implements DataProviderInterface, ReadOperationInterface
 {
     #[\Override]
-    public function supports(string $className, mixed $data = null): bool
+    public function supports(string $className, array $data = []): bool
     {
         return true;
     }
@@ -28,7 +28,7 @@ class PimcoreShipMethodArrayProvider implements DataProviderInterface, ReadOpera
      * @throws Exception
      */
     #[\Override]
-    public function get(string $className, mixed $data = null): ShipMethodArray
+    public function get(string $className, array $data = []): ShipMethodArray
     {
         $shipMethods = new ShipMethodArray();
 
