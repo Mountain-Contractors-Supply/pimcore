@@ -47,9 +47,11 @@
         {% include 'partials/_header.html.twig' %}
     </header>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <turbo-frame id="body-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="nearest" data-autoscroll-behavior="smooth">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </turbo-frame>
 
     {{ include('partials/_footer.html.twig') }}
 </body>
