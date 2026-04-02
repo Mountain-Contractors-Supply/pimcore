@@ -1,8 +1,8 @@
 <turbo-frame id="branch-data-frame">
-    <a class="branch-dropdown" id="branch-dropdown" href="/locations" data-turbo-frame="_top">
-        <div class="branch-info" id="branch-info">
-            <img src="{{ asset('images/misc/location-icon.webp') }}" alt="Location" class="location-icon" />
-            <span class="branch-text" id="branch-status">You're shopping at<br><strong>{{ branch.name }}</strong></span>
+    <a class="relative inline-block no-underline" id="branch-dropdown" href="/locations" data-turbo-frame="_top">
+        <div class="flex h-[33px] cursor-pointer items-center gap-2 px-2 text-xs text-[var(--primary-color)] transition-colors duration-200 hover:bg-[rgba(17,23,94,0.05)]" id="branch-info">
+            <img src="{{ asset('images/misc/location-icon.webp') }}" alt="Location" class="h-5 w-5 shrink-0 object-contain" />
+            <span class="text-xs italic opacity-90" id="branch-status">You're shopping at<br><strong>{{ branch.name }}</strong></span>
         </div>
     </a>
 </turbo-frame>

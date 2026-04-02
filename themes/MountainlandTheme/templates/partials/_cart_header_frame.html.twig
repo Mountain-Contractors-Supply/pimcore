@@ -1,11 +1,11 @@
 <turbo-frame id="cart-data-frame">
     <a href="{{ path('cart') }}"
-       class="bag-link"
+       class="flex h-[33px] items-center gap-2 px-4 text-[0.9rem] text-[var(--primary-color)] no-underline transition-all duration-300 hover:bg-black/15"
        aria-label="View Cart"
        data-turbo-frame="_top">
-        <img src="{{ asset('images/misc/shopping-bag.webp') }}" alt="Bag" />
-        <div class="bag-info">
-            <span class="bag-count">
+        <img src="{{ asset('images/misc/shopping-bag.webp') }}" alt="Bag" class="h-5 w-5 object-contain" />
+        <div class="flex flex-col leading-tight">
+            <span class="text-[0.75rem] font-normal opacity-85">
                 {% if cart %}
                     {% set itemCount = cart.items|length %}
                     {{ itemCount == 1 ? '1 item' : itemCount ~ ' items' }}
@@ -13,7 +13,7 @@
                     0 items
                 {% endif %}
             </span>
-            <span class="bag-total">
+            <span class="text-[0.9rem] font-semibold">
                 {% if cart and cart.subTotal %}
                     ${{ cart.subTotal|number_format(2, '.', ',') }}
                 {% else %}
