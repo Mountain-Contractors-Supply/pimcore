@@ -118,11 +118,11 @@
                         {% set items = products.pagination.items %}
                         {% for item in items %}
                             <twig:Card class="h-full p-3.5 flex flex-col">
-                                <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="block mb-3">
+                                <a href="{{ element_path(item) }}" class="block mb-3">
                                     <twig:Ui:Image :alt="item.name|default('Product image')" class="w-full max-w-xs mx-auto" />
                                 </a>
 
-                                <a href="{{ element_path(item) }}" data-turbo-frame="_top" class="min-h-10 overflow-hidden text-sm font-medium leading-5 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" title="{{ item.name }}">{{ item.name }}</a>
+                                <a href="{{ element_path(item) }}" class="min-h-10 overflow-hidden text-sm font-medium leading-5 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]" title="{{ item.name }}">{{ item.name }}</a>
 
                                 <twig:Product:ProductPrice
                                     :productId="item.productId"
