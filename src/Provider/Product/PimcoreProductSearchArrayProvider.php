@@ -52,9 +52,11 @@ final readonly class PimcoreProductSearchArrayProvider implements DataProviderIn
         $products = new ProductSearchArray();
 
         foreach ($listing as $product) {
-            $products->add(
-                (new ProductSearch($product->getName()))
-            );
+            if ($product) {
+                $products->add(
+                    (new ProductSearch((string)$product->getName()))
+                );
+            }
         }
 
         return $products;
