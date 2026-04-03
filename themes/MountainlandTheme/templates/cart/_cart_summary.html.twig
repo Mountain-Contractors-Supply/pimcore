@@ -20,10 +20,10 @@
         </div>
 
         {% if not cart.empty %}
-        <a href="{{ path('checkout') }}" class="btn-primary full" data-turbo-frame="_top">Proceed to Checkout</a>
+        <a href="{{ path('checkout') }}" class="btn-primary full">Proceed to Checkout</a>
         {% endif %}
 
-        <a href="{{ path('root_category') }}" class="btn-secondary full" data-turbo-frame="_top">Continue Shopping</a>
+        <a href="{{ path('root_category') }}" class="btn-secondary full">Continue Shopping</a>
     </div>
     <a href="#" class="return-policy-link">View Return Policy</a>
 </aside>
