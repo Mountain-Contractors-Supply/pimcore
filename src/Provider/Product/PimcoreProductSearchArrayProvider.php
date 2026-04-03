@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Provider\Product;
 
+use App\LinkGenerator\ProductLinkGenerator;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Product\ProductSearch;
 use McSupply\EcommerceBundle\Dto\Product\ProductSearchArray;
@@ -18,6 +19,10 @@ use Pimcore\Model\DataObject\Product;
 #[DataProvider(ProductSearchArray::class, 10)]
 final readonly class PimcoreProductSearchArrayProvider implements DataProviderInterface, ReadOperationInterface
 {
+    public function __construct(
+        private ProductLinkGenerator $productLinkGenerator,
+    ) {}
+
     public function supports(string $className, array $data = []): bool
     {
         return true;
@@ -54,7 +59,11 @@ final readonly class PimcoreProductSearchArrayProvider implements DataProviderIn
         foreach ($listing as $product) {
             if ($product) {
                 $products->add(
-                    (new ProductSearch((string)$product->getName()))
+                    new ProductSearch(
+                        (string)$product->getName(),
+                        '',
+                        $this->productLinkGenerator->generate($product),
+                    )
                 );
             }
         }
