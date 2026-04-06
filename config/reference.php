@@ -1457,7 +1457,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             use_underscore?: bool|Param, // Default: true
  *             unordered_list_markers?: list<scalar|Param|null>,
  *         },
- *         ...<string, mixed>
+ *         ...<mixed>
  *     },
  * }
  * @psalm-type MonologConfig = array{
@@ -2373,7 +2373,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 prefixes?: list<scalar|Param|null>,
  *             },
  *         },
- *         ...<string, mixed>
+ *         ...<mixed>
  *     },
  *     assets?: array{
  *         thumbnails?: array{
@@ -2569,7 +2569,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 predefined_document_types?: bool|Param, // Default: false
  *             }>,
  *         },
- *         ...<string, mixed>
+ *         ...<mixed>
  *     },
  *     encryption?: array{
  *         secret?: scalar|Param|null, // Default: null
@@ -2587,7 +2587,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         lifetime?: scalar|Param|null, // Optional output-cache lifetime (in seconds) after the cache expires, if not defined the cache will be cleaned on every action inside the CMS, otherwise not (for high traffic sites) // Default: null
  *         exclude_patterns?: scalar|Param|null, // Regular Expressions like: /^\/dir\/toexclude/
  *         exclude_cookie?: scalar|Param|null, // Comma separated list of cookie names, that will automatically disable the full-page cache
- *         ...<string, mixed>
+ *         ...<mixed>
  *     },
  *     context?: array<string, array{ // Default: []
  *         routes?: list<null|array{ // Default: []
@@ -2786,7 +2786,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 modificationDate?: int|Param,
  *             }>,
  *         },
- *         ...<string, mixed>
+ *         ...<mixed>
  *     },
  *     perspectives?: array{
  *         definitions?: list<array{ // Default: []
@@ -2808,7 +2808,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 treeContextMenu?: mixed,
  *             }>,
  *         }>,
- *         ...<string, mixed>
+ *         ...<mixed>
  *     },
  *     custom_views?: array{
  *         definitions?: list<array{ // Default: []
@@ -2833,7 +2833,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 columns?: mixed,
  *             }>,
  *         }>,
- *         ...<string, mixed>
+ *         ...<mixed>
  *     },
  *     templating_engine?: array{
  *         twig?: array{

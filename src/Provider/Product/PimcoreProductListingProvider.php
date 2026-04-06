@@ -34,8 +34,9 @@ final readonly class PimcoreProductListingProvider implements DataProviderInterf
     #[\Override]
     public function get(string $className, array $data = []): ?ProductListing
     {
-        $id = $data['id'] ?? null;
+        
         $mainRequest = $this->requestStack->getMainRequest();
+        $id = $data['id'] ?? $mainRequest?->query->getInt('id');
         $query = $mainRequest?->query->getString('q');
 
         if ($id === null && empty($query)) {
