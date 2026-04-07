@@ -36,7 +36,7 @@ final class PimcoreProductListingProvider implements DataProviderInterface, Read
     }
 
     #[\Override]
-    public function get(string $className, array $data = []): ?ProductListing
+    public function get(string $className, array $data = []): ProductListing
     {
         $mainRequest = $this->requestStack->getMainRequest();
         $data['id'] ??= $mainRequest?->query->getInt('id');

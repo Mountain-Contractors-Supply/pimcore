@@ -9,6 +9,10 @@ use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Model\DataObject\Product\Listing;
 
+/**
+ * @implements DataProviderInterface<Listing>
+ * @implements ReadOperationInterface<Listing>
+ */
 #[DataProvider(Listing::class)]
 final readonly class PimcoreProductListingBuilderProvider implements DataProviderInterface, ReadOperationInterface
 {

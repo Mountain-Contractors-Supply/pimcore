@@ -8,6 +8,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductCategoryArray;
+use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Provider\DataResolverAwareInterface;
 use McSupply\EcommerceBundle\Provider\DataResolverAwareTrait;
@@ -30,7 +31,7 @@ final class PimcoreProductCategorySearchBarProvider implements DataProviderInter
 
     public function get(string $className, array $data = []): ProductCategoryArray
     {
-        $categoryId = $this->dataResolver->get(OnlineStoreInterface::class)->getRootProductCategory()->getId();
+        $categoryId = $this->dataResolver->get(OnlineStoreInterface::class)->getRootProductCategory()?->getId();
         $listing = (new ProductCategory\Listing())
             ->setCondition('parentId = ? OR id IN (?, ?)', [
                 $categoryId,
@@ -53,6 +54,14 @@ final class PimcoreProductCategorySearchBarProvider implements DataProviderInter
             }
         );
 
-        return new ProductCategoryArray($listing);
+        $productCategoryGenerator = (function () use ($listing): \Generator {
+            foreach ($listing as $item) {
+                if ($item instanceof ProductCategoryInterface) {
+                    yield $item;
+                }
+            }
+        })();
+
+        return new ProductCategoryArray($productCategoryGenerator);
     }
 }
