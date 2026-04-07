@@ -2,13 +2,20 @@ import { Controller } from '@hotwired/stimulus';
 
 let userIsActivelyTyping = false;
 let typingTimeoutId = null;
+let savedSelectionStart = null;
+let savedSelectionEnd = null;
 
 export default class extends Controller {
     static values = { searchPath: String };
 
     connect() {
         if (userIsActivelyTyping) {
-            requestAnimationFrame(() => this.element.focus());
+            requestAnimationFrame(() => {
+                this.element.focus();
+                if (savedSelectionStart !== null) {
+                    this.element.setSelectionRange(savedSelectionStart, savedSelectionEnd);
+                }
+            });
         }
         document.addEventListener('turbo:before-visit', this.#onBeforeVisit);
         document.addEventListener('turbo:load', this.#onLoad);
@@ -16,6 +23,10 @@ export default class extends Controller {
     }
 
     disconnect() {
+        if (userIsActivelyTyping) {
+            savedSelectionStart = this.element.selectionStart;
+            savedSelectionEnd = this.element.selectionEnd;
+        }
         document.removeEventListener('turbo:before-visit', this.#onBeforeVisit);
         document.removeEventListener('turbo:load', this.#onLoad);
         this.element.removeEventListener('input', this.#onInput);
@@ -38,6 +49,8 @@ export default class extends Controller {
 
         if (!isSearchPage) {
             userIsActivelyTyping = false;
+            savedSelectionStart = null;
+            savedSelectionEnd = null;
             clearTimeout(typingTimeoutId);
             this.element.blur();
         }
@@ -48,6 +61,8 @@ export default class extends Controller {
 
         if (!isSearchPage) {
             userIsActivelyTyping = false;
+            savedSelectionStart = null;
+            savedSelectionEnd = null;
             clearTimeout(typingTimeoutId);
             this.element.value = '';
             this.element.blur();
