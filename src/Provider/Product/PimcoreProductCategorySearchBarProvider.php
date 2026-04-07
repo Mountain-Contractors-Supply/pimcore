@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Provider\Product;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductCategoryArray;
-use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Provider\DataResolverAwareInterface;
 use McSupply\EcommerceBundle\Provider\DataResolverAwareTrait;
@@ -21,28 +21,38 @@ use Pimcore\Model\DataObject\ProductCategory;
 #[DataProvider(ProductCategoryArray::class, 10)]
 final class PimcoreProductCategorySearchBarProvider implements DataProviderInterface, ReadOperationInterface, DataResolverAwareInterface
 {
-    
     use DataResolverAwareTrait;
 
-    #[\Override]
     public function supports(string $className, array $data = []): bool
     {
         return true;
     }
 
-    #[\Override]
     public function get(string $className, array $data = []): ProductCategoryArray
     {
-        $categories = new ProductCategoryArray();
-        $category = $this->dataResolver->get(OnlineStoreInterface::class)->getRootProductCategory();
+        $categoryId = $this->dataResolver->get(OnlineStoreInterface::class)->getRootProductCategory()->getId();
         $listing = (new ProductCategory\Listing())
-            ->setCondition('parentId = ?', [$category->getId()])
-            ->setOrderKey('name');
+            ->setCondition('parentId = ? OR id IN (?, ?)', [
+                $categoryId,
+                $data['id'],
+                $categoryId,
+            ]);
 
-        foreach ($listing as $item) {
-            $categories->add($item);
-        }
+        $listing->onCreateQueryBuilder(
+            function (QueryBuilder $qb) use ($categoryId) {
+                $qb->resetOrderBy();
+                $customOrder = "CASE
+                    WHEN id = " . $categoryId . " THEN 1
+                    WHEN parentId <> " . $categoryId . " THEN 0
+                    ELSE 2
+                END";
 
-        return $categories; 
+                // Use addOrderBy to ensure this happens FIRST
+                $qb->addOrderBy($customOrder, 'ASC');
+                $qb->addOrderBy('name', 'ASC');
+            }
+        );
+
+        return new ProductCategoryArray($listing);
     }
 }

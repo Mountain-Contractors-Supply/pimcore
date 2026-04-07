@@ -9,6 +9,8 @@ use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductListing;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
+use McSupply\EcommerceBundle\Provider\DataResolverAwareInterface;
+use McSupply\EcommerceBundle\Provider\DataResolverAwareTrait;
 use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Model\DataObject\Product;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -18,11 +20,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * @implements ReadOperationInterface<ProductListing>
  */
 #[DataProvider(ProductListing::class, 10)]
-final readonly class PimcoreProductListingProvider implements DataProviderInterface, ReadOperationInterface
+final class PimcoreProductListingProvider implements DataProviderInterface, ReadOperationInterface, DataResolverAwareInterface
 {
+    use DataResolverAwareTrait;
+
     public function __construct(
-        private PaginatorInterface $paginator,
-        private RequestStack $requestStack,
+        private readonly PaginatorInterface $paginator,
+        private readonly RequestStack $requestStack,
     ) {}
 
     #[\Override]
@@ -34,38 +38,13 @@ final readonly class PimcoreProductListingProvider implements DataProviderInterf
     #[\Override]
     public function get(string $className, array $data = []): ?ProductListing
     {
-        
         $mainRequest = $this->requestStack->getMainRequest();
-        $id = $data['id'] ?? $mainRequest?->query->getInt('id');
-        $query = $mainRequest?->query->getString('q');
-
-        if ($id === null && empty($query)) {
-            return null;
-        }
-
+        $data['id'] ??= $mainRequest?->query->getInt('id');
+        $data['q'] ??= $mainRequest?->query->getString('q');
+        $listing = $this->dataResolver->get(Product\Listing::class, $data);
         $page = $mainRequest?->query->getInt('page', 1) ?? 1;
         $limit = $mainRequest?->query->getInt('limit',
             ProductInterface::DEFAULT_PER_PAGE_COUNT) ?? ProductInterface::DEFAULT_PER_PAGE_COUNT;
-        $listing = new Product\Listing();
-        $conditions = [];
-        $params = [];
-
-        if ($id !== null) {
-            $conditions[] = 'oo_id IN (SELECT src_id FROM object_relations_product WHERE dest_id = ? AND fieldname = ?)';
-            $params[] = $id;
-            $params[] = 'categoriesRef';
-        }
-
-        if (!empty($query)) {
-            $conditions[] = '(name LIKE ?)';
-            $like = '%' . $query . '%';
-            $params[] = $like;
-        }
-
-        $listing->setCondition(
-            implode(' AND ', $conditions),
-            $params
-        );
 
         return new ProductListing($this->paginator->paginate($listing, $page, $limit));
     }
