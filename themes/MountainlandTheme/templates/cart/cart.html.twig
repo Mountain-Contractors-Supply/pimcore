@@ -11,7 +11,9 @@
 
         <turbo-frame id="cart-list-frame"
                      src="{{ path('cart_list_partial') }}"
-                     loading="lazy">
+                     loading="lazy"
+                     data-controller="cart-list"
+                     data-cart-list-url-value="{{ path('cart_list_partial') }}">
             {% include 'cart/_cart_list_frame.html.twig' with { 'cart': cart } %}
         </turbo-frame>
     </main>
