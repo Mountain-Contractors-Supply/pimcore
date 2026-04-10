@@ -1,192 +1,84 @@
 {# Shared footer template for Mountainland #}
-<style>
-    .site-footer {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 3rem 2rem 2rem 2rem;
-        margin-top: auto;
-        position: relative;
-    }
-    .footer-header {
-        text-align: center;
-        margin-bottom: 3rem;
-    }
-    .footer-header h2 {
-        font-family: var(--secondary-font);
-        font-size: 2.5rem;
-        color: white;
-        margin: 0;
-        text-transform: uppercase;
-    }
-    .footer-content {
-        max-width: 1600px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 3rem;
-        margin-bottom: 2rem;
-    }
-    .footer-column {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-    .footer-column h3 {
-        font-family: var(--secondary-font);
-        font-size: 1.3rem;
-        color: white;
-        margin: 0 0 0.5rem 0;
-        text-transform: uppercase;
-    }
-    .footer-column p {
-        margin: 0.25rem 0;
-        font-size: 0.95rem;
-        line-height: 1.6;
-    }
-    .footer-column ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    .footer-column ul li {
-        margin-bottom: 0.5rem;
-    }
-    .footer-column a {
-        color: white;
-        text-decoration: none;
-        font-size: 0.95rem;
-        transition: color 0.3s ease;
-    }
-    .footer-column a:hover {
-        color: var(--secondary-color);
-    }
-    .location-link {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: white;
-        transition: color 0.3s ease;
-    }
-    .location-link img {
-        width: 60px;
-        height: auto;
-    }
-    .location-link:hover {
-        color: var(--secondary-color);
-    }
-    .hours-info {
-        margin-top: 1rem;
-    }
-    .social-media {
-        display: flex;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-    .social-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: var(--primary-color);
-        font-weight: bold;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-    }
-    .social-icon:hover {
-        background-color: var(--secondary-color);
-        transform: scale(1.1);
-    }
-    .footer-bottom {
-        display: flex;
-        justify-content: flex-end;
-        padding-top: 2rem;
-    }
-    .footer-logo {
-        width: 200px;
-        height: auto;
-    }
-    @media (max-width: 1024px) {
-        .footer-content {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-    }
-    @media (max-width: 768px) {
-        .footer-content {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
+<footer class="relative bg-[var(--primary-color)] text-white mt-auto pt-12 px-8 pb-8">
 
-        .footer-header h2 {
-            font-size: 2rem;
-        }
-    }
-</style>
-
-<footer class="site-footer">
-    <div class="footer-header">
-        <h2>We're Ready to Help</h2>
+    {# Header — font-size: 2.5rem default, 2rem at max-width:768px #}
+    <div class="text-center mb-12">
+        <h2 class="font-[var(--secondary-font)] text-[2rem] uppercase text-white m-0 md:text-[2.5rem]">We're Ready to Help</h2>
     </div>
-    <div class="footer-content">
-        <div class="footer-column">
+
+    {# Columns grid — 4col/3rem-gap desktop, 2col/2rem-gap tablet, 1col/2rem-gap mobile #}
+    <div class="mx-auto max-w-[1600px] grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+
+        {# Column 1: Location & Hours #}
+        <div class="flex flex-col gap-4">
             {% set locationsDoc = pimcore_document_by_path('/locations') %}
-            <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}" class="location-link">
-                <img src="{{ asset('images/misc/location-button.webp') }}" alt="Location">
-                <h3>Find a Store Near You</h3>
+            <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}"
+               class="flex items-center gap-2 text-white no-underline transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">
+                <img src="{{ asset('images/misc/location-button.webp') }}" alt="Location" class="w-[60px] h-auto">
+                <h3 class="font-[var(--secondary-font)] text-[1.3rem] uppercase text-white m-0 mb-2">Find a Store Near You</h3>
             </a>
-            <div class="hours-info">
-                <h3>Hours</h3>
-                <p>Monday - Friday: 7:00 AM - 5:00 PM</p>
-                <p>Saturday - Sunday: Closed</p>
+            <div class="mt-4">
+                <h3 class="font-[var(--secondary-font)] text-[1.3rem] uppercase text-white m-0 mb-2">Hours</h3>
+                <p class="my-1 text-[0.95rem] leading-[1.6]">Monday - Friday: 7:00 AM - 5:00 PM</p>
+                <p class="my-1 text-[0.95rem] leading-[1.6]">Saturday - Sunday: Closed</p>
             </div>
         </div>
-        <div class="footer-column">
-            <h3>Our Business</h3>
-            <ul>
-                <li><a href="#">Purpose Vision Values</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Our History</a></li>
-                <li><a href="#">Divisions</a></li>
-                <li><a href="#">Mountainland Ventures</a></li>
-                <li><a href="#">Giving Hope</a></li>
-                <li><a href="#">Peak Rewards</a></li>
-                <li><a href="#">Meet the Team</a></li>
-                <li><a href="#">Mountainland Logos</a></li>
-                <li><a href="#">Career Opportunities</a></li>
+
+        {# Column 2: Our Business #}
+        <div class="flex flex-col gap-4">
+            <h3 class="font-[var(--secondary-font)] text-[1.3rem] uppercase text-white m-0 mb-2">Our Business</h3>
+            <ul class="list-none p-0 m-0">
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Purpose Vision Values</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">About Us</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Our History</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Divisions</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Mountainland Ventures</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Giving Hope</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Peak Rewards</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Meet the Team</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Mountainland Logos</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Career Opportunities</a></li>
             </ul>
         </div>
-        <div class="footer-column">
-            <h3>Useful Links</h3>
-            <ul>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Credit Application</a></li>
-                <li><a href="#">Project Calculators</a></li>
-                <li><a href="#">Contractor Tools</a></li>
-                <li><a href="#">Warranty Info</a></li>
-                <li><a href="#">En Español</a></li>
+
+        {# Column 3: Useful Links #}
+        <div class="flex flex-col gap-4">
+            <h3 class="font-[var(--secondary-font)] text-[1.3rem] uppercase text-white m-0 mb-2">Useful Links</h3>
+            <ul class="list-none p-0 m-0">
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Events</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Credit Application</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Project Calculators</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Contractor Tools</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Warranty Info</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">En Español</a></li>
             </ul>
         </div>
-        <div class="footer-column">
-            <h3>Stay In Touch</h3>
-            <ul>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Subscribe for More</a></li>
-                <li><a href="#">Give Us Feedback</a></li>
+
+        {# Column 4: Stay In Touch #}
+        <div class="flex flex-col gap-4">
+            <h3 class="font-[var(--secondary-font)] text-[1.3rem] uppercase text-white m-0 mb-2">Stay In Touch</h3>
+            <ul class="list-none p-0 m-0">
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Contact Us</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Subscribe for More</a></li>
+                <li class="mb-2"><a href="#" class="text-white no-underline text-[0.95rem] transition-[color] duration-300 ease hover:text-[var(--secondary-color)]">Give Us Feedback</a></li>
             </ul>
-            <div class="social-media">
-                <a href="#" class="social-icon" aria-label="Facebook">f</a>
-                <a href="#" class="social-icon" aria-label="Instagram">ig</a>
-                <a href="#" class="social-icon" aria-label="YouTube">yt</a>
-                <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+            <div class="flex gap-4 mt-4">
+                <a href="#" aria-label="Facebook"
+                   class="w-10 h-10 rounded-full bg-white flex items-center justify-center no-underline text-[var(--primary-color)] font-bold text-[0.9rem] transition-all duration-300 ease hover:bg-[var(--secondary-color)] hover:scale-110">f</a>
+                <a href="#" aria-label="Instagram"
+                   class="w-10 h-10 rounded-full bg-white flex items-center justify-center no-underline text-[var(--primary-color)] font-bold text-[0.9rem] transition-all duration-300 ease hover:bg-[var(--secondary-color)] hover:scale-110">ig</a>
+                <a href="#" aria-label="YouTube"
+                   class="w-10 h-10 rounded-full bg-white flex items-center justify-center no-underline text-[var(--primary-color)] font-bold text-[0.9rem] transition-all duration-300 ease hover:bg-[var(--secondary-color)] hover:scale-110">yt</a>
+                <a href="#" aria-label="LinkedIn"
+                   class="w-10 h-10 rounded-full bg-white flex items-center justify-center no-underline text-[var(--primary-color)] font-bold text-[0.9rem] transition-all duration-300 ease hover:bg-[var(--secondary-color)] hover:scale-110">in</a>
             </div>
         </div>
+
     </div>
-    <div class="footer-bottom">
-        <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Supply" class="footer-logo">
+
+    {# Bottom row — justify-content: flex-end, padding-top: 2rem #}
+    <div class="flex justify-end pt-8">
+        <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Supply" class="w-[200px] h-auto">
     </div>
+
 </footer>
