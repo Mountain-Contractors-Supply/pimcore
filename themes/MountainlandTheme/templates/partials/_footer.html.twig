@@ -1,15 +1,11 @@
-{# Shared footer template for Mountainland #}
 <footer class="relative bg-[var(--primary-color)] text-white mt-auto pt-12 px-8 pb-8">
 
-    {# Header — font-size: 2.5rem default, 2rem at max-width:768px #}
     <div class="text-center mb-12">
         <h2 class="font-[var(--secondary-font)] text-[2rem] uppercase text-white m-0 md:text-[2.5rem]">We're Ready to Help</h2>
     </div>
 
-    {# Columns grid — 4col/3rem-gap desktop, 2col/2rem-gap tablet, 1col/2rem-gap mobile #}
     <div class="mx-auto max-w-[1600px] grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
 
-        {# Column 1: Location & Hours #}
         <div class="flex flex-col gap-4">
             {% set locationsDoc = pimcore_document_by_path('/locations') %}
             <a href="{{ locationsDoc ? locationsDoc.getHref() : '/locations' }}"
@@ -24,7 +20,6 @@
             </div>
         </div>
 
-        {# Column 2: Our Business #}
         <div class="flex flex-col gap-4">
             <h3 class="font-[var(--secondary-font)] text-[1.3rem] uppercase text-white m-0 mb-2">Our Business</h3>
             <ul class="list-none p-0 m-0">
@@ -41,7 +36,6 @@
             </ul>
         </div>
 
-        {# Column 3: Useful Links #}
         <div class="flex flex-col gap-4">
             <h3 class="font-[var(--secondary-font)] text-[1.3rem] uppercase text-white m-0 mb-2">Useful Links</h3>
             <ul class="list-none p-0 m-0">
@@ -54,7 +48,6 @@
             </ul>
         </div>
 
-        {# Column 4: Stay In Touch #}
         <div class="flex flex-col gap-4">
             <h3 class="font-[var(--secondary-font)] text-[1.3rem] uppercase text-white m-0 mb-2">Stay In Touch</h3>
             <ul class="list-none p-0 m-0">
@@ -76,9 +69,7 @@
 
     </div>
 
-    {# Bottom row — justify-content: flex-end, padding-top: 2rem #}
     <div class="flex justify-end pt-8">
         <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Supply" class="w-[200px] h-auto">
     </div>
-
 </footer>
