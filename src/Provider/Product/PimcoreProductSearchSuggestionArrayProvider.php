@@ -7,7 +7,7 @@ namespace App\Provider\Product;
 use App\LinkGenerator\ProductLinkGenerator;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
-use McSupply\EcommerceBundle\Dto\Product\ProductSearch;
+use McSupply\EcommerceBundle\Dto\Product\ProductSearchSuggestion;
 use McSupply\EcommerceBundle\Dto\Product\ProductSearchSuggestionArray;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
 use McSupply\EcommerceBundle\Provider\DataResolverAwareInterface;
@@ -81,7 +81,7 @@ final class PimcoreProductSearchSuggestionArrayProvider implements DataProviderI
                 $category = ProductCategory::getById($customFields['custom_fields']['category_ids'][0]);
                 $name = str_replace([$path, '/'], ['', ' > '], (string)$category?->getPath());
 
-                yield new ProductSearch(
+                yield new ProductSearchSuggestion(
                     $customFields['standard_fields']['name']['en_US'],
                     '',
                     $this->productLinkGenerator->generate(
