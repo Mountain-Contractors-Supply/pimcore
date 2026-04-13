@@ -25,13 +25,12 @@ use Pimcore\Model\DataObject\ProductCategory;
  * @implements ReadOperationInterface<ProductSearchSuggestionArray>
  */
 #[DataProvider(ProductSearchSuggestionArray::class, 10)]
-final class PimcoreProductSearchArrayProvider implements DataProviderInterface, ReadOperationInterface, DataResolverAwareInterface
+final class PimcoreProductSearchSuggestionArrayProvider implements DataProviderInterface, ReadOperationInterface, DataResolverAwareInterface
 {
     use DataResolverAwareTrait;
 
     public function __construct(
         private readonly ProductLinkGenerator $productLinkGenerator,
-        private readonly ProductCategoryLinkGenerator $productCategoryLinkGenerator,
         private readonly SearchProviderInterface $searchProvider,
         private readonly DataObjectSearchServiceInterface $dataObjectSearchService
     ) {}
@@ -83,7 +82,7 @@ final class PimcoreProductSearchArrayProvider implements DataProviderInterface, 
             foreach ($items as $item) {
                 $customFields = $item->getSearchIndexData();
                 $category = ProductCategory::getById($customFields['custom_fields']['category_ids'][0]);
-                $name = str_replace([$path, '/'], ['', ' > '], $category->getPath());
+                $name = str_replace([$path, '/'], ['', ' > '], (string)$category?->getPath());
 
                 yield new ProductSearch(
                     $customFields['standard_fields']['name']['en_US'],
@@ -93,8 +92,8 @@ final class PimcoreProductSearchArrayProvider implements DataProviderInterface, 
                             ->setProductId($customFields['standard_fields']['productId'])
                             ->setName($customFields['standard_fields']['name']['en_US']),
                     ),
-                    $name . $category->getName(),
-                    '/category/search?id=' . $category->getId() . '&q=' . $data['q'],
+                    $name . (string)$category?->getName(),
+                    '/category/search?id=' . (int)$category?->getId() . '&q=' . $data['q'],
                 );
             }
         })();

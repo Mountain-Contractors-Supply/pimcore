@@ -207,13 +207,7 @@ abstract class AbstractProduct extends AbstractModel
                     $seen[$id] = true;
                 }
 
-                $parent = $current->getParent();
-
-                if (!($parent instanceof ProductCategory)) {
-                    break; // reached non-category parent or root
-                }
-
-                $current = $parent;
+                $current = $current->getParent();
             }
         }
 

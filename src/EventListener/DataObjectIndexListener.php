@@ -23,7 +23,7 @@ final class DataObjectIndexListener
     #[AsEventListener(event: ExtractMappingEvent::class)]
     public function onExtractMapping(ExtractMappingEvent $event): void
     {
-        $class = 'Pimcore\\Model\\DataObject\\' . ucfirst($event->getClassDefinition()->getName());
+        $class = 'Pimcore\\Model\\DataObject\\' . ucfirst((string)$event->getClassDefinition()->getName());
 
         if (is_a($class, CustomIndexModifierInterface::class, true)) {
             $event->setCustomFieldsMapping(call_user_func([$class, 'modifyCustomMapping'], $event->getCustomFieldsMapping()));
