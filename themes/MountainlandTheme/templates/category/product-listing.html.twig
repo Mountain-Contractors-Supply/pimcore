@@ -132,7 +132,7 @@
                                 <div class="mt-auto" data-controller="cart" data-cart-product-id-value="{{ item.productId }}" data-cart-uom-value="ea">
                                     <div class="my-3 space-y-2.5">
                                         <div class="flex items-center gap-2">
-                                            <twig:QuantityInput :value="1" :min="1" name="quantity" data-cart-target="qtyInput" />
+                                            <twig:Form:QuantityInput :value="1" :min="1" name="quantity" data-cart-target="qtyInput" />
 
                                             <div class="min-w-0 text-xs leading-4">
                                                 <twig:Product:ProductAvailability

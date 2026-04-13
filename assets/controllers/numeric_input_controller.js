@@ -3,6 +3,17 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
     static targets = ['input'];
 
+    connect() {
+        this._lastValue = String(this.inputTarget.value || '');
+    }
+
+    onNativeChange(event) {
+        const value = String(this.inputTarget.value || '');
+        if (value === this._lastValue) return;
+        this._lastValue = value;
+        this.emitChanged(value);
+    }
+
     increase() {
         this.step(1);
     }
@@ -24,6 +35,14 @@ export default class extends Controller {
         if (max !== null && next > max) next = max;
 
         input.value = next;
-        input.dispatchEvent(new Event('change', { bubbles: true }));
+        this.emitChanged(next);
+    }
+
+    emitChanged(value) {
+        this.inputTarget.dispatchEvent(new CustomEvent('numeric-input:changed', {
+            bubbles: true,
+            composed: true,
+            detail: { value }
+        }));
     }
 }
