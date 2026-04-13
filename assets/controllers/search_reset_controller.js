@@ -13,14 +13,9 @@ export default class extends Controller {
         document.removeEventListener('turbo:load', this.#onLoad);
     }
 
-    blur(event) {
-        requestAnimationFrame(() => {
-            event.target.blur();
-        });
-    }
-
     #onBeforeVisit = (event) => {
-        const isSearchPage = event.detail.url.includes('/category/search');
+        const urlStr = String(event?.detail?.url ?? '');
+        const isSearchPage = urlStr.includes('/category/search');
 
         if (!isSearchPage) {
             this.element.blur();
