@@ -11,13 +11,7 @@
                 {% else %}
                     {% for item in cart.items %}
                         <twig:Cart:CartItem
-                            :productId="item.product.productId"
-                            :uom="item.quantityOrdered.uom"
-                            :productName="item.product.name"
-                            :brandName="item.product.brandName"
-                            :productUrl="element_path(item.product, {'uom': item.quantityOrdered.uom})"
-                            :price="item.price ?? 0"
-                            :quantity="item.quantityOrdered.quantity"
+                            :item="item"
                             :minQuantity="1"
                         />
                     {% endfor %}
