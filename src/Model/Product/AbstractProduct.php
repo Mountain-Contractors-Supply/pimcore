@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Product;
 
+use App\EventListener\CustomIndexModifierInterface;
 use App\EventListener\PreAddUpdateAwareInterface;
 use App\Model\AbstractModel;
 use McSupply\EcommerceBundle\Dto\Navigation\SlugAwareTrait;
@@ -14,7 +15,8 @@ use Pimcore\Model\DataObject\Line;
 use Pimcore\Model\DataObject\ProductCategory;
 use Pimcore\Model\Element\ElementInterface;
 
-abstract class AbstractProduct extends AbstractModel implements ProductInterface, PreAddUpdateAwareInterface
+abstract class AbstractProduct extends AbstractModel
+    implements ProductInterface, PreAddUpdateAwareInterface, CustomIndexModifierInterface
 {
     use SlugAwareTrait;
 
@@ -184,6 +186,50 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         $this->setWeightRef($this->prepareQuantityValue($weight));
 
         return $this;
+    }
+
+
+    #[\Override]
+    public function modifyCustomFields(array $customFields): array
+    {
+        $ids = [];
+        $seen = [];
+        $categories = $this->getCategoriesRef();
+
+        foreach ($categories as $category) {
+            $current = $category;
+
+            while ($current instanceof ProductCategory) {
+                $id = $current->getId();
+
+                if (!isset($seen[$id])) {
+                    $ids[] = $id;
+                    $seen[$id] = true;
+                }
+
+                $parent = $current->getParent();
+
+                if (!($parent instanceof ProductCategory)) {
+                    break; // reached non-category parent or root
+                }
+
+                $current = $parent;
+            }
+        }
+
+        $customFields['category_ids'] = $ids;
+
+        return $customFields;
+    }
+
+    #[\Override]
+    public static function modifyCustomMapping(array $customMapping): array
+    {
+        $customMapping['category_ids'] = [
+            'type' => 'keyword',
+        ];
+
+        return $customMapping;
     }
 
     private function formatUpc(): void
