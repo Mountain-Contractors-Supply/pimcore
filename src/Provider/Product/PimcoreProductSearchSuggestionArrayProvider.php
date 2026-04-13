@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Provider\Product;
 
-use App\LinkGenerator\ProductCategoryLinkGenerator;
 use App\LinkGenerator\ProductLinkGenerator;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
 use McSupply\EcommerceBundle\Dto\OnlineStore\OnlineStoreInterface;
@@ -59,8 +58,6 @@ final class PimcoreProductSearchSuggestionArrayProvider implements DataProviderI
                 $clauses[] = sprintf('(" %1$s " ^6) OR (%1$s* ^4) OR (%1$s~1 ^1)', $wEscaped);
             }
             $queryString = implode(' ', $clauses);
-
-            // Apply the query boosting to the en_US name field
             $dataObjectSearch->addModifier(
                 new PqlFilter(sprintf('Query("standard_fields.name.en_US:(%s)")', $queryString))
             );
