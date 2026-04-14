@@ -32,6 +32,10 @@
     --secondary-font: "Gotham Medium", Arial, sans-serif;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 * {
     box-sizing: border-box;
 }

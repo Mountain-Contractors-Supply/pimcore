@@ -12,76 +12,124 @@
     }
 </style>
 
-<div class="flex h-[33px] w-full items-center justify-between bg-[var(--secondary-color)]">
-    <div class="flex">
-        <ul class="m-0 flex list-none p-0">
-            <li><a href="{{ path('home') }}" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Home</a></li>
-            <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Plumbing</a></li>
-            <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Heating &amp; Cooling</a></li>
-            <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Power Equipment</a></li>
-            <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Landscape Irrigation</a></li>
-            <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Pump &amp; Drilling</a></li>
-            <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">More+</a></li>
-        </ul>
+<div data-controller="header">
+    {# ── Top utility bar ── #}
+    <div class="flex h-[33px] w-full items-center bg-[var(--secondary-color)]">
+        {# Department quick-links — desktop only #}
+        <div class="hidden md:flex">
+            <ul class="m-0 flex list-none p-0">
+                <li><a href="{{ path('home') }}" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Home</a></li>
+                <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Plumbing</a></li>
+                <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Heating &amp; Cooling</a></li>
+                <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Power Equipment</a></li>
+                <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Landscape Irrigation</a></li>
+                <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Pump &amp; Drilling</a></li>
+                <li><a href="#" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">More+</a></li>
+            </ul>
+        </div>
+
+        {# Right-side actions — always visible; ml-auto pushes them to the right edge #}
+        <div class="ml-auto flex items-center">
+            <turbo-frame
+                id="cart-data-frame"
+                src="{{ path('cart_header_partial') }}"
+                loading="lazy">
+                <a href="{{ path('cart') }}"
+                   class="flex h-[33px] items-center gap-1 px-3 text-[0.9rem] text-[var(--primary-color)] no-underline transition-all duration-300 hover:bg-black/15"
+                   aria-label="View Cart"
+                   data-turbo-frame="_top">
+                    <img src="{{ asset('images/misc/shopping-bag.webp') }}" alt="Bag" class="h-5 w-5 object-contain" />
+                    <div class="flex flex-col leading-tight"></div>
+                </a>
+            </turbo-frame>
+
+            <turbo-frame
+                id="branch-data-frame"
+                src="{{ path('branch_data_partial') }}"
+                loading="lazy">
+                <a class="relative inline-block no-underline" id="branch-dropdown" href="/locations" data-turbo-frame="_top">
+                    <div class="flex h-[33px] cursor-pointer items-center gap-2 px-2 text-xs text-[var(--primary-color)] transition-colors duration-200 hover:bg-[rgba(17,23,94,0.05)]" id="branch-info">
+                        <img src="{{ asset('images/misc/location-icon.webp') }}" alt="Location" class="h-5 w-5 shrink-0 object-contain" />
+                        <span class="hidden sm:inline text-xs italic opacity-90" id="branch-status"></span>
+                    </div>
+                </a>
+            </turbo-frame>
+
+            {% if is_granted('ROLE_USER') %}
+                <div class="relative inline-block" id="user-dropdown" data-controller="header">
+                    <div class="flex h-[33px] cursor-pointer items-center px-2 sm:px-3 text-[0.85rem] text-[var(--primary-color)] transition-colors duration-200 hover:bg-[rgba(17,23,94,0.05)]" id="user-info" data-action="click->header#toggle">
+                        <svg class="h-5 w-5 shrink-0 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                        <span class="hidden sm:inline text-[0.85rem]">Welcome, <span class="font-semibold">{{ app.user.firstname ?? app.user.email }}</span>!</span>
+                    </div>
+                    <div class="hidden absolute right-0 top-full z-[1000] mt-2 min-w-[200px] rounded border border-[rgba(17,23,94,0.15)] bg-white shadow-[0_4px_12px_rgba(0,0,0,0.15)]" id="dropdown-menu" data-header-target="menu">
+                        <a href="{{ path('customer_dashboard') }}" class="block border-b border-[rgba(17,23,94,0.1)] px-4 py-3 text-[0.9rem] text-[var(--primary-color)] no-underline transition-colors duration-200 last:border-b-0 hover:bg-[rgba(17,23,94,0.05)]">Account</a>
+                        <a href="{{ path('customer-logout') }}" class="block border-b border-[rgba(17,23,94,0.1)] px-4 py-3 text-[0.9rem] text-[var(--primary-color)] no-underline transition-colors duration-200 last:border-b-0 hover:bg-[rgba(17,23,94,0.05)]" data-turbo="false">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ path('customer_signin') }}" class="flex h-[33px] items-center px-2 sm:px-4 text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">
+                    <svg class="h-5 w-5 shrink-0 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                    </svg>
+                    <span class="hidden sm:inline">SIGN IN / SIGN UP</span>
+                </a>
+            {% endif %}
+
+            {# Hamburger — mobile only #}
+            <button
+                type="button"
+                class="flex md:hidden h-[33px] items-center justify-center px-3 text-[var(--primary-color)]"
+                data-action="click->header#toggleMobile"
+                aria-label="Toggle navigation menu"
+            >
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
     </div>
-    <div class="flex items-center pr-4">
-        <turbo-frame
-            id="cart-data-frame"
-            src="{{ path('cart_header_partial') }}"
-            loading="lazy">
-            <a href="{{ path('cart') }}"
-               class="flex h-[33px] items-center gap-2 px-4 text-[0.9rem] text-[var(--primary-color)] no-underline transition-all duration-300 hover:bg-black/15"
-               aria-label="View Cart"
-               data-turbo-frame="_top">
-                <img src="{{ asset('images/misc/shopping-bag.webp') }}" alt="Bag" class="h-5 w-5 object-contain" />
-                <div class="flex flex-col leading-tight"></div>
-            </a>
-        </turbo-frame>
 
-        <turbo-frame
-            id="branch-data-frame"
-            src="{{ path('branch_data_partial') }}"
-            loading="lazy">
-            <a class="relative inline-block no-underline" id="branch-dropdown" href="/locations" data-turbo-frame="_top">
-                <div class="flex h-[33px] cursor-pointer items-center gap-2 px-2 text-xs text-[var(--primary-color)] transition-colors duration-200 hover:bg-[rgba(17,23,94,0.05)]" id="branch-info">
-                    <img src="{{ asset('images/misc/location-icon.webp') }}" alt="Location" class="h-5 w-5 shrink-0 object-contain" />
-                    <span class="text-xs italic opacity-90" id="branch-status"></span>
-                </div>
+    {# ── Logo + search row ── #}
+    <div class="flex flex-col gap-2 px-3 py-2 md:flex-row md:items-center md:justify-between md:gap-6 md:px-[15px] md:py-0">
+        <div>
+            <a href="{{ path('home') }}">
+                <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="block h-auto w-[150px] sm:w-[210px] md:w-[300px]" />
             </a>
-        </turbo-frame>
+        </div>
+        <div class="relative z-[120] flex w-full items-center md:max-w-[700px] md:flex-1 md:justify-end">
+            <twig:Ui:SearchBar
+                inputId="mountainland-header-search"
+                placeholder="Search by keyword or SKU"
+                label="Search Mountainland products"
+                buttonLabel="Go"
+            />
+        </div>
+    </div>
 
-        {% if is_granted('ROLE_USER') %}
-            <div class="relative inline-block" id="user-dropdown" data-controller="header">
-                <div class="flex h-[33px] cursor-pointer items-center px-3 text-[0.85rem] text-[var(--primary-color)] transition-colors duration-200 hover:bg-[rgba(17,23,94,0.05)]" id="user-info" data-action="click->header#toggle">
-                    <span class="text-[0.85rem]">Welcome, <span class="font-semibold">{{ app.user.firstname ?? app.user.email }}</span>!</span>
-                </div>
-                <div class="hidden absolute right-0 top-full z-[1000] mt-2 min-w-[200px] rounded border border-[rgba(17,23,94,0.15)] bg-white shadow-[0_4px_12px_rgba(0,0,0,0.15)]" id="dropdown-menu" data-header-target="menu">
-                    <a href="{{ path('customer_dashboard') }}" class="block border-b border-[rgba(17,23,94,0.1)] px-4 py-3 text-[0.9rem] text-[var(--primary-color)] no-underline transition-colors duration-200 last:border-b-0 hover:bg-[rgba(17,23,94,0.05)]">Account</a>
-                    <a href="{{ path('customer-logout') }}" class="block border-b border-[rgba(17,23,94,0.1)] px-4 py-3 text-[0.9rem] text-[var(--primary-color)] no-underline transition-colors duration-200 last:border-b-0 hover:bg-[rgba(17,23,94,0.05)]" data-turbo="false">Logout</a>
-                </div>
-            </div>
-        {% else %}
-            <a href="{{ path('customer_signin') }}" class="flex h-[33px] items-center px-4 text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">SIGN IN / SIGN UP</a>
-        {% endif %}
+    {# ── Desktop navigation bar ── #}
+    <nav class="relative z-[90] hidden h-16 w-full items-center justify-center bg-[var(--primary-color)] md:flex">
+        <twig:Navigation:NavigationBar />
+    </nav>
+
+    {# ── Mobile navigation drawer ── #}
+    <div class="md:hidden">
+        <div class="hidden" data-header-target="mobileMenu">
+            <nav class="bg-[var(--primary-color)]" data-action="click->header#closeMobileOnLink">
+                {# Department links — stacked, grey background matching the top utility bar #}
+                <ul class="m-0 list-none border-b-2 border-[var(--primary-color)] p-0 bg-[var(--secondary-color)]">
+                    <li><a href="{{ path('home') }}" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">Home</a></li>
+                    <li><a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">Plumbing</a></li>
+                    <li><a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">Heating &amp; Cooling</a></li>
+                    <li><a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">Power Equipment</a></li>
+                    <li><a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">Landscape Irrigation</a></li>
+                    <li><a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">Pump &amp; Drilling</a></li>
+                    <li><a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">More+</a></li>
+                </ul>
+                {# Main navigation links (from Pimcore) — stacked on mobile #}
+                <twig:Navigation:NavigationBar />
+            </nav>
+        </div>
     </div>
 </div>
-
-<div class="flex items-center justify-between gap-6 px-[15px]">
-    <div>
-        <a href="{{ path('home') }}">
-            <img src="{{ asset(getStoreLogo()) }}" alt="Mountainland Logo" class="block h-auto w-[300px]" />
-        </a>
-    </div>
-    <div class="relative z-[120] flex max-w-[700px] flex-1 items-center justify-end">
-        <twig:Ui:SearchBar
-            inputId="mountainland-header-search"
-            placeholder="Search by keyword or SKU"
-            label="Search Mountainland products"
-            buttonLabel="Go"
-        />
-    </div>
-</div>
-
-<nav class="relative z-[90] flex h-16 w-full items-center justify-center bg-[var(--primary-color)]">
-    <twig:Navigation:NavigationBar />
-</nav>

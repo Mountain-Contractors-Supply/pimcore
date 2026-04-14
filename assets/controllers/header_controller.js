@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-    static targets = ["menu"]
+    static targets = ["menu", "mobileMenu"]
 
     connect() {
         this.clickOutsideHandler = this.clickOutside.bind(this)
@@ -21,9 +21,32 @@ export default class extends Controller {
         }
     }
 
+    toggleMobile(event) {
+        event.stopPropagation()
+
+        if (this.hasMobileMenuTarget) {
+            this.mobileMenuTarget.classList.toggle('hidden')
+        }
+    }
+
+    closeMobile() {
+        if (this.hasMobileMenuTarget) {
+            this.mobileMenuTarget.classList.add('hidden')
+        }
+    }
+
+    closeMobileOnLink(event) {
+        if (event.target.closest('a')) {
+            this.closeMobile()
+        }
+    }
+
     clickOutside(event) {
         if (this.hasMenuTarget && !this.element.contains(event.target)) {
             this.menuTarget.classList.add('hidden')
+        }
+        if (this.hasMobileMenuTarget && !this.element.contains(event.target)) {
+            this.mobileMenuTarget.classList.add('hidden')
         }
     }
 }
