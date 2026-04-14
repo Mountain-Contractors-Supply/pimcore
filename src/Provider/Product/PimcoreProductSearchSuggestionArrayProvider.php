@@ -30,8 +30,6 @@ final class PimcoreProductSearchSuggestionArrayProvider implements DataProviderI
 
     public function __construct(
         private readonly ProductLinkGenerator $productLinkGenerator,
-        private readonly SearchProviderInterface $searchProvider,
-        private readonly DataObjectSearchServiceInterface $dataObjectSearchService
     ) {}
 
     public function supports(string $className, array $data = []): bool
@@ -50,22 +48,23 @@ final class PimcoreProductSearchSuggestionArrayProvider implements DataProviderI
         /** @var ProductCategory $rootCategory */
         $rootCategory = $onlineStore->getRootProductCategory();
         $path = $rootCategory->getPath() . $rootCategory->getKey() . '/';
-        $productCategoryGenerator = (function () use ($items, $data, $path): \Generator {
+        $query = $data['q'];
+        $productCategoryGenerator = (function () use ($items, $query, $path): \Generator {
             foreach ($items as $item) {
-                $customFields = $item->getSearchIndexData();
-                $category = ProductCategory::getById($customFields['custom_fields']['category_ids'][0]);
+                $indexData = $item->getSearchIndexData();
+                $category = ProductCategory::getById($indexData['custom_fields']['category_ids'][0]);
                 $name = str_replace([$path, '/'], ['', ' > '], (string)$category?->getPath());
 
                 yield new ProductSearchSuggestion(
-                    $customFields['standard_fields']['name']['en_US'],
+                    $indexData['standard_fields']['name']['en_US'],
                     '',
                     $this->productLinkGenerator->generate(
                         (new Product())
-                            ->setProductId($customFields['standard_fields']['productId'])
-                            ->setName($customFields['standard_fields']['name']['en_US']),
+                            ->setProductId($indexData['standard_fields']['productId'])
+                            ->setName($indexData['standard_fields']['name']['en_US']),
                     ),
                     $name . (string)$category?->getName(),
-                    '/category/search?id=' . (int)$category?->getId() . '&q=' . $data['q'],
+                    '/category/search?id=' . (int)$category?->getId() . '&q=' . $query,
                 );
             }
         })();
