@@ -1,21 +1,5 @@
-<style>
-    :root {
-        --ml-header-height: 120px;
-    }
-    header {
-        padding: 0;
-        background-color: #fff;
-        border-bottom: 1px solid var(--secondary-color);
-        width: 100%;
-        position: relative;
-        z-index: 100;
-    }
-</style>
-
 <div data-controller="header">
-    {# ── Top utility bar ── #}
     <div class="flex h-[33px] w-full items-center bg-[var(--secondary-color)]">
-        {# Department quick-links — desktop only #}
         <div class="hidden md:flex">
             <ul class="m-0 flex list-none p-0">
                 <li><a href="{{ path('home') }}" class="flex h-[33px] items-center px-[0.8rem] text-[0.9rem] text-[var(--primary-color)] no-underline uppercase transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-white">Home</a></li>
@@ -28,7 +12,6 @@
             </ul>
         </div>
 
-        {# Right-side actions — always visible; ml-auto pushes them to the right edge #}
         <div class="ml-auto flex items-center">
             <turbo-frame
                 id="cart-data-frame"
@@ -77,7 +60,6 @@
                 </a>
             {% endif %}
 
-            {# Hamburger — mobile only #}
             <button
                 type="button"
                 class="flex md:hidden h-[33px] items-center justify-center px-3 text-[var(--primary-color)]"
@@ -91,7 +73,6 @@
         </div>
     </div>
 
-    {# ── Logo + search row ── #}
     <div class="flex flex-col gap-2 px-3 py-2 md:flex-row md:items-center md:justify-between md:gap-6 md:px-[15px] md:py-0">
         <div>
             <a href="{{ path('home') }}">
@@ -108,16 +89,13 @@
         </div>
     </div>
 
-    {# ── Desktop navigation bar ── #}
     <nav class="relative z-[90] hidden h-16 w-full items-center justify-center bg-[var(--primary-color)] md:flex">
         <twig:Navigation:NavigationBar />
     </nav>
 
-    {# ── Mobile navigation drawer ── #}
     <div class="md:hidden">
         <div class="hidden" data-header-target="mobileMenu">
             <nav class="bg-[var(--primary-color)]" data-action="click->header#closeMobileOnLink">
-                {# Department links — stacked, grey background matching the top utility bar #}
                 <ul class="m-0 list-none border-b-2 border-[var(--primary-color)] p-0 bg-[var(--secondary-color)]">
                     <li><a href="{{ path('home') }}" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">Home</a></li>
                     <li><a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">Plumbing</a></li>
@@ -127,7 +105,6 @@
                     <li><a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">Pump &amp; Drilling</a></li>
                     <li><a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-[var(--primary-color)] no-underline uppercase transition-colors duration-200 hover:bg-[var(--primary-color)] hover:text-white">More+</a></li>
                 </ul>
-                {# Main navigation links (from Pimcore) — stacked on mobile #}
                 <twig:Navigation:NavigationBar />
             </nav>
         </div>

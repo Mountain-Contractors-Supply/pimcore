@@ -71,15 +71,6 @@ hr {
 /*
    HEADER & NAVIGATION
 */
-header {
-    padding: 0;
-    background-color: #fff;
-    border-bottom: 1px solid var(--secondary-color);
-    width: 100%;
-    position: relative;
-    z-index: 100;
-}
-
 header:after {
     content: "";
     display: table;
