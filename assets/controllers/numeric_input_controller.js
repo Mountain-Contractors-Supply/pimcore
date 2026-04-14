@@ -1,10 +1,11 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['input'];
+    static targets = ['input', 'decreaseButton', 'increaseButton'];
 
     connect() {
         this._lastValue = String(this.inputTarget.value || '');
+        this.updateButtons();
     }
 
     onNativeChange(event) {
@@ -12,6 +13,7 @@ export default class extends Controller {
         if (value === this._lastValue) return;
         this._lastValue = value;
         this.emitChanged(value);
+        this.updateButtons();
     }
 
     increase() {
@@ -35,7 +37,9 @@ export default class extends Controller {
         if (max !== null && next > max) next = max;
 
         input.value = next;
+        this._lastValue = String(next);
         this.emitChanged(next);
+        this.updateButtons();
     }
 
     emitChanged(value) {
@@ -44,5 +48,19 @@ export default class extends Controller {
             composed: true,
             detail: { value }
         }));
+    }
+
+    updateButtons() {
+        const input = this.inputTarget;
+        const min = input.min !== '' ? Number(input.min) : null;
+        const max = input.max !== '' ? Number(input.max) : null;
+        const current = Number(input.value || 0);
+
+        if (this.hasDecreaseButtonTarget) {
+            this.decreaseButtonTarget.disabled = (min !== null && current <= min);
+        }
+        if (this.hasIncreaseButtonTarget) {
+            this.increaseButtonTarget.disabled = (max !== null && current >= max);
+        }
     }
 }
