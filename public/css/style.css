@@ -896,6 +896,16 @@ header ul li {
   margin-bottom: 0;
 }
 
+/* Reset list styles in footer */
+footer ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+footer ul li {
+  margin-bottom: 0;
+}
+
 /* Category Grid Toggle Styles */
 .division-box.hidden {
     display: none;
