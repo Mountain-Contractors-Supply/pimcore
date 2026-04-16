@@ -1,0 +1,16 @@
+{% set pos = variantValues.imagePosition ?? 'left' %}
+
+<twig:Ui:ImageWithText
+    :variantValues="variantValues"
+    :additionalClasses="additionalClasses"
+>
+    <twig:block name="image">
+        {{ pimcore_area('image', { type: 'image' }) }}
+    </twig:block>
+    <twig:block name="heading">
+        {{ pimcore_area('header', { type: 'header' }) }}
+    </twig:block>
+    <twig:block name="body">
+        {{ pimcore_area('wysiwyg', { type: 'wysiwyg' }) }}
+    </twig:block>
+</twig:Ui:ImageWithText>

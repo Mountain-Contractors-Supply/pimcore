@@ -7,20 +7,16 @@
     {% if editmode %}
         {{ imageEditable|raw }}
     {% elseif imageAsset %}
-
-    <twig:Ui:Image
-        :src="imageAsset.fullPath"
-        :alt="imageEditable.alt ?: imageAsset.filename"
-        :variantValues="variantValues"
-        :additionalClasses="additionalClasses"
-    />
-
+        <twig:Ui:Image
+            :src="imageAsset.fullPath"
+            :alt="imageEditable.alt ?: imageAsset.filename"
+            :variantValues="variantValues"
+            :additionalClasses="additionalClasses"
+        />
+    {% else %}
+        <twig:Ui:Image
+            :variantValues="variantValues"
+            :additionalClasses="additionalClasses"
+        />
     {% endif %}
 {% endblock %}
-
-{#<twig:Layout:Box#}
-{#    :variantValues="variantValues"#}
-{#    :additionalClasses="additionalClasses"#}
-{#>#}
-{#    {{ pimcore_image('image') }}#}
-{#</twig:Layout:Box>#}

@@ -60,7 +60,15 @@ turbo:
     broadcast:
         enabled: true
 
-     # config_location:
+twig_component:
+  # Directory for components that don't have a PHP class
+  anonymous_template_directory: 'components/'
+
+  # REQUIRED: Map your PHP component namespace to a directory
+  defaults:
+    App\Twig\Components\: 'components/'
+
+      # config_location:
      #    image_thumbnails:
      #        write_target:
      #            type: 'symfony-config'
