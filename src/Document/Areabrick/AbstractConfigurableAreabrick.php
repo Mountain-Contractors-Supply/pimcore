@@ -67,15 +67,6 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
                 ],
                 [
                     'type' => 'panel',
-                    'title' => 'Link',
-                    'items' => [
-                        (new Editable\Link())
-                            ->setName('links')
-                            ->setLabel('Link'),
-                    ],
-                ],
-                [
-                    'type' => 'panel',
                     'title' => 'Advanced',
                     'items' => [
                         (new Editable\Input())
@@ -107,15 +98,8 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
             }
         }
 
-        /** @var Editable\Link $link */
-        $link = $info->getDocumentElement('links');
-
-        if (!$link->isEmpty()) {
-            $info->setParam('links', $link->getValue());
-        }
-
         $info->setParam('variantValues', $variantValues);
-        $info->setParam('additionalClasses', $info->getDocumentElement('additionalClasses'));
+        $info->setParam('additionalClasses', $info->getDocumentElement('additionalClasses') ?? '');
 
         return null;
     }
