@@ -9,15 +9,8 @@
         {% do pimcore_head_title().prepend(getStoreName()) %}
         {% do pimcore_head_title().setSeparator(' | ') %}
 
-        {% set isLink = false %}
-
-        {% if document is instanceof('\\Pimcore\\Model\\Document\\Link') %}
-            {% set isLink = true %}
-        {% endif %}
-
-        {% if not isLink and document.getTitle() is not empty %}
-            {% do pimcore_head_title().append(document.getTitle()) %}
-        {% endif %}
+        {% set page_title = page_title() %}
+        {% do pimcore_head_title().append(page_title) %}
     {% endapply %}
 
     {% block layout_head_meta %}
@@ -51,7 +44,7 @@
         <twig:Ui:HeaderSearchCategoryUpdate />
 
         <main>
-            {% block content %}{% endblock %}
+            {% block main_content %}{% endblock %}
         </main>
     </turbo-frame>
 

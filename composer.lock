@@ -2713,16 +2713,16 @@
         },
         {
             "name": "gotenberg/gotenberg-php",
-            "version": "v2.20.0",
+            "version": "v2.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gotenberg/gotenberg-php.git",
-                "reference": "b06d02d5f7536d9fe45bf63871b3aa70a324663c"
+                "reference": "991a618b019d066c84e73b0aadf083887d62549f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gotenberg/gotenberg-php/zipball/b06d02d5f7536d9fe45bf63871b3aa70a324663c",
-                "reference": "b06d02d5f7536d9fe45bf63871b3aa70a324663c",
+                "url": "https://api.github.com/repos/gotenberg/gotenberg-php/zipball/991a618b019d066c84e73b0aadf083887d62549f",
+                "reference": "991a618b019d066c84e73b0aadf083887d62549f",
                 "shasum": ""
             },
             "require": {
@@ -2782,7 +2782,7 @@
             ],
             "support": {
                 "issues": "https://github.com/gotenberg/gotenberg-php/issues",
-                "source": "https://github.com/gotenberg/gotenberg-php/tree/v2.20.0"
+                "source": "https://github.com/gotenberg/gotenberg-php/tree/v2.21.0"
             },
             "funding": [
                 {
@@ -2790,7 +2790,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-31T12:13:43+00:00"
+            "time": "2026-04-17T13:26:28+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3793,16 +3793,16 @@
         },
         {
             "name": "league/flysystem-bundle",
-            "version": "3.6.2",
+            "version": "3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-bundle.git",
-                "reference": "123ab96910177751faf3b6cc85eecc360ec12a1f"
+                "reference": "5eb41be38fc3759f74c9e458a6a5f0ef5f49284a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-bundle/zipball/123ab96910177751faf3b6cc85eecc360ec12a1f",
-                "reference": "123ab96910177751faf3b6cc85eecc360ec12a1f",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-bundle/zipball/5eb41be38fc3759f74c9e458a6a5f0ef5f49284a",
+                "reference": "5eb41be38fc3759f74c9e458a6a5f0ef5f49284a",
                 "shasum": ""
             },
             "require": {
@@ -3857,9 +3857,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem-bundle/issues",
-                "source": "https://github.com/thephpleague/flysystem-bundle/tree/3.6.2"
+                "source": "https://github.com/thephpleague/flysystem-bundle/tree/3.7.0"
             },
-            "time": "2026-02-05T15:26:57+00:00"
+            "time": "2026-03-28T22:14:56+00:00"
         },
         {
             "name": "league/flysystem-local",
@@ -4663,7 +4663,7 @@
         },
         {
             "name": "mcsupply/ecommerce-bundle",
-            "version": "dev-feature/image-with-text-component",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./bundles/ecommerce-bundle",
@@ -16478,16 +16478,16 @@
         },
         {
             "name": "torqit/pimcore-role-creator-bundle",
-            "version": "v5.1.3",
+            "version": "v5.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TorqIT/pimcore-role-creator-bundle.git",
-                "reference": "f7b09bb73c1d48a6e465058ea62771b6a21749d8"
+                "reference": "db2a4042f5dc3eb60281cf5ee1ebd8e4342343f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TorqIT/pimcore-role-creator-bundle/zipball/f7b09bb73c1d48a6e465058ea62771b6a21749d8",
-                "reference": "f7b09bb73c1d48a6e465058ea62771b6a21749d8",
+                "url": "https://api.github.com/repos/TorqIT/pimcore-role-creator-bundle/zipball/db2a4042f5dc3eb60281cf5ee1ebd8e4342343f3",
+                "reference": "db2a4042f5dc3eb60281cf5ee1ebd8e4342343f3",
                 "shasum": ""
             },
             "require": {
@@ -16512,9 +16512,9 @@
             ],
             "support": {
                 "issues": "https://github.com/TorqIT/pimcore-role-creator-bundle/issues",
-                "source": "https://github.com/TorqIT/pimcore-role-creator-bundle/tree/v5.1.3"
+                "source": "https://github.com/TorqIT/pimcore-role-creator-bundle/tree/v5.1.4"
             },
-            "time": "2026-02-11T21:33:31+00:00"
+            "time": "2026-04-17T14:44:15+00:00"
         },
         {
             "name": "twig/extra-bundle",
@@ -17847,11 +17847,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.48",
+            "version": "2.1.50",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/231397213efb7c0a066ee024b5c3c87f2d3adfa0",
-                "reference": "231397213efb7c0a066ee024b5c3c87f2d3adfa0",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d452086fb4cf648c6b2d8cf3b639351f79e4f3e2",
+                "reference": "d452086fb4cf648c6b2d8cf3b639351f79e4f3e2",
                 "shasum": ""
             },
             "require": {
@@ -17896,7 +17896,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-15T20:24:19+00:00"
+            "time": "2026-04-17T13:10:32+00:00"
         },
         {
             "name": "phpstan/phpstan-symfony",

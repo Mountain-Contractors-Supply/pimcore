@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+    <div class="max-w-[1400px] mx-auto items-center p-5">
+        {% if not noBreadcrumbs | default %}
+            <twig:Navigation:Breadcrumb />
+        {% endif %}
+
+        {% set leftColumnContent %}
+            {% block left_column %}{% endblock %}
+        {% endset %}
+
+        {% set mainBodyContent %}
+            {% block main_body %}{% endblock %}
+        {% endset %}
+
+        <twig:Layout:TwoColumn
+            :variantValues="{
+            columnSplit: 'quarter-three-quarters'
+        }"
+        >
+            <twig:Layout:Box>
+                {{ leftColumnContent|raw }}
+            </twig:Layout:Box>
+            <twig:Layout:Box>
+                <twig:Ui:Header tag="h1" :variantValues="{ tag: 'h1' }">
+                    {{ page_title | default('') }}
+                </twig:Ui:Header>
+                {{ mainBodyContent|raw }}
+            </twig:Layout:Box>
+        </twig:Layout:TwoColumn>
+    </div>
+{% endblock %}
+
+{% block scripts %}{% endblock %}

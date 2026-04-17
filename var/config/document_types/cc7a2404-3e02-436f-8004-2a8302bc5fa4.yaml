@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                cc7a2404-3e02-436f-8004-2a8302bc5fa4:
+                    name: 'Full Width with Breadcrumbs'
+                    group: ''
+                    controller: 'App\Controller\DefaultController::fullWidthWithBreadcrumbsAction'
+                    template: null
+                    type: page
+                    priority: 10
+                    creationDate: 1776450083
+                    modificationDate: 1776457515
+                    staticGeneratorEnabled: false

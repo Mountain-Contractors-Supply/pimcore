@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                2dbf1112-edbc-4c51-8699-c8452d3e16e5:
+                    name: 'Left Column'
+                    group: ''
+                    controller: 'App\Controller\DefaultController::leftColumnAction'
+                    template: null
+                    type: page
+                    priority: 20
+                    creationDate: 1776457284
+                    modificationDate: 1776457471
+                    staticGeneratorEnabled: false

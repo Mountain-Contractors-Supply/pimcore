@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/portal.css') }}" />
 {% endblock %}
 
-{% block content %}
+{% block main_content %}
 <div class="portal-page">
     <div class="portal-layout">
         {% set activePage = app.request.attributes.get('_route') | replace({'customer_': ''}) %}
