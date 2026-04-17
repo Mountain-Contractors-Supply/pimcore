@@ -28,6 +28,13 @@ final class DefaultController extends AbstractController
         ]);
     }
 
+    public function rightColumnAction(): Response
+    {
+        return $this->render('cms/right-column.html.twig', [
+            'noBreadcrumbs' => true,
+        ]);
+    }
+
     public function fullWidthWithBreadcrumbsAction(): Response
     {
         return $this->render('cms/full-width.html.twig');
@@ -38,4 +45,8 @@ final class DefaultController extends AbstractController
         return $this->render('cms/left-column.html.twig');
     }
 
+    public function rightColumnWithBreadcrumbsAction(): Response
+    {
+        return $this->render('cms/right-column.html.twig');
+    }
 }

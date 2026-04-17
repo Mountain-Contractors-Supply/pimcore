@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'default/full-width.html.twig' %}
 
 {% block head %}
     {{ parent() }}
@@ -7,11 +7,6 @@
           content="default-src 'self'; script-src 'self' https://maps.googleapis.com https://maps.gstatic.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://maps.googleapis.com https://mapsresources-pa.googleapis.com; font-src 'self' data: https: https://fonts.gstatic.com; object-src 'none'; base-uri 'self'">
 {% endblock %}
 
-{% block main_content %}
-    <div class="bg-white">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <twig:Navigation:Breadcrumb />
-            <twig:Location:LocationFinder />
-        </div>
-    </div>
+{% block main_body %}
+    <twig:Location:LocationFinder />
 {% endblock %}
