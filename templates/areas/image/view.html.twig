@@ -1,22 +1,18 @@
-{% extends 'link-wrapper.html.twig' %}
+{% set imageEditable = pimcore_image('image') %}
+{% set imageAsset = imageEditable.getImage() %}
 
-{% block component %}
-    {% set imageEditable = pimcore_image('image') %}
-    {% set imageAsset = imageEditable.getImage() %}
-
-    {% if editmode %}
-        {{ imageEditable|raw }}
-    {% elseif imageAsset %}
-        <twig:Ui:Image
-            :src="imageAsset.fullPath"
-            :alt="imageEditable.alt ?: imageAsset.filename"
-            :variantValues="variantValues"
-            :additionalClasses="additionalClasses"
-        />
-    {% else %}
-        <twig:Ui:Image
-            :variantValues="variantValues"
-            :additionalClasses="additionalClasses"
-        />
-    {% endif %}
-{% endblock %}
+{% if editmode %}
+    {{ imageEditable|raw }}
+{% elseif imageAsset %}
+    <twig:Ui:Image
+        :src="imageAsset.fullPath"
+        :alt="imageEditable.alt ?: imageAsset.filename"
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
+    />
+{% else %}
+    <twig:Ui:Image
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
+    />
+{% endif %}
