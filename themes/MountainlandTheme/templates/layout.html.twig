@@ -43,9 +43,11 @@
     <turbo-frame id="body-frame" data-turbo-action="advance" autoscroll data-autoscroll-block="start" data-autoscroll-behavior="smooth">
         <twig:Ui:HeaderSearchCategoryUpdate />
 
-        <main>
+        {% set mainContent %}
             {% block main_content %}{% endblock %}
-        </main>
+        {% endset %}
+
+        {{ mainContent|raw }}
     </turbo-frame>
 
     {{ include('partials/_footer.html.twig') }}

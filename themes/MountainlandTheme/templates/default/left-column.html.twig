@@ -1,35 +1,37 @@
 {% extends 'layout.html.twig' %}
 
 {% block main_content %}
-    <div class="max-w-[1400px] mx-auto items-center p-5">
+    {% set leftColumnContent %}
+        {% block left_column %}{% endblock %}
+    {% endset %}
+
+    {% set mainBodyContent %}
+        {% block main_body %}{% endblock %}
+    {% endset %}
+
+    <twig:Ui:Main :variantValues="{ maxWidth: '1400px', padding: '20px' }">
         {% if not noBreadcrumbs | default %}
             <twig:Navigation:Breadcrumb />
         {% endif %}
 
-        {% set leftColumnContent %}
-            {% block left_column %}{% endblock %}
-        {% endset %}
-
-        {% set mainBodyContent %}
-            {% block main_body %}{% endblock %}
-        {% endset %}
-
         <twig:Layout:TwoColumn
             :variantValues="{
-            columnSplit: 'quarter-three-quarters'
-        }"
+                columnSplit: 'quarter-three-quarters'
+            }"
         >
             <twig:Layout:Box>
                 {{ leftColumnContent|raw }}
             </twig:Layout:Box>
             <twig:Layout:Box>
-                <twig:Ui:Header tag="h1" :variantValues="{ tag: 'h1' }">
-                    {{ page_title | default('') }}
-                </twig:Ui:Header>
+                {% if not noHeader | default %}
+                    <twig:Ui:Header tag="h1" :variantValues="{ tag: 'h1' }">
+                        {{ page_title | default('') }}
+                    </twig:Ui:Header>
+                {% endif %}
                 {{ mainBodyContent|raw }}
             </twig:Layout:Box>
         </twig:Layout:TwoColumn>
-    </div>
+    </twig:Ui:Main>
 {% endblock %}
 
 {% block scripts %}{% endblock %}
