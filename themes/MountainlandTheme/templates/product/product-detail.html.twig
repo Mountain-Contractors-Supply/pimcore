@@ -1,13 +1,9 @@
-{% extends 'layout.html.twig' %}
+{% extends 'default/full-width.html.twig' %}
 
-{% block content %}
+{% block main_body %}
 <div class="bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <twig:AlertBanner message="*Pricing has been adjusted based on your Job Quote" icon="var/assets/images/misc/flag.webp" />
-
-        <twig:Navigation:Breadcrumb />
-
-        <hr class="my-6 border-gray-300" />
+{#        <twig:AlertBanner message="*Pricing has been adjusted based on your Job Quote" icon="var/assets/images/misc/flag.webp" />#}
 
         <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 items-start">
             <twig:Ui:Image :alt="product.name|default('Product image')" />

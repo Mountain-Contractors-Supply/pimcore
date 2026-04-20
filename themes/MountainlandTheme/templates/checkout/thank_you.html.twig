@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/checkout.css') }}" />
 {% endblock %}
 
-{% block content %}
+{% block main_content %}
     
     {% set orderNumber = 'ORD-' ~ random(100000, 999999) %}
     {% set orderDate = "now"|date("F j, Y") %}
