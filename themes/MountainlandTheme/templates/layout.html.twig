@@ -47,9 +47,7 @@
             {% block main_content %}{% endblock %}
         {% endset %}
 
-        <twig:Ui:Main>
-            {{ mainContent|raw }}
-        </twig:Ui:Main>
+        {{ mainContent|raw }}
     </turbo-frame>
 
     {{ include('partials/_footer.html.twig') }}
