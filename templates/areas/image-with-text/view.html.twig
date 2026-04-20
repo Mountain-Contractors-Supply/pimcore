@@ -8,7 +8,9 @@
         {{ pimcore_area('image', { type: 'image' }) }}
     </twig:block>
     <twig:block name="heading">
-        {{ pimcore_area('header', { type: 'header' }) }}
+        <twig:Ui:Header tag="h2" :variantValues="{ tag: 'h2' }">
+            {{ pimcore_input('header') }}
+        </twig:Ui:Header>
     </twig:block>
     <twig:block name="body">
         {{ pimcore_area('wysiwyg', { type: 'wysiwyg' }) }}

@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                ffbe43cf-82db-49b0-9ada-400ab895f510:
+                    name: 'Left Column with Breadcrumbs'
+                    group: ''
+                    controller: 'App\Controller\DefaultController::leftColumnWithBreadcrumbsAction'
+                    template: null
+                    type: page
+                    priority: 0
+                    creationDate: 1776447905
+                    modificationDate: 1776457432
+                    staticGeneratorEnabled: false
