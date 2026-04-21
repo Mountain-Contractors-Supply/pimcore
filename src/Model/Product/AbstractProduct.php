@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace App\Model\Product;
 
+use App\EventListener\CustomIndexModifierInterface;
 use App\EventListener\PreAddUpdateAwareInterface;
 use App\Model\AbstractModel;
 use McSupply\EcommerceBundle\Dto\Navigation\SlugAwareTrait;
 use McSupply\EcommerceBundle\Dto\Product\LineInterface;
 use McSupply\EcommerceBundle\Dto\Product\ProductInterface;
 use Pimcore\Model\DataObject\Data\QuantityValue;
+use Pimcore\Model\DataObject\Fieldcollection;
 use Pimcore\Model\DataObject\Line;
 use Pimcore\Model\DataObject\ProductCategory;
 use Pimcore\Model\Element\ElementInterface;
 
-abstract class AbstractProduct extends AbstractModel implements ProductInterface, PreAddUpdateAwareInterface
+abstract class AbstractProduct extends AbstractModel
+    implements ProductInterface, PreAddUpdateAwareInterface, CustomIndexModifierInterface
 {
     use SlugAwareTrait;
 
@@ -53,6 +56,11 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
     public abstract function setLengthRef(?QuantityValue $lengthRef): static;
     public abstract function getWeightRef(): ?QuantityValue;
     public abstract function setWeightRef(?QuantityValue $weightRef): static;
+
+    /**
+     * @return Fieldcollection<Fieldcollection\Data\CustomerKeywords>|null
+     */
+    public abstract function getCustomerKeywords(): ?Fieldcollection;
 
     #[\Override]
     public function getProductId(): ?string
@@ -186,6 +194,31 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         return $this;
     }
 
+
+    #[\Override]
+    public function modifyCustomFields(array $customFields): array
+    {
+        $customFields['category_ids'] = $this->getParentCategories();
+        $customFields['customer_keywords'] = $this->getMappedCustomerKeywords();
+
+        return $customFields;
+    }
+
+    #[\Override]
+    public static function modifyCustomMapping(array $customMapping): array
+    {
+        $customMapping['category_ids'] = ['type' => 'keyword'];
+        $customMapping['customer_keywords'] = [
+            'type' => 'nested',
+            'properties' => [
+                'customer_id' => ['type' => 'keyword'],
+                'keywords' => ['type' => 'text'],
+            ],
+        ];
+
+        return $customMapping;
+    }
+
     private function formatUpc(): void
     {
         if (empty($this->getUpc())) {
@@ -236,5 +269,65 @@ abstract class AbstractProduct extends AbstractModel implements ProductInterface
         $values = explode(' ', $quantityValue);
 
         return new QuantityValue($values[0], $values[1]);
+    }
+
+    /**
+     * @return int[]
+     */
+    private function getParentCategories(): array
+    {
+        $ids = [];
+        $seen = [];
+        $categories = $this->getCategoriesRef();
+
+        foreach ($categories as $category) {
+            $current = $category;
+
+            while ($current instanceof ProductCategory) {
+                $id = (int)$current->getId();
+
+                if (!isset($seen[$id])) {
+                    $ids[] = $id;
+                    $seen[$id] = true;
+                }
+
+                $current = $current->getParent();
+            }
+        }
+
+        return $ids;
+    }
+
+    /**
+     * @return array<int, mixed>
+     */
+    private function getMappedCustomerKeywords(): array
+    {
+        $customerData = [];
+        $fieldCollection = $this->getCustomerKeywords();
+
+        if ($fieldCollection) {
+            foreach ($fieldCollection as $item) {
+                if ($item) {
+                    $customer = $item->getAccountRef();
+
+                    if ($customer) {
+                        $table = $item->getKeywords();
+                        $allKeywords = [];
+
+                        foreach ($table as $row) {
+                            $allKeywords[] = implode(' ', array_filter($row));
+                        }
+
+                        $customerData[] = [
+                            'customer_id' => $customer->getAccountId(),
+                            'keywords' => implode(', ', $allKeywords)
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $customerData;
     }
 }

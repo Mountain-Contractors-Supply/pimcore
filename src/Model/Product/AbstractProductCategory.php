@@ -11,7 +11,9 @@ use McSupply\EcommerceBundle\Dto\Navigation\SlugAwareTrait;
 use McSupply\EcommerceBundle\Dto\Product\ProductCategoryInterface;
 use Pimcore\Model\Asset\Image;
 
-abstract class AbstractProductCategory extends AbstractModel implements ProductCategoryInterface, PreAddUpdateAwareInterface
+abstract class AbstractProductCategory
+    extends AbstractModel
+    implements ProductCategoryInterface, PreAddUpdateAwareInterface
 {
     use SetKeyFromValueTrait;
     use SlugAwareTrait;
