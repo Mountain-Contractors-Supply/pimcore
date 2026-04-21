@@ -23,6 +23,7 @@
  * - heightRef [quantityValue]
  * - lengthRef [quantityValue]
  * - weightRef [quantityValue]
+ * - customerKeywords [fieldcollections]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -32,9 +33,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1774979591,
+   'modificationDate' => 1776799271,
    'userOwner' => 2,
-   'userModification' => 3,
+   'userModification' => 2,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
    'implementsInterfaces' => '',
    'listingParentClass' => '',
@@ -1155,6 +1156,63 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxValue' => NULL,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'panel',
+                 'layout' => NULL,
+                 'border' => false,
+                 'icon' => '',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+              )),
+              6 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                 'name' => 'Customer Keywords',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => 'Customer Keywords',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                     'name' => 'customerKeywords',
+                     'title' => 'Customer Keywords',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'allowedTypes' => 
+                    array (
+                      0 => 'CustomerKeywords',
+                    ),
+                     'lazyLoading' => true,
+                     'maxItems' => NULL,
+                     'disallowAddRemove' => false,
+                     'disallowReorder' => false,
+                     'collapsed' => false,
+                     'collapsible' => false,
+                     'border' => false,
                   )),
                 ),
                  'locked' => false,
