@@ -13,9 +13,22 @@
 {% block main_body %}
 {#    <twig:PartFinder />#}
 
-    <twig:Grid
-        :items="categories.pagination.items"
-    />
+    <twig:Layout:Grid>
+        {% for item in categories.pagination.items %}
+            <a 
+                href="{{ element_path(item) }}"
+                class="division-box group block bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg hover:border-blue-200 transition-all duration-200">
+                <div class="p-6 flex flex-col items-center text-center h-full">
+                    <twig:Ui:Image
+                        :src="item.imageRef ? item.imageRef.path : ''"
+                        :alt="item.name"
+                        class="h-24 w-24 mb-4 shadow-none group-hover:scale-110 transition-transform duration-200"
+                    />
+                    <p class="text-sm font-semibold text-gray-900 group-hover:text-blue-600">{{ item.name }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </twig:Layout:Grid>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <twig:Navigation:PaginationControls
