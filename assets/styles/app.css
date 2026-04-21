@@ -3,3 +3,13 @@
 @tailwind utilities;
 
 /* Custom Tailwind utilities and component styles */
+
+/*
+ * Make Pimcore's edit-mode area wrappers layout-transparent inside CSS grid containers.
+ * Without this, .pimcore_area_block and .pimcore_area_entry become block-level intermediaries
+ * that prevent grid children (e.g. Box bricks) from being direct grid items.
+ */
+.grid > .pimcore_area_block,
+.grid > .pimcore_area_block > .pimcore_area_entry {
+    display: contents;
+}
