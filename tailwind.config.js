@@ -9,6 +9,7 @@ module.exports = {
     "./vendor/mcsupply/ecommerce-bundle/templates/**/*.html.twig",
     "./vendor/mcsupply/ecommerce-bundle/src/Twig/Components/**/*.php",
     "./bundles/ecommerce-bundle/src/Twig/Components/**/*.php",
+    "./bundles/ecommerce-bundle/templates/**/*.html.twig",
   ],
   safelist: [
     'lg:grid-cols-[1fr_3fr]',
