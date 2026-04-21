@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                bc20804e-c4f7-43d4-a135-82d297a03f17:
+                    name: 'Right Column with Breadcrumbs'
+                    group: ''
+                    controller: 'App\Controller\DefaultController::rightColumnWithBreadcrumbsAction'
+                    template: null
+                    type: page
+                    priority: 25
+                    creationDate: 1776793951
+                    modificationDate: 1776794032
+                    staticGeneratorEnabled: false

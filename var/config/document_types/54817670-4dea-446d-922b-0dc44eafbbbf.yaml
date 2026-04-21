@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                54817670-4dea-446d-922b-0dc44eafbbbf:
+                    name: 'Right Column'
+                    group: ''
+                    controller: 'App\Controller\DefaultController::rightColumnAction'
+                    template: null
+                    type: page
+                    priority: 30
+                    creationDate: 1776793979
+                    modificationDate: 1776794025
+                    staticGeneratorEnabled: false
