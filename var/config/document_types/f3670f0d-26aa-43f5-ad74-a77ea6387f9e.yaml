@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                f3670f0d-26aa-43f5-ad74-a77ea6387f9e:
+                    name: 'Full Width'
+                    group: ''
+                    controller: 'App\Controller\DefaultController::fullWidthAction'
+                    template: null
+                    type: page
+                    priority: 15
+                    creationDate: 1776457255
+                    modificationDate: 1776457505
+                    staticGeneratorEnabled: false

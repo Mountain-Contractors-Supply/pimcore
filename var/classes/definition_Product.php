@@ -15,11 +15,14 @@
  * - status [select]
  * - upc [input]
  * - categoriesRef [manyToManyObjectRelation]
+ * - Images [fieldcollections]
+ * - Manuals [fieldcollections]
+ * - SpecSheets [fieldcollections]
+ * - Misc [fieldcollections]
  * - widthRef [quantityValue]
  * - heightRef [quantityValue]
  * - lengthRef [quantityValue]
  * - weightRef [quantityValue]
- * - customerKeywords [fieldcollections]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -29,9 +32,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1776192328,
+   'modificationDate' => 1774979591,
    'userOwner' => 2,
-   'userModification' => 2,
+   'userModification' => 3,
    'parentClass' => 'App\\Model\\Product\\AbstractProduct',
    'implementsInterfaces' => '',
    'listingParentClass' => '',
@@ -809,10 +812,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                 'name' => 'Media',
+                 'name' => 'Images',
                  'type' => NULL,
                  'region' => NULL,
-                 'title' => 'Media',
+                 'title' => 'Images',
                  'width' => '',
                  'height' => '',
                  'collapsible' => false,
@@ -821,6 +824,38 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'datatype' => 'layout',
                  'children' => 
                 array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                     'name' => 'Images',
+                     'title' => 'Images',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'allowedTypes' => 
+                    array (
+                      0 => 'ExternalImage',
+                      1 => 'InternalImage',
+                    ),
+                     'lazyLoading' => true,
+                     'maxItems' => NULL,
+                     'disallowAddRemove' => false,
+                     'disallowReorder' => false,
+                     'collapsed' => false,
+                     'collapsible' => false,
+                     'border' => false,
+                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -834,6 +869,128 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               4 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                 'name' => 'Documents',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => 'Documents',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                     'name' => 'Manuals',
+                     'title' => 'Manuals',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'allowedTypes' => 
+                    array (
+                      0 => 'ExternalDocument',
+                      1 => 'InternalDocument',
+                    ),
+                     'lazyLoading' => true,
+                     'maxItems' => NULL,
+                     'disallowAddRemove' => false,
+                     'disallowReorder' => false,
+                     'collapsed' => false,
+                     'collapsible' => false,
+                     'border' => false,
+                  )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                     'name' => 'SpecSheets',
+                     'title' => 'Spec Sheets',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'allowedTypes' => 
+                    array (
+                      0 => 'ExternalDocument',
+                      1 => 'InternalDocument',
+                    ),
+                     'lazyLoading' => true,
+                     'maxItems' => NULL,
+                     'disallowAddRemove' => false,
+                     'disallowReorder' => false,
+                     'collapsed' => false,
+                     'collapsible' => false,
+                     'border' => false,
+                  )),
+                  2 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                     'name' => 'Misc',
+                     'title' => 'Misc',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'allowedTypes' => 
+                    array (
+                      0 => 'ExternalDocument',
+                      1 => 'InternalDocument',
+                    ),
+                     'lazyLoading' => true,
+                     'maxItems' => NULL,
+                     'disallowAddRemove' => false,
+                     'disallowReorder' => false,
+                     'collapsed' => false,
+                     'collapsible' => false,
+                     'border' => false,
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'panel',
+                 'layout' => NULL,
+                 'border' => false,
+                 'icon' => '',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+              )),
+              5 => 
               \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Specs',
                  'type' => NULL,
@@ -998,63 +1155,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxValue' => NULL,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                  )),
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'panel',
-                 'layout' => NULL,
-                 'border' => false,
-                 'icon' => '',
-                 'labelWidth' => 100,
-                 'labelAlign' => 'left',
-              )),
-              5 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                 'name' => 'Customer Keywords',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => 'Customer Keywords',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                  0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
-                     'name' => 'customerKeywords',
-                     'title' => 'Customer Keywords',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'allowedTypes' => 
-                    array (
-                      0 => 'CustomerKeywords',
-                    ),
-                     'lazyLoading' => true,
-                     'maxItems' => NULL,
-                     'disallowAddRemove' => false,
-                     'disallowReorder' => false,
-                     'collapsed' => false,
-                     'collapsible' => false,
-                     'border' => false,
                   )),
                 ),
                  'locked' => false,

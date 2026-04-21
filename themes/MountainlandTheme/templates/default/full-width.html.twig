@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block main_content %}
+    {% set mainBodyContent %}
+        {% block main_body %}{% endblock %}
+    {% endset %}
+
+    <twig:Ui:Main :variantValues="{ maxWidth: '1400px', padding: '20px' }">
+        {% if not noBreadcrumbs | default %}
+            <twig:Navigation:Breadcrumb />
+        {% endif %}
+
+        {% if not noHeader | default %}
+            <twig:Ui:Header tag="h1" :variantValues="{ tag: 'h1' }">
+                {{ page_title | default('') }}
+            </twig:Ui:Header>
+        {% endif %}
+
+        {{ mainBodyContent|raw }}
+    </twig:Ui:Main>
+{% endblock %}
+
+{% block scripts %}{% endblock %}

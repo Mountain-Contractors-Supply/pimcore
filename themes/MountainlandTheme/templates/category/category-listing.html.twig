@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'default/left-column.html.twig' %}
 
 {% block head %}
     {{ parent() }}
@@ -6,18 +6,15 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
 {% endblock %}
 
-{% block content %}
-{#    <twig:PartFinder />#}
+{% block left_column %}
+    <twig:Category:FilterBox actionPath="{{ app.request.pathinfo }}" turboFrame="category-frame" />
+{% endblock %}
 
-    <div class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <twig:Navigation:Breadcrumb />
-        </div>
-    </div>
+{% block main_body %}
+{#    <twig:PartFinder />#}
 
     <twig:Grid
         :items="categories.pagination.items"
-        title="Shop By Category"
     />
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

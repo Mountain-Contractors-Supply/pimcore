@@ -262,7 +262,7 @@ MAP
     justify-content: center;
     align-items: flex-start;
     background: var(--primary-color);
-    border: 25px solid var(--primary-color);
+    border: 10px solid var(--primary-color);
     box-sizing: border-box;
     padding: 0;
     height: 625px;

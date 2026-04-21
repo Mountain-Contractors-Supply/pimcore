@@ -1,0 +1,37 @@
+{% extends 'layout.html.twig' %}
+
+{% block main_content %}
+    {% set rightColumnContent %}
+        {% block right_column %}{% endblock %}
+    {% endset %}
+
+    {% set mainBodyContent %}
+        {% block main_body %}{% endblock %}
+    {% endset %}
+
+    <twig:Ui:Main :variantValues="{ maxWidth: '1400px', padding: '20px' }">
+        {% if not noBreadcrumbs | default %}
+            <twig:Navigation:Breadcrumb />
+        {% endif %}
+
+        <twig:Layout:TwoColumn
+            :variantValues="{
+                columnSplit: 'three-quarters-quarter'
+            }"
+        >
+            <twig:Layout:Box>
+                {% if not noHeader | default %}
+                    <twig:Ui:Header tag="h1" :variantValues="{ tag: 'h1' }">
+                        {{ page_title | default('') }}
+                    </twig:Ui:Header>
+                {% endif %}
+                {{ mainBodyContent|raw }}
+            </twig:Layout:Box>
+            <twig:Layout:Box>
+                {{ rightColumnContent|raw }}
+            </twig:Layout:Box>
+        </twig:Layout:TwoColumn>
+    </twig:Ui:Main>
+{% endblock %}
+
+{% block scripts %}{% endblock %}
