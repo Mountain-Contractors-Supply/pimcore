@@ -9,6 +9,10 @@
         {% block main_body %}{% endblock %}
     {% endset %}
 
+    {% set bottomContent %}
+        {% block bottom %}{% endblock %}
+    {% endset %}
+
     <twig:Ui:Main :variantValues="{ maxWidth: '1400px', padding: '20px' }">
         {% if not noBreadcrumbs | default %}
             <twig:Navigation:Breadcrumb />
@@ -31,6 +35,7 @@
                 {{ mainBodyContent|raw }}
             </twig:Layout:Box>
         </twig:Layout:TwoColumn>
+        {{ bottomContent|raw }}
     </twig:Ui:Main>
 {% endblock %}
 
