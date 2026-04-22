@@ -6,7 +6,11 @@ namespace App\Provider\Product;
 
 use App\Dto\Product\ProductSearchArray;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
+use McSupply\EcommerceBundle\Dto\Order\Cart;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
+use McSupply\EcommerceBundle\Provider\DataResolverAwareInterface;
+use McSupply\EcommerceBundle\Provider\DataResolverAwareTrait;
+use McSupply\EcommerceBundle\Provider\DataResolverInterface;
 use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Bundle\GenericDataIndexBundle\Exception\QueryLanguage\ParsingException;
 use Pimcore\Bundle\GenericDataIndexBundle\Model\Search\Modifier\QueryLanguage\PqlFilter;
@@ -18,11 +22,13 @@ use Pimcore\Bundle\GenericDataIndexBundle\Service\Search\SearchService\SearchPro
  * @implements ReadOperationInterface<ProductSearchArray>
  */
 #[DataProvider(ProductSearchArray::class, 10)]
-final readonly class ProductSearchArrayProvider implements DataProviderInterface, ReadOperationInterface
+final class ProductSearchArrayProvider implements DataProviderInterface, ReadOperationInterface, DataResolverAwareInterface
 {
+    use DataResolverAwareTrait;
+
     public function __construct(
-        private SearchProviderInterface $searchProvider,
-        private DataObjectSearchServiceInterface $dataObjectSearchService,
+        private readonly SearchProviderInterface $searchProvider,
+        private readonly DataObjectSearchServiceInterface $dataObjectSearchService,
     ) {}
 
     public function supports(string $className, array $data = []): bool
@@ -35,9 +41,10 @@ final readonly class ProductSearchArrayProvider implements DataProviderInterface
      */
     public function get(string $className, array $data = []): ProductSearchArray
     {
+        $cart = $this->dataResolver->get(Cart::class);
         $dataObjectSearch = $this->searchProvider->createDataObjectSearch();
         $dataObjectSearch->setPageSize($data['limit']);
-        $data['customer_id'] = 1262;
+        $accountId = (int)$cart->getShipTo()?->getAccountId();
 
         if (!empty($data['q'])) {
             $words = array_filter(explode(' ', trim((string)$data['q'])));
@@ -52,14 +59,12 @@ final readonly class ProductSearchArrayProvider implements DataProviderInterface
             $nameMatch = sprintf('Query("standard_fields.name.en_US:(%s)")', $queryString);
 
             // Only add customer logic if a customer ID is provided
-            if (!empty($data['customer_id'])) {
-                $custId = (int)$data['customer_id'];
-                // Nested PQL logic: Match the ID AND the keyword inside the customer_keywords object
+            if ($accountId) {
                 $customerMatch = sprintf(
                     '(custom_fields.customer_keywords.customer_id = %d AND custom_fields.customer_keywords.keywords = "%s")',
-                    $custId,
-                    $wEscaped // Using the term directly for the customer keyword check
-                );
+                    $accountId,
+                    addcslashes(trim((string)$data['q']), '"')
+            );
 
                 // Combine with OR
                 $combinedFilter = sprintf('(%s) OR (%s)', $nameMatch, $customerMatch);

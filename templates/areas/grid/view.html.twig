@@ -1,3 +1,28 @@
+{% set defaultGridItems = 2 %}
+{% set selectStore = [] %}
+{% for i in 2..10 %}
+    {% set selectStore = selectStore|merge([i]) %}
+{% endfor %}
+
+{% set gridItemsSelect = pimcore_select('gridItems', {
+    store: selectStore,
+    reload: true,
+    width: 70,
+    defaultValue: defaultGridItems
+}) %}
+
+{% set gridItems = gridItemsSelect.getData()|default(defaultGridItems) %}
+
+{% if editmode %}
+    <div class="flex items-center gap-2">
+        <span>How many grid elements?</span> {{ gridItemsSelect|raw }}
+    </div>
+{% endif %}
+
 <twig:Layout:Grid :variantValues="variantValues" :additionalClasses="additionalClasses">
-    {{ pimcore_areablock('content') }}
+    {% for i in 0..(gridItems - 1) %}
+        {{ pimcore_area('content' ~ i, {
+            'type': 'box'
+        }) }}
+    {% endfor %}
 </twig:Layout:Grid>
