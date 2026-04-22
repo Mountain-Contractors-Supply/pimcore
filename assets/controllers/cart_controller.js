@@ -2,12 +2,17 @@ import { Controller } from "@hotwired/stimulus";
 import * as Turbo from "@hotwired/turbo";
 
 export default class extends Controller {
-    static targets = ["qtyInput", "decreaseBtn", "increaseBtn"];
+    static targets = ["qtyInput"];
     static values = {
         productId: String,
         uom: String,
         minQuantity: { type: Number, default: 1 }
     };
+
+    async onNumericInputChanged(event) {
+        const newQty = parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue;
+        await this.updateQuantity(newQty);
+    }
 
     async add() {
         const quantity = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget?.value, 10) || this.minQuantityValue);
@@ -18,34 +23,12 @@ export default class extends Controller {
         }
     }
 
-    async decrease() {
-        const currentQty = parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue;
-        const newQty = Math.max(this.minQuantityValue, currentQty - 1);
-
-        if (newQty !== currentQty) {
-            await this.updateQuantity(newQty);
-        }
-    }
-
-    async increase() {
-        const currentQty = parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue;
-        const newQty = currentQty + 1;
-        await this.updateQuantity(newQty);
-    }
-
     async updateQuantity(quantity) {
         await this.adjustCart('PUT', quantity);
     }
 
     async remove() {
         await this.adjustCart('DELETE');
-    }
-
-    async inputChanged() {
-        const newQty = Math.max(this.minQuantityValue, parseInt(this.qtyInputTarget.value, 10) || this.minQuantityValue);
-
-        this.qtyInputTarget.value = newQty;
-        await this.updateQuantity(newQty);
     }
 
     async adjustCart(httpMethod, quantity) {

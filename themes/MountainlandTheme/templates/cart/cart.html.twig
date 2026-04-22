@@ -1,20 +1,10 @@
-{% extends 'layout.html.twig' %}
+{% extends 'default/full-width.html.twig' %}
 
-{% block content %}
-    <main class="mx-auto w-full max-w-7xl px-6 py-8 pb-12">
-        <twig:Navigation:Breadcrumb />
-
-        <header class="mt-4 mb-10 flex flex-wrap items-end justify-between gap-4">
-            <h1 class="m-0 text-[var(--primary-color)]"
-                style="font-family: var(--secondary-font)">Shopping Cart</h1>
-        </header>
-
-        <turbo-frame id="cart-list-frame"
-                     src="{{ path('cart_list_partial') }}"
-                     loading="lazy"
-                     data-controller="cart-list"
-                     data-cart-list-url-value="{{ path('cart_list_partial') }}">
-            {% include 'cart/_cart_list_frame.html.twig' with { 'cart': cart } %}
-        </turbo-frame>
-    </main>
+{% block main_body %}
+    <turbo-frame id="cart-list-frame"
+                 src="{{ path('cart_list_partial') }}"
+                 loading="lazy"
+                 data-cart-list-url-value="{{ path('cart_list_partial') }}">
+        {% include 'cart/_cart_list_frame.html.twig' with { 'cart': cart } %}
+    </turbo-frame>
 {% endblock %}
