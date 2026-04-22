@@ -25,6 +25,8 @@
 :root {
     --primary-color: #11175e;
     --secondary-color: #cccccc;
+    --defaultBackgroundColor: #ffffff;
+    --defaultTextColor: #000000;
     --tertiary-color: #90202f;
     --accent1: #cccccc;
     --accent2: #90202f;

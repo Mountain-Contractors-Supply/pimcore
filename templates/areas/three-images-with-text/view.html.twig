@@ -1,0 +1,19 @@
+<twig:Ui:ThreeImagesWithText
+    :variantValues="variantValues"
+    :additionalClasses="additionalClasses"
+>
+    <twig:block name="content">
+        <twig:Layout:ThreeColumn>
+            {{ pimcore_area('image1', { type: 'image' }) }}
+            {{ pimcore_area('image2', { type: 'image' }) }}
+            {{ pimcore_area('image3', { type: 'image' }) }}
+        </twig:Layout:ThreeColumn>
+
+        <div>
+            <twig:Ui:Header tag="h2" :variantValues="{ tag: 'h2' }">
+                {{ pimcore_input('header') }}
+            </twig:Ui:Header>
+            {{ pimcore_area('wysiwyg', { type: 'wysiwyg' }) }}
+        </div>
+    </twig:block>
+</twig:Ui:ThreeImagesWithText>

@@ -4,6 +4,8 @@ const plugin = require('tailwindcss/plugin');
 module.exports = {
   content: [
     "./assets/**/*.js",
+    "./bundles/ecommerce-bundle/templates/**/*.html.twig",
+    "./bundles/ecommerce-bundle/src/Twig/Components/**/*.php",
     "./themes/**/templates/**/*.html.twig",
     "./templates/**/*.html.twig",
     "./vendor/mcsupply/ecommerce-bundle/templates/**/*.html.twig",
@@ -12,6 +14,8 @@ module.exports = {
   safelist: [
     'lg:grid-cols-[1fr_3fr]',
     'lg:grid-cols-[3fr_1fr]',
+    'bg-[var(--defaultBackgroundColor)]',
+    'text-[var(--defaultTextColor)]',
   ],
   darkMode: 'media',
   theme: {
