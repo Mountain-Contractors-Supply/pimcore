@@ -6,7 +6,9 @@ namespace App\Provider\Product;
 
 use App\Dto\Product\ProductSearchArray;
 use McSupply\EcommerceBundle\Attribute\DataProvider;
+use McSupply\EcommerceBundle\Dto\Order\Cart;
 use McSupply\EcommerceBundle\Provider\DataProviderInterface;
+use McSupply\EcommerceBundle\Provider\DataResolverInterface;
 use McSupply\EcommerceBundle\Provider\ReadOperationInterface;
 use Pimcore\Bundle\GenericDataIndexBundle\Exception\QueryLanguage\ParsingException;
 use Pimcore\Bundle\GenericDataIndexBundle\Model\Search\Modifier\QueryLanguage\PqlFilter;
@@ -23,6 +25,7 @@ final readonly class ProductSearchArrayProvider implements DataProviderInterface
     public function __construct(
         private SearchProviderInterface $searchProvider,
         private DataObjectSearchServiceInterface $dataObjectSearchService,
+        private DataResolverInterface $dataResolver,
     ) {}
 
     public function supports(string $className, array $data = []): bool
@@ -35,9 +38,10 @@ final readonly class ProductSearchArrayProvider implements DataProviderInterface
      */
     public function get(string $className, array $data = []): ProductSearchArray
     {
+        $cart = $this->dataResolver->get(Cart::class);
         $dataObjectSearch = $this->searchProvider->createDataObjectSearch();
         $dataObjectSearch->setPageSize($data['limit']);
-        $data['customer_id'] = 1262;
+        $accountId = (int)$cart->getShipTo()?->getAccountId();
 
         if (!empty($data['q'])) {
             $words = array_filter(explode(' ', trim((string)$data['q'])));
@@ -52,14 +56,12 @@ final readonly class ProductSearchArrayProvider implements DataProviderInterface
             $nameMatch = sprintf('Query("standard_fields.name.en_US:(%s)")', $queryString);
 
             // Only add customer logic if a customer ID is provided
-            if (!empty($data['customer_id'])) {
-                $custId = (int)$data['customer_id'];
-                // Nested PQL logic: Match the ID AND the keyword inside the customer_keywords object
+            if ($accountId) {
                 $customerMatch = sprintf(
                     '(custom_fields.customer_keywords.customer_id = %d AND custom_fields.customer_keywords.keywords = "%s")',
-                    $custId,
-                    $wEscaped // Using the term directly for the customer keyword check
-                );
+                    $accountId,
+                    addcslashes(trim((string)$data['q']), '"')
+            );
 
                 // Combine with OR
                 $combinedFilter = sprintf('(%s) OR (%s)', $nameMatch, $customerMatch);
