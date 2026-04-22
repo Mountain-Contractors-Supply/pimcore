@@ -16,7 +16,7 @@ services:
       - rabbitmq:/var/lib/rabbitmq
 
   init:
-    image: ghcr.io/mountain-contractors-supply/pimcore/init:dev
+    image: ghcr.io/mountain-contractors-supply/pimcore/init:${IMAGE_TAG}
     pull_policy: always
     env_file:
       - .env.dev
@@ -37,7 +37,7 @@ services:
       - opensearch_network
 
   php:
-    image: ghcr.io/mountain-contractors-supply/pimcore/php:dev
+    image: ghcr.io/mountain-contractors-supply/pimcore/php:${IMAGE_TAG}
     pull_policy: always
     restart: unless-stopped
     environment:
@@ -64,7 +64,7 @@ services:
       - mercure_network
 
   supervisord:
-    image: ghcr.io/mountain-contractors-supply/pimcore/supervisord:dev
+    image: ghcr.io/mountain-contractors-supply/pimcore/supervisord:${IMAGE_TAG}
     pull_policy: always
     restart: unless-stopped
     env_file:
