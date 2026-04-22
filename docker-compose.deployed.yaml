@@ -1,3 +1,5 @@
+# Shared compose file for all "deployed" environments (e.g. dev, prod)
+
 services:
   redis:
     container_name: redis

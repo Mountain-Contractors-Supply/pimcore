@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [dev, prod]
+    branches: [ dev, prod ]
 
 concurrency:
   group: cd__${{ github.ref_name }}
@@ -15,7 +15,7 @@ jobs:
       ENVIRONMENT: ${{ github.ref_name }}
       RUNNER: ${{ github.ref_name }}
       CONTAINER_REGISTRY: "ghcr.io/mountain-contractors-supply/pimcore"
-      DOCKER_COMPOSE_FILE: "docker-compose.${{ github.ref_name }}.yaml"
+      DOCKER_COMPOSE_FILE: "docker-compose.deployed.yaml"
       ENV_FILE: ".env.${{ github.ref_name }}"
       IMAGES_TAG: ${{ github.ref_name }}
       NON_PIMCORE_SERVICES: "redis mercure opensearch rabbitmq"
