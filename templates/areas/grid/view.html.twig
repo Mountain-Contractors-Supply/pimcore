@@ -20,7 +20,7 @@
 {% endif %}
 
 <twig:Layout:Grid :variantValues="variantValues" :additionalClasses="additionalClasses">
-    {% for i in 0..(gridItems-1) %}
+    {% for i in 0..(gridItems - 1) %}
         {{ pimcore_area('content' ~ i, {
             'type': 'box'
         }) }}
