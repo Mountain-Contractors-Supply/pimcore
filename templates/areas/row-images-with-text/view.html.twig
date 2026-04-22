@@ -1,0 +1,27 @@
+<twig:Ui:RowImagesWithText
+    :variantValues="variantValues"
+    :additionalClasses="additionalClasses"
+>
+    <twig:block name="content">
+        {{ pimcore_area('grid', {
+            type: 'grid',
+            params: {
+                'grid': {
+                    gridType: 'image',
+                    defaultGridItems: 3,
+                    variantValues: {
+                        'cols': '3-Column',
+                        'gap': 'lg',
+                    },
+                    gridItemCountPrompt: 'How many images?'
+                }
+            }
+        }) }}
+
+        <twig:Ui:Header tag="h2" :variantValues="{ tag: 'h2' }">
+            {{ pimcore_input('header') }}
+        </twig:Ui:Header>
+
+        {{ pimcore_area('wysiwyg', { type: 'wysiwyg' }) }}
+    </twig:block>
+</twig:Ui:RowImagesWithText>

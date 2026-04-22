@@ -45,7 +45,7 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
             $item = new Editable\Select();
             $item->setName($name);
             $item->setLabel(ucfirst($name));
-            $c = ['defaultValue' => $this->component->getDefaultVariantValue($name)];
+            $c = ['defaultValue' => $this->getDefaultValue($name, $info)];
 
             foreach ($variant as $variantName => $variantValue) {
                 $c['store'][] = [
@@ -92,10 +92,9 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
 
         foreach ($this->component->getVariants() as $name => $variant) {
             $data = $info->getDocumentElement($name);
-
-            if ($data !== null) {
-                $variantValues[$name] = $data->getData();
-            }
+            $variantValues[$name] = $data !== null && !$data->isEmpty()
+                ? $data->getData()
+                : $this->getDefaultValue($name, $info);
         }
 
         $info->setParam('variantValues', $variantValues);
@@ -105,4 +104,16 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
     }
 
     abstract public function getComponentClassName(): string;
+
+    private function getDefaultValue(string $name, ?Info $info): string
+    {
+        $customDefaults = [];
+
+        if ($info !== null) {
+            $params = $info->getParams();
+            $customDefaults = $params['variantValues'] ?? [];
+        }
+
+        return $customDefaults[$name] ?? $this->component->getDefaultVariantValue($name);
+    }
 }
