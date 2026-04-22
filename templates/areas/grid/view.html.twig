@@ -1,4 +1,5 @@
-{% set defaultGridItems = 2 %}
+{% set defaultGridItems = defaultGridItems|default(2) %}
+{% set gridItemCountPrompt = gridItemCountPrompt|default('How many grid elements?') %}
 {% set selectStore = [] %}
 {% for i in 2..10 %}
     {% set selectStore = selectStore|merge([i]) %}
@@ -7,22 +8,26 @@
 {% set gridItemsSelect = pimcore_select('gridItems', {
     store: selectStore,
     reload: true,
-    width: 70,
-    defaultValue: defaultGridItems
+    width: 70
 }) %}
+
+{% if editmode and gridItemsSelect.isEmpty() %}
+    {% do gridItemsSelect.setDataFromEditmode(defaultGridItems) %}
+    {% set variantValues = variantValues|default(variantValues) %}
+{% endif %}
 
 {% set gridItems = gridItemsSelect.getData()|default(defaultGridItems) %}
 
 {% if editmode %}
     <div class="flex items-center gap-2">
-        <span>How many grid elements?</span> {{ gridItemsSelect|raw }}
+        <span>{{ gridItemCountPrompt }}</span> {{ gridItemsSelect|raw }}
     </div>
 {% endif %}
 
 <twig:Layout:Grid :variantValues="variantValues" :additionalClasses="additionalClasses">
     {% for i in 0..(gridItems - 1) %}
         {{ pimcore_area('content' ~ i, {
-            'type': 'box'
+            'type': gridType|default('box')
         }) }}
     {% endfor %}
 </twig:Layout:Grid>
