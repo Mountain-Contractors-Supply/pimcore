@@ -23,7 +23,7 @@ jobs:
 
       - name: Revert PR to Draft
         if: steps.task-check.outputs.tasks_incomplete == 'true' && github.event.pull_request.draft == false
-        uses: voiceflow/draft-pr@v0.0.6
+        uses: voiceflow/draft-pr@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
