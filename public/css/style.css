@@ -30,6 +30,7 @@
     --accent2: #90202f;
     --primary-font: "Gotham Book", Arial, sans-serif;
     --secondary-font: "Gotham Medium", Arial, sans-serif;
+    font-family: var(--primary-font);
 }
 
 html {
