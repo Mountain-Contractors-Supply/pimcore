@@ -23,9 +23,9 @@ jobs:
 
       - name: Revert PR to Draft
         if: steps.task-check.outputs.tasks_incomplete == 'true' && github.event.pull_request.draft == false
-        uses: jreleaser/mark-pr-as-draft@v1
+        uses: voiceflow/draft-pr@v0.0.6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Post Comment Bot Reply
         # Only runs if it was forced back to a draft in the previous step
