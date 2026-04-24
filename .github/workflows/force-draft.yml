@@ -7,7 +7,8 @@ jobs:
   check-and-force-draft:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write # Required to change the PR state and add comments
+      pull-requests: write # Grants access to change the PR state and leave comments
+      contents: write      # Required elevation by GitHub CLI to mutate GraphQL states
     steps:
       - name: Check for unchecked boxes
         id: task-check
@@ -22,13 +23,15 @@ jobs:
           fi
 
       - name: Revert PR to Draft
+        # Only runs if tasks are incomplete and the PR is currently marked as open
         if: steps.task-check.outputs.tasks_incomplete == 'true' && github.event.pull_request.draft == false
-        uses: voiceflow/draft-pr@latest
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr ready ${{ github.event.pull_request.number }} --undo
 
       - name: Post Comment Bot Reply
-        # Only runs if it was forced back to a draft in the previous step
+        # Only runs if tasks are incomplete and the PR is currently marked as open
         if: steps.task-check.outputs.tasks_incomplete == 'true' && github.event.pull_request.draft == false
         uses: thollander/actions-comment-pull-request@v3
         with:
