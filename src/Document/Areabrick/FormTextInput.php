@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Document\Areabrick;
 
 use Pimcore\Extension\Document\Areabrick\Attribute\AsAreabrick;
-use Pimcore\Extension\Document\Areabrick\EditableDialogBoxConfiguration;
-use Pimcore\Model\Document;
 use Pimcore\Model\Document\Editable;
 use Pimcore\Model\Document\Editable\Area\Info;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,29 +27,17 @@ final class FormTextInput extends AbstractConfigurableAreabrick
         return \McSupply\EcommerceBundle\Twig\Components\Form\TextInput::class;
     }
 
-    #[\Override]
-    public function getEditableDialogBoxConfiguration(Document\Editable $area, ?Info $info): EditableDialogBoxConfiguration
+    protected function getFieldPropertiesItems(): array
     {
-        $config = parent::getEditableDialogBoxConfiguration($area, $info);
-        $items = $config->getItems()['items'] ?? [];
-
-        $items[] = [
-            'type' => 'panel',
-            'title' => 'Field Properties',
-            'items' => [
-                (new Editable\Input())->setName('name')->setLabel('Field Name'),
-                (new Editable\Input())->setName('id')->setLabel('Field ID'),
-                (new Editable\Input())->setName('label')->setLabel('Label Text'),
-                (new Editable\Input())->setName('type')->setLabel('Input Type (text, email, tel, etc.)')->setConfig(['defaultValue' => 'text']),
-                (new Editable\Input())->setName('placeholder')->setLabel('Placeholder Text'),
-                (new Editable\Checkbox())->setName('disabled')->setLabel('Disabled'),
-                (new Editable\Checkbox())->setName('required')->setLabel('Required'),
-            ],
+        return [
+            (new Editable\Input())->setName('name')->setLabel('Field Name'),
+            (new Editable\Input())->setName('id')->setLabel('Field ID'),
+            (new Editable\Input())->setName('label')->setLabel('Label Text'),
+            (new Editable\Input())->setName('type')->setLabel('Input Type (text, email, tel, etc.)')->setConfig(['defaultValue' => 'text']),
+            (new Editable\Input())->setName('placeholder')->setLabel('Placeholder Text'),
+            (new Editable\Checkbox())->setName('disabled')->setLabel('Disabled'),
+            (new Editable\Checkbox())->setName('required')->setLabel('Required'),
         ];
-
-        $config->setItems(['type' => 'tabpanel', 'items' => $items]);
-
-        return $config;
     }
 
     #[\Override]

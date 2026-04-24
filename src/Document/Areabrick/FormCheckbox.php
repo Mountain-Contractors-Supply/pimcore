@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Document\Areabrick;
 
 use Pimcore\Extension\Document\Areabrick\Attribute\AsAreabrick;
-use Pimcore\Extension\Document\Areabrick\EditableDialogBoxConfiguration;
-use Pimcore\Model\Document;
 use Pimcore\Model\Document\Editable;
 use Pimcore\Model\Document\Editable\Area\Info;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,25 +27,13 @@ final class FormCheckbox extends AbstractConfigurableAreabrick
         return \McSupply\EcommerceBundle\Twig\Components\Form\Checkbox::class;
     }
 
-    #[\Override]
-    public function getEditableDialogBoxConfiguration(Document\Editable $area, ?Info $info): EditableDialogBoxConfiguration
+    protected function getFieldPropertiesItems(): array
     {
-        $config = parent::getEditableDialogBoxConfiguration($area, $info);
-        $items = $config->getItems()['items'] ?? [];
-
-        $items[] = [
-            'type' => 'panel',
-            'title' => 'Field Properties',
-            'items' => [
-                (new Editable\Input())->setName('name')->setLabel('Field Name'),
-                (new Editable\Checkbox())->setName('checked')->setLabel('Checked by Default'),
-                (new Editable\Checkbox())->setName('disabled')->setLabel('Disabled'),
-            ],
+        return [
+            (new Editable\Input())->setName('name')->setLabel('Field Name'),
+            (new Editable\Checkbox())->setName('checked')->setLabel('Checked by Default'),
+            (new Editable\Checkbox())->setName('disabled')->setLabel('Disabled'),
         ];
-
-        $config->setItems(['type' => 'tabpanel', 'items' => $items]);
-
-        return $config;
     }
 
     #[\Override]
