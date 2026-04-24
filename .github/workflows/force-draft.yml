@@ -1,0 +1,41 @@
+name: "Force Draft Until Tasks Complete"
+on:
+  pull_request:
+    types: [opened, edited, ready_for_review]
+
+jobs:
+  check-and-force-draft:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write # Required to change the PR state and add comments
+    steps:
+      - name: Check for unchecked boxes
+        id: task-check
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+          
+          # Looks for any instances of standard unchecked markdown boxes
+          if [[ "$PR_BODY" == *"- [ ]"* ]]; then
+              echo "tasks_incomplete=true" >> $GITHUB_OUTPUT
+          else
+              echo "tasks_incomplete=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Revert PR to Draft
+        if: steps.task-check.outputs.tasks_incomplete == 'true' && github.event.pull_request.draft == false
+        uses: jreleaser/mark-pr-as-draft@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post Comment Bot Reply
+        # Only runs if it was forced back to a draft in the previous step
+        if: steps.task-check.outputs.tasks_incomplete == 'true' && github.event.pull_request.draft == false
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          comment-tag: "draft-warning" # Prevents double-posting the same bot message
+          message: |
+            👋 **Hold on a second!**
+            
+            This pull request has been automatically reverted to a **Draft** because there are still unchecked items in your pre-merge checklist. 
+            
+            Please make sure you have ticked off all task boxes in the description. Once everything is checked, you can safely click **"Mark as ready for review"** again!
