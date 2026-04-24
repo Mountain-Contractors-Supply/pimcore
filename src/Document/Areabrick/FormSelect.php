@@ -27,6 +27,9 @@ final class FormSelect extends AbstractConfigurableAreabrick
         return \McSupply\EcommerceBundle\Twig\Components\Form\Select::class;
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     protected function getFieldPropertiesItems(): array
     {
         return [

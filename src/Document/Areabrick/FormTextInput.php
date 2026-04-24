@@ -27,6 +27,9 @@ final class FormTextInput extends AbstractConfigurableAreabrick
         return \McSupply\EcommerceBundle\Twig\Components\Form\TextInput::class;
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     protected function getFieldPropertiesItems(): array
     {
         return [

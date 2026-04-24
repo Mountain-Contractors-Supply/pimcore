@@ -27,6 +27,9 @@ final class FormCheckbox extends AbstractConfigurableAreabrick
         return \McSupply\EcommerceBundle\Twig\Components\Form\Checkbox::class;
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     protected function getFieldPropertiesItems(): array
     {
         return [

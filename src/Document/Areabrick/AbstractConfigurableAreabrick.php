@@ -113,6 +113,9 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
 
     abstract public function getComponentClassName(): string;
 
+    /**
+     * @return array<int, mixed>
+     */
     protected function getFieldPropertiesItems(): array
     {
         return [];
