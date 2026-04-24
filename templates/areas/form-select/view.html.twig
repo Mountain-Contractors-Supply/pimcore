@@ -1,64 +1,40 @@
-{% set defaultOptionCount = defaultOptionCount|default(2) %}
-{% set optionCountPrompt = optionCountPrompt|default('How many dropdown options?') %}
-{% set optionCountStore = [] %}
-{% for i in 1..20 %}
-    {% set optionCountStore = optionCountStore|merge([i]) %}
-{% endfor %}
-
-{% set optionCountSelect = pimcore_select('optionCount', {
-    store: optionCountStore,
-    reload: true,
-    width: 70
-}) %}
-
-{% if editmode and optionCountSelect.isEmpty() %}
-    {% do optionCountSelect.setDataFromEditmode(defaultOptionCount) %}
-{% endif %}
-
-{% set optionCount = (optionCountSelect.getData()|default(defaultOptionCount)) + 0 %}
-{% set builtOptions = [] %}
-
-{% for i in 0..(optionCount - 1) %}
-    {% set labelEditable = pimcore_input('optionLabel' ~ i, { width: 260 }) %}
-    {% set valueEditable = pimcore_input('optionValue' ~ i, { width: 260 }) %}
-    {% set optionLabel = labelEditable.getData()|default('Option ' ~ (i + 1)) %}
-    {% set optionValueRaw = valueEditable.getData()|default('') %}
-    {% set optionValue = optionValueRaw is empty ? optionLabel : optionValueRaw %}
-
-    {% set builtOptions = builtOptions|merge([
-        {
+{% if editmode %}
+    <div class="mb-4 space-y-2">
+        {% pimcoreblock "contentblock" %}
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-600">Label</span> {{ pimcore_input('optionLabel', {
+                    width: 260,
+                    required: true
+                }) }}
+                <span class="text-xs text-gray-600">Value</span> {{ pimcore_input('optionValue', {
+                    width: 260
+                }) }}
+            </div>
+        {% endpimcoreblock %}
+    </div>
+{% else %}
+    {% set builtOptions = [] %}
+    {% pimcoreblock "contentblock" %}
+        {% set labelEditable = pimcore_input('optionLabel') %}
+        {% set valueEditable = pimcore_input('optionValue') %}
+        {% set optionLabel = labelEditable.getData() %}
+        {% set optionValue = valueEditable.getData() %}
+        {% set builtOptions = builtOptions|merge([{
             value: optionValue,
             label: optionLabel
-        }
-    ]) %}
-{% endfor %}
+        }]) %}
+    {% endpimcoreblock %}
 
-{% if editmode %}
-    <div class="mb-3 flex items-center gap-2">
-        <span>{{ optionCountPrompt }}</span> {{ optionCountSelect|raw }}
-    </div>
-
-    <div class="mb-4 space-y-2">
-        {% for i in 0..(optionCount - 1) %}
-            {% set labelEditable = pimcore_input('optionLabel' ~ i, { width: 260 }) %}
-            {% set valueEditable = pimcore_input('optionValue' ~ i, { width: 260 }) %}
-            <div class="flex items-center gap-2">
-                <span class="text-xs text-gray-600">{{ i + 1 }}.</span>
-                <span class="text-xs text-gray-600">Label</span> {{ labelEditable|raw }}
-                <span class="text-xs text-gray-600">Value</span> {{ valueEditable|raw }}
-            </div>
-        {% endfor %}
-    </div>
+    <twig:Form:Select
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
+        :name="name"
+        :id="id"
+        :label="label"
+        :selectedValue="selectedValue"
+        :options="builtOptions"
+        :disabled="disabled"
+        :required="required"
+    />
 {% endif %}
 
-<twig:Form:Select
-    :variantValues="variantValues"
-    :additionalClasses="additionalClasses"
-    :name="name"
-    :id="id"
-    :label="label"
-    :selectedValue="selectedValue"
-    :options="builtOptions"
-    :disabled="disabled"
-    :required="required"
-/>
