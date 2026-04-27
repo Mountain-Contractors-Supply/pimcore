@@ -1,5 +1,7 @@
 {% extends 'default/full-width.html.twig' %}
 
 {% block main_body %}
-    {{ pimcore_areablock("mainBody") }}
+    <twig:EditableContainer>
+        {{ pimcore_areablock("mainBody") }}
+    </twig:EditableContainer>
 {% endblock %}

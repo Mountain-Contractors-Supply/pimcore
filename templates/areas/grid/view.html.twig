@@ -1,7 +1,8 @@
 {% set defaultGridItems = defaultGridItems|default(2) %}
+{% set maxGridItems = maxGridItems|default(10) %}
 {% set gridItemCountPrompt = gridItemCountPrompt|default('How many grid elements?') %}
 {% set selectStore = [] %}
-{% for i in 2..10 %}
+{% for i in 2..maxGridItems %}
     {% set selectStore = selectStore|merge([i]) %}
 {% endfor %}
 
@@ -13,7 +14,6 @@
 
 {% if editmode and gridItemsSelect.isEmpty() %}
     {% do gridItemsSelect.setDataFromEditmode(defaultGridItems) %}
-    {% set variantValues = variantValues|default(variantValues) %}
 {% endif %}
 
 {% set gridItems = gridItemsSelect.getData()|default(defaultGridItems) %}
@@ -26,8 +26,10 @@
 
 <twig:Layout:Grid :variantValues="variantValues" :additionalClasses="additionalClasses">
     {% for i in 0..(gridItems - 1) %}
-        {{ pimcore_area('content' ~ i, {
-            'type': gridType|default('box')
-        }) }}
+        <twig:EditableContainer>
+            {{ pimcore_area('content' ~ i, {
+                'type': gridType|default('box')
+            }) }}
+        </twig:EditableContainer>
     {% endfor %}
 </twig:Layout:Grid>

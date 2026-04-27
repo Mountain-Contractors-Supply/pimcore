@@ -1,13 +1,19 @@
 {% extends 'default/left-column.html.twig' %}
 
 {% block left_column %}
-    {{ pimcore_areablock("leftColumn") }}
+    <twig:EditableContainer>
+        {{ pimcore_areablock("leftColumn") }}
+    </twig:EditableContainer>
 {% endblock %}
 
 {% block main_body %}
-    {{ pimcore_areablock("mainBody") }}
+    <twig:EditableContainer>
+        {{ pimcore_areablock("mainBody") }}
+    </twig:EditableContainer>
 {% endblock %}
 
 {% block bottom %}
-    {{ pimcore_areablock("bottom") }}
+    <twig:EditableContainer>
+        {{ pimcore_areablock("bottom") }}
+    </twig:EditableContainer>
 {% endblock %}

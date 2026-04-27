@@ -1,18 +1,24 @@
 {% set pos = variantValues.imagePosition ?? 'left' %}
 
-<twig:Ui:ImageWithText
-    :variantValues="variantValues"
-    :additionalClasses="additionalClasses"
->
-    <twig:block name="image">
-        {{ pimcore_area('image', { type: 'image' }) }}
-    </twig:block>
-    <twig:block name="heading">
-        <twig:Ui:Header tag="h2" :variantValues="{ tag: 'h2' }">
-            {{ pimcore_input('header') }}
-        </twig:Ui:Header>
-    </twig:block>
-    <twig:block name="body">
+<twig:EditableContainer>
+    <twig:Ui:ImageWithText
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
+    >
+        <twig:block name="image">
+            <twig:EditableContainer>
+                {{ pimcore_area('image', { type: 'image' }) }}
+            </twig:EditableContainer>
+        </twig:block>
+        <twig:block name="heading">
+            <twig:Ui:Header tag="h2" :variantValues="{ tag: 'h2' }">
+                {{ pimcore_input('header', {
+                    'placeholder': 'Enter your header here'
+                }) }}
+            </twig:Ui:Header>
+        </twig:block>
+
         {{ pimcore_area('wysiwyg', { type: 'wysiwyg' }) }}
-    </twig:block>
-</twig:Ui:ImageWithText>
+        {{ pimcore_areablock('bottom') }}
+    </twig:Ui:ImageWithText>
+</twig:EditableContainer>

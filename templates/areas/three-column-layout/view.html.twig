@@ -1,14 +1,22 @@
-<twig:Layout:ThreeColumn
-    :variantValues="variantValues"
-    :additionalClasses="additionalClasses"
->
-    {{ pimcore_area('column1', {
-        'type': 'box'
-    }) }}
-    {{ pimcore_area('column2', {
-        'type': 'box'
-    }) }}
-    {{ pimcore_area('column3', {
-        'type': 'box'
-    }) }}
-</twig:Layout:ThreeColumn>
+<twig:EditableContainer>
+    <twig:Layout:ThreeColumn
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
+    >
+        <twig:EditableContainer>
+            {{ pimcore_area('column1', {
+                'type': 'box'
+            }) }}
+        </twig:EditableContainer>
+        <twig:EditableContainer>
+            {{ pimcore_area('column2', {
+                'type': 'box'
+            }) }}
+        </twig:EditableContainer>
+        <twig:EditableContainer>
+            {{ pimcore_area('column3', {
+                'type': 'box'
+            }) }}
+        </twig:EditableContainer>
+    </twig:Layout:ThreeColumn>
+</twig:EditableContainer>

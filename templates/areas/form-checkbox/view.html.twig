@@ -5,10 +5,12 @@
 {% set resolvedValue = resolvedValueRaw is empty ? 'on' : resolvedValueRaw %}
 
 {% if editmode %}
-    <div class="mb-2 flex items-center gap-2">
-        <span class="text-xs text-gray-600">Label</span> {{ labelEditable|raw }}
-        <span class="text-xs text-gray-600">Value</span> {{ valueEditable|raw }}
-    </div>
+    <twig:EditableContainer>
+        <div class="mb-2 flex items-center gap-2">
+            <span class="text-xs text-gray-600">Label</span> {{ labelEditable|raw }}
+            <span class="text-xs text-gray-600">Value</span> {{ valueEditable|raw }}
+        </div>
+    </twig:EditableContainer>
 {% else %}
     <twig:Form:Checkbox
         :variantValues="variantValues"

@@ -1,7 +1,11 @@
-{% set content = pimcore_wysiwyg('content') %}
+{% set content = pimcore_wysiwyg('content', {
+    'placeholder': 'Enter your content here...'
+}, 'Test') %}
 
-<section class="area-wysiwyg">
-    {% apply pimcore_glossary %}
-        {{ content|raw }}
-    {% endapply %}
-</section>
+<twig:EditableContainer>
+    <section class="area-wysiwyg">
+        {% apply pimcore_glossary %}
+            {{ content|raw }}
+        {% endapply %}
+    </section>
+</twig:EditableContainer>

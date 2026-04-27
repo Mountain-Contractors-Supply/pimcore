@@ -1,9 +1,19 @@
 {% extends 'default/right-column.html.twig' %}
 
 {% block right_column %}
-    {{ pimcore_areablock("rightColumn") }}
+    <twig:EditableContainer>
+        {{ pimcore_areablock("rightColumn") }}
+    </twig:EditableContainer>
 {% endblock %}
 
 {% block main_body %}
-    {{ pimcore_areablock("mainBody") }}
+    <twig:EditableContainer>
+        {{ pimcore_areablock("mainBody") }}
+    </twig:EditableContainer>
+{% endblock %}
+
+{% block bottom %}
+    <twig:EditableContainer>
+        {{ pimcore_areablock("bottom") }}
+    </twig:EditableContainer>
 {% endblock %}

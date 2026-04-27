@@ -1,0 +1,9 @@
+{% if editmode %}
+    <div style="border: 1px dashed rgb(217, 217, 217)">
+{% endif %}
+
+{%- block content %}{% endblock %}
+
+{% if editmode %}
+    </div>
+{% endif %}

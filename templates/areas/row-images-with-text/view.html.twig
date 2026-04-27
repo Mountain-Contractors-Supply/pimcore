@@ -1,27 +1,32 @@
-<twig:Ui:RowImagesWithText
-    :variantValues="variantValues"
-    :additionalClasses="additionalClasses"
->
-    <twig:block name="content">
-        {{ pimcore_area('grid', {
-            type: 'grid',
-            params: {
-                'grid': {
-                    gridType: 'image',
-                    defaultGridItems: 3,
-                    variantValues: {
-                        'cols': '3-Column',
-                        'gap': 'lg',
-                    },
-                    gridItemCountPrompt: 'How many images?'
+<twig:EditableContainer>
+    <twig:Ui:RowImagesWithText
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
+    >
+        <twig:block name="content">
+            {{ pimcore_area('grid', {
+                type: 'grid',
+                params: {
+                    'grid': {
+                        gridType: 'image',
+                        defaultGridItems: 3,
+                        maxGridItems: 5,
+                        variantValues: {
+                            'cols': '3-Column',
+                            'gap': 'lg',
+                        },
+                        gridItemCountPrompt: 'How many images?'
+                    }
                 }
-            }
-        }) }}
+            }) }}
 
-        <twig:Ui:Header tag="h2" :variantValues="{ tag: 'h2' }">
-            {{ pimcore_input('header') }}
-        </twig:Ui:Header>
+            <twig:Ui:Header tag="h2" :variantValues="{ tag: 'h2' }">
+                {{ pimcore_input('header', {
+                    'placeholder': 'Enter your header here'
+                }) }}
+            </twig:Ui:Header>
 
-        {{ pimcore_area('wysiwyg', { type: 'wysiwyg' }) }}
-    </twig:block>
-</twig:Ui:RowImagesWithText>
+            {{ pimcore_area('wysiwyg', { type: 'wysiwyg' }) }}
+        </twig:block>
+    </twig:Ui:RowImagesWithText>
+</twig:EditableContainer>
