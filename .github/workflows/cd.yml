@@ -2,7 +2,8 @@ name: CD
 
 on:
   push:
-    branches: [dev, prod]
+    # branches: [ dev, prod ]
+    branches: [feat/prod-deploy]
 
 concurrency:
   group: cd__${{ github.ref_name }}
@@ -12,12 +13,16 @@ jobs:
   CD:
     uses: TorqIT/pimcore-github-actions-workflows/.github/workflows/deploy-to-vm-docker-compose.yml@v7
     with:
-      ENVIRONMENT: ${{ github.ref_name }}
-      RUNNER: ${{ github.ref_name }}
+      # ENVIRONMENT: ${{ github.ref_name }}
+      ENVIRONMENT: prod
+      # RUNNER: ${{ github.ref_name }}
+      RUNNER: prod
       CONTAINER_REGISTRY: "ghcr.io/mountain-contractors-supply/pimcore"
-      DOCKER_COMPOSE_FILE: "docker-compose.${{ github.ref_name }}.yaml"
-      ENV_FILE: ".env.${{ github.ref_name }}"
-      IMAGES_TAG: ${{ github.ref_name }}
+      DOCKER_COMPOSE_FILE: "docker-compose.deployed.yaml"
+      # ENV_FILE: ".env.${{ github.ref_name }}"
+      ENV_FILE: ".env.prod"
+      # IMAGES_TAG: ${{ github.ref_name }}
+      IMAGES_TAG: prod
       NON_PIMCORE_SERVICES: "redis mercure opensearch rabbitmq"
       GITHUB_APP_CHECKOUT: true
       GITHUB_APP_CHECKOUT_REPOSITORIES: pimcore,ecommerce-bundle
@@ -27,7 +32,7 @@ jobs:
       CALLER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_APP_ID: ${{ secrets.GH_APP_ID }}
       GITHUB_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
-      SLACK_WORKFLOW_STATUS_WEBHOOK_URL: ${{ secrets.SLACK_CHANNEL_WEBHOOK_URL }}
+      # SLACK_WORKFLOW_STATUS_WEBHOOK_URL: ${{ secrets.SLACK_CHANNEL_WEBHOOK_URL }}
       BUILD_TIME_SECRETS: >
         {
             "pimcore-product-key": "${{ secrets.PIMCORE_PRODUCT_KEY }}",
