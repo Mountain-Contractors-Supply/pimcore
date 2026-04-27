@@ -57,25 +57,33 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
             $items[] = $item;
         }
 
-        $config->setItems([
-            'type' => 'tabpanel',
-            'items' => [
-                [
-                    'type' => 'panel',
-                    'title' => 'Variants',
-                    'items' => $items,
-                ],
-                [
-                    'type' => 'panel',
-                    'title' => 'Advanced',
-                    'items' => [
-                        (new Editable\Input())
-                            ->setName('additionalClasses')
-                            ->setLabel('Additional Classes'),
-                    ]
+        $tabItems = [
+            [
+                'type' => 'panel',
+                'title' => 'Variants',
+                'items' => $items,
+            ],
+            [
+                'type' => 'panel',
+                'title' => 'Advanced',
+                'items' => [
+                    (new Editable\Input())
+                        ->setName('additionalClasses')
+                        ->setLabel('Additional Classes'),
                 ]
             ],
-        ]);
+        ];
+
+        $fieldProperties = $this->getFieldPropertiesItems();
+        if ($fieldProperties !== []) {
+            $tabItems[] = [
+                'type' => 'panel',
+                'title' => 'Field Properties',
+                'items' => $fieldProperties,
+            ];
+        }
+
+        $config->setItems(['type' => 'tabpanel', 'items' => $tabItems]);
 
         $config->setReloadOnClose(true);
 
@@ -104,6 +112,14 @@ abstract class AbstractConfigurableAreabrick extends AbstractTemplateAreabrick i
     }
 
     abstract public function getComponentClassName(): string;
+
+    /**
+     * @return array<int, mixed>
+     */
+    protected function getFieldPropertiesItems(): array
+    {
+        return [];
+    }
 
     private function getDefaultValue(string $name, ?Info $info): string
     {

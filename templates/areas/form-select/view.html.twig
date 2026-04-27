@@ -1,0 +1,40 @@
+{% if editmode %}
+    <div class="mb-4 space-y-2">
+        {% pimcoreblock "contentblock" %}
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-600">Label</span> {{ pimcore_input('optionLabel', {
+                    width: 260,
+                    required: true
+                }) }}
+                <span class="text-xs text-gray-600">Value</span> {{ pimcore_input('optionValue', {
+                    width: 260
+                }) }}
+            </div>
+        {% endpimcoreblock %}
+    </div>
+{% else %}
+    {% set builtOptions = [] %}
+    {% pimcoreblock "contentblock" %}
+        {% set labelEditable = pimcore_input('optionLabel') %}
+        {% set valueEditable = pimcore_input('optionValue') %}
+        {% set optionLabel = labelEditable.getData() %}
+        {% set optionValue = valueEditable.getData() %}
+        {% set builtOptions = builtOptions|merge([{
+            value: optionValue,
+            label: optionLabel
+        }]) %}
+    {% endpimcoreblock %}
+
+    <twig:Form:Select
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
+        :name="name"
+        :id="id"
+        :label="label"
+        :selectedValue="selectedValue"
+        :options="builtOptions"
+        :disabled="disabled"
+        :required="required"
+    />
+{% endif %}
+
