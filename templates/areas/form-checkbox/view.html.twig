@@ -7,16 +7,16 @@
 {% if editmode %}
     <div class="mb-2 flex items-center gap-2">
         <span class="text-xs text-gray-600">Label</span> {{ labelEditable|raw }}
-        <span class="text-xs text-gray-600">Value</span> {{ valueEditable|raw }}
     </div>
+{% else %}
+    <twig:Form:Checkbox
+        :variantValues="variantValues"
+        :additionalClasses="additionalClasses"
+        :name="name"
+        :value="resolvedValue"
+        :label="resolvedLabel"
+        :checked="checked"
+        :disabled="disabled"
+    />
+    <span class="text-xs text-gray-600">Value</span> {{ valueEditable|raw }}
 {% endif %}
-
-<twig:Form:Checkbox
-    :variantValues="variantValues"
-    :additionalClasses="additionalClasses"
-    :name="name"
-    :value="resolvedValue"
-    :label="resolvedLabel"
-    :checked="checked"
-    :disabled="disabled"
-/>
